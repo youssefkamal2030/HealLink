@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "383414444909",
+    "project_id": "heal-link0",
+    "storage_bucket": "heal-link0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383414444909:android:921a78a39e71e83a873064",
+        "android_client_info": {
+          "package_name": "com.example.heal_link"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBi1Xv8BtbgZc7FVz4duhl6Y9UrH4GAVko"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
