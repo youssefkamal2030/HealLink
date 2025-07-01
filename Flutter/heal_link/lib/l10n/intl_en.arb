@@ -32,5 +32,6 @@
   "enter_email_to_receive_code": "Please Enter Your Email Address To Receive a verification code",
   "try_another_way": "Try another way",
   "send": "Send",
-  "new_password_note": "Your New Password Must Be Different From previous password"
+  "new_password_note": "Your New Password Must Be Different From previous password",
+  "splash": "Splash"
 }

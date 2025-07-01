@@ -344,6 +344,11 @@ class S {
       args: [],
     );
   }
+
+  /// `Splash`
+  String get splash {
+    return Intl.message('Splash', name: 'splash', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:heal_link/core/utils/app_router.dart';
 
+import '../../../../../generated/l10n.dart';
+
 class SplashScreenViewBody extends StatefulWidget {
   const SplashScreenViewBody({super.key});
 
@@ -12,7 +14,7 @@ class SplashScreenViewBody extends StatefulWidget {
 class _SplashScreenViewBodyState extends State<SplashScreenViewBody> {
   @override
   Widget build(BuildContext context) {
-    return Column(children: [Text("Splash")]);
+    return Column(children: [Text(S.of(context).splash)]);
   }
 
   @override

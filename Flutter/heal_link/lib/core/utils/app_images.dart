@@ -1,0 +1,10 @@
+abstract class Assets {
+  static const String apple = "assets/images/apple.svg";
+  static const String facebook = "assets/images/facebook.svg";
+  static const String google = "assets/images/google.svg";
+  static const String healLink = "assets/images/healLink.svg";
+  static const String onBoardingBackGround = "assets/images/onBoardingBackGround.svg";
+  static const String onBoardingImage1 = "assets/images/onBoardingImage1.svg";
+  static const String onBoardingImage2 = "assets/images/onBoardingImage2.svg";
+  static const String onBoardingImage3= "assets/images/onBoardingImage3svg";
+}
