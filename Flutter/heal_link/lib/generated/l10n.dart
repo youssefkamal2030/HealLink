@@ -200,6 +200,11 @@ class S {
     return Intl.message('Next', name: 'next', desc: '', args: []);
   }
 
+  /// `Skip`
+  String get skip {
+    return Intl.message('Skip', name: 'skip', desc: '', args: []);
+  }
+
   /// `or Sign Up with`
   String get or_sign_up_with {
     return Intl.message(

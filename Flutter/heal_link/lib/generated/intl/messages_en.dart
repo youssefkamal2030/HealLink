@@ -77,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "send": MessageLookupByLibrary.simpleMessage("Send"),
     "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
     "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
+    "skip": MessageLookupByLibrary.simpleMessage("Skip"),
     "splash": MessageLookupByLibrary.simpleMessage("Splash"),
     "try_another_way": MessageLookupByLibrary.simpleMessage("Try another way"),
     "upload_instruction": MessageLookupByLibrary.simpleMessage(

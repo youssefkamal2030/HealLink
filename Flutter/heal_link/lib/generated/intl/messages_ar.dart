@@ -79,6 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "send": MessageLookupByLibrary.simpleMessage("إرسال"),
     "sign_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "sign_up": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
+    "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
     "splash": MessageLookupByLibrary.simpleMessage("سبلاش"),
     "try_another_way": MessageLookupByLibrary.simpleMessage("جرّب طريقة أخرى"),
     "upload_instruction": MessageLookupByLibrary.simpleMessage(
