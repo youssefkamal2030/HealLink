@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:heal_link/core/utils/app_router.dart';
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 import 'core/utils/constant.dart';
 import 'generated/l10n.dart';
