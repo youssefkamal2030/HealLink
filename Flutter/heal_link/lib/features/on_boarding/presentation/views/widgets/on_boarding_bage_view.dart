@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:heal_link/core/utils/app_styles.dart';
 import 'package:heal_link/core/utils/constant.dart';
 import '../../../../../core/utils/app_images.dart';
 
@@ -9,11 +10,17 @@ class OnBoardingPageView extends StatelessWidget {
     required this.image,
     required this.title,
     required this.subTitle,
+    this.topPadding,
+    this.rightPadding,
+    this.subTitleTextStyle,
   });
 
   final String image;
   final String title;
   final String subTitle;
+  final double? topPadding;
+  final double? rightPadding;
+  final TextStyle? subTitleTextStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +38,8 @@ class OnBoardingPageView extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: AppConstant.height * .27,
-              left: 46,
+              top: topPadding ?? AppConstant.height * .255,
+              right: rightPadding ?? -10,
               child: SvgPicture.asset(image),
             ),
             Positioned(
@@ -40,14 +47,22 @@ class OnBoardingPageView extends StatelessWidget {
               right: 0,
               left: 0,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: Column(
                   children: [
-                    Text(title, textAlign: TextAlign.center),
+                    Text(
+                      title,
+                      textAlign: TextAlign.center,
+                      style: AppTextStyles.popins700style16BlackColor,
+                    ),
                     SizedBox(height: 30),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 36),
-                      child: Text(subTitle, textAlign: TextAlign.center),
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Text(
+                        subTitle,
+                        textAlign: TextAlign.center,
+                        style:subTitleTextStyle?? AppTextStyles.popins400style14LightBlackColor,
+                      ),
                     ),
                     SizedBox(height: 56),
                   ],

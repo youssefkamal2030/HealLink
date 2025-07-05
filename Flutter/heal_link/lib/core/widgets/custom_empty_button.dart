@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heal_link/core/utils/app_styles.dart';
 import 'package:heal_link/core/utils/function/app_colors.dart';
 
 import '../utils/constant.dart';
@@ -32,7 +33,13 @@ class CustomEmptyButton extends StatelessWidget {
       ),
       minWidth: AppConstant.width,
       onPressed: response,
-      child: Text(text),
+      child: Text(
+        text,
+        style: AppTextStyles.popins500style18LightBlackColor.copyWith(
+          fontSize: 16,
+          color: AppColors.kPrimaryColor,
+        ),
+      ),
     );
   }
 }
