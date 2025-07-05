@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:heal_link/core/utils/app_styles.dart';
+import 'package:heal_link/core/utils/function/app_colors.dart';
 
 import '../../../../../core/utils/app_router.dart';
 import '../../../../../core/utils/constant.dart';
@@ -29,14 +31,25 @@ class SkipAndNextRow extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextButton(
-                child: Text(S.of(context).skip),
+                child: Text(
+                  S.of(context).skip,
+                  style: AppTextStyles.popins400style14LightBlackColor.copyWith(
+                    fontSize: 16,
+                    color: AppColors.kPrimaryColor,
+                  ),
+                ),
                 onPressed: () {
                   context.go(AppRouter.userTypeScreen);
                 },
               ),
               TextButton(
                 onPressed: onNextChanged,
-                child: Text(S.of(context).next)
+                child: Text(
+                  S.of(context).next,
+                  style: AppTextStyles.popins400style14LightBlackColor.copyWith(
+                    fontSize: 16,
+                  ),
+                ),
               ),
             ],
           ),
