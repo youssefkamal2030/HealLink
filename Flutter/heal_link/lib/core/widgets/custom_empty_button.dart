@@ -15,7 +15,7 @@ class CustomEmptyButton extends StatelessWidget {
     super.key,
     required this.text,
     required this.response,
-    this.height = 57,
+    this.height = 44,
     this.textStyle,
     this.borderSide,
   });
@@ -29,7 +29,7 @@ class CustomEmptyButton extends StatelessWidget {
           color: AppColors.kPrimaryColor,
           width: borderSide ?? 1,
         ),
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(16),
       ),
       minWidth: AppConstant.width,
       onPressed: response,

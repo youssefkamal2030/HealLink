@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:heal_link/features/doctor/doctor_home/presentation/views/doctor_home_view.dart';
 import 'package:heal_link/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:heal_link/features/on_boarding/presentation/views/user_type_screen.dart';
 import 'package:heal_link/features/splash/presentation/views/splash_screen_view.dart';
@@ -10,6 +11,7 @@ abstract class AppRouter {
   static const onBoardingScreen = '/OnBoardingScreenView';
   static const userTypeScreen = '/UserTypeScreen';
   static const doctorSignUpView = '/DoctorSignUpView';
+  static const doctorHomeView = '/DoctorHomeView';
 
 
   static final router = GoRouter(
@@ -37,6 +39,12 @@ abstract class AppRouter {
         path: doctorSignUpView,
         builder: (BuildContext context, GoRouterState state) {
           return const DoctorSignUpView();
+        },
+      ),
+      GoRoute(
+        path: doctorHomeView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const DoctorHomeView();
         },
       ),
     ],
