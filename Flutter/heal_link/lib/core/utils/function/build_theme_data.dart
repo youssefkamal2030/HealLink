@@ -8,7 +8,7 @@ ThemeData buildThemeData() {
     primaryColor: AppColors.kPrimaryColor,
     primaryColorLight: AppColors.kPrimaryColor,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: AppColors.kWhiteColor,
+      backgroundColor: AppColors.kBackgroundColor,
       selectedItemColor: AppColors.kPrimaryColor,
       unselectedItemColor: AppColors.kLightGreyColor,
       type: BottomNavigationBarType.fixed,
@@ -19,6 +19,6 @@ ThemeData buildThemeData() {
         foregroundColor: AppColors.kPrimaryColor,
       ).copyWith(splashFactory: NoSplash.splashFactory),
     ),
-    scaffoldBackgroundColor: AppColors.kWhiteColor,
+    scaffoldBackgroundColor: AppColors.kBackgroundColor,
   );
 }

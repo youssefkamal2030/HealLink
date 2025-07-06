@@ -7,4 +7,9 @@ abstract class AppImages {
   static const String onBoardingImage1 = "assets/images/onBoardingImage1.svg";
   static const String onBoardingImage2 = "assets/images/onBoardingImage2.svg";
   static const String onBoardingImage3= "assets/images/onBoardingImage3.svg";
+  static const String home= "assets/images/home.svg";
+  static const String message= "assets/images/message.svg";
+  static const String subscription= "assets/images/subscription.svg";
+  static const String profile= "assets/images/profile.svg";
+  static const String scanner= "assets/images/scanner.svg";
 }
