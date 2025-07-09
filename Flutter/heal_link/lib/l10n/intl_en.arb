@@ -29,7 +29,7 @@
   "enter_code": "Enter Code",
   "email_verification_sent": "we’ve sent an SMS with an activation code to your Email",
   "resend_code": "Resend Code",
-  "dont_have_account": "Don’t have an account? Sign Up",
+  "dont_have_account": "Don’t have an account?",
   "enter_email_to_receive_code": "Please Enter Your Email Address To Receive a verification code",
   "try_another_way": "Try another way",
   "send": "Send",

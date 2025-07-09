@@ -36,6 +36,13 @@ class UserTypeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   CustomEmptyButton(
+                    text: S
+                        .of(context)
+                        .i_am_patient,
+                    response: () {
+                       context.push(AppRouter.patientSignUpView);
+                    },
+                    height: 39,
                     text: S.of(context).i_am_patient,
                     response: () {},
                   ),
@@ -43,6 +50,7 @@ class UserTypeScreen extends StatelessWidget {
                   CustomEmptyButton(
                     text: S.of(context).i_am_doctor,
                     response: () {
+                      context.push(AppRouter.doctorSignUpFirstView);
                       context.push(AppRouter.doctorHomeView);
                     },
                   ),
