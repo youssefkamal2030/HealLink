@@ -12,4 +12,11 @@ abstract class AppImages {
   static const String subscription= "assets/images/subscription.svg";
   static const String profile= "assets/images/profile.svg";
   static const String scanner= "assets/images/scanner.svg";
+  static const String verified= "assets/images/verified.svg";
+  static const String star= "assets/images/star.svg";
+  static const String notification= "assets/images/notification.svg";
+  static const String notificationDots= "assets/images/notification_dots.svg";
+  static const String person= "assets/images/person.svg";
+  static const String arrow= "assets/images/arrow.svg";
+  static const String noPatient= "assets/images/no_patient.svg";
 }

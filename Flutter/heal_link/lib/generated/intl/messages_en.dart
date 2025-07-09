@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "available_now": MessageLookupByLibrary.simpleMessage("Available now"),
     "chat_send_receive": MessageLookupByLibrary.simpleMessage(
       "Chat with your doctor, send test results, and receive updated prescriptions — all in a few taps",
     ),
@@ -54,31 +55,46 @@ class MessageLookup extends MessageLookupByLibrary {
       "enter your password",
     ),
     "have_account": MessageLookupByLibrary.simpleMessage("Have an account?"),
+    "home": MessageLookupByLibrary.simpleMessage("Home"),
     "i_am_doctor": MessageLookupByLibrary.simpleMessage("I’m a Doctor"),
     "i_am_patient": MessageLookupByLibrary.simpleMessage("I’m a Patient"),
     "invite_family": MessageLookupByLibrary.simpleMessage(
       "Invite a family member to stay updated and support you on your health journey.",
     ),
+    "members": MessageLookupByLibrary.simpleMessage("Members"),
+    "message": MessageLookupByLibrary.simpleMessage("Message"),
     "name": MessageLookupByLibrary.simpleMessage("Name"),
     "national_id": MessageLookupByLibrary.simpleMessage("National ID"),
     "new_password_note": MessageLookupByLibrary.simpleMessage(
       "Your New Password Must Be Different From previous password",
     ),
     "next": MessageLookupByLibrary.simpleMessage("Next"),
+    "no_patients_at_moment": MessageLookupByLibrary.simpleMessage(
+      "No patients at the moment.",
+    ),
+    "once_patients_subscribing": MessageLookupByLibrary.simpleMessage(
+      "Once patients start subscribing with you, their information will appear here.",
+    ),
     "or_sign_up_with": MessageLookupByLibrary.simpleMessage("or Sign Up with"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "practice_license_number": MessageLookupByLibrary.simpleMessage(
       "Practice License Number",
     ),
+    "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+    "recent_patient": MessageLookupByLibrary.simpleMessage("Recent Patient"),
     "remote_consult_smart_track": MessageLookupByLibrary.simpleMessage(
       "Remote Consultations & Smart Tracking",
     ),
+    "requests": MessageLookupByLibrary.simpleMessage("Requests"),
     "resend_code": MessageLookupByLibrary.simpleMessage("Resend Code"),
+    "see_all": MessageLookupByLibrary.simpleMessage("See all"),
     "send": MessageLookupByLibrary.simpleMessage("Send"),
     "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
     "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "skip": MessageLookupByLibrary.simpleMessage("Skip"),
     "splash": MessageLookupByLibrary.simpleMessage("Splash"),
+    "subscription": MessageLookupByLibrary.simpleMessage("Subscription"),
+    "total_patient": MessageLookupByLibrary.simpleMessage("Total Patient >"),
     "try_another_way": MessageLookupByLibrary.simpleMessage("Try another way"),
     "upload_instruction": MessageLookupByLibrary.simpleMessage(
       "Please upload a clear image of your medical syndicate card",
