@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class DoctorSignUpView extends StatelessWidget {
-  const DoctorSignUpView({super.key});
+class DoctorSignInVerifyEmailView extends StatelessWidget {
+  const DoctorSignInVerifyEmailView({super.key});
 
   @override
   Widget build(BuildContext context) {

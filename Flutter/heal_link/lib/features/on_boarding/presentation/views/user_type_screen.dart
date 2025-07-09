@@ -43,7 +43,9 @@ class UserTypeScreen extends StatelessWidget {
                     text: S
                         .of(context)
                         .i_am_patient,
-                    response: () {},
+                    response: () {
+                       context.push(AppRouter.patientSignUpView);
+                    },
                     height: 39,
                   ),
                   SizedBox(height: 10),
@@ -53,7 +55,7 @@ class UserTypeScreen extends StatelessWidget {
                         .i_am_doctor,
                     height: 39,
                     response: () {
-                      context.push(AppRouter.doctorSignUpView);
+                      context.push(AppRouter.doctorSignUpFirstView);
                     },
                   ),
                 ],

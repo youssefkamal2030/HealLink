@@ -1,20 +1,48 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_forget_password_view.dart';
+import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_reset_password_view.dart';
+import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_sign_in_view.dart';
+import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_sign_up_second_view.dart';
+import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_sign_up_verify_email.dart';
 import 'package:heal_link/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:heal_link/features/on_boarding/presentation/views/user_type_screen.dart';
+import 'package:heal_link/features/patient/patient_auth/presentation/views/patient_sign_in_view.dart';
+import 'package:heal_link/features/patient/patient_auth/presentation/views/patient_sign_up_view.dart';
 import 'package:heal_link/features/splash/presentation/views/splash_screen_view.dart';
-import '../../features/doctor/doctor_auth/presentation/views/doctor_sign_up_view.dart';
+import '../../features/doctor/doctor_auth/presentation/views/doctor_sign_up_first_view.dart';
 
 abstract class AppRouter {
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   static const onBoardingScreen = '/OnBoardingScreenView';
   static const userTypeScreen = '/UserTypeScreen';
-  static const doctorSignUpView = '/DoctorSignUpView';
+
+  //* Doctor Views 
+    //? Doctor Sign Up Views 
+  static const doctorSignUpFirstView = '/DoctorSignUpFirstView';
+  static const doctorSignUpSecondView = '/DoctorSignUpSecondView';
+  static const doctorSignUpVerifyEmailView = '/DoctorSignUpVerifyEmailView';
+
+
+    //? Doctor sign In Views 
+  static const doctorSignInView = '/DoctorSignInView';
+  static const doctorSignInVerifyEmailView = '/DoctorSignInVerifyEmailView';
+  static const doctorForgetPasswordView = '/DoctorForgetPasswordView';
+  static const doctorResetPasswordView = '/DoctorResetPasswordView';
+
+
+
+  //* Patient Views
+  static const patientSignInView = '/DoctorSignUpView';
+  static const patientSignUpView = '/DoctorSignUpView';
+  
 
 
   static final router = GoRouter(
     navigatorKey: navigatorKey,
     routes: <RouteBase>[
+
+      //! General Routers 
       GoRoute(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
@@ -33,10 +61,69 @@ abstract class AppRouter {
           return const UserTypeScreen();
         },
       ),
+
+
+
+      //! Doctors Routers 
+              //? Doctor Sign Up Views 
       GoRoute(
-        path: doctorSignUpView,
+        path: doctorSignUpFirstView,
         builder: (BuildContext context, GoRouterState state) {
-          return const DoctorSignUpView();
+          return const DoctorSignUpFirstView();
+        },
+      ),
+      GoRoute(
+        path: doctorSignUpSecondView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const DoctorSignUpSecondView();
+        },
+      ),
+      GoRoute(
+        path: doctorSignUpVerifyEmailView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const DoctorSignUpVerifyEmail();
+        },
+      ),
+      
+
+
+              //? Doctor sign In Views 
+      GoRoute(
+        path: doctorSignInView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const DoctorSignInView();
+        },
+      ),
+GoRoute(
+        path: doctorForgetPasswordView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const DoctorForgetPasswordView();
+        },
+      ),
+      GoRoute(
+        path: doctorResetPasswordView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const DoctorResetPasswordView();
+        },
+      ),
+
+
+
+         
+
+
+      //! Patient Routers 
+
+         GoRoute(
+        path: patientSignUpView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const PatientSignUpView();
+        },
+      ),
+      GoRoute(
+        path: patientSignInView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const PatientSignInView();
         },
       ),
     ],
