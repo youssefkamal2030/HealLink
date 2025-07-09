@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_forget_password_view.dart';
 import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_reset_password_view.dart';
 import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_sign_in_view.dart';
 import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_sign_up_second_view.dart';
 import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_sign_up_verify_email.dart';
+import 'package:heal_link/features/doctor/doctor_home/presentation/views/doctor_home_view.dart';
 import 'package:heal_link/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:heal_link/features/on_boarding/presentation/views/user_type_screen.dart';
 import 'package:heal_link/features/patient/patient_auth/presentation/views/patient_sign_in_view.dart';
@@ -16,6 +18,7 @@ abstract class AppRouter {
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   static const onBoardingScreen = '/OnBoardingScreenView';
   static const userTypeScreen = '/UserTypeScreen';
+
 
   //* Doctor Views 
     //? Doctor Sign Up Views 
@@ -36,7 +39,9 @@ abstract class AppRouter {
   static const patientSignInView = '/DoctorSignUpView';
   static const patientSignUpView = '/DoctorSignUpView';
   
-
+=======
+  static const doctorSignUpView = '/DoctorSignUpView';
+  static const doctorHomeView = '/DoctorHomeView';
 
   static final router = GoRouter(
     navigatorKey: navigatorKey,
@@ -124,6 +129,12 @@ GoRoute(
         path: patientSignInView,
         builder: (BuildContext context, GoRouterState state) {
           return const PatientSignInView();
+        },
+      ),
+      GoRoute(
+        path: doctorHomeView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const DoctorHomeView();
         },
       ),
     ],

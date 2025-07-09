@@ -1,0 +1,62 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\myStack\\HealLinkSrc\\HealLink\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B2BAD91B-9205-414F-890D-7A26D48C5EDD}|HealLink.Domain\\HealLink.Domain.csproj|d:\\mystack\\heallinksrc\\heallink\\heallink.domain\\patientdoctorsubscriptions\\patientdoctorsubscription.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2BAD91B-9205-414F-890D-7A26D48C5EDD}|HealLink.Domain\\HealLink.Domain.csproj|solutionrelative:heallink.domain\\patientdoctorsubscriptions\\patientdoctorsubscription.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2BAD91B-9205-414F-890D-7A26D48C5EDD}|HealLink.Domain\\HealLink.Domain.csproj|d:\\mystack\\heallinksrc\\heallink\\heallink.domain\\patients\\patient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2BAD91B-9205-414F-890D-7A26D48C5EDD}|HealLink.Domain\\HealLink.Domain.csproj|solutionrelative:heallink.domain\\patients\\patient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{fbcae063-e2c0-4ab1-a516-996ea3dafb72}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PatientDoctorSubscription.cs",
+              "DocumentMoniker": "D:\\myStack\\HealLinkSrc\\HealLink\\HealLink.Domain\\PatientDoctorSubscriptions\\PatientDoctorSubscription.cs",
+              "RelativeDocumentMoniker": "HealLink.Domain\\PatientDoctorSubscriptions\\PatientDoctorSubscription.cs",
+              "ToolTip": "D:\\myStack\\HealLinkSrc\\HealLink\\HealLink.Domain\\PatientDoctorSubscriptions\\PatientDoctorSubscription.cs",
+              "RelativeToolTip": "HealLink.Domain\\PatientDoctorSubscriptions\\PatientDoctorSubscription.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-04T12:30:11.696Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Patient.cs",
+              "DocumentMoniker": "D:\\myStack\\HealLinkSrc\\HealLink\\HealLink.Domain\\Patients\\Patient.cs",
+              "RelativeDocumentMoniker": "HealLink.Domain\\Patients\\Patient.cs",
+              "ToolTip": "D:\\myStack\\HealLinkSrc\\HealLink\\HealLink.Domain\\Patients\\Patient.cs",
+              "RelativeToolTip": "HealLink.Domain\\Patients\\Patient.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-04T12:26:14.536Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
