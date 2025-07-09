@@ -39,7 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Connect with your doctor, track your condition, and get care from anywhere.",
     ),
     "dont_have_account": MessageLookupByLibrary.simpleMessage(
-      "Don’t have an account? Sign Up",
+      "Don’t have an account?",
     ),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "email_verification_sent": MessageLookupByLibrary.simpleMessage(

@@ -305,10 +305,10 @@ class S {
     return Intl.message('Resend Code', name: 'resend_code', desc: '', args: []);
   }
 
-  /// `Don’t have an account? Sign Up`
+  /// `Don’t have an account?`
   String get dont_have_account {
     return Intl.message(
-      'Don’t have an account? Sign Up',
+      'Don’t have an account?',
       name: 'dont_have_account',
       desc: '',
       args: [],
