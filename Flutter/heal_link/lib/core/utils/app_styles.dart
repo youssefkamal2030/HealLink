@@ -3,35 +3,6 @@ import 'package:flutter/material.dart';
 import 'function/app_colors.dart';
 
 abstract class AppTextStyles {
-  // static const bold16 = TextStyle(
-  //   color: Color(0xff1C1F23),
-  //   fontFamily: 'Poppins',
-  //   fontWeight: FontWeight.w700,
-  //   fontSize: 16,
-  // );
-  // static const normal14 = TextStyle(
-  //   color: Color(0xff1C1F23),
-  //   fontFamily: 'Poppins',
-  //   fontWeight: FontWeight.w400,
-  //   fontSize: 14,
-  // );
-  // static TextStyle normal16 = TextStyle(
-  //   color: AppColors.kPrimaryColor,
-  //   fontFamily: 'Roboto',
-  //   fontWeight: FontWeight.w400,
-  //   fontSize: 16,
-  // );
-  // static TextStyle regular16 = TextStyle(
-  //   color: AppColors.kPrimaryColor,
-  //   fontFamily: 'Inter',
-  //   fontWeight: FontWeight.w500,
-  //   fontSize: 16,
-  // );
-
-
-
-
-  //* Popins Font Styles 
   static TextStyle popins700style16BlackColor = TextStyle(
     color: AppColors.kLightBlackColor,
     fontFamily: 'Popins',
@@ -44,6 +15,18 @@ abstract class AppTextStyles {
     fontWeight: FontWeight.w400,
     fontSize: 14,
   );
+
+  static TextStyle popins400style10MediumGreyColor = TextStyle(
+    color: AppColors.kMediumGreyColor,
+    fontFamily: 'Popins',
+    fontWeight: FontWeight.w400,
+    fontSize: 10,
+  );
+  static TextStyle popins400style12kPrimaryColor = TextStyle(
+    color: AppColors.kPrimaryColor,
+    fontFamily: 'Popins',
+    fontWeight: FontWeight.w400,
+    fontSize: 12,
   static TextStyle popins400style12LightBlackColor = TextStyle(
     color: AppColors.kLightBlackColor,
     fontFamily: 'Popins',
@@ -62,7 +45,12 @@ abstract class AppTextStyles {
     fontWeight: FontWeight.w500,
     fontSize: 18,
   );
-
+  static TextStyle popins500style20LightBlackColor = TextStyle(
+    color: AppColors.kLightBlackColor,
+    fontFamily: 'Popins',
+    fontWeight: FontWeight.w500,
+    fontSize: 20,
+  );
 
   //* Nunito Font Styles 
   static TextStyle nunito500style20LightBlackColor = TextStyle(

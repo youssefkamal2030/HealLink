@@ -10,6 +10,7 @@ class CustomEmptyButton extends StatelessWidget {
   final VoidCallback response;
   final TextStyle? textStyle;
   final double? borderSide;
+  final double? borderRadius;
 
   const CustomEmptyButton({
     super.key,
@@ -18,6 +19,7 @@ class CustomEmptyButton extends StatelessWidget {
     this.height = 44,
     this.textStyle,
     this.borderSide,
+    this.borderRadius,
   });
 
   @override
@@ -29,16 +31,18 @@ class CustomEmptyButton extends StatelessWidget {
           color: AppColors.kPrimaryColor,
           width: borderSide ?? 1,
         ),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(borderRadius??16),
       ),
       minWidth: AppConstant.width,
       onPressed: response,
       child: Text(
         text,
-        style: AppTextStyles.popins500style18LightBlackColor.copyWith(
-          fontSize: 16,
-          color: AppColors.kPrimaryColor,
-        ),
+        style:
+            textStyle ??
+            AppTextStyles.popins500style18LightBlackColor.copyWith(
+              fontSize: 16,
+              color: AppColors.kPrimaryColor,
+            ),
       ),
     );
   }

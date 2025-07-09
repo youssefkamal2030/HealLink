@@ -34,5 +34,18 @@
   "try_another_way": "Try another way",
   "send": "Send",
   "new_password_note": "Your New Password Must Be Different From previous password",
-  "splash": "Splash"
+  "splash": "Splash",
+  "available_now": "Available now",
+  "total_patient": "Total Patient >",
+  "members": "Members",
+  "requests": "Requests",
+  "recent_patient": "Recent Patient",
+  "see_all": "See all",
+  "home": "Home",
+  "message": "Message",
+  "subscription": "Subscription",
+  "profile": "Profile",
+  "no_patients_at_moment": "No patients at the moment.",
+  "once_patients_subscribing": "Once patients start subscribing with you, their information will appear here."
+
 }
