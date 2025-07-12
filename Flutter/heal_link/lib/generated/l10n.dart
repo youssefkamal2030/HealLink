@@ -305,10 +305,10 @@ class S {
     return Intl.message('Resend Code', name: 'resend_code', desc: '', args: []);
   }
 
-  /// `Don’t have an account? Sign Up`
+  /// `Don’t have an account?`
   String get dont_have_account {
     return Intl.message(
-      'Don’t have an account? Sign Up',
+      'Don’t have an account?',
       name: 'dont_have_account',
       desc: '',
       args: [],
@@ -353,6 +353,96 @@ class S {
   /// `Splash`
   String get splash {
     return Intl.message('Splash', name: 'splash', desc: '', args: []);
+  }
+
+  /// `Available now`
+  String get available_now {
+    return Intl.message(
+      'Available now',
+      name: 'available_now',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Patient >`
+  String get total_patient {
+    return Intl.message(
+      'Total Patient >',
+      name: 'total_patient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Members`
+  String get members {
+    return Intl.message('Members', name: 'members', desc: '', args: []);
+  }
+
+  /// `Requests`
+  String get requests {
+    return Intl.message('Requests', name: 'requests', desc: '', args: []);
+  }
+
+  /// `Recent Patient`
+  String get recent_patient {
+    return Intl.message(
+      'Recent Patient',
+      name: 'recent_patient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See all`
+  String get see_all {
+    return Intl.message('See all', name: 'see_all', desc: '', args: []);
+  }
+
+  /// `Home`
+  String get home {
+    return Intl.message('Home', name: 'home', desc: '', args: []);
+  }
+
+  /// `Message`
+  String get message {
+    return Intl.message('Message', name: 'message', desc: '', args: []);
+  }
+
+  /// `Subscription`
+  String get subscription {
+    return Intl.message(
+      'Subscription',
+      name: 'subscription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile`
+  String get profile {
+    return Intl.message('Profile', name: 'profile', desc: '', args: []);
+  }
+
+  /// `No patients at the moment.`
+  String get no_patients_at_moment {
+    return Intl.message(
+      'No patients at the moment.',
+      name: 'no_patients_at_moment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Once patients start subscribing with you, their information will appear here.`
+  String get once_patients_subscribing {
+    return Intl.message(
+      'Once patients start subscribing with you, their information will appear here.',
+      name: 'once_patients_subscribing',
+      desc: '',
+      args: [],
+    );
   }
 }
 

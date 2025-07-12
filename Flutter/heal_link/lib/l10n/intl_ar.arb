@@ -34,5 +34,17 @@
   "try_another_way": "جرّب طريقة أخرى",
   "send": "إرسال",
   "new_password_note": "يجب أن تكون كلمة المرور الجديدة مختلفة عن السابقة",
-  "splash": "سبلاش"
+  "splash": "سبلاش",
+  "available_now": "متاح الان",
+  "total_patient": "جمبع المرضي >",
+  "members": "اعضاء",
+  "requests": "طلبات",
+  "recent_patient": "المرضي الحالين",
+  "see_all": "مشاهده الكل",
+  "home": "الرئيسية",
+  "message": "الرسائل",
+  "subscription": "الاشتراك",
+  "profile": "الملف الشخصي",
+  "no_patients_at_moment": "لا يوجد مرضى في الوقت الحالي.",
+  "once_patients_subscribing": "بمجرد أن يبدأ المرضى في الاشتراك معك، ستظهر معلوماتهم هنا."
 }

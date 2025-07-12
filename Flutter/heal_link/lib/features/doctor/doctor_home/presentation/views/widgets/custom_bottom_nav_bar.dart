@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:heal_link/core/utils/app_images.dart';
 import 'package:heal_link/core/utils/function/app_colors.dart';
 
+import '../../../../../../generated/l10n.dart';
 import 'navigation_bar_item.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
@@ -33,14 +34,14 @@ class CustomBottomNavBar extends StatelessWidget {
             NavigationBarItem(
               image: AppImages.home,
               index: 0,
-              title: 'Home',
+              title: S.of(context).home,
               selectedIndex: selectedIndex,
               onTap: (p0) => onTap(p0),
             ),
             NavigationBarItem(
               image: AppImages.message,
               index: 1,
-              title: 'Message',
+              title: S.of(context).message,
               selectedIndex: selectedIndex,
               onTap: (p0) => onTap(p0),
             ),
@@ -48,14 +49,14 @@ class CustomBottomNavBar extends StatelessWidget {
             NavigationBarItem(
               image: AppImages.subscription,
               index: 3,
-              title: 'Subscription',
+              title: S.of(context).subscription,
               selectedIndex: selectedIndex,
               onTap: (p0) => onTap(p0),
             ),
             NavigationBarItem(
               image: AppImages.profile,
               index: 4,
-              title: 'Profile',
+              title: S.of(context).profile,
               selectedIndex: selectedIndex,
               onTap: (p0) => onTap(p0),
             ),
