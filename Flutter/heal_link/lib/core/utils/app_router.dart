@@ -38,8 +38,6 @@ abstract class AppRouter {
   //* Patient Views
   static const patientSignInView = '/DoctorSignUpView';
   static const patientSignUpView = '/DoctorSignUpView';
-  
-=======
   static const doctorSignUpView = '/DoctorSignUpView';
   static const doctorHomeView = '/DoctorHomeView';
 

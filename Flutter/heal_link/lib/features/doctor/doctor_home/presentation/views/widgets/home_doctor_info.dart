@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../../../core/utils/app_images.dart';
 import '../../../../../../core/utils/function/build_home_box_decoration.dart';
-import 'available_row.dart';
 import 'doctor_details.dart';
 
 class HomeDoctorInfo extends StatelessWidget {
@@ -36,7 +35,8 @@ class HomeDoctorInfo extends StatelessWidget {
             ],
           ),
           SizedBox(height: 16),
-          AvailableRow(),
+          // AvailableRow(),
+
         ],
       ),
     );

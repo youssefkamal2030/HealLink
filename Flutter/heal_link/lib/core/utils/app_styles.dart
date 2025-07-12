@@ -26,7 +26,7 @@ abstract class AppTextStyles {
     color: AppColors.kPrimaryColor,
     fontFamily: 'Popins',
     fontWeight: FontWeight.w400,
-    fontSize: 12,
+    fontSize: 12,);
   static TextStyle popins400style12LightBlackColor = TextStyle(
     color: AppColors.kLightBlackColor,
     fontFamily: 'Popins',

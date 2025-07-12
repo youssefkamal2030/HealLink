@@ -32,7 +32,6 @@ class TextFieldPart extends StatelessWidget {
           hintText: hintText,
           icon: iconPath,
           isPassword: isPassword,
-          
         ),
         SizedBox(height: 4),
         Row(

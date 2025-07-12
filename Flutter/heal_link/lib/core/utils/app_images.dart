@@ -22,8 +22,6 @@ abstract class AppImages {
   static const String tickGreenIcon= "assets/images/tick-circle.svg";
   static const String authBackGround= "assets/images/auth_background.svg";
   static const String authBackGroundPng= "assets/images/auth_background_png.png";
-  
-=======
   static const String home= "assets/images/home.svg";
   static const String message= "assets/images/message.svg";
   static const String subscription= "assets/images/subscription.svg";
@@ -36,4 +34,7 @@ abstract class AppImages {
   static const String person= "assets/images/person.svg";
   static const String arrow= "assets/images/arrow.svg";
   static const String noPatient= "assets/images/no_patient.svg";
+  static const String search= "assets/images/search.svg";
+  static const String filter= "assets/images/filter.svg";
+
 }

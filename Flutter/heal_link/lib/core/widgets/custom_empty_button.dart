@@ -31,7 +31,7 @@ class CustomEmptyButton extends StatelessWidget {
           color: AppColors.kPrimaryColor,
           width: borderSide ?? 1,
         ),
-        borderRadius: BorderRadius.circular(borderRadius??16),
+        borderRadius: BorderRadius.circular(borderRadius ?? 16),
       ),
       minWidth: AppConstant.width,
       onPressed: response,

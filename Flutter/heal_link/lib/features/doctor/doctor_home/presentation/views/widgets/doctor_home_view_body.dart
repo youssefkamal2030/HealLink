@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:heal_link/core/utils/app_images.dart';
 import 'package:heal_link/core/utils/app_styles.dart';
+import 'package:heal_link/core/widgets/custom_text_form_field2.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/widgets/total_patient_widget.dart';
 import '../../../../../../generated/l10n.dart';
 import 'home_doctor_info.dart';
@@ -20,7 +22,19 @@ class DoctorHomeViewBody extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Column(
                   children: [
-                    SizedBox(height: 25.5),
+                    SizedBox(height: 24),
+                    CustomTextFormField2(
+                      hintText: 'Search for a patient',
+                      keyboardType: TextInputType.text,
+                      controller: TextEditingController(),
+                      validator: (value) {
+                        return null;
+                      },
+                      prefixIcon: AppImages.search,
+                       suffixIcon: AppImages.filter,
+                      borderRadiusSize: 8,
+                    ),
+                    SizedBox(height: 24),
                     TotalPatientWidget(),
                     SizedBox(height: 24),
                     Row(
