@@ -45,6 +45,7 @@
   "message": "Message",
   "subscription": "Subscription",
   "profile": "Profile",
+  "Patient_results ": "Patient’s Results ",
   "no_patients_at_moment": "No patients at the moment.",
   "once_patients_subscribing": "Once patients start subscribing with you, their information will appear here."
 

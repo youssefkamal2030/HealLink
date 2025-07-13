@@ -31,7 +31,6 @@ class DoctorHomeViewBody extends StatelessWidget {
                         return null;
                       },
                       prefixIcon: AppImages.search,
-                       suffixIcon: AppImages.filter,
                       borderRadiusSize: 8,
                     ),
                     SizedBox(height: 24),
@@ -68,10 +67,10 @@ class DoctorHomeViewBody extends StatelessWidget {
         //       ),
         //       child: PatientInfoCard(),
         //     ),
-        //     childCount: 3,
+        //     childCount: 10,
         //   ),
         // ),
-        // SliverToBoxAdapter(child: SizedBox(height: 30)),
+        SliverToBoxAdapter(child: SizedBox(height: 30)),
       ],
     );
   }

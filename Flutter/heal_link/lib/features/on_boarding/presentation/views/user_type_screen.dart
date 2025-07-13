@@ -38,7 +38,7 @@ class UserTypeScreen extends StatelessWidget {
                   CustomEmptyButton(
                     text: S.of(context).i_am_patient,
                     response: () {
-                      context.push(AppRouter.patientSignUpView);
+                      context.push(AppRouter.doctorSignUpFirstView);
                     },
                     height: 39,
                   ),

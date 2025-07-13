@@ -45,6 +45,7 @@
   "message": "الرسائل",
   "subscription": "الاشتراك",
   "profile": "الملف الشخصي",
+  "Patient_results ": "نتائج المريض",
   "no_patients_at_moment": "لا يوجد مرضى في الوقت الحالي.",
   "once_patients_subscribing": "بمجرد أن يبدأ المرضى في الاشتراك معك، ستظهر معلوماتهم هنا."
 }

@@ -7,7 +7,6 @@ abstract class AppImages {
   static const String onBoardingImage1 = "assets/images/onBoardingImage1.svg";
   static const String onBoardingImage2 = "assets/images/onBoardingImage2.svg";
   static const String onBoardingImage3= "assets/images/onBoardingImage3.svg";
-  static const String signInBackGround= "assets/images/sign_in_background.svg";
   static const String keyIcon= "assets/images/key.svg";
   static const String clarityLicencesIcon= "assets/images/clarity_license-line.svg";
   static const String smsIcon= "assets/images/sms.svg";
@@ -30,8 +29,7 @@ abstract class AppImages {
   static const String verified= "assets/images/verified.svg";
   static const String star= "assets/images/star.svg";
   static const String notification= "assets/images/notification.svg";
-  static const String notificationDots= "assets/images/notification_dots.svg";
-  static const String person= "assets/images/person.svg";
+  static const String person= "assets/images/person.png";
   static const String arrow= "assets/images/arrow.svg";
   static const String noPatient= "assets/images/no_patient.svg";
   static const String search= "assets/images/search.svg";

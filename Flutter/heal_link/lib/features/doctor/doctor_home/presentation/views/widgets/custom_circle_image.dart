@@ -21,7 +21,7 @@ class CustomCircleImage extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: radius,
-          child: ClipOval(child: SvgPicture.asset(image, fit: BoxFit.cover)),
+          child: ClipOval(child: Image.asset(image, fit: BoxFit.cover)),
         ),
         if (isVerified)
           SvgPicture.asset(AppImages.verified, height: 22, width: 22),
