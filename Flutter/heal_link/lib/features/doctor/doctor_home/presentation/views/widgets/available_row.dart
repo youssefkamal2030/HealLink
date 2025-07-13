@@ -12,6 +12,7 @@ class AvailableRow extends StatefulWidget {
 
 class _AvailableRowState extends State<AvailableRow> {
   bool isSwitched = true;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -19,7 +20,9 @@ class _AvailableRowState extends State<AvailableRow> {
       spacing: 20,
       children: [
         Text(
-          S.of(context).available_now,
+          S
+              .of(context)
+              .available_now,
           style: AppTextStyles.popins500style18LightBlackColor.copyWith(
             fontSize: 12,
             color: AppColors.kPrimaryColor,

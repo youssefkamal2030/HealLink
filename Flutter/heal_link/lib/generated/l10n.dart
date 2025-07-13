@@ -425,6 +425,8 @@ class S {
     return Intl.message('Profile', name: 'profile', desc: '', args: []);
   }
 
+  // skipped getter for the 'Patient_results ' key
+
   /// `No patients at the moment.`
   String get no_patients_at_moment {
     return Intl.message(
