@@ -25,7 +25,7 @@ class DoctorDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        CustomCircleImage(image: image,isVerified: true,radius: 31,),
+        CustomCircleImage(image: image, isVerified: true, radius: 31),
         SizedBox(width: 8),
         Column(
           mainAxisSize: MainAxisSize.min,
@@ -52,7 +52,7 @@ class DoctorDetails extends StatelessWidget {
                   children: List.generate(
                     5,
                     (index) => Padding(
-                      padding: const EdgeInsets.only(right: 3,),
+                      padding: const EdgeInsets.only(right: 3),
                       child: SvgPicture.asset(
                         AppImages.star,
                         width: 10,
@@ -67,7 +67,7 @@ class DoctorDetails extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 0.5,)
+            SizedBox(height: 0.5),
           ],
         ),
       ],

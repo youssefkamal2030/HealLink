@@ -79,6 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "أو أنشئ حساب بواسطة",
     ),
     "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
+    "patient_results": MessageLookupByLibrary.simpleMessage("نتائج المريض"),
     "practice_license_number": MessageLookupByLibrary.simpleMessage(
       "رقم رخصة الممارسة",
     ),
