@@ -425,8 +425,6 @@ class S {
     return Intl.message('Profile', name: 'profile', desc: '', args: []);
   }
 
-  // skipped getter for the 'Patient_results ' key
-
   /// `No patients at the moment.`
   String get no_patients_at_moment {
     return Intl.message(
@@ -442,6 +440,16 @@ class S {
     return Intl.message(
       'Once patients start subscribing with you, their information will appear here.',
       name: 'once_patients_subscribing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Patient’s Results`
+  String get patient_results {
+    return Intl.message(
+      'Patient’s Results',
+      name: 'patient_results',
       desc: '',
       args: [],
     );

@@ -43,6 +43,7 @@ dependencies:
   dots_indicator: ^4.0.1
   flutter_switch: ^0.3.2
   qr_flutter: ^4.1.0
+  skeletonizer: ^2.1.0+1
 
 dev_dependencies:
   flutter_test:

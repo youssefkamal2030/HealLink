@@ -77,6 +77,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "or_sign_up_with": MessageLookupByLibrary.simpleMessage("or Sign Up with"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
+    "patient_results": MessageLookupByLibrary.simpleMessage(
+      "Patient’s Results",
+    ),
     "practice_license_number": MessageLookupByLibrary.simpleMessage(
       "Practice License Number",
     ),

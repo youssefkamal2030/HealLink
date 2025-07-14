@@ -3,7 +3,7 @@ abstract class AppImages {
   static const String facebook = "assets/images/facebook.svg";
   static const String google = "assets/images/google.svg";
   static const String healLink = "assets/images/healLink.svg";
-  static const String onBoardingBackGround = "assets/images/onBoardingBackGround.svg";
+  static const String onBoardingBackGround = "assets/images/onBoardingBackGround.png";
   static const String onBoardingImage1 = "assets/images/onBoardingImage1.svg";
   static const String onBoardingImage2 = "assets/images/onBoardingImage2.svg";
   static const String onBoardingImage3= "assets/images/onBoardingImage3.svg";
@@ -34,5 +34,6 @@ abstract class AppImages {
   static const String noPatient= "assets/images/no_patient.svg";
   static const String search= "assets/images/search.svg";
   static const String filter= "assets/images/filter.svg";
+  static const String bottomNavBar= "assets/images/bottomNav.svg";
 
 }

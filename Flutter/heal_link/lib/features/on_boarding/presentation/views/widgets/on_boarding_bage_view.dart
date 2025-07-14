@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:heal_link/core/utils/app_images.dart';
 import 'package:heal_link/core/utils/app_styles.dart';
 import 'package:heal_link/core/utils/constant.dart';
-import '../../../../../core/utils/app_images.dart';
 
 class OnBoardingPageView extends StatelessWidget {
   const OnBoardingPageView({
@@ -32,9 +32,9 @@ class OnBoardingPageView extends StatelessWidget {
           children: [
             SizedBox(
               width: double.infinity,
-              child: SvgPicture.asset(
+              child: Image.asset(
                 AppImages.onBoardingBackGround,
-                height: AppConstant.height * .85,
+                height: AppConstant.height * .88,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
