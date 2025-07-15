@@ -41,7 +41,7 @@ class CustomBottomNavBar extends StatelessWidget {
                   onTap: (p0) => onTap(p0),
                 ),
                 NavigationBarItem(
-                  image: AppImages.message,
+                  image: AppImages.messageNavBar,
                   index: 1,
                   title: S.of(context).message,
                   selectedIndex: selectedIndex,

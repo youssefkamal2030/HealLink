@@ -7,11 +7,13 @@ import '../../../../../../core/widgets/custom_empty_button.dart';
 import 'custom_circle_image.dart';
 
 class PatientRequestCard extends StatelessWidget {
-  const PatientRequestCard({super.key});
+  const PatientRequestCard({super.key, required this.response});
+
+  final void Function() response;
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: AppColors.kWhiteColor,
@@ -49,9 +51,9 @@ class PatientRequestCard extends StatelessWidget {
                   height: 34,
                   borderSide: 1,
                   text: 'View Prescription',
-                  response: () {},
+                  response: response,
                   textStyle: AppTextStyles.popins400style14LightBlackColor
-                      .copyWith(color: AppColors.kPrimaryColor,fontSize: 12),
+                      .copyWith(color: AppColors.kPrimaryColor, fontSize: 12),
                   iconSize: 15,
                 ),
               ),

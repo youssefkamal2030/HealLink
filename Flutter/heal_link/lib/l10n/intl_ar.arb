@@ -47,5 +47,14 @@
   "profile": "الملف الشخصي",
   "no_patients_at_moment": "لا يوجد مرضى في الوقت الحالي.",
   "once_patients_subscribing": "بمجرد أن يبدأ المرضى في الاشتراك معك، ستظهر معلوماتهم هنا.",
-  "patient_results": "نتائج المريض"
+  "patient_results": "نتائج المريض",
+  "prescriptions": "الوصفات الطبية",
+  "uploaded_reports_files": "التقارير والملفات المرفوعة",
+  "lab_tests": "التحاليل المعملية",
+  "x_rays": "الأشعة",
+  "patient_history": "تاريخ المريض",
+  "chronic_diseases": "الأمراض المزمنة",
+  "allergies": "الحساسية",
+  "past_surgeries": "العمليات السابقة",
+  "current_medications": "الأدوية الحالية"
 }
