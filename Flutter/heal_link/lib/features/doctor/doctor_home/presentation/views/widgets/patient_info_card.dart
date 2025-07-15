@@ -7,7 +7,9 @@ import '../../../../../../core/widgets/custom_empty_button.dart';
 import 'custom_circle_image.dart';
 
 class PatientInfoCard extends StatelessWidget {
-  const PatientInfoCard({super.key});
+  const PatientInfoCard({super.key, required this.response});
+
+  final void Function() response;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +87,7 @@ class PatientInfoCard extends StatelessWidget {
                   height: 34,
                   borderSide: 1,
                   text: 'View Details',
-                  response: () {},
+                  response: response,
                   textStyle: AppTextStyles.popins400style14LightBlackColor
                       .copyWith(color: AppColors.kPrimaryColor),
                   iconSize: 15,

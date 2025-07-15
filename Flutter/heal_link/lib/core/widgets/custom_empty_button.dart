@@ -11,7 +11,8 @@ class CustomEmptyButton extends StatelessWidget {
   final TextStyle? textStyle;
   final double? borderSide;
   final double? borderRadius;
-  final double ?iconSize;
+  final double? iconSize;
+  final Color? borderColor;
 
   const CustomEmptyButton({
     super.key,
@@ -21,7 +22,8 @@ class CustomEmptyButton extends StatelessWidget {
     this.textStyle,
     this.borderSide,
     this.borderRadius,
-     this.iconSize,
+    this.iconSize,
+    this.borderColor = AppColors.kPrimaryColor,
   });
 
   @override
@@ -31,10 +33,7 @@ class CustomEmptyButton extends StatelessWidget {
       height: height,
       color: Colors.white,
       shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: AppColors.kPrimaryColor,
-          width: borderSide ?? 1,
-        ),
+        side: BorderSide(color: borderColor!, width: borderSide ?? 1),
         borderRadius: BorderRadius.circular(borderRadius ?? 16),
       ),
       minWidth: AppConstant.width,
@@ -49,15 +48,14 @@ class CustomEmptyButton extends StatelessWidget {
                 textStyle ??
                 AppTextStyles.popins500style18LightBlackColor.copyWith(
                   fontSize: 16,
-                  color: AppColors.kPrimaryColor,
+                  color: borderColor,
                 ),
           ),
-          if (iconSize !=null)
-            SizedBox(width: 4,),
-          if (iconSize !=null)
+          if (iconSize != null) SizedBox(width: 4),
+          if (iconSize != null)
             Icon(
               Icons.arrow_forward_ios_rounded,
-              color: AppColors.kPrimaryColor,
+              color: borderColor,
               size: iconSize,
             ),
         ],

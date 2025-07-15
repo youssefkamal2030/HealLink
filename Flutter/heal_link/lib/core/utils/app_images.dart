@@ -22,6 +22,7 @@ abstract class AppImages {
   static const String authBackGround= "assets/images/auth_background.svg";
   static const String authBackGroundPng= "assets/images/auth_background_png.png";
   static const String home= "assets/images/home.svg";
+  static const String messageNavBar= "assets/images/message_nav_bar.svg";
   static const String message= "assets/images/message.svg";
   static const String subscription= "assets/images/subscription.svg";
   static const String profile= "assets/images/profile.svg";
@@ -35,5 +36,6 @@ abstract class AppImages {
   static const String search= "assets/images/search.svg";
   static const String filter= "assets/images/filter.svg";
   static const String bottomNavBar= "assets/images/bottomNav.svg";
+  static const String prescriptions= "assets/images/prescriptions.svg";
 
 }

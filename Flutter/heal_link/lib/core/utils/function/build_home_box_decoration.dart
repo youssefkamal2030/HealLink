@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 
-BoxDecoration buildHomeBoxDecoration() {
+BoxDecoration buildHomeBoxDecoration({bool isPatient = false}) {
   return BoxDecoration(
-    borderRadius: const BorderRadius.only(
-      bottomLeft: Radius.circular(25),
-      bottomRight: Radius.circular(25),
-    ),
+    borderRadius:
+        isPatient
+            ? BorderRadius.circular(8)
+            : const BorderRadius.only(
+              bottomLeft: Radius.circular(25),
+              bottomRight: Radius.circular(25),
+            ),
+
     gradient: LinearGradient(
-      colors: [Color(0xffDBEBFF), Color(0xffFFFFFF)],
+      colors: [Color(0xFFDBEBFF), Color(0xFFFFFFFF)],
       begin: AlignmentDirectional.centerEnd,
       end: AlignmentDirectional.centerStart,
+      stops: isPatient ? [-0.7126, 0.7791] : null,
     ),
     boxShadow: [
       BoxShadow(

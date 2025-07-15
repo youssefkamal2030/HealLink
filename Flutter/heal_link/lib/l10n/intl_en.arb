@@ -47,5 +47,14 @@
   "profile": "Profile",
   "no_patients_at_moment": "No patients at the moment.",
   "once_patients_subscribing": "Once patients start subscribing with you, their information will appear here.",
-  "patient_results": "Patient’s Results"
+  "patient_results": "Patient’s Results",
+  "prescriptions": "Prescriptions",
+  "uploaded_reports_files": "Uploaded Reports & Files",
+  "lab_tests": "Lab Tests",
+  "x_rays": "X-rays",
+  "patient_history": "Patient History",
+  "chronic_diseases": "Chronic diseases",
+  "allergies": "Allergies",
+  "past_surgeries": "Past Surgeries",
+  "current_medications": "Current Medications"
 }

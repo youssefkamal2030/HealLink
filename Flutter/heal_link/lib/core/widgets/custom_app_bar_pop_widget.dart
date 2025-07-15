@@ -32,6 +32,7 @@ class CustomAppBarPopWidget extends StatelessWidget {
               ),
             ),
           ),
+
           Spacer(),
         ],
       ),

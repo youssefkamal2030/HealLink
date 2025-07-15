@@ -454,6 +454,81 @@ class S {
       args: [],
     );
   }
+
+  /// `Prescriptions`
+  String get prescriptions {
+    return Intl.message(
+      'Prescriptions',
+      name: 'prescriptions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Uploaded Reports & Files`
+  String get uploaded_reports_files {
+    return Intl.message(
+      'Uploaded Reports & Files',
+      name: 'uploaded_reports_files',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lab Tests`
+  String get lab_tests {
+    return Intl.message('Lab Tests', name: 'lab_tests', desc: '', args: []);
+  }
+
+  /// `X-rays`
+  String get x_rays {
+    return Intl.message('X-rays', name: 'x_rays', desc: '', args: []);
+  }
+
+  /// `Patient History`
+  String get patient_history {
+    return Intl.message(
+      'Patient History',
+      name: 'patient_history',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chronic diseases`
+  String get chronic_diseases {
+    return Intl.message(
+      'Chronic diseases',
+      name: 'chronic_diseases',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Allergies`
+  String get allergies {
+    return Intl.message('Allergies', name: 'allergies', desc: '', args: []);
+  }
+
+  /// `Past Surgeries`
+  String get past_surgeries {
+    return Intl.message(
+      'Past Surgeries',
+      name: 'past_surgeries',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current Medications`
+  String get current_medications {
+    return Intl.message(
+      'Current Medications',
+      name: 'current_medications',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

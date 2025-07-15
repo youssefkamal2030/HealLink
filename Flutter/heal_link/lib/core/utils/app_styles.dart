@@ -9,13 +9,18 @@ abstract class AppTextStyles {
     fontWeight: FontWeight.w700,
     fontSize: 16,
   );
+  static TextStyle popins600style14PrimaryColor = TextStyle(
+    color: AppColors.kPrimaryColor,
+    fontFamily: 'Popins',
+    fontWeight: FontWeight.w600,
+    fontSize: 14,
+  );
   static TextStyle popins400style14LightBlackColor = TextStyle(
     color: AppColors.kLightBlackColor,
     fontFamily: 'Popins',
     fontWeight: FontWeight.w400,
     fontSize: 14,
   );
-
   static TextStyle popins400style10MediumGreyColor = TextStyle(
     color: AppColors.kMediumGreyColor,
     fontFamily: 'Popins',
@@ -50,6 +55,12 @@ abstract class AppTextStyles {
     fontFamily: 'Popins',
     fontWeight: FontWeight.w500,
     fontSize: 20,
+  );
+  static TextStyle popins500style16PrimaryColor = TextStyle(
+    color: AppColors.kPrimaryColor,
+    fontFamily: 'Popins',
+    fontWeight: FontWeight.w500,
+    fontSize: 16,
   );
 
   //* Nunito Font Styles 

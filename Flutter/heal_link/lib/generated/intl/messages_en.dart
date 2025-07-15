@@ -22,12 +22,16 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "allergies": MessageLookupByLibrary.simpleMessage("Allergies"),
     "available_now": MessageLookupByLibrary.simpleMessage("Available now"),
     "chat_send_receive": MessageLookupByLibrary.simpleMessage(
       "Chat with your doctor, send test results, and receive updated prescriptions — all in a few taps",
     ),
     "choose_role": MessageLookupByLibrary.simpleMessage(
       "Choose your role to get the experience that fits you best",
+    ),
+    "chronic_diseases": MessageLookupByLibrary.simpleMessage(
+      "Chronic diseases",
     ),
     "click_to_upload": MessageLookupByLibrary.simpleMessage(
       "Click to upload the Image",
@@ -37,6 +41,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "connect_doctor_track": MessageLookupByLibrary.simpleMessage(
       "Connect with your doctor, track your condition, and get care from anywhere.",
+    ),
+    "current_medications": MessageLookupByLibrary.simpleMessage(
+      "Current Medications",
     ),
     "dont_have_account": MessageLookupByLibrary.simpleMessage(
       "Don’t have an account?",
@@ -61,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "invite_family": MessageLookupByLibrary.simpleMessage(
       "Invite a family member to stay updated and support you on your health journey.",
     ),
+    "lab_tests": MessageLookupByLibrary.simpleMessage("Lab Tests"),
     "members": MessageLookupByLibrary.simpleMessage("Members"),
     "message": MessageLookupByLibrary.simpleMessage("Message"),
     "name": MessageLookupByLibrary.simpleMessage("Name"),
@@ -77,12 +85,15 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "or_sign_up_with": MessageLookupByLibrary.simpleMessage("or Sign Up with"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
+    "past_surgeries": MessageLookupByLibrary.simpleMessage("Past Surgeries"),
+    "patient_history": MessageLookupByLibrary.simpleMessage("Patient History"),
     "patient_results": MessageLookupByLibrary.simpleMessage(
       "Patient’s Results",
     ),
     "practice_license_number": MessageLookupByLibrary.simpleMessage(
       "Practice License Number",
     ),
+    "prescriptions": MessageLookupByLibrary.simpleMessage("Prescriptions"),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
     "recent_patient": MessageLookupByLibrary.simpleMessage("Recent Patient"),
     "remote_consult_smart_track": MessageLookupByLibrary.simpleMessage(
@@ -105,7 +116,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "upload_syndicate_id": MessageLookupByLibrary.simpleMessage(
       "Upload Syndicate ID Card",
     ),
+    "uploaded_reports_files": MessageLookupByLibrary.simpleMessage(
+      "Uploaded Reports & Files",
+    ),
     "verify_email": MessageLookupByLibrary.simpleMessage("Verify Your Email"),
+    "x_rays": MessageLookupByLibrary.simpleMessage("X-rays"),
     "your_health_smarter": MessageLookupByLibrary.simpleMessage(
       "Your Health, Smarter",
     ),
