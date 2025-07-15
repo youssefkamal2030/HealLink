@@ -84,10 +84,11 @@ class PatientInfoCard extends StatelessWidget {
                   borderRadius: 8,
                   height: 34,
                   borderSide: 1,
-                  text: 'View Details >',
+                  text: 'View Details',
                   response: () {},
                   textStyle: AppTextStyles.popins400style14LightBlackColor
                       .copyWith(color: AppColors.kPrimaryColor),
+                  iconSize: 15,
                 ),
               ),
             ),

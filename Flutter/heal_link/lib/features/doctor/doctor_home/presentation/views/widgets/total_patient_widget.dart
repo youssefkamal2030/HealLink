@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:go_router/go_router.dart';
+import 'package:heal_link/core/utils/app_router.dart';
 import '../../../../../../core/utils/app_styles.dart';
 import '../../../../../../core/utils/constant.dart';
 import '../../../../../../core/utils/function/app_colors.dart';
@@ -21,9 +22,20 @@ class TotalPatientWidget extends StatelessWidget {
       child: Column(
         spacing: 15,
         children: [
-          Text(
-            S.of(context).total_patient,
-            style: AppTextStyles.popins500style20LightBlackColor,
+          TextButton(
+            onPressed: () {
+              context.push(AppRouter.totalPatientView);
+            },
+            style: ButtonStyle(
+              padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+              minimumSize: WidgetStateProperty.all<Size>(Size.zero),
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              visualDensity: VisualDensity.compact,
+            ),
+            child: Text(
+              S.of(context).total_patient,
+              style: AppTextStyles.popins500style20LightBlackColor,
+            ),
           ),
           Row(
             spacing: 12,
