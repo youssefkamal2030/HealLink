@@ -39,14 +39,17 @@ class UserTypeScreen extends StatelessWidget {
                     response: () {
                       context.push(AppRouter.doctorSignUpFirstView);
                     },
-                    height: 39,
+                    height: 44,
+                    borderRadius: 16,
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 16),
                   CustomEmptyButton(
                     text: S.of(context).i_am_doctor,
                     response: () {
                       context.push(AppRouter.doctorHomeView);
                     },
+                    height: 44,
+                    borderRadius: 16,
                   ),
                 ],
               ),

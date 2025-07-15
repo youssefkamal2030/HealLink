@@ -59,7 +59,9 @@ class OnBoardingPageView extends StatelessWidget {
                     ),
                     SizedBox(height: 30),
                     Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: subTitlePadding ??15),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: subTitlePadding ?? 15,
+                      ),
                       child: Text(
                         subTitle,
                         textAlign: TextAlign.center,

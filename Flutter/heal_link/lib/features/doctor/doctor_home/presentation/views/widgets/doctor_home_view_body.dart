@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:heal_link/core/utils/app_images.dart';
 import 'package:heal_link/core/utils/app_styles.dart';
 import 'package:heal_link/core/widgets/custom_text_form_field2.dart';
-import 'package:heal_link/features/doctor/doctor_home/presentation/views/widgets/patient_info_card.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/widgets/total_patient_widget.dart';
 import '../../../../../../generated/l10n.dart';
 import 'home_doctor_info.dart';
+import 'no_patient_available.dart';
 
 class DoctorHomeViewBody extends StatelessWidget {
   const DoctorHomeViewBody({super.key});
@@ -51,25 +51,25 @@ class DoctorHomeViewBody extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 12),
-                    // NoPatientAvailable(),
+                    NoPatientAvailable(),
                   ],
                 ),
               ),
             ],
           ),
         ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) => Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 4,
-              ),
-              child: PatientInfoCard(),
-            ),
-            childCount: 2,
-          ),
-        ),
+        // SliverList(
+        //   delegate: SliverChildBuilderDelegate(
+        //     (context, index) => Padding(
+        //       padding: const EdgeInsets.symmetric(
+        //         horizontal: 16.0,
+        //         vertical: 4,
+        //       ),
+        //       child: PatientInfoCard(),
+        //     ),
+        //     childCount: 2,
+        //   ),
+        // ),
         SliverToBoxAdapter(child: SizedBox(height: 30)),
       ],
     );
