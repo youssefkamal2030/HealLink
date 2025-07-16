@@ -42,14 +42,19 @@ class CustomEmptyButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            text,
-            style:
-                textStyle ??
-                AppTextStyles.popins500style18LightBlackColor.copyWith(
-                  fontSize: 16,
-                  color: borderColor,
-                ),
+          Expanded(
+            child: Text(
+              text,
+              style:
+                  textStyle ??
+                  AppTextStyles.popins500style18LightBlackColor.copyWith(
+                    fontSize: 16,
+                    color: borderColor,
+                  ),
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           if (iconSize != null) SizedBox(width: 4),
           if (iconSize != null)

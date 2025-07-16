@@ -26,11 +26,15 @@ class PatientDetailsView extends StatelessWidget {
                 children: [
                   PatientActionWidget(
                     image: AppImages.message,
-                    text: S.of(context).message,
+                    text: S
+                        .of(context)
+                        .message,
                   ),
                   PatientActionWidget(
                     image: AppImages.prescriptions,
-                    text: S.of(context).prescriptions,
+                    text: S
+                        .of(context)
+                        .prescriptions,
                   ),
                 ],
               ),
