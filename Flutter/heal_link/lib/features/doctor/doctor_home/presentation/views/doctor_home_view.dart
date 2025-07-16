@@ -42,6 +42,7 @@ class _DoctorHomeViewState extends State<DoctorHomeView> {
         selectedIndex: selectedIndex,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      resizeToAvoidBottomInset: false,
       body: body[selectedIndex],
     );
   }
