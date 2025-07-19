@@ -410,6 +410,61 @@ class S {
     return Intl.message('Message', name: 'message', desc: '', args: []);
   }
 
+  /// `Personal Information`
+  String get personal_information {
+    return Intl.message(
+      'Personal Information',
+      name: 'personal_information',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notification`
+  String get notification {
+    return Intl.message(
+      'Notification',
+      name: 'notification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment`
+  String get payment {
+    return Intl.message('Payment', name: 'payment', desc: '', args: []);
+  }
+
+  /// `Terms & Privacy Policy`
+  String get terms_and_privacy_policy {
+    return Intl.message(
+      'Terms & Privacy Policy',
+      name: 'terms_and_privacy_policy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Support Help`
+  String get support_help {
+    return Intl.message(
+      'Support Help',
+      name: 'support_help',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Setting`
+  String get setting {
+    return Intl.message('Setting', name: 'setting', desc: '', args: []);
+  }
+
+  /// `About`
+  String get about {
+    return Intl.message('About', name: 'about', desc: '', args: []);
+  }
+
   /// `Subscription`
   String get subscription {
     return Intl.message(
@@ -440,6 +495,56 @@ class S {
     return Intl.message(
       'Once patients start subscribing with you, their information will appear here.',
       name: 'once_patients_subscribing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Messages`
+  String get messages {
+    return Intl.message('Messages', name: 'messages', desc: '', args: []);
+  }
+
+  /// `Profile`
+  String get my_profile {
+    return Intl.message('My Profile', name: 'my_profile', desc: '', args: []);
+  }
+
+  /// `No messages at the moment.`
+  String get no_chat_at_moment {
+    return Intl.message(
+      'No chat at the moment.',
+      name: 'no_chat_at_moment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  // ` Once patients start chatting with you, Their conversation will appear here.`
+  String get once_patients_chatting {
+    return Intl.message(
+      ' Once patients start chatting with you, Their conversation will appear here.',
+      name: 'once_patients_chatting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  // all chat
+  String get all_chat {
+    return Intl.message('All', name: 'all', desc: '', args: []);
+  }
+
+  // unread chat
+  String get unreadChat {
+    return Intl.message('Unread', name: 'unread', desc: '', args: []);
+  }
+
+  /// search for a patient
+  String get search_for_a_patient {
+    return Intl.message(
+      'Search for a patient',
+      name: 'search_for_a_patient',
       desc: '',
       args: [],
     );

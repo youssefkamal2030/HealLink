@@ -15,6 +15,7 @@ abstract class AppColors{
   static const kBackgroundColor=Color(0xffF4F6F8);
   static const kMediumGreyColor = Color(0xff999999);
   static const kTextFieldIconColor = Color(0xffB3B3B3);
+  static const kUnreadCountColor = Color(0xff34A853);
 }
 
 
