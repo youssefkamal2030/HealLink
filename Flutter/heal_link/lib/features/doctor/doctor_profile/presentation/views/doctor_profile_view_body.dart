@@ -50,7 +50,7 @@ class DoctorProfileViewBody extends StatelessWidget {
                   ],
                 ),
                 title: Text(
-                  S.of(context).personal_information,
+                  'Dr. Yousry Ahmed',
                   style: AppTextStyles.popins500style18LightBlackColor,
                 ),
                 subtitle: Text(
