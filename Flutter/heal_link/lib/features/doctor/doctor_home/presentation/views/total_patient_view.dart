@@ -4,6 +4,7 @@ import 'package:heal_link/core/utils/function/app_colors.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/widgets/total_patient_tab_bar_body.dart';
 
 import '../../../../../core/widgets/custom_app_bar_pop_widget.dart';
+import '../../../../../generated/l10n.dart';
 
 class TotalPatientView extends StatelessWidget {
   const TotalPatientView({super.key});
@@ -18,7 +19,7 @@ class TotalPatientView extends StatelessWidget {
           child: Column(
             spacing: 24,
             children: [
-              CustomAppBarPopWidget(text: 'Total Patient'),
+              CustomAppBarPopWidget(text: S.of(context).total_patient),
               TabBar(
                 labelStyle: AppTextStyles.popins500style18LightBlackColor
                     .copyWith(fontSize: 16, color: AppColors.kPrimaryColor),
@@ -31,8 +32,8 @@ class TotalPatientView extends StatelessWidget {
                     .popins500style18LightBlackColor
                     .copyWith(fontSize: 16, color: AppColors.kDarkGreyColor),
                 tabs: [
-                  Padding(padding: EdgeInsets.all(8), child: Text('Member')),
-                  Padding(padding: EdgeInsets.all(8), child: Text('Requests')),
+                  Padding(padding: EdgeInsets.all(8), child: Text(S.of(context).members)),
+                  Padding(padding: EdgeInsets.all(8), child: Text(S.of(context).requests)),
                 ],
               ),
               TotalPatientTabBarBody(),

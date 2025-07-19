@@ -4,6 +4,8 @@ import 'package:heal_link/core/widgets/custom_app_bar_pop_widget.dart';
 import 'package:heal_link/core/widgets/custom_empty_button.dart';
 import 'package:heal_link/core/widgets/custom_full_button.dart';
 
+import '../../../../../generated/l10n.dart';
+
 class PrescriptionView extends StatelessWidget {
   const PrescriptionView({super.key});
 
@@ -16,7 +18,7 @@ class PrescriptionView extends StatelessWidget {
           child: Column(
             spacing: 24,
             children: [
-              CustomAppBarPopWidget(text: 'Prescription'),
+              CustomAppBarPopWidget(text: S.of(context).prescriptions),
               Image.asset(
                 'assets/images/prescription.png',
                 height: 476,
@@ -27,7 +29,7 @@ class PrescriptionView extends StatelessWidget {
                 children: [
                   Expanded(
                     child: CustomEmptyButton(
-                      text: 'Reject',
+                      text: S.of(context).reject,
                       response: () {},
                       borderColor: AppColors.kErrorColor,
                       borderRadius: 8,
@@ -37,7 +39,7 @@ class PrescriptionView extends StatelessWidget {
                   SizedBox(width: 14),
                   Expanded(
                     child: CustomFullButton(
-                      text: 'Accept',
+                      text: S.of(context).accept,
                       onPressed: () {},
                       radios: 8,
                       height: 40,

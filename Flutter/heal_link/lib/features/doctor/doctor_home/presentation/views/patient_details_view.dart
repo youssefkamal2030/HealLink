@@ -19,7 +19,7 @@ class PatientDetailsView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             spacing: 24,
             children: [
-              CustomAppBarPopWidget(text: 'View details '),
+              CustomAppBarPopWidget(text: S.of(context).viewDetails),
               PatientDetailsCard(),
               Row(
                 spacing: 16,
