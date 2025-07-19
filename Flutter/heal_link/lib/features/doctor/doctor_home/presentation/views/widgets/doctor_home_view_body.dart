@@ -71,6 +71,7 @@ class DoctorHomeViewBody extends StatelessWidget {
           ),
         ),
         SliverToBoxAdapter(child: SizedBox(height: 30)),
+        SliverToBoxAdapter(child: SizedBox(height: 56)),
       ],
     );
   }
