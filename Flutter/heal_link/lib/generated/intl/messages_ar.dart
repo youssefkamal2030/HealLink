@@ -22,6 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "accept": MessageLookupByLibrary.simpleMessage("قبول"),
+    "age": MessageLookupByLibrary.simpleMessage("العمر"),
     "allergies": MessageLookupByLibrary.simpleMessage("الحساسية"),
     "available_now": MessageLookupByLibrary.simpleMessage("متاح الان"),
     "chat_send_receive": MessageLookupByLibrary.simpleMessage(
@@ -59,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "enter_name": MessageLookupByLibrary.simpleMessage("أدخل اسمك"),
     "enter_password": MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور"),
+    "gender": MessageLookupByLibrary.simpleMessage("النوع"),
     "have_account": MessageLookupByLibrary.simpleMessage("هل لديك حساب؟"),
     "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
     "i_am_doctor": MessageLookupByLibrary.simpleMessage("أنا طبيب"),
@@ -67,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "ادعُ أحد أفراد العائلة للبقاء على اطلاع ودعمك في رحلتك الصحية.",
     ),
     "lab_tests": MessageLookupByLibrary.simpleMessage("التحاليل المعملية"),
+    "lastInteraction": MessageLookupByLibrary.simpleMessage("آخر تفاعل: "),
     "members": MessageLookupByLibrary.simpleMessage("اعضاء"),
     "message": MessageLookupByLibrary.simpleMessage("الرسائل"),
     "name": MessageLookupByLibrary.simpleMessage("الاسم"),
@@ -94,11 +98,13 @@ class MessageLookup extends MessageLookupByLibrary {
     "prescriptions": MessageLookupByLibrary.simpleMessage("الوصفات الطبية"),
     "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
     "recent_patient": MessageLookupByLibrary.simpleMessage("المرضي الحالين"),
+    "reject": MessageLookupByLibrary.simpleMessage("رفض"),
     "remote_consult_smart_track": MessageLookupByLibrary.simpleMessage(
       "استشارات عن بُعد وتتبع ذكي",
     ),
     "requests": MessageLookupByLibrary.simpleMessage("طلبات"),
     "resend_code": MessageLookupByLibrary.simpleMessage("إعادة إرسال الرمز"),
+    "searchPatient": MessageLookupByLibrary.simpleMessage("ابحث عن مريض"),
     "see_all": MessageLookupByLibrary.simpleMessage("مشاهده الكل"),
     "send": MessageLookupByLibrary.simpleMessage("إرسال"),
     "sign_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
@@ -106,8 +112,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
     "splash": MessageLookupByLibrary.simpleMessage("سبلاش"),
     "subscription": MessageLookupByLibrary.simpleMessage("الاشتراك"),
-    "total_patient": MessageLookupByLibrary.simpleMessage("جمبع المرضي >"),
+    "total_patient": MessageLookupByLibrary.simpleMessage("جمبع المرضي"),
     "try_another_way": MessageLookupByLibrary.simpleMessage("جرّب طريقة أخرى"),
+    "type": MessageLookupByLibrary.simpleMessage("النوع: "),
     "upload_instruction": MessageLookupByLibrary.simpleMessage(
       "يرجى تحميل صورة واضحة لبطاقة النقابة الطبية",
     ),
@@ -119,6 +126,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "verify_email": MessageLookupByLibrary.simpleMessage(
       "تحقق من بريدك الإلكتروني",
+    ),
+    "viewDetails": MessageLookupByLibrary.simpleMessage("عرض التفاصيل"),
+    "viewPrescription": MessageLookupByLibrary.simpleMessage(
+      "عرض الوصفة الطبية",
     ),
     "x_rays": MessageLookupByLibrary.simpleMessage("الأشعة"),
     "your_health_smarter": MessageLookupByLibrary.simpleMessage(

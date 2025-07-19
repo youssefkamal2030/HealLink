@@ -365,15 +365,7 @@ class S {
     );
   }
 
-  /// `Total Patient >`
-  String get total_patient {
-    return Intl.message(
-      'Total Patient >',
-      name: 'total_patient',
-      desc: '',
-      args: [],
-    );
-  }
+  // skipped getter for the 'total_patient>' key
 
   /// `Members`
   String get members {
@@ -525,6 +517,81 @@ class S {
     return Intl.message(
       'Current Medications',
       name: 'current_medications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search for a patient`
+  String get searchPatient {
+    return Intl.message(
+      'Search for a patient',
+      name: 'searchPatient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last interaction: `
+  String get lastInteraction {
+    return Intl.message(
+      'Last interaction: ',
+      name: 'lastInteraction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Type: `
+  String get type {
+    return Intl.message('Type: ', name: 'type', desc: '', args: []);
+  }
+
+  /// `View Details`
+  String get viewDetails {
+    return Intl.message(
+      'View Details',
+      name: 'viewDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Patient`
+  String get total_patient {
+    return Intl.message(
+      'Total Patient',
+      name: 'total_patient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accept`
+  String get accept {
+    return Intl.message('Accept', name: 'accept', desc: '', args: []);
+  }
+
+  /// `Reject`
+  String get reject {
+    return Intl.message('Reject', name: 'reject', desc: '', args: []);
+  }
+
+  /// `Gender`
+  String get gender {
+    return Intl.message('Gender', name: 'gender', desc: '', args: []);
+  }
+
+  /// `Age`
+  String get age {
+    return Intl.message('Age', name: 'age', desc: '', args: []);
+  }
+
+  /// `View Prescription`
+  String get viewPrescription {
+    return Intl.message(
+      'View Prescription',
+      name: 'viewPrescription',
       desc: '',
       args: [],
     );

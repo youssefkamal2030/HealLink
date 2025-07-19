@@ -36,7 +36,7 @@
   "new_password_note": "يجب أن تكون كلمة المرور الجديدة مختلفة عن السابقة",
   "splash": "سبلاش",
   "available_now": "متاح الان",
-  "total_patient": "جمبع المرضي >",
+  "total_patient>": "جمبع المرضي >",
   "members": "اعضاء",
   "requests": "طلبات",
   "recent_patient": "المرضي الحالين",
@@ -56,5 +56,15 @@
   "chronic_diseases": "الأمراض المزمنة",
   "allergies": "الحساسية",
   "past_surgeries": "العمليات السابقة",
-  "current_medications": "الأدوية الحالية"
+  "current_medications": "الأدوية الحالية",
+  "searchPatient": "ابحث عن مريض",
+  "lastInteraction": "آخر تفاعل: ",
+  "type": "النوع: ",
+  "viewDetails": "عرض التفاصيل",
+  "total_patient": "جمبع المرضي",
+  "accept": "قبول",
+  "reject": "رفض",
+  "gender": "النوع",
+  "age": "العمر",
+  "viewPrescription": "عرض الوصفة الطبية"
 }

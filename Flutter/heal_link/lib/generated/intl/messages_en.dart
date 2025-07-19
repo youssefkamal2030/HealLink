@@ -22,6 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "accept": MessageLookupByLibrary.simpleMessage("Accept"),
+    "age": MessageLookupByLibrary.simpleMessage("Age"),
     "allergies": MessageLookupByLibrary.simpleMessage("Allergies"),
     "available_now": MessageLookupByLibrary.simpleMessage("Available now"),
     "chat_send_receive": MessageLookupByLibrary.simpleMessage(
@@ -61,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "enter_password": MessageLookupByLibrary.simpleMessage(
       "enter your password",
     ),
+    "gender": MessageLookupByLibrary.simpleMessage("Gender"),
     "have_account": MessageLookupByLibrary.simpleMessage("Have an account?"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
     "i_am_doctor": MessageLookupByLibrary.simpleMessage("I’m a Doctor"),
@@ -69,6 +72,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Invite a family member to stay updated and support you on your health journey.",
     ),
     "lab_tests": MessageLookupByLibrary.simpleMessage("Lab Tests"),
+    "lastInteraction": MessageLookupByLibrary.simpleMessage(
+      "Last interaction: ",
+    ),
     "members": MessageLookupByLibrary.simpleMessage("Members"),
     "message": MessageLookupByLibrary.simpleMessage("Message"),
     "name": MessageLookupByLibrary.simpleMessage("Name"),
@@ -96,11 +102,15 @@ class MessageLookup extends MessageLookupByLibrary {
     "prescriptions": MessageLookupByLibrary.simpleMessage("Prescriptions"),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
     "recent_patient": MessageLookupByLibrary.simpleMessage("Recent Patient"),
+    "reject": MessageLookupByLibrary.simpleMessage("Reject"),
     "remote_consult_smart_track": MessageLookupByLibrary.simpleMessage(
       "Remote Consultations & Smart Tracking",
     ),
     "requests": MessageLookupByLibrary.simpleMessage("Requests"),
     "resend_code": MessageLookupByLibrary.simpleMessage("Resend Code"),
+    "searchPatient": MessageLookupByLibrary.simpleMessage(
+      "Search for a patient",
+    ),
     "see_all": MessageLookupByLibrary.simpleMessage("See all"),
     "send": MessageLookupByLibrary.simpleMessage("Send"),
     "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
@@ -108,8 +118,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "skip": MessageLookupByLibrary.simpleMessage("Skip"),
     "splash": MessageLookupByLibrary.simpleMessage("Splash"),
     "subscription": MessageLookupByLibrary.simpleMessage("Subscription"),
-    "total_patient": MessageLookupByLibrary.simpleMessage("Total Patient >"),
+    "total_patient": MessageLookupByLibrary.simpleMessage("Total Patient"),
     "try_another_way": MessageLookupByLibrary.simpleMessage("Try another way"),
+    "type": MessageLookupByLibrary.simpleMessage("Type: "),
     "upload_instruction": MessageLookupByLibrary.simpleMessage(
       "Please upload a clear image of your medical syndicate card",
     ),
@@ -120,6 +131,10 @@ class MessageLookup extends MessageLookupByLibrary {
       "Uploaded Reports & Files",
     ),
     "verify_email": MessageLookupByLibrary.simpleMessage("Verify Your Email"),
+    "viewDetails": MessageLookupByLibrary.simpleMessage("View Details"),
+    "viewPrescription": MessageLookupByLibrary.simpleMessage(
+      "View Prescription",
+    ),
     "x_rays": MessageLookupByLibrary.simpleMessage("X-rays"),
     "your_health_smarter": MessageLookupByLibrary.simpleMessage(
       "Your Health, Smarter",
