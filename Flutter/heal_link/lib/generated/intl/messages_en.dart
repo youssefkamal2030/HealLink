@@ -22,7 +22,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "about": MessageLookupByLibrary.simpleMessage("About"),
+    "all": MessageLookupByLibrary.simpleMessage("All"),
     "available_now": MessageLookupByLibrary.simpleMessage("Available now"),
+    "change_profile": MessageLookupByLibrary.simpleMessage("Change Profile"),
     "chat_send_receive": MessageLookupByLibrary.simpleMessage(
       "Chat with your doctor, send test results, and receive updated prescriptions — all in a few taps",
     ),
@@ -63,14 +66,23 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "members": MessageLookupByLibrary.simpleMessage("Members"),
     "message": MessageLookupByLibrary.simpleMessage("Message"),
+    "messages": MessageLookupByLibrary.simpleMessage("Messages"),
+    "my_profile": MessageLookupByLibrary.simpleMessage("My Profile"),
     "name": MessageLookupByLibrary.simpleMessage("Name"),
     "national_id": MessageLookupByLibrary.simpleMessage("National ID"),
     "new_password_note": MessageLookupByLibrary.simpleMessage(
       "Your New Password Must Be Different From previous password",
     ),
     "next": MessageLookupByLibrary.simpleMessage("Next"),
+    "no_chat_at_moment": MessageLookupByLibrary.simpleMessage(
+      "No chat at the moment.",
+    ),
     "no_patients_at_moment": MessageLookupByLibrary.simpleMessage(
       "No patients at the moment.",
+    ),
+    "notification": MessageLookupByLibrary.simpleMessage("Notification"),
+    "once_patients_chatting": MessageLookupByLibrary.simpleMessage(
+      "Once patients start chatting with you, Their conversation will appear here.",
     ),
     "once_patients_subscribing": MessageLookupByLibrary.simpleMessage(
       "Once patients start subscribing with you, their information will appear here.",
@@ -79,6 +91,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "patient_results": MessageLookupByLibrary.simpleMessage(
       "Patient’s Results",
+    ),
+    "payment": MessageLookupByLibrary.simpleMessage("Payment"),
+    "personal_information": MessageLookupByLibrary.simpleMessage(
+      "Personal Information",
     ),
     "practice_license_number": MessageLookupByLibrary.simpleMessage(
       "Practice License Number",
@@ -90,15 +106,24 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "requests": MessageLookupByLibrary.simpleMessage("Requests"),
     "resend_code": MessageLookupByLibrary.simpleMessage("Resend Code"),
+    "search_for_a_patient": MessageLookupByLibrary.simpleMessage(
+      "Search for a patient",
+    ),
     "see_all": MessageLookupByLibrary.simpleMessage("See all"),
     "send": MessageLookupByLibrary.simpleMessage("Send"),
+    "setting": MessageLookupByLibrary.simpleMessage("Setting"),
     "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
     "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "skip": MessageLookupByLibrary.simpleMessage("Skip"),
     "splash": MessageLookupByLibrary.simpleMessage("Splash"),
     "subscription": MessageLookupByLibrary.simpleMessage("Subscription"),
+    "support_help": MessageLookupByLibrary.simpleMessage("Support Help"),
+    "terms_and_privacy_policy": MessageLookupByLibrary.simpleMessage(
+      "Terms & Privacy Policy",
+    ),
     "total_patient": MessageLookupByLibrary.simpleMessage("Total Patient >"),
     "try_another_way": MessageLookupByLibrary.simpleMessage("Try another way"),
+    "unread": MessageLookupByLibrary.simpleMessage("Unread"),
     "upload_instruction": MessageLookupByLibrary.simpleMessage(
       "Please upload a clear image of your medical syndicate card",
     ),

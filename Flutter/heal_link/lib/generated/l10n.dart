@@ -410,11 +410,46 @@ class S {
     return Intl.message('Message', name: 'message', desc: '', args: []);
   }
 
-  /// 'Change Profile
-  String get change_profile {
+  /// `Subscription`
+  String get subscription {
     return Intl.message(
-      'Change Profile',
-      name: 'change_profile',
+      'Subscription',
+      name: 'subscription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile`
+  String get profile {
+    return Intl.message('Profile', name: 'profile', desc: '', args: []);
+  }
+
+  /// `No patients at the moment.`
+  String get no_patients_at_moment {
+    return Intl.message(
+      'No patients at the moment.',
+      name: 'no_patients_at_moment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Once patients start subscribing with you, their information will appear here.`
+  String get once_patients_subscribing {
+    return Intl.message(
+      'Once patients start subscribing with you, their information will appear here.',
+      name: 'once_patients_subscribing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Patient’s Results`
+  String get patient_results {
+    return Intl.message(
+      'Patient’s Results',
+      name: 'patient_results',
       desc: '',
       args: [],
     );
@@ -475,52 +510,17 @@ class S {
     return Intl.message('About', name: 'about', desc: '', args: []);
   }
 
-  /// `Subscription`
-  String get subscription {
-    return Intl.message(
-      'Subscription',
-      name: 'subscription',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Profile`
-  String get profile {
-    return Intl.message('Profile', name: 'profile', desc: '', args: []);
-  }
-
-  /// `No patients at the moment.`
-  String get no_patients_at_moment {
-    return Intl.message(
-      'No patients at the moment.',
-      name: 'no_patients_at_moment',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Once patients start subscribing with you, their information will appear here.`
-  String get once_patients_subscribing {
-    return Intl.message(
-      'Once patients start subscribing with you, their information will appear here.',
-      name: 'once_patients_subscribing',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Messages`
   String get messages {
     return Intl.message('Messages', name: 'messages', desc: '', args: []);
   }
 
-  /// `Profile`
+  /// `My Profile`
   String get my_profile {
     return Intl.message('My Profile', name: 'my_profile', desc: '', args: []);
   }
 
-  /// `No messages at the moment.`
+  /// `No chat at the moment.`
   String get no_chat_at_moment {
     return Intl.message(
       'No chat at the moment.',
@@ -530,41 +530,41 @@ class S {
     );
   }
 
-  // ` Once patients start chatting with you, Their conversation will appear here.`
+  /// `Once patients start chatting with you, Their conversation will appear here.`
   String get once_patients_chatting {
     return Intl.message(
-      ' Once patients start chatting with you, Their conversation will appear here.',
+      'Once patients start chatting with you, Their conversation will appear here.',
       name: 'once_patients_chatting',
       desc: '',
       args: [],
     );
   }
 
-  // all chat
+  /// `All`
   String get all {
     return Intl.message('All', name: 'all', desc: '', args: []);
   }
 
-  // unread chat
+  /// `Unread`
   String get unread {
     return Intl.message('Unread', name: 'unread', desc: '', args: []);
   }
 
-  /// search for a patient
-  String get search_for_a_patient {
+  /// `Change Profile`
+  String get change_profile {
     return Intl.message(
-      'Search for a patient',
-      name: 'search_for_a_patient',
+      'Change Profile',
+      name: 'change_profile',
       desc: '',
       args: [],
     );
   }
 
-  /// `Patient’s Results`
-  String get patient_results {
+  /// `Search for a patient`
+  String get search_for_a_patient {
     return Intl.message(
-      'Patient’s Results',
-      name: 'patient_results',
+      'Search for a patient',
+      name: 'search_for_a_patient',
       desc: '',
       args: [],
     );

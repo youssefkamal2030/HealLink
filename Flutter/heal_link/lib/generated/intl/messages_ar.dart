@@ -22,7 +22,12 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "about": MessageLookupByLibrary.simpleMessage("حول"),
+    "all": MessageLookupByLibrary.simpleMessage("الكل"),
     "available_now": MessageLookupByLibrary.simpleMessage("متاح الان"),
+    "change_profile": MessageLookupByLibrary.simpleMessage(
+      "تغيير الملف الشخصي",
+    ),
     "chat_send_receive": MessageLookupByLibrary.simpleMessage(
       "تحدث مع طبيبك، أرسل نتائج التحاليل، وتلقَّ وصفات محدثة — كل ذلك ببضع نقرات",
     ),
@@ -63,14 +68,23 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "members": MessageLookupByLibrary.simpleMessage("اعضاء"),
     "message": MessageLookupByLibrary.simpleMessage("الرسائل"),
+    "messages": MessageLookupByLibrary.simpleMessage("الرسائل"),
+    "my_profile": MessageLookupByLibrary.simpleMessage("ملفي الشخصي"),
     "name": MessageLookupByLibrary.simpleMessage("الاسم"),
     "national_id": MessageLookupByLibrary.simpleMessage("الرقم القومي"),
     "new_password_note": MessageLookupByLibrary.simpleMessage(
       "يجب أن تكون كلمة المرور الجديدة مختلفة عن السابقة",
     ),
     "next": MessageLookupByLibrary.simpleMessage("التالي"),
+    "no_chat_at_moment": MessageLookupByLibrary.simpleMessage(
+      "لا توجد محادثات في الوقت الحالي.",
+    ),
     "no_patients_at_moment": MessageLookupByLibrary.simpleMessage(
       "لا يوجد مرضى في الوقت الحالي.",
+    ),
+    "notification": MessageLookupByLibrary.simpleMessage("الإشعارات"),
+    "once_patients_chatting": MessageLookupByLibrary.simpleMessage(
+      "بمجرد أن يبدأ المرضى في التحدث معك، ستظهر محادثاتهم هنا.",
     ),
     "once_patients_subscribing": MessageLookupByLibrary.simpleMessage(
       "بمجرد أن يبدأ المرضى في الاشتراك معك، ستظهر معلوماتهم هنا.",
@@ -80,6 +94,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
     "patient_results": MessageLookupByLibrary.simpleMessage("نتائج المريض"),
+    "payment": MessageLookupByLibrary.simpleMessage("الدفع"),
+    "personal_information": MessageLookupByLibrary.simpleMessage(
+      "المعلومات الشخصية",
+    ),
     "practice_license_number": MessageLookupByLibrary.simpleMessage(
       "رقم رخصة الممارسة",
     ),
@@ -90,15 +108,24 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "requests": MessageLookupByLibrary.simpleMessage("طلبات"),
     "resend_code": MessageLookupByLibrary.simpleMessage("إعادة إرسال الرمز"),
+    "search_for_a_patient": MessageLookupByLibrary.simpleMessage(
+      "ابحث عن مريض",
+    ),
     "see_all": MessageLookupByLibrary.simpleMessage("مشاهده الكل"),
     "send": MessageLookupByLibrary.simpleMessage("إرسال"),
+    "setting": MessageLookupByLibrary.simpleMessage("الإعدادات"),
     "sign_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "sign_up": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
     "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
     "splash": MessageLookupByLibrary.simpleMessage("سبلاش"),
     "subscription": MessageLookupByLibrary.simpleMessage("الاشتراك"),
+    "support_help": MessageLookupByLibrary.simpleMessage("الدعم والمساعدة"),
+    "terms_and_privacy_policy": MessageLookupByLibrary.simpleMessage(
+      "الشروط وسياسة الخصوصية",
+    ),
     "total_patient": MessageLookupByLibrary.simpleMessage("جمبع المرضي >"),
     "try_another_way": MessageLookupByLibrary.simpleMessage("جرّب طريقة أخرى"),
+    "unread": MessageLookupByLibrary.simpleMessage("غير المقروءة"),
     "upload_instruction": MessageLookupByLibrary.simpleMessage(
       "يرجى تحميل صورة واضحة لبطاقة النقابة الطبية",
     ),
