@@ -36,7 +36,7 @@
   "new_password_note": "Your New Password Must Be Different From previous password",
   "splash": "Splash",
   "available_now": "Available now",
-  "total_patient": "Total Patient >",
+  "total_patient>": "Total Patient >",
   "members": "Members",
   "requests": "Requests",
   "recent_patient": "Recent Patient",
@@ -63,6 +63,23 @@
   "unread": "Unread",
   "change_profile": "Change Profile",
   "search_for_a_patient": "Search for a patient"
-
-
+  "prescriptions": "Prescriptions",
+  "uploaded_reports_files": "Uploaded Reports & Files",
+  "lab_tests": "Lab Tests",
+  "x_rays": "X-rays",
+  "patient_history": "Patient History",
+  "chronic_diseases": "Chronic diseases",
+  "allergies": "Allergies",
+  "past_surgeries": "Past Surgeries",
+  "current_medications": "Current Medications",
+  "searchPatient": "Search for a patient",
+  "lastInteraction": "Last interaction: ",
+  "type": "Type: ",
+  "viewDetails": "View Details",
+  "total_patient": "Total Patient",
+  "accept": "Accept",
+  "reject": "Reject",
+  "gender": "Gender",
+  "age": "Age",
+  "viewPrescription": "View Prescription"
 }

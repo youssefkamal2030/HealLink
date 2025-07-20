@@ -7,6 +7,9 @@ import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_
 import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_sign_up_second_view.dart';
 import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_sign_up_verify_email.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/doctor_home_view.dart';
+import 'package:heal_link/features/doctor/doctor_home/presentation/views/patient_details_view.dart';
+import 'package:heal_link/features/doctor/doctor_home/presentation/views/prescription_view.dart';
+import 'package:heal_link/features/doctor/doctor_home/presentation/views/total_patient_view.dart';
 import 'package:heal_link/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:heal_link/features/on_boarding/presentation/views/user_type_screen.dart';
 import 'package:heal_link/features/patient/patient_auth/presentation/views/patient_sign_in_view.dart';
@@ -15,37 +18,38 @@ import 'package:heal_link/features/splash/presentation/views/splash_screen_view.
 import '../../features/doctor/doctor_auth/presentation/views/doctor_sign_up_first_view.dart';
 
 abstract class AppRouter {
-  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
   static const onBoardingScreen = '/OnBoardingScreenView';
   static const userTypeScreen = '/UserTypeScreen';
 
-
-  //* Doctor Views 
-    //? Doctor Sign Up Views 
+  //* Doctor Views
+  //? Doctor Sign Up Views
   static const doctorSignUpFirstView = '/DoctorSignUpFirstView';
   static const doctorSignUpSecondView = '/DoctorSignUpSecondView';
   static const doctorSignUpVerifyEmailView = '/DoctorSignUpVerifyEmailView';
 
-
-    //? Doctor sign In Views 
+  //? Doctor sign In Views
   static const doctorSignInView = '/DoctorSignInView';
   static const doctorSignInVerifyEmailView = '/DoctorSignInVerifyEmailView';
   static const doctorForgetPasswordView = '/DoctorForgetPasswordView';
   static const doctorResetPasswordView = '/DoctorResetPasswordView';
 
 
+  static const doctorHomeView = '/DoctorHomeView';
+  static const totalPatientView = '/totalPatientView';
+  static const patientDetailsView = '/PatientDetailsView';
+  static const prescriptionView = '/PrescriptionView';
 
   //* Patient Views
   static const patientSignInView = '/DoctorSignUpView';
   static const patientSignUpView = '/DoctorSignUpView';
   static const doctorSignUpView = '/DoctorSignUpView';
-  static const doctorHomeView = '/DoctorHomeView';
 
   static final router = GoRouter(
     navigatorKey: navigatorKey,
     routes: <RouteBase>[
-
-      //! General Routers 
+      //! General Routers
       GoRoute(
         path: '/',
         builder: (BuildContext context, GoRouterState state) {
@@ -65,10 +69,8 @@ abstract class AppRouter {
         },
       ),
 
-
-
-      //! Doctors Routers 
-              //? Doctor Sign Up Views 
+      //! Doctors Routers
+      //? Doctor Sign Up Views
       GoRoute(
         path: doctorSignUpFirstView,
         builder: (BuildContext context, GoRouterState state) {
@@ -87,17 +89,15 @@ abstract class AppRouter {
           return const DoctorSignUpVerifyEmail();
         },
       ),
-      
 
-
-              //? Doctor sign In Views 
+      //? Doctor sign In Views
       GoRoute(
         path: doctorSignInView,
         builder: (BuildContext context, GoRouterState state) {
           return const DoctorSignInView();
         },
       ),
-GoRoute(
+      GoRoute(
         path: doctorForgetPasswordView,
         builder: (BuildContext context, GoRouterState state) {
           return const DoctorForgetPasswordView();
@@ -110,14 +110,8 @@ GoRoute(
         },
       ),
 
-
-
-         
-
-
-      //! Patient Routers 
-
-         GoRoute(
+      //! Patient Routers
+      GoRoute(
         path: patientSignUpView,
         builder: (BuildContext context, GoRouterState state) {
           return const PatientSignUpView();
@@ -133,6 +127,24 @@ GoRoute(
         path: doctorHomeView,
         builder: (BuildContext context, GoRouterState state) {
           return const DoctorHomeView();
+        },
+      ),
+      GoRoute(
+        path: totalPatientView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const TotalPatientView();
+        },
+      ),
+      GoRoute(
+        path: patientDetailsView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const PatientDetailsView();
+        },
+      ),
+      GoRoute(
+        path: prescriptionView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const PrescriptionView();
         },
       ),
     ],

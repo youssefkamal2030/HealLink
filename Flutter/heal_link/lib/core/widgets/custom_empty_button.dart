@@ -11,6 +11,8 @@ class CustomEmptyButton extends StatelessWidget {
   final TextStyle? textStyle;
   final double? borderSide;
   final double? borderRadius;
+  final double? iconSize;
+  final Color? borderColor;
 
   const CustomEmptyButton({
     super.key,
@@ -20,29 +22,48 @@ class CustomEmptyButton extends StatelessWidget {
     this.textStyle,
     this.borderSide,
     this.borderRadius,
+    this.iconSize,
+    this.borderColor = AppColors.kPrimaryColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
+      elevation: 0,
       height: height,
+      color: Colors.white,
       shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: AppColors.kPrimaryColor,
-          width: borderSide ?? 1,
-        ),
+        side: BorderSide(color: borderColor!, width: borderSide ?? 1),
         borderRadius: BorderRadius.circular(borderRadius ?? 16),
       ),
       minWidth: AppConstant.width,
       onPressed: response,
-      child: Text(
-        text,
-        style:
-            textStyle ??
-            AppTextStyles.popins500style18LightBlackColor.copyWith(
-              fontSize: 16,
-              color: AppColors.kPrimaryColor,
+      padding: EdgeInsets.all(8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Text(
+              text,
+              style:
+                  textStyle ??
+                  AppTextStyles.popins500style18LightBlackColor.copyWith(
+                    fontSize: 16,
+                    color: borderColor,
+                  ),
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
+          ),
+          if (iconSize != null) SizedBox(width: 4),
+          if (iconSize != null)
+            Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: borderColor,
+              size: iconSize,
+            ),
+        ],
       ),
     );
   }

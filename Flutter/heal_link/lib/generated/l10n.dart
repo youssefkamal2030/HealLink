@@ -365,15 +365,7 @@ class S {
     );
   }
 
-  /// `Total Patient >`
-  String get total_patient {
-    return Intl.message(
-      'Total Patient >',
-      name: 'total_patient',
-      desc: '',
-      args: [],
-    );
-  }
+  // skipped getter for the 'total_patient>' key
 
   /// `Members`
   String get members {
@@ -455,11 +447,18 @@ class S {
     );
   }
 
+
   /// `Personal Information`
   String get personal_information {
     return Intl.message(
       'Personal Information',
       name: 'personal_information',
+
+  /// `Prescriptions`
+  String get prescriptions {
+    return Intl.message(
+      'Prescriptions',
+      name: 'prescriptions',
       desc: '',
       args: [],
     );
@@ -470,6 +469,11 @@ class S {
     return Intl.message(
       'Notification',
       name: 'notification',
+  /// `Uploaded Reports & Files`
+  String get uploaded_reports_files {
+    return Intl.message(
+      'Uploaded Reports & Files',
+      name: 'uploaded_reports_files',
       desc: '',
       args: [],
     );
@@ -485,6 +489,21 @@ class S {
     return Intl.message(
       'Terms & Privacy Policy',
       name: 'terms_and_privacy_policy',
+  /// `Lab Tests`
+  String get lab_tests {
+    return Intl.message('Lab Tests', name: 'lab_tests', desc: '', args: []);
+  }
+
+  /// `X-rays`
+  String get x_rays {
+    return Intl.message('X-rays', name: 'x_rays', desc: '', args: []);
+  }
+
+  /// `Patient History`
+  String get patient_history {
+    return Intl.message(
+      'Patient History',
+      name: 'patient_history',
       desc: '',
       args: [],
     );
@@ -495,6 +514,11 @@ class S {
     return Intl.message(
       'Support Help',
       name: 'support_help',
+  /// `Chronic diseases`
+  String get chronic_diseases {
+    return Intl.message(
+      'Chronic diseases',
+      name: 'chronic_diseases',
       desc: '',
       args: [],
     );
@@ -525,6 +549,36 @@ class S {
     return Intl.message(
       'No chat at the moment.',
       name: 'no_chat_at_moment',
+  /// `Allergies`
+  String get allergies {
+    return Intl.message('Allergies', name: 'allergies', desc: '', args: []);
+  }
+
+  /// `Past Surgeries`
+  String get past_surgeries {
+    return Intl.message(
+      'Past Surgeries',
+      name: 'past_surgeries',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current Medications`
+  String get current_medications {
+    return Intl.message(
+      'Current Medications',
+      name: 'current_medications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search for a patient`
+  String get searchPatient {
+    return Intl.message(
+      'Search for a patient',
+      name: 'searchPatient',
       desc: '',
       args: [],
     );
@@ -535,6 +589,11 @@ class S {
     return Intl.message(
       'Once patients start chatting with you, Their conversation will appear here.',
       name: 'once_patients_chatting',
+  /// `Last interaction: `
+  String get lastInteraction {
+    return Intl.message(
+      'Last interaction: ',
+      name: 'lastInteraction',
       desc: '',
       args: [],
     );
@@ -555,6 +614,26 @@ class S {
     return Intl.message(
       'Change Profile',
       name: 'change_profile',
+  /// `Type: `
+  String get type {
+    return Intl.message('Type: ', name: 'type', desc: '', args: []);
+  }
+
+  /// `View Details`
+  String get viewDetails {
+    return Intl.message(
+      'View Details',
+      name: 'viewDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Patient`
+  String get total_patient {
+    return Intl.message(
+      'Total Patient',
+      name: 'total_patient',
       desc: '',
       args: [],
     );
@@ -565,6 +644,31 @@ class S {
     return Intl.message(
       'Search for a patient',
       name: 'search_for_a_patient',
+  /// `Accept`
+  String get accept {
+    return Intl.message('Accept', name: 'accept', desc: '', args: []);
+  }
+
+  /// `Reject`
+  String get reject {
+    return Intl.message('Reject', name: 'reject', desc: '', args: []);
+  }
+
+  /// `Gender`
+  String get gender {
+    return Intl.message('Gender', name: 'gender', desc: '', args: []);
+  }
+
+  /// `Age`
+  String get age {
+    return Intl.message('Age', name: 'age', desc: '', args: []);
+  }
+
+  /// `View Prescription`
+  String get viewPrescription {
+    return Intl.message(
+      'View Prescription',
+      name: 'viewPrescription',
       desc: '',
       args: [],
     );

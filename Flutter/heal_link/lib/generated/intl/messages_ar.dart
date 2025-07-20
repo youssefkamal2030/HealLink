@@ -24,6 +24,9 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "about": MessageLookupByLibrary.simpleMessage("حول"),
     "all": MessageLookupByLibrary.simpleMessage("الكل"),
+    "accept": MessageLookupByLibrary.simpleMessage("قبول"),
+    "age": MessageLookupByLibrary.simpleMessage("العمر"),
+    "allergies": MessageLookupByLibrary.simpleMessage("الحساسية"),
     "available_now": MessageLookupByLibrary.simpleMessage("متاح الان"),
     "change_profile": MessageLookupByLibrary.simpleMessage(
       "تغيير الملف الشخصي",
@@ -34,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "choose_role": MessageLookupByLibrary.simpleMessage(
       "اختر دورك للحصول على التجربة الأنسب لك",
     ),
+    "chronic_diseases": MessageLookupByLibrary.simpleMessage("الأمراض المزمنة"),
     "click_to_upload": MessageLookupByLibrary.simpleMessage(
       "اضغط لتحميل الصورة",
     ),
@@ -42,6 +46,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "connect_doctor_track": MessageLookupByLibrary.simpleMessage(
       "تواصل مع طبيبك، تتبع حالتك، واحصل على الرعاية من أي مكان.",
+    ),
+    "current_medications": MessageLookupByLibrary.simpleMessage(
+      "الأدوية الحالية",
     ),
     "dont_have_account": MessageLookupByLibrary.simpleMessage(
       "ليس لديك حساب؟ أنشئ حساب",
@@ -59,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "enter_name": MessageLookupByLibrary.simpleMessage("أدخل اسمك"),
     "enter_password": MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور"),
+    "gender": MessageLookupByLibrary.simpleMessage("النوع"),
     "have_account": MessageLookupByLibrary.simpleMessage("هل لديك حساب؟"),
     "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
     "i_am_doctor": MessageLookupByLibrary.simpleMessage("أنا طبيب"),
@@ -66,6 +74,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "invite_family": MessageLookupByLibrary.simpleMessage(
       "ادعُ أحد أفراد العائلة للبقاء على اطلاع ودعمك في رحلتك الصحية.",
     ),
+    "lab_tests": MessageLookupByLibrary.simpleMessage("التحاليل المعملية"),
+    "lastInteraction": MessageLookupByLibrary.simpleMessage("آخر تفاعل: "),
     "members": MessageLookupByLibrary.simpleMessage("اعضاء"),
     "message": MessageLookupByLibrary.simpleMessage("الرسائل"),
     "messages": MessageLookupByLibrary.simpleMessage("الرسائل"),
@@ -93,6 +103,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "أو أنشئ حساب بواسطة",
     ),
     "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
+    "past_surgeries": MessageLookupByLibrary.simpleMessage("العمليات السابقة"),
+    "patient_history": MessageLookupByLibrary.simpleMessage("تاريخ المريض"),
     "patient_results": MessageLookupByLibrary.simpleMessage("نتائج المريض"),
     "payment": MessageLookupByLibrary.simpleMessage("الدفع"),
     "personal_information": MessageLookupByLibrary.simpleMessage(
@@ -101,8 +113,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "practice_license_number": MessageLookupByLibrary.simpleMessage(
       "رقم رخصة الممارسة",
     ),
+    "prescriptions": MessageLookupByLibrary.simpleMessage("الوصفات الطبية"),
     "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
     "recent_patient": MessageLookupByLibrary.simpleMessage("المرضي الحالين"),
+    "reject": MessageLookupByLibrary.simpleMessage("رفض"),
     "remote_consult_smart_track": MessageLookupByLibrary.simpleMessage(
       "استشارات عن بُعد وتتبع ذكي",
     ),
@@ -111,6 +125,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "search_for_a_patient": MessageLookupByLibrary.simpleMessage(
       "ابحث عن مريض",
     ),
+    "searchPatient": MessageLookupByLibrary.simpleMessage("ابحث عن مريض"),
     "see_all": MessageLookupByLibrary.simpleMessage("مشاهده الكل"),
     "send": MessageLookupByLibrary.simpleMessage("إرسال"),
     "setting": MessageLookupByLibrary.simpleMessage("الإعدادات"),
@@ -126,15 +141,26 @@ class MessageLookup extends MessageLookupByLibrary {
     "total_patient": MessageLookupByLibrary.simpleMessage("جمبع المرضي >"),
     "try_another_way": MessageLookupByLibrary.simpleMessage("جرّب طريقة أخرى"),
     "unread": MessageLookupByLibrary.simpleMessage("غير المقروءة"),
+    "total_patient": MessageLookupByLibrary.simpleMessage("جمبع المرضي"),
+    "try_another_way": MessageLookupByLibrary.simpleMessage("جرّب طريقة أخرى"),
+    "type": MessageLookupByLibrary.simpleMessage("النوع: "),
     "upload_instruction": MessageLookupByLibrary.simpleMessage(
       "يرجى تحميل صورة واضحة لبطاقة النقابة الطبية",
     ),
     "upload_syndicate_id": MessageLookupByLibrary.simpleMessage(
       "تحميل بطاقة النقابة",
     ),
+    "uploaded_reports_files": MessageLookupByLibrary.simpleMessage(
+      "التقارير والملفات المرفوعة",
+    ),
     "verify_email": MessageLookupByLibrary.simpleMessage(
       "تحقق من بريدك الإلكتروني",
     ),
+    "viewDetails": MessageLookupByLibrary.simpleMessage("عرض التفاصيل"),
+    "viewPrescription": MessageLookupByLibrary.simpleMessage(
+      "عرض الوصفة الطبية",
+    ),
+    "x_rays": MessageLookupByLibrary.simpleMessage("الأشعة"),
     "your_health_smarter": MessageLookupByLibrary.simpleMessage(
       "صحتك، بشكل أذكى",
     ),

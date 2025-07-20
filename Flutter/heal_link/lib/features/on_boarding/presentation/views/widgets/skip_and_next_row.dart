@@ -44,6 +44,13 @@ class SkipAndNextRow extends StatelessWidget {
               ),
               TextButton(
                 onPressed: onNextChanged,
+                style: TextButton.styleFrom(
+                  backgroundColor: AppColors.kWhiteColor,
+                  fixedSize: Size(83, 40),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                ),
                 child: Text(
                   S.of(context).next,
                   style: AppTextStyles.popins400style14LightBlackColor.copyWith(
