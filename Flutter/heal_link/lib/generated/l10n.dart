@@ -447,6 +447,13 @@ class S {
     );
   }
 
+
+  /// `Personal Information`
+  String get personal_information {
+    return Intl.message(
+      'Personal Information',
+      name: 'personal_information',
+
   /// `Prescriptions`
   String get prescriptions {
     return Intl.message(
@@ -457,6 +464,11 @@ class S {
     );
   }
 
+  /// `Notification`
+  String get notification {
+    return Intl.message(
+      'Notification',
+      name: 'notification',
   /// `Uploaded Reports & Files`
   String get uploaded_reports_files {
     return Intl.message(
@@ -467,6 +479,16 @@ class S {
     );
   }
 
+  /// `Payment`
+  String get payment {
+    return Intl.message('Payment', name: 'payment', desc: '', args: []);
+  }
+
+  /// `Terms & Privacy Policy`
+  String get terms_and_privacy_policy {
+    return Intl.message(
+      'Terms & Privacy Policy',
+      name: 'terms_and_privacy_policy',
   /// `Lab Tests`
   String get lab_tests {
     return Intl.message('Lab Tests', name: 'lab_tests', desc: '', args: []);
@@ -487,6 +509,11 @@ class S {
     );
   }
 
+  /// `Support Help`
+  String get support_help {
+    return Intl.message(
+      'Support Help',
+      name: 'support_help',
   /// `Chronic diseases`
   String get chronic_diseases {
     return Intl.message(
@@ -497,6 +524,31 @@ class S {
     );
   }
 
+  /// `Setting`
+  String get setting {
+    return Intl.message('Setting', name: 'setting', desc: '', args: []);
+  }
+
+  /// `About`
+  String get about {
+    return Intl.message('About', name: 'about', desc: '', args: []);
+  }
+
+  /// `Messages`
+  String get messages {
+    return Intl.message('Messages', name: 'messages', desc: '', args: []);
+  }
+
+  /// `My Profile`
+  String get my_profile {
+    return Intl.message('My Profile', name: 'my_profile', desc: '', args: []);
+  }
+
+  /// `No chat at the moment.`
+  String get no_chat_at_moment {
+    return Intl.message(
+      'No chat at the moment.',
+      name: 'no_chat_at_moment',
   /// `Allergies`
   String get allergies {
     return Intl.message('Allergies', name: 'allergies', desc: '', args: []);
@@ -532,6 +584,11 @@ class S {
     );
   }
 
+  /// `Once patients start chatting with you, Their conversation will appear here.`
+  String get once_patients_chatting {
+    return Intl.message(
+      'Once patients start chatting with you, Their conversation will appear here.',
+      name: 'once_patients_chatting',
   /// `Last interaction: `
   String get lastInteraction {
     return Intl.message(
@@ -542,6 +599,21 @@ class S {
     );
   }
 
+  /// `All`
+  String get all {
+    return Intl.message('All', name: 'all', desc: '', args: []);
+  }
+
+  /// `Unread`
+  String get unread {
+    return Intl.message('Unread', name: 'unread', desc: '', args: []);
+  }
+
+  /// `Change Profile`
+  String get change_profile {
+    return Intl.message(
+      'Change Profile',
+      name: 'change_profile',
   /// `Type: `
   String get type {
     return Intl.message('Type: ', name: 'type', desc: '', args: []);
@@ -567,6 +639,11 @@ class S {
     );
   }
 
+  /// `Search for a patient`
+  String get search_for_a_patient {
+    return Intl.message(
+      'Search for a patient',
+      name: 'search_for_a_patient',
   /// `Accept`
   String get accept {
     return Intl.message('Accept', name: 'accept', desc: '', args: []);
