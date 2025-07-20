@@ -54,7 +54,7 @@ class DoctorProfileViewBody extends StatelessWidget {
                   style: AppTextStyles.popins500style18LightBlackColor,
                 ),
                 subtitle: Text(
-                  'Change Profile',
+                  S.of(context).change_profile,
                   style: AppTextStyles.popins400style12LightBlackColor.copyWith(
                     decoration: TextDecoration.underline,
                     color: AppColors.kDarkGreyColor,

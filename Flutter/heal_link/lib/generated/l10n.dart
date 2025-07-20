@@ -410,6 +410,11 @@ class S {
     return Intl.message('Message', name: 'message', desc: '', args: []);
   }
 
+  /// 'Change Profile
+  String get change_profile {
+    return Intl.message('Change Profile', name: 'change_profile', desc: '', args: []);
+  }
+
   /// `Personal Information`
   String get personal_information {
     return Intl.message(
