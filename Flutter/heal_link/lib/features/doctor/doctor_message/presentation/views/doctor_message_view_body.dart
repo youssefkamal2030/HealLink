@@ -21,7 +21,7 @@ class _DoctorMessageViewBodyState extends State<DoctorMessageViewBody> {
   @override
   Widget build(BuildContext context) {
     List<MessageModel> filteredMessages =
-        selectedTab == S.of(context).all_chat
+        selectedTab == S.of(context).all
             ? allMessages
             : allMessages.where((msg) => !msg.isRead).toList();
 
@@ -49,21 +49,21 @@ class _DoctorMessageViewBodyState extends State<DoctorMessageViewBody> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 CustomTabButton(
-                  label: S.of(context).all_chat,
-                  isSelected: selectedTab == S.of(context).all_chat,
+                  label: S.of(context).all,
+                  isSelected: selectedTab == S.of(context).all,
                   onTap: () {
                     setState(() {
-                      selectedTab = S.of(context).all_chat;
+                      selectedTab = S.of(context).all;
                     });
                   },
                 ),
                 const SizedBox(width: 10),
                 CustomTabButton(
-                  label: S.of(context).unreadChat,
-                  isSelected: selectedTab == S.of(context).unreadChat,
+                  label: S.of(context).unread,
+                  isSelected: selectedTab == S.of(context).unread,
                   onTap: () {
                     setState(() {
-                      selectedTab = S.of(context).unreadChat;
+                      selectedTab = S.of(context).unread;
                     });
                   },
                 ),

@@ -48,7 +48,7 @@
   "no_patients_at_moment": "لا يوجد مرضى في الوقت الحالي.",
   "once_patients_subscribing": "بمجرد أن يبدأ المرضى في الاشتراك معك، ستظهر معلوماتهم هنا.",
   "patient_results": "نتائج المريض",
-    "personal_information": "المعلومات الشخصية",
+  "personal_information": "المعلومات الشخصية",
   "notification": "الإشعارات",
   "payment": "الدفع",
   "terms_and_privacy_policy": "الشروط وسياسة الخصوصية",
@@ -61,6 +61,9 @@
   "once_patients_chatting": "بمجرد أن يبدأ المرضى في التحدث معك، ستظهر محادثاتهم هنا.",
   "all": "الكل",
   "unread": "غير المقروءة",
-  "change_profile": "تغيير الملف الشخصي"
+  "change_profile": "تغيير الملف الشخصي",
+  "search_for_a_patient": "ابحث عن مريض"
+
+
 
 }

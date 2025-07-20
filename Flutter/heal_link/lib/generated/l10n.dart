@@ -412,7 +412,12 @@ class S {
 
   /// 'Change Profile
   String get change_profile {
-    return Intl.message('Change Profile', name: 'change_profile', desc: '', args: []);
+    return Intl.message(
+      'Change Profile',
+      name: 'change_profile',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Personal Information`
@@ -536,12 +541,12 @@ class S {
   }
 
   // all chat
-  String get all_chat {
+  String get all {
     return Intl.message('All', name: 'all', desc: '', args: []);
   }
 
   // unread chat
-  String get unreadChat {
+  String get unread {
     return Intl.message('Unread', name: 'unread', desc: '', args: []);
   }
 

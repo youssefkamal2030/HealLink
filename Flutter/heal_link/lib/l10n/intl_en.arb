@@ -61,6 +61,8 @@
   "once_patients_chatting": "Once patients start chatting with you, Their conversation will appear here.",
   "all": "All",
   "unread": "Unread",
-  "change_profile": "Change Profile"
+  "change_profile": "Change Profile",
+  "search_for_a_patient": "Search for a patient"
+
 
 }

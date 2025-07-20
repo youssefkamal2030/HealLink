@@ -13,6 +13,7 @@ void main() {
   changeStatusBarColor();
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-bool isArabic(){
-  return Intl.getCurrentLocale()=='ar';
+
+bool isArabic() {
+  return Intl.getCurrentLocale() == 'ar';
 }
