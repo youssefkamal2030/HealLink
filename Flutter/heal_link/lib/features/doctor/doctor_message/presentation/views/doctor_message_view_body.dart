@@ -32,12 +32,12 @@ class _DoctorMessageViewBodyState extends State<DoctorMessageViewBody> {
           children: [
             SizedBox(height: 68),
             Text(
-              S.of(context).messages,
+              S.of(context).message,
               style: AppTextStyles.popins500style20LightBlackColor,
             ),
             SizedBox(height: 24),
             CustomTextFormField2(
-              hintText: S.of(context).search_for_a_patient,
+              hintText: S.of(context).searchPatient,
               keyboardType: TextInputType.text,
               controller: TextEditingController(),
               validator: (value) {
