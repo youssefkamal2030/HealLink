@@ -22,14 +22,12 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-
     "about": MessageLookupByLibrary.simpleMessage("About"),
-    "all": MessageLookupByLibrary.simpleMessage("All"),
-
     "accept": MessageLookupByLibrary.simpleMessage("Accept"),
+    "addPrescription": MessageLookupByLibrary.simpleMessage("Add Prescription"),
     "age": MessageLookupByLibrary.simpleMessage("Age"),
+    "all": MessageLookupByLibrary.simpleMessage("All"),
     "allergies": MessageLookupByLibrary.simpleMessage("Allergies"),
-
     "available_now": MessageLookupByLibrary.simpleMessage("Available now"),
     "change_profile": MessageLookupByLibrary.simpleMessage("Change Profile"),
     "chat_send_receive": MessageLookupByLibrary.simpleMessage(
@@ -127,6 +125,45 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "requests": MessageLookupByLibrary.simpleMessage("Requests"),
     "resend_code": MessageLookupByLibrary.simpleMessage("Resend Code"),
-
+    "searchPatient": MessageLookupByLibrary.simpleMessage(
+      "Search for a patient",
+    ),
+    "search_for_a_patient": MessageLookupByLibrary.simpleMessage(
+      "Search for a patient",
+    ),
+    "see_all": MessageLookupByLibrary.simpleMessage("See all"),
+    "send": MessageLookupByLibrary.simpleMessage("Send"),
+    "setting": MessageLookupByLibrary.simpleMessage("Setting"),
+    "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
+    "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
+    "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+    "splash": MessageLookupByLibrary.simpleMessage("Splash"),
+    "subscription": MessageLookupByLibrary.simpleMessage("Subscription"),
+    "support_help": MessageLookupByLibrary.simpleMessage("Support Help"),
+    "terms_and_privacy_policy": MessageLookupByLibrary.simpleMessage(
+      "Terms & Privacy Policy",
+    ),
+    "total_patient": MessageLookupByLibrary.simpleMessage("Total Patient"),
+    "try_another_way": MessageLookupByLibrary.simpleMessage("Try another way"),
+    "type": MessageLookupByLibrary.simpleMessage("Type: "),
+    "unread": MessageLookupByLibrary.simpleMessage("Unread"),
+    "upload_instruction": MessageLookupByLibrary.simpleMessage(
+      "Please upload a clear image of your medical syndicate card",
+    ),
+    "upload_syndicate_id": MessageLookupByLibrary.simpleMessage(
+      "Upload Syndicate ID Card",
+    ),
+    "uploaded_reports_files": MessageLookupByLibrary.simpleMessage(
+      "Uploaded Reports & Files",
+    ),
+    "verify_email": MessageLookupByLibrary.simpleMessage("Verify Your Email"),
+    "viewDetails": MessageLookupByLibrary.simpleMessage("View Details"),
+    "viewPrescription": MessageLookupByLibrary.simpleMessage(
+      "View Prescription",
+    ),
+    "x_rays": MessageLookupByLibrary.simpleMessage("X-rays"),
+    "your_health_smarter": MessageLookupByLibrary.simpleMessage(
+      "Your Health, Smarter",
+    ),
   };
 }

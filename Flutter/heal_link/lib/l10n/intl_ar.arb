@@ -62,7 +62,7 @@
   "all": "الكل",
   "unread": "غير المقروءة",
   "change_profile": "تغيير الملف الشخصي",
-  "search_for_a_patient": "ابحث عن مريض"
+  "search_for_a_patient": "ابحث عن مريض",
   "prescriptions": "الوصفات الطبية",
   "uploaded_reports_files": "التقارير والملفات المرفوعة",
   "lab_tests": "التحاليل المعملية",
@@ -81,5 +81,6 @@
   "reject": "رفض",
   "gender": "النوع",
   "age": "العمر",
-  "viewPrescription": "عرض الوصفة الطبية"
+  "viewPrescription": "عرض الوصفة الطبية",
+  "addPrescription": "اضافه الوصفة الطبية"
 }
