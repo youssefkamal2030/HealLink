@@ -711,6 +711,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Add Prescription`
+  String get addPrescription {
+    return Intl.message(
+      'Add Prescription',
+      name: 'addPrescription',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -81,5 +81,6 @@
   "reject": "Reject",
   "gender": "Gender",
   "age": "Age",
-  "viewPrescription": "View Prescription"
+  "viewPrescription": "View Prescription",
+  "addPrescription": "Add Prescription"
 }

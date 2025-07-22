@@ -7,7 +7,7 @@ import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_
 import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_sign_up_second_view.dart';
 import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_sign_up_verify_email.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/doctor_home_view.dart';
-import 'package:heal_link/features/doctor/doctor_home/presentation/views/patient_details_view.dart';
+import 'package:heal_link/features/doctor/doctor_home/presentation/views/patient_view_details.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/prescription_view.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/total_patient_view.dart';
 import 'package:heal_link/features/on_boarding/presentation/views/on_boarding_view.dart';
@@ -138,7 +138,7 @@ abstract class AppRouter {
       GoRoute(
         path: patientDetailsView,
         builder: (BuildContext context, GoRouterState state) {
-          return const PatientDetailsView();
+          return const PatientViewDetails();
         },
       ),
       GoRoute(

@@ -23,9 +23,12 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "about": MessageLookupByLibrary.simpleMessage("حول"),
-    "all": MessageLookupByLibrary.simpleMessage("الكل"),
     "accept": MessageLookupByLibrary.simpleMessage("قبول"),
+    "addPrescription": MessageLookupByLibrary.simpleMessage(
+      "اضافه الوصفة الطبية",
+    ),
     "age": MessageLookupByLibrary.simpleMessage("العمر"),
+    "all": MessageLookupByLibrary.simpleMessage("الكل"),
     "allergies": MessageLookupByLibrary.simpleMessage("الحساسية"),
     "available_now": MessageLookupByLibrary.simpleMessage("متاح الان"),
     "change_profile": MessageLookupByLibrary.simpleMessage(
@@ -122,10 +125,10 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "requests": MessageLookupByLibrary.simpleMessage("طلبات"),
     "resend_code": MessageLookupByLibrary.simpleMessage("إعادة إرسال الرمز"),
+    "searchPatient": MessageLookupByLibrary.simpleMessage("ابحث عن مريض"),
     "search_for_a_patient": MessageLookupByLibrary.simpleMessage(
       "ابحث عن مريض",
     ),
-    "searchPatient": MessageLookupByLibrary.simpleMessage("ابحث عن مريض"),
     "see_all": MessageLookupByLibrary.simpleMessage("مشاهده الكل"),
     "send": MessageLookupByLibrary.simpleMessage("إرسال"),
     "setting": MessageLookupByLibrary.simpleMessage("الإعدادات"),
@@ -138,12 +141,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "terms_and_privacy_policy": MessageLookupByLibrary.simpleMessage(
       "الشروط وسياسة الخصوصية",
     ),
-    "total_patient": MessageLookupByLibrary.simpleMessage("جمبع المرضي >"),
-    "try_another_way": MessageLookupByLibrary.simpleMessage("جرّب طريقة أخرى"),
-    "unread": MessageLookupByLibrary.simpleMessage("غير المقروءة"),
     "total_patient": MessageLookupByLibrary.simpleMessage("جمبع المرضي"),
     "try_another_way": MessageLookupByLibrary.simpleMessage("جرّب طريقة أخرى"),
     "type": MessageLookupByLibrary.simpleMessage("النوع: "),
+    "unread": MessageLookupByLibrary.simpleMessage("غير المقروءة"),
     "upload_instruction": MessageLookupByLibrary.simpleMessage(
       "يرجى تحميل صورة واضحة لبطاقة النقابة الطبية",
     ),

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/widgets/patient_action_widget.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/widgets/patient_details_card.dart';
-import 'package:heal_link/features/doctor/doctor_home/presentation/views/widgets/patient_history.dart';
+import 'package:heal_link/features/doctor/doctor_home/presentation/views/widgets/patient_history_uploaded_report.dart';
 import '../../../../../core/utils/app_images.dart';
 import '../../../../../core/widgets/custom_app_bar_pop_widget.dart';
 import '../../../../../generated/l10n.dart';
 
-class PatientDetailsView extends StatelessWidget {
-  const PatientDetailsView({super.key});
+class PatientViewDetails extends StatelessWidget {
+  const PatientViewDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +34,11 @@ class PatientDetailsView extends StatelessWidget {
                     image: AppImages.prescriptions,
                     text: S
                         .of(context)
-                        .prescriptions,
+                        .addPrescription,
                   ),
                 ],
               ),
-              PatientHistory(),
+              PatientHistoryUploadedReport(),
             ],
           ),
         ),
