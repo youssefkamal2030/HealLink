@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "about": MessageLookupByLibrary.simpleMessage("About"),
     "accept": MessageLookupByLibrary.simpleMessage("Accept"),
+    "add": MessageLookupByLibrary.simpleMessage("Add"),
     "addPrescription": MessageLookupByLibrary.simpleMessage("Add Prescription"),
     "age": MessageLookupByLibrary.simpleMessage("Age"),
     "all": MessageLookupByLibrary.simpleMessage("All"),
@@ -51,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "current_medications": MessageLookupByLibrary.simpleMessage(
       "Current Medications",
     ),
+    "date": MessageLookupByLibrary.simpleMessage("Date"),
     "dont_have_account": MessageLookupByLibrary.simpleMessage(
       "Don’t have an account?",
     ),
@@ -67,6 +69,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "enter_password": MessageLookupByLibrary.simpleMessage(
       "enter your password",
     ),
+    "frequency_of_use": MessageLookupByLibrary.simpleMessage(
+      "Frequency of Use",
+    ),
     "gender": MessageLookupByLibrary.simpleMessage("Gender"),
     "have_account": MessageLookupByLibrary.simpleMessage("Have an account?"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
@@ -79,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "lastInteraction": MessageLookupByLibrary.simpleMessage(
       "Last interaction: ",
     ),
+    "medicine_name": MessageLookupByLibrary.simpleMessage("Medicine Name"),
     "members": MessageLookupByLibrary.simpleMessage("Members"),
     "message": MessageLookupByLibrary.simpleMessage("Message"),
     "messages": MessageLookupByLibrary.simpleMessage("Messages"),
@@ -155,6 +161,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "uploaded_reports_files": MessageLookupByLibrary.simpleMessage(
       "Uploaded Reports & Files",
+    ),
+    "usage_instructions": MessageLookupByLibrary.simpleMessage(
+      "Usage Instructions",
     ),
     "verify_email": MessageLookupByLibrary.simpleMessage("Verify Your Email"),
     "viewDetails": MessageLookupByLibrary.simpleMessage("View Details"),
