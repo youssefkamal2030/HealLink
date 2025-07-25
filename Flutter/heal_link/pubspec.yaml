@@ -161,6 +161,9 @@ flutter:
           weight: 500
         - asset: assets/fonts/BalooBhaijaan2-Regular.ttf
           weight: 400
+    - family: Tajawal
+      fonts:
+        - asset: assets/fonts/Tajawal-Regular.ttf
         
        
     # - family: Trajan Pro

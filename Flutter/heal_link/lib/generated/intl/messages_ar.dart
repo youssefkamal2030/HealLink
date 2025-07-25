@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "about": MessageLookupByLibrary.simpleMessage("حول"),
     "accept": MessageLookupByLibrary.simpleMessage("قبول"),
+    "add": MessageLookupByLibrary.simpleMessage("اضافه"),
     "addPrescription": MessageLookupByLibrary.simpleMessage(
       "اضافه الوصفة الطبية",
     ),
@@ -53,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "current_medications": MessageLookupByLibrary.simpleMessage(
       "الأدوية الحالية",
     ),
+    "date": MessageLookupByLibrary.simpleMessage("التاريخ"),
     "dont_have_account": MessageLookupByLibrary.simpleMessage(
       "ليس لديك حساب؟ أنشئ حساب",
     ),
@@ -69,6 +71,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "enter_name": MessageLookupByLibrary.simpleMessage("أدخل اسمك"),
     "enter_password": MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور"),
+    "frequency_of_use": MessageLookupByLibrary.simpleMessage(
+      "عدد مرات الاستخدام",
+    ),
     "gender": MessageLookupByLibrary.simpleMessage("النوع"),
     "have_account": MessageLookupByLibrary.simpleMessage("هل لديك حساب؟"),
     "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
@@ -79,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "lab_tests": MessageLookupByLibrary.simpleMessage("التحاليل المعملية"),
     "lastInteraction": MessageLookupByLibrary.simpleMessage("آخر تفاعل: "),
+    "medicine_name": MessageLookupByLibrary.simpleMessage("اسم الدواء"),
     "members": MessageLookupByLibrary.simpleMessage("اعضاء"),
     "message": MessageLookupByLibrary.simpleMessage("الرسائل"),
     "messages": MessageLookupByLibrary.simpleMessage("الرسائل"),
@@ -153,6 +159,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "uploaded_reports_files": MessageLookupByLibrary.simpleMessage(
       "التقارير والملفات المرفوعة",
+    ),
+    "usage_instructions": MessageLookupByLibrary.simpleMessage(
+      "تعليمات الاستخدام",
     ),
     "verify_email": MessageLookupByLibrary.simpleMessage(
       "تحقق من بريدك الإلكتروني",

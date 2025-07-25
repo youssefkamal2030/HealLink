@@ -721,6 +721,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Add`
+  String get add {
+    return Intl.message('Add', name: 'add', desc: '', args: []);
+  }
+
+  /// `Date`
+  String get date {
+    return Intl.message('Date', name: 'date', desc: '', args: []);
+  }
+
+  /// `Medicine Name`
+  String get medicine_name {
+    return Intl.message(
+      'Medicine Name',
+      name: 'medicine_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Frequency of Use`
+  String get frequency_of_use {
+    return Intl.message(
+      'Frequency of Use',
+      name: 'frequency_of_use',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Usage Instructions`
+  String get usage_instructions {
+    return Intl.message(
+      'Usage Instructions',
+      name: 'usage_instructions',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

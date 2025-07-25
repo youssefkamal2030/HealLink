@@ -82,5 +82,10 @@
   "gender": "Gender",
   "age": "Age",
   "viewPrescription": "View Prescription",
-  "addPrescription": "Add Prescription"
+  "addPrescription": "Add Prescription",
+  "add": "Add",
+  "date": "Date",
+  "medicine_name": "Medicine Name",
+  "frequency_of_use": "Frequency of Use",
+  "usage_instructions": "Usage Instructions"
 }

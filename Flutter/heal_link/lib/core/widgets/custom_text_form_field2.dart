@@ -16,6 +16,8 @@ class CustomTextFormField2 extends StatelessWidget {
   final VoidCallback? onTap;
   final ValueChanged? onChanged;
   final ValueChanged? onSaved;
+  final Color? fillColor;
+  final Color? borderSideColor;
 
   const CustomTextFormField2({
     super.key,
@@ -30,6 +32,8 @@ class CustomTextFormField2 extends StatelessWidget {
     this.onChanged,
     this.onTap,
     this.onSaved,
+    this.fillColor,
+    this.borderSideColor,
   });
 
   @override
@@ -45,7 +49,7 @@ class CustomTextFormField2 extends StatelessWidget {
         onSaved: onSaved,
         decoration: InputDecoration(
           filled: true,
-          fillColor: AppColors.kWhiteColor,
+          fillColor: fillColor ?? AppColors.kWhiteColor,
           prefixIconColor: AppColors.kTextFieldIconColor,
           suffixIconColor: AppColors.kTextFieldIconColor,
           prefixIcon:
@@ -60,12 +64,16 @@ class CustomTextFormField2 extends StatelessWidget {
                   )
                   : null,
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.kWhiteColor),
+            borderSide: BorderSide(
+              color: borderSideColor ?? AppColors.kWhiteColor,
+            ),
             borderRadius: BorderRadius.circular(borderRadiusSize),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadiusSize),
-            borderSide: BorderSide(color: AppColors.kWhiteColor),
+            borderSide: BorderSide(
+              color: borderSideColor ?? AppColors.kWhiteColor,
+            ),
           ),
           hintText: hintText,
           hintStyle: AppTextStyles.popins400style12kPrimaryColor.copyWith(

@@ -82,5 +82,10 @@
   "gender": "النوع",
   "age": "العمر",
   "viewPrescription": "عرض الوصفة الطبية",
-  "addPrescription": "اضافه الوصفة الطبية"
+  "addPrescription": "اضافه الوصفة الطبية",
+  "add": "اضافه",
+  "date": "التاريخ",
+  "medicine_name": "اسم الدواء",
+  "frequency_of_use": "عدد مرات الاستخدام",
+  "usage_instructions": "تعليمات الاستخدام"
 }
