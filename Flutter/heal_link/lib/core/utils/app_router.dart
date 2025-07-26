@@ -48,7 +48,6 @@ abstract class AppRouter {
   static const prescriptionView = '/PrescriptionView';
   static const doctorProfileView = '/DoctorProfileView';
   static const personalInformationView = '/PersonalInformationView';
-  static const addPrescriptionView = '/addPrescriptionView';
   static const addPrescriptionConfirm = '/AddPrescriptionsConfirm';
 
   //* Patient Views
