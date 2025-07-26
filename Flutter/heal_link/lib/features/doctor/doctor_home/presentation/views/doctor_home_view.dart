@@ -27,6 +27,7 @@ class _DoctorHomeViewState extends State<DoctorHomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       bottomNavigationBar: CustomBottomNavBar(
         selectedIndex: selectedIndex,
         onTap: (value) {

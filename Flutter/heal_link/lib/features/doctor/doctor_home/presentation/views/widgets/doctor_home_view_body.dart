@@ -24,7 +24,7 @@ class DoctorHomeViewBody extends StatelessWidget {
                   children: [
                     SizedBox(height: 24),
                     CustomTextFormField2(
-                      hintText: 'Search for a patient',
+                      hintText: S.of(context).searchPatient,
                       keyboardType: TextInputType.text,
                       controller: TextEditingController(),
                       validator: (value) {
@@ -71,6 +71,7 @@ class DoctorHomeViewBody extends StatelessWidget {
           ),
         ),
         SliverToBoxAdapter(child: SizedBox(height: 30)),
+        SliverToBoxAdapter(child: SizedBox(height: 56)),
       ],
     );
   }

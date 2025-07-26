@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-bool isArabic(){
-  return Intl.getCurrentLocale()=='ar';
+
+bool isArabic() {
+  return Intl.getCurrentLocale() == 'ar';
 }

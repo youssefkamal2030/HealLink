@@ -3,6 +3,7 @@ import '../../../../../../core/utils/app_images.dart';
 import '../../../../../../core/utils/app_styles.dart';
 import '../../../../../../core/utils/function/app_colors.dart';
 import '../../../../../../core/widgets/custom_empty_button.dart';
+import '../../../../../../generated/l10n.dart';
 import 'custom_circle_image.dart';
 
 class PatientRequestCard extends StatelessWidget {
@@ -49,7 +50,7 @@ class PatientRequestCard extends StatelessWidget {
                   borderRadius: 8,
                   height: 34,
                   borderSide: 1,
-                  text: 'View Prescription',
+                  text: S.of(context).viewPrescription,
                   response: response,
                   textStyle: AppTextStyles.popins400style14LightBlackColor
                       .copyWith(color: AppColors.kPrimaryColor, fontSize: 12),

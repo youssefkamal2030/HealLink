@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heal_link/core/utils/function/app_colors.dart';
 import '../../../../../../core/utils/app_styles.dart';
+import '../../../../../../generated/l10n.dart';
 import 'custom_circle_image.dart';
 
 class PatientDetails extends StatelessWidget {
@@ -32,12 +33,12 @@ class PatientDetails extends StatelessWidget {
                   color: AppColors.kPrimaryColor,
                 ),
                 children: [
-                  TextSpan(text: 'Gender : '),
+                  TextSpan(text: '${S.of(context).gender} : '),
                   TextSpan(
                     text: 'Male',
                     style: AppTextStyles.popins400style14LightBlackColor,
                   ),
-                  TextSpan(text: '      Age: '),
+                  TextSpan(text: '      ${S.of(context).age} : '),
                   TextSpan(
                     text: '25',
                     style: AppTextStyles.popins400style14LightBlackColor,

@@ -7,6 +7,7 @@ class CustomFullButton extends StatelessWidget {
   final VoidCallback onPressed;
   final double height;
   final double? radios;
+  final TextStyle? textStyle;
 
   const CustomFullButton({
     super.key,
@@ -14,6 +15,7 @@ class CustomFullButton extends StatelessWidget {
     required this.onPressed,
     this.height = 50,
     this.radios,
+    this.textStyle,
   });
 
   @override
@@ -28,7 +30,7 @@ class CustomFullButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         text,
-        style: AppTextStyles.popins500style18LightBlackColor.copyWith(
+        style:textStyle?? AppTextStyles.popins500style18LightBlackColor.copyWith(
           color: AppColors.kWhiteColor,
         ),
       ),

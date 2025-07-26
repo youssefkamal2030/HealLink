@@ -6,10 +6,16 @@ import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_
 import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_sign_in_view.dart';
 import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_sign_up_second_view.dart';
 import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_sign_up_verify_email.dart';
+import 'package:heal_link/features/doctor/doctor_home/data/models/add_prescription_confirm_model.dart';
+import 'package:heal_link/features/doctor/doctor_home/presentation/views/add_prescriptions_confirm.dart';
+import 'package:heal_link/features/doctor/doctor_home/presentation/views/add_prescriptions_view.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/doctor_home_view.dart';
-import 'package:heal_link/features/doctor/doctor_home/presentation/views/patient_details_view.dart';
+import 'package:heal_link/features/doctor/doctor_home/presentation/views/patient_view_details.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/prescription_view.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/total_patient_view.dart';
+import 'package:heal_link/features/doctor/doctor_profile/presentation/views/doctor_profile_view_body.dart';
+import 'package:heal_link/features/doctor/personal_information/presentation/views/personal_info.dart';
+import 'package:heal_link/features/doctor/prescriptions/presentation/views/prescription.dart';
 import 'package:heal_link/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:heal_link/features/on_boarding/presentation/views/user_type_screen.dart';
 import 'package:heal_link/features/patient/patient_auth/presentation/views/patient_sign_in_view.dart';
@@ -35,11 +41,15 @@ abstract class AppRouter {
   static const doctorForgetPasswordView = '/DoctorForgetPasswordView';
   static const doctorResetPasswordView = '/DoctorResetPasswordView';
 
-
   static const doctorHomeView = '/DoctorHomeView';
   static const totalPatientView = '/totalPatientView';
   static const patientDetailsView = '/PatientDetailsView';
+  static const addPrescriptionView = '/AddPrescriptionView';
   static const prescriptionView = '/PrescriptionView';
+  static const doctorProfileView = '/DoctorProfileView';
+  static const personalInformationView = '/PersonalInformationView';
+  static const addPrescriptionView = '/addPrescriptionView';
+  static const addPrescriptionConfirm = '/AddPrescriptionsConfirm';
 
   //* Patient Views
   static const patientSignInView = '/DoctorSignUpView';
@@ -109,6 +119,24 @@ abstract class AppRouter {
           return const DoctorResetPasswordView();
         },
       ),
+      GoRoute(
+        path: doctorProfileView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const DoctorProfileViewBody();
+        },
+      ),
+      GoRoute(
+        path: personalInformationView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const PersonalInformationView();
+        },
+      ),
+      GoRoute(
+        path: addPrescriptionView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const AddPrescriptionView();
+        },
+      ),
 
       //! Patient Routers
       GoRoute(
@@ -138,13 +166,25 @@ abstract class AppRouter {
       GoRoute(
         path: patientDetailsView,
         builder: (BuildContext context, GoRouterState state) {
-          return const PatientDetailsView();
+          return const PatientViewDetails();
         },
       ),
       GoRoute(
         path: prescriptionView,
         builder: (BuildContext context, GoRouterState state) {
           return const PrescriptionView();
+        },
+      ),
+      GoRoute(
+        path: addPrescriptionView,
+        builder: (BuildContext context, GoRouterState state) {
+          return  AddPrescriptionsView();
+        },
+      ),
+      GoRoute(
+        path: addPrescriptionConfirm,
+        builder: (BuildContext context, GoRouterState state) {
+          return  AddPrescriptionsConfirm(addPrescriptionConfirmModel: state.extra as AddPrescriptionConfirmModel);
         },
       ),
     ],
