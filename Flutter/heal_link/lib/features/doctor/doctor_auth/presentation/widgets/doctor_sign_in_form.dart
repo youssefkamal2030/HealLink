@@ -39,7 +39,9 @@ class DoctorSignInForm extends StatelessWidget {
             CustomElevatedButton(
               text: S.of(context).sign_in,
               onPressed: () {
-                
+                    context.push(AppRouter.doctorHomeView,
+                    
+                    );
               },
             ),
           ],

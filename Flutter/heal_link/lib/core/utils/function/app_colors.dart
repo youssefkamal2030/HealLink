@@ -17,4 +17,3 @@ abstract class AppColors{
   static const kTextFieldIconColor = Color(0xffB3B3B3);
 }
 
-

@@ -12,6 +12,7 @@ abstract class AppImages {
   static const String smsIcon= "assets/images/sms.svg";
   static const String uploadImageIcon= "assets/images/upload_image.svg";
   static const String userIcon= "assets/images/user.svg";
+  static const String userPersonIcon= "assets/images/user_name.svg";
   static const String arrowLeftIcon= "assets/images/arrow-left.svg";
   static const String personIcon= "assets/images/person.svg";
   static const String eyeIcon= "assets/images/eye.svg";
