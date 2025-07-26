@@ -18,4 +18,3 @@ abstract class AppColors{
   static const kUnreadCountColor = Color(0xff34A853);
 }
 
-

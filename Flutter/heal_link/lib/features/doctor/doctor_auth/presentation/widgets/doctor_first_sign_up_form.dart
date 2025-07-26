@@ -26,7 +26,7 @@ class _DoctorFirstSignupFormState extends State<DoctorFirstSignupForm> {
             TextFieldPart(
               titleText: S.of(context).name,
               hintText: S.of(context).enter_name,
-              iconPath: AppImages.personIcon,
+              iconPath: AppImages.userPersonIcon,
             ),
             //* Email TextFeild
             TextFieldPart(
