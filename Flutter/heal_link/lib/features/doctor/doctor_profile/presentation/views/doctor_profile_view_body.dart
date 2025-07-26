@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:heal_link/core/utils/app_images.dart';
+import 'package:heal_link/core/utils/app_router.dart';
 import 'package:heal_link/core/utils/app_styles.dart';
 import 'package:heal_link/core/utils/function/app_colors.dart';
 import 'package:heal_link/features/doctor/doctor_profile/presentation/views/widgets/profile_list_tile.dart';
 import 'package:heal_link/generated/l10n.dart';
-
 import '../../../doctor_home/presentation/views/widgets/custom_circle_image.dart';
 
 class DoctorProfileViewBody extends StatelessWidget {
@@ -72,6 +73,7 @@ class DoctorProfileViewBody extends StatelessWidget {
             ProfileListTile(
               img: AppImages.personalInfo,
               title: S.of(context).personal_information,
+              onTap: () => context.push(AppRouter.personalInformationView),
             ),
             SizedBox(height: 8),
             ProfileListTile(

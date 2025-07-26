@@ -82,5 +82,16 @@
   "gender": "النوع",
   "age": "العمر",
   "viewPrescription": "عرض الوصفة الطبية",
-  "addPrescription": "اضافه الوصفة الطبية"
+  "addPrescription": "اضافه الوصفة الطبية",
+  "basicInfo": "المعلومات الأساسية",
+  "fullName": "الاسم الكامل",
+  "nationality": "الجنسية",
+  "contactInfo": "معلومات الاتصال",
+  "phoneNumber": "رقم الهاتف",
+  "emailAddress": "البريد الإلكتروني",
+  "address": "العنوان",
+  "professionalInfo": "معلومات مهنية",
+  "medicalLicenseNumber": "رقم الترخيص الطبي",
+  "currentWorkplace": "مكان العمل الحالي / المستشفى",
+  "thisMonth": "هذا الشهر"
 }

@@ -25,10 +25,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "about": MessageLookupByLibrary.simpleMessage("About"),
     "accept": MessageLookupByLibrary.simpleMessage("Accept"),
     "addPrescription": MessageLookupByLibrary.simpleMessage("Add Prescription"),
+    "address": MessageLookupByLibrary.simpleMessage("Address"),
     "age": MessageLookupByLibrary.simpleMessage("Age"),
     "all": MessageLookupByLibrary.simpleMessage("All"),
     "allergies": MessageLookupByLibrary.simpleMessage("Allergies"),
     "available_now": MessageLookupByLibrary.simpleMessage("Available now"),
+    "basicInfo": MessageLookupByLibrary.simpleMessage("Basic Info"),
     "change_profile": MessageLookupByLibrary.simpleMessage("Change Profile"),
     "chat_send_receive": MessageLookupByLibrary.simpleMessage(
       "Chat with your doctor, send test results, and receive updated prescriptions — all in a few taps",
@@ -48,6 +50,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "connect_doctor_track": MessageLookupByLibrary.simpleMessage(
       "Connect with your doctor, track your condition, and get care from anywhere.",
     ),
+    "contactInfo": MessageLookupByLibrary.simpleMessage("Contact Info"),
+    "currentWorkplace": MessageLookupByLibrary.simpleMessage(
+      "Current Workplace / Hospital",
+    ),
     "current_medications": MessageLookupByLibrary.simpleMessage(
       "Current Medications",
     ),
@@ -55,6 +61,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Don’t have an account?",
     ),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
+    "emailAddress": MessageLookupByLibrary.simpleMessage(
+      "Enter your email address",
+    ),
     "email_verification_sent": MessageLookupByLibrary.simpleMessage(
       "we’ve sent an SMS with an activation code to your Email",
     ),
@@ -67,6 +76,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "enter_password": MessageLookupByLibrary.simpleMessage(
       "enter your password",
     ),
+    "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
     "gender": MessageLookupByLibrary.simpleMessage("Gender"),
     "have_account": MessageLookupByLibrary.simpleMessage("Have an account?"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
@@ -79,12 +89,16 @@ class MessageLookup extends MessageLookupByLibrary {
     "lastInteraction": MessageLookupByLibrary.simpleMessage(
       "Last interaction: ",
     ),
+    "medicalLicenseNumber": MessageLookupByLibrary.simpleMessage(
+      "Medical License Number",
+    ),
     "members": MessageLookupByLibrary.simpleMessage("Members"),
     "message": MessageLookupByLibrary.simpleMessage("Message"),
     "messages": MessageLookupByLibrary.simpleMessage("Messages"),
     "my_profile": MessageLookupByLibrary.simpleMessage("My Profile"),
     "name": MessageLookupByLibrary.simpleMessage("Name"),
     "national_id": MessageLookupByLibrary.simpleMessage("National ID"),
+    "nationality": MessageLookupByLibrary.simpleMessage("Nationality"),
     "new_password_note": MessageLookupByLibrary.simpleMessage(
       "Your New Password Must Be Different From previous password",
     ),
@@ -113,10 +127,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "personal_information": MessageLookupByLibrary.simpleMessage(
       "Personal Information",
     ),
+    "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
     "practice_license_number": MessageLookupByLibrary.simpleMessage(
       "Practice License Number",
     ),
     "prescriptions": MessageLookupByLibrary.simpleMessage("Prescriptions"),
+    "professionalInfo": MessageLookupByLibrary.simpleMessage(
+      "Professional Info",
+    ),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
     "recent_patient": MessageLookupByLibrary.simpleMessage("Recent Patient"),
     "reject": MessageLookupByLibrary.simpleMessage("Reject"),
@@ -143,6 +161,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "terms_and_privacy_policy": MessageLookupByLibrary.simpleMessage(
       "Terms & Privacy Policy",
     ),
+    "thisMonth": MessageLookupByLibrary.simpleMessage("This Month"),
     "total_patient": MessageLookupByLibrary.simpleMessage("Total Patient"),
     "try_another_way": MessageLookupByLibrary.simpleMessage("Try another way"),
     "type": MessageLookupByLibrary.simpleMessage("Type: "),

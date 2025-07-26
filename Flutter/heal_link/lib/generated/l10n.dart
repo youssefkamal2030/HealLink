@@ -721,6 +721,101 @@ class S {
       args: [],
     );
   }
+
+  /// `Basic Info`
+  String get basicInfo {
+    return Intl.message('Basic Info', name: 'basicInfo', desc: '', args: []);
+  }
+
+  /// `Full Name`
+  String get fullName {
+    return Intl.message('Full Name', name: 'fullName', desc: '', args: []);
+  }
+
+  /// `Nationality`
+  String get nationality {
+    return Intl.message('Nationality', name: 'nationality', desc: '', args: []);
+  }
+
+  /// `Contact Info`
+  String get contactInfo {
+    return Intl.message(
+      'Contact Info',
+      name: 'contactInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone Number`
+  String get phoneNumber {
+    return Intl.message(
+      'Phone Number',
+      name: 'phoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your email address`
+  String get emailAddress {
+    return Intl.message(
+      'Enter your email address',
+      name: 'emailAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Address`
+  String get address {
+    return Intl.message('Address', name: 'address', desc: '', args: []);
+  }
+
+  /// `Professional Info`
+  String get professionalInfo {
+    return Intl.message(
+      'Professional Info',
+      name: 'professionalInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Specialization`
+  String get specialization {
+    return Intl.message(
+      'Specialization',
+      name: 'specialization',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Medical License Number`
+  String get medicalLicenseNumber {
+    return Intl.message(
+      'Medical License Number',
+      name: 'medicalLicenseNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current Workplace / Hospital`
+  String get currentWorkplace {
+    return Intl.message(
+      'Current Workplace / Hospital',
+      name: 'currentWorkplace',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This Month`
+  String get thisMonth {
+    return Intl.message('This Month', name: 'thisMonth', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -82,5 +82,17 @@
   "gender": "Gender",
   "age": "Age",
   "viewPrescription": "View Prescription",
-  "addPrescription": "Add Prescription"
+  "addPrescription": "Add Prescription",
+  "basicInfo": "Basic Info",
+  "fullName": "Full Name",
+  "nationality": "Nationality",
+  "contactInfo": "Contact Info",
+  "phoneNumber": "Phone Number",
+  "emailAddress": "Enter your email address",
+  "address": "Address",
+  "professionalInfo": "Professional Info",
+  "medicalLicenseNumber": "Medical License Number",
+  "currentWorkplace": "Current Workplace / Hospital",
+  "thisMonth": "This Month"
+
 }
