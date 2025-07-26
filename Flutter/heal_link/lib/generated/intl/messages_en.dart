@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "about": MessageLookupByLibrary.simpleMessage("About"),
     "accept": MessageLookupByLibrary.simpleMessage("Accept"),
+    "add": MessageLookupByLibrary.simpleMessage("Add"),
     "addPrescription": MessageLookupByLibrary.simpleMessage("Add Prescription"),
     "address": MessageLookupByLibrary.simpleMessage("Address"),
     "age": MessageLookupByLibrary.simpleMessage("Age"),
@@ -57,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "current_medications": MessageLookupByLibrary.simpleMessage(
       "Current Medications",
     ),
+    "date": MessageLookupByLibrary.simpleMessage("Date"),
     "dont_have_account": MessageLookupByLibrary.simpleMessage(
       "Don’t have an account?",
     ),
@@ -77,6 +79,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "enter your password",
     ),
     "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
+    "frequency_of_use": MessageLookupByLibrary.simpleMessage(
+      "Frequency of Use",
+    ),
     "gender": MessageLookupByLibrary.simpleMessage("Gender"),
     "have_account": MessageLookupByLibrary.simpleMessage("Have an account?"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
@@ -92,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "medicalLicenseNumber": MessageLookupByLibrary.simpleMessage(
       "Medical License Number",
     ),
+    "medicine_name": MessageLookupByLibrary.simpleMessage("Medicine Name"),
     "members": MessageLookupByLibrary.simpleMessage("Members"),
     "message": MessageLookupByLibrary.simpleMessage("Message"),
     "messages": MessageLookupByLibrary.simpleMessage("Messages"),
@@ -175,6 +181,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "uploaded_reports_files": MessageLookupByLibrary.simpleMessage(
       "Uploaded Reports & Files",
+    ),
+    "usage_instructions": MessageLookupByLibrary.simpleMessage(
+      "Usage Instructions",
     ),
     "verify_email": MessageLookupByLibrary.simpleMessage("Verify Your Email"),
     "viewDetails": MessageLookupByLibrary.simpleMessage("View Details"),

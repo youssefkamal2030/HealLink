@@ -96,3 +96,9 @@
   "thisMonth": "This Month",
   "specialization": "Specialization"
 }
+  "add": "Add",
+  "date": "Date",
+  "medicine_name": "Medicine Name",
+  "frequency_of_use": "Frequency of Use",
+  "usage_instructions": "Usage Instructions"
+}

@@ -95,4 +95,9 @@
   "currentWorkplace": "مكان العمل الحالي / المستشفى",
   "thisMonth": "هذا الشهر",
   "specialization": "التخصص"
+  "add": "اضافه",
+  "date": "التاريخ",
+  "medicine_name": "اسم الدواء",
+  "frequency_of_use": "عدد مرات الاستخدام",
+  "usage_instructions": "تعليمات الاستخدام"
 }
