@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:heal_link/core/utils/app_router.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/widgets/patient_action_widget.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/widgets/patient_details_card.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/widgets/patient_history_uploaded_report.dart';
@@ -26,15 +28,14 @@ class PatientViewDetails extends StatelessWidget {
                 children: [
                   PatientActionWidget(
                     image: AppImages.message,
-                    text: S
-                        .of(context)
-                        .message,
+                    text: S.of(context).message,
                   ),
-                  PatientActionWidget(
-                    image: AppImages.prescriptions,
-                    text: S
-                        .of(context)
-                        .addPrescription,
+                  InkWell(
+                    onTap: () => context.push(AppRouter.addPrescriptionView),
+                    child: PatientActionWidget(
+                      image: AppImages.prescriptions,
+                      text: S.of(context).addPrescription,
+                    ),
                   ),
                 ],
               ),
@@ -46,4 +47,3 @@ class PatientViewDetails extends StatelessWidget {
     );
   }
 }
-

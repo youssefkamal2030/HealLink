@@ -28,10 +28,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "addPrescription": MessageLookupByLibrary.simpleMessage(
       "اضافه الوصفة الطبية",
     ),
+    "address": MessageLookupByLibrary.simpleMessage("العنوان"),
     "age": MessageLookupByLibrary.simpleMessage("العمر"),
     "all": MessageLookupByLibrary.simpleMessage("الكل"),
     "allergies": MessageLookupByLibrary.simpleMessage("الحساسية"),
     "available_now": MessageLookupByLibrary.simpleMessage("متاح الان"),
+    "basicInfo": MessageLookupByLibrary.simpleMessage("المعلومات الأساسية"),
     "change_profile": MessageLookupByLibrary.simpleMessage(
       "تغيير الملف الشخصي",
     ),
@@ -51,6 +53,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "connect_doctor_track": MessageLookupByLibrary.simpleMessage(
       "تواصل مع طبيبك، تتبع حالتك، واحصل على الرعاية من أي مكان.",
     ),
+    "contactInfo": MessageLookupByLibrary.simpleMessage("معلومات الاتصال"),
+    "currentWorkplace": MessageLookupByLibrary.simpleMessage(
+      "مكان العمل الحالي / المستشفى",
+    ),
     "current_medications": MessageLookupByLibrary.simpleMessage(
       "الأدوية الحالية",
     ),
@@ -59,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "ليس لديك حساب؟ أنشئ حساب",
     ),
     "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
+    "emailAddress": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
     "email_verification_sent": MessageLookupByLibrary.simpleMessage(
       "لقد أرسلنا رسالة SMS تحتوي على رمز التفعيل إلى بريدك الإلكتروني",
     ),
@@ -71,6 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "enter_name": MessageLookupByLibrary.simpleMessage("أدخل اسمك"),
     "enter_password": MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور"),
+    "fullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
     "frequency_of_use": MessageLookupByLibrary.simpleMessage(
       "عدد مرات الاستخدام",
     ),
@@ -84,6 +92,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "lab_tests": MessageLookupByLibrary.simpleMessage("التحاليل المعملية"),
     "lastInteraction": MessageLookupByLibrary.simpleMessage("آخر تفاعل: "),
+    "medicalLicenseNumber": MessageLookupByLibrary.simpleMessage(
+      "رقم الترخيص الطبي",
+    ),
     "medicine_name": MessageLookupByLibrary.simpleMessage("اسم الدواء"),
     "members": MessageLookupByLibrary.simpleMessage("اعضاء"),
     "message": MessageLookupByLibrary.simpleMessage("الرسائل"),
@@ -91,6 +102,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "my_profile": MessageLookupByLibrary.simpleMessage("ملفي الشخصي"),
     "name": MessageLookupByLibrary.simpleMessage("الاسم"),
     "national_id": MessageLookupByLibrary.simpleMessage("الرقم القومي"),
+    "nationality": MessageLookupByLibrary.simpleMessage("الجنسية"),
     "new_password_note": MessageLookupByLibrary.simpleMessage(
       "يجب أن تكون كلمة المرور الجديدة مختلفة عن السابقة",
     ),
@@ -119,10 +131,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "personal_information": MessageLookupByLibrary.simpleMessage(
       "المعلومات الشخصية",
     ),
+    "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
     "practice_license_number": MessageLookupByLibrary.simpleMessage(
       "رقم رخصة الممارسة",
     ),
     "prescriptions": MessageLookupByLibrary.simpleMessage("الوصفات الطبية"),
+    "professionalInfo": MessageLookupByLibrary.simpleMessage("معلومات مهنية"),
     "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
     "recent_patient": MessageLookupByLibrary.simpleMessage("المرضي الحالين"),
     "reject": MessageLookupByLibrary.simpleMessage("رفض"),
@@ -141,12 +155,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "sign_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "sign_up": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
     "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
+    "specialization": MessageLookupByLibrary.simpleMessage("التخصص"),
     "splash": MessageLookupByLibrary.simpleMessage("سبلاش"),
     "subscription": MessageLookupByLibrary.simpleMessage("الاشتراك"),
     "support_help": MessageLookupByLibrary.simpleMessage("الدعم والمساعدة"),
     "terms_and_privacy_policy": MessageLookupByLibrary.simpleMessage(
       "الشروط وسياسة الخصوصية",
     ),
+    "thisMonth": MessageLookupByLibrary.simpleMessage("هذا الشهر"),
     "total_patient": MessageLookupByLibrary.simpleMessage("جمبع المرضي"),
     "try_another_way": MessageLookupByLibrary.simpleMessage("جرّب طريقة أخرى"),
     "type": MessageLookupByLibrary.simpleMessage("النوع: "),

@@ -31,6 +31,7 @@ abstract class AppImages {
   static const String scanner = "assets/images/scanner.svg";
   static const String verified = "assets/images/verified.svg";
   static const String star = "assets/images/star.svg";
+  static const String notify = "assets/images/notify.svg";
   static const String notification = "assets/images/notification.svg";
   static const String person = "assets/images/person.png";
   static const String arrow = "assets/images/arrow.svg";
@@ -45,7 +46,6 @@ abstract class AppImages {
   static const String user4 = "assets/images/user4.svg";
   static const String verify = "assets/images/verify.svg";
   static const String personalInfo = "assets/images/personal_info.svg";
-  static const String notify = "assets/images/notify.svg";
   static const String payment = "assets/images/payment.svg";
   static const String terms = "assets/images/terms.svg";
   static const String support = "assets/images/support.svg";
