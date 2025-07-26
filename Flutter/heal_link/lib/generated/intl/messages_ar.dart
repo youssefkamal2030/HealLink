@@ -149,6 +149,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "sign_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "sign_up": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
     "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
+    "specialization": MessageLookupByLibrary.simpleMessage("التخصص"),
     "splash": MessageLookupByLibrary.simpleMessage("سبلاش"),
     "subscription": MessageLookupByLibrary.simpleMessage("الاشتراك"),
     "support_help": MessageLookupByLibrary.simpleMessage("الدعم والمساعدة"),

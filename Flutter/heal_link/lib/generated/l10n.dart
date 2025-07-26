@@ -28,10 +28,9 @@ class S {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name =
-        (locale.countryCode?.isEmpty ?? false)
-            ? locale.languageCode
-            : locale.toString();
+    final name = (locale.countryCode?.isEmpty ?? false)
+        ? locale.languageCode
+        : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -782,16 +781,6 @@ class S {
     );
   }
 
-  /// `Specialization`
-  String get specialization {
-    return Intl.message(
-      'Specialization',
-      name: 'specialization',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Medical License Number`
   String get medicalLicenseNumber {
     return Intl.message(
@@ -815,6 +804,16 @@ class S {
   /// `This Month`
   String get thisMonth {
     return Intl.message('This Month', name: 'thisMonth', desc: '', args: []);
+  }
+
+  /// `Specialization`
+  String get specialization {
+    return Intl.message(
+      'Specialization',
+      name: 'specialization',
+      desc: '',
+      args: [],
+    );
   }
 }
 

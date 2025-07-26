@@ -93,5 +93,6 @@
   "professionalInfo": "معلومات مهنية",
   "medicalLicenseNumber": "رقم الترخيص الطبي",
   "currentWorkplace": "مكان العمل الحالي / المستشفى",
-  "thisMonth": "هذا الشهر"
+  "thisMonth": "هذا الشهر",
+  "specialization": "التخصص"
 }

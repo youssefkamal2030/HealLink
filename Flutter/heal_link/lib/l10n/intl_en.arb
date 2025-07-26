@@ -93,6 +93,6 @@
   "professionalInfo": "Professional Info",
   "medicalLicenseNumber": "Medical License Number",
   "currentWorkplace": "Current Workplace / Hospital",
-  "thisMonth": "This Month"
-
+  "thisMonth": "This Month",
+  "specialization": "Specialization"
 }
