@@ -77,6 +77,9 @@ class DoctorProfileViewBody extends StatelessWidget {
             ),
             SizedBox(height: 8),
             ProfileListTile(
+              onTap: (){
+                 context.push(AppRouter.doctorNotificationsView);
+              },
               img: AppImages.notify,
               title: S.of(context).notification,
             ),

@@ -75,13 +75,16 @@ class MessageLookup extends MessageLookupByLibrary {
       "Please Enter Your Email Address To Receive a verification code",
     ),
     "enter_name": MessageLookupByLibrary.simpleMessage("enter your name"),
+    "enter_national_id": MessageLookupByLibrary.simpleMessage(
+      "enter your national ID",
+    ),
     "enter_password": MessageLookupByLibrary.simpleMessage(
       "enter your password",
     ),
-    "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
     "frequency_of_use": MessageLookupByLibrary.simpleMessage(
       "Frequency of Use",
     ),
+    "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
     "gender": MessageLookupByLibrary.simpleMessage("Gender"),
     "have_account": MessageLookupByLibrary.simpleMessage("Have an account?"),
     "home": MessageLookupByLibrary.simpleMessage("Home"),
@@ -94,6 +97,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "lastInteraction": MessageLookupByLibrary.simpleMessage(
       "Last interaction: ",
     ),
+    "license_number_too_short": MessageLookupByLibrary.simpleMessage(
+      "license nubmer too short",
+    ),
     "medicalLicenseNumber": MessageLookupByLibrary.simpleMessage(
       "Medical License Number",
     ),
@@ -104,6 +110,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "my_profile": MessageLookupByLibrary.simpleMessage("My Profile"),
     "name": MessageLookupByLibrary.simpleMessage("Name"),
     "national_id": MessageLookupByLibrary.simpleMessage("National ID"),
+    "national_id_must_be_14_digits": MessageLookupByLibrary.simpleMessage(
+      "national id must be 14 digits",
+    ),
     "nationality": MessageLookupByLibrary.simpleMessage("Nationality"),
     "new_password_note": MessageLookupByLibrary.simpleMessage(
       "Your New Password Must Be Different From previous password",
@@ -116,6 +125,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "No patients at the moment.",
     ),
     "notification": MessageLookupByLibrary.simpleMessage("Notification"),
+    "notifications": MessageLookupByLibrary.simpleMessage("notifications"),
     "once_patients_chatting": MessageLookupByLibrary.simpleMessage(
       "Once patients start chatting with you, Their conversation will appear here.",
     ),
@@ -134,6 +144,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "Personal Information",
     ),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
+    "please_enter_national_id": MessageLookupByLibrary.simpleMessage(
+      "please enter national Id ",
+    ),
+    "please_enter_practice_license_number":
+        MessageLookupByLibrary.simpleMessage(
+          "please enter practice license number",
+        ),
     "practice_license_number": MessageLookupByLibrary.simpleMessage(
       "Practice License Number",
     ),
@@ -149,12 +166,14 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "requests": MessageLookupByLibrary.simpleMessage("Requests"),
     "resend_code": MessageLookupByLibrary.simpleMessage("Resend Code"),
+    "search": MessageLookupByLibrary.simpleMessage("Search"),
     "searchPatient": MessageLookupByLibrary.simpleMessage(
       "Search for a patient",
     ),
     "search_for_a_patient": MessageLookupByLibrary.simpleMessage(
       "Search for a patient",
     ),
+    "search_history": MessageLookupByLibrary.simpleMessage("Search History"),
     "see_all": MessageLookupByLibrary.simpleMessage("See all"),
     "send": MessageLookupByLibrary.simpleMessage("Send"),
     "setting": MessageLookupByLibrary.simpleMessage("Setting"),

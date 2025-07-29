@@ -21,6 +21,7 @@ dependencies:
   flutter_svg: null
   flutter_switch: ^0.3.2
   go_router: ^15.2.4
+  intl_utils: ^2.8.11
   qr_flutter: ^4.1.0
   skeletonizer: ^2.1.0+1
 

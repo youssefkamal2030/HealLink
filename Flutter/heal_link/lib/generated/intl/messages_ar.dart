@@ -77,11 +77,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "الرجاء إدخال بريدك الإلكتروني لتلقي رمز التحقق",
     ),
     "enter_name": MessageLookupByLibrary.simpleMessage("أدخل اسمك"),
+    "enter_national_id": MessageLookupByLibrary.simpleMessage(
+      "ادخل الرقم القومى",
+    ),
     "enter_password": MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور"),
-    "fullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
     "frequency_of_use": MessageLookupByLibrary.simpleMessage(
       "عدد مرات الاستخدام",
     ),
+    "fullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
     "gender": MessageLookupByLibrary.simpleMessage("النوع"),
     "have_account": MessageLookupByLibrary.simpleMessage("هل لديك حساب؟"),
     "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
@@ -92,6 +95,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "lab_tests": MessageLookupByLibrary.simpleMessage("التحاليل المعملية"),
     "lastInteraction": MessageLookupByLibrary.simpleMessage("آخر تفاعل: "),
+    "license_number_too_short": MessageLookupByLibrary.simpleMessage(
+      "رقم الرخصة قصير جدًا",
+    ),
     "medicalLicenseNumber": MessageLookupByLibrary.simpleMessage(
       "رقم الترخيص الطبي",
     ),
@@ -102,6 +108,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "my_profile": MessageLookupByLibrary.simpleMessage("ملفي الشخصي"),
     "name": MessageLookupByLibrary.simpleMessage("الاسم"),
     "national_id": MessageLookupByLibrary.simpleMessage("الرقم القومي"),
+    "national_id_must_be_14_digits": MessageLookupByLibrary.simpleMessage(
+      "الرقم القومى يجب ان يكون 14 رقم ",
+    ),
     "nationality": MessageLookupByLibrary.simpleMessage("الجنسية"),
     "new_password_note": MessageLookupByLibrary.simpleMessage(
       "يجب أن تكون كلمة المرور الجديدة مختلفة عن السابقة",
@@ -114,6 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "لا يوجد مرضى في الوقت الحالي.",
     ),
     "notification": MessageLookupByLibrary.simpleMessage("الإشعارات"),
+    "notifications": MessageLookupByLibrary.simpleMessage("الاشعارات"),
     "once_patients_chatting": MessageLookupByLibrary.simpleMessage(
       "بمجرد أن يبدأ المرضى في التحدث معك، ستظهر محادثاتهم هنا.",
     ),
@@ -132,6 +142,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "المعلومات الشخصية",
     ),
     "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
+    "please_enter_national_id": MessageLookupByLibrary.simpleMessage(
+      "من فضلك ادخل الرقم القومى ",
+    ),
+    "please_enter_practice_license_number":
+        MessageLookupByLibrary.simpleMessage("الرجاء إدخال رقم رخصة الممارسة"),
     "practice_license_number": MessageLookupByLibrary.simpleMessage(
       "رقم رخصة الممارسة",
     ),
@@ -145,10 +160,12 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "requests": MessageLookupByLibrary.simpleMessage("طلبات"),
     "resend_code": MessageLookupByLibrary.simpleMessage("إعادة إرسال الرمز"),
+    "search": MessageLookupByLibrary.simpleMessage("البحث"),
     "searchPatient": MessageLookupByLibrary.simpleMessage("ابحث عن مريض"),
     "search_for_a_patient": MessageLookupByLibrary.simpleMessage(
       "ابحث عن مريض",
     ),
+    "search_history": MessageLookupByLibrary.simpleMessage("سجل البحث"),
     "see_all": MessageLookupByLibrary.simpleMessage("مشاهده الكل"),
     "send": MessageLookupByLibrary.simpleMessage("إرسال"),
     "setting": MessageLookupByLibrary.simpleMessage("الإعدادات"),

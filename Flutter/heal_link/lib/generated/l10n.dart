@@ -777,6 +777,7 @@ class S {
     return Intl.message(
       'Professional Info',
       name: 'professionalInfo',
+
       desc: '',
       args: [],
     );
@@ -807,6 +808,7 @@ class S {
     return Intl.message(
       'Medical License Number',
       name: 'medicalLicenseNumber',
+
       desc: '',
       args: [],
     );
@@ -847,11 +849,117 @@ class S {
     );
   }
 
+
+  String get add {
+    return Intl.message('Add', name: 'add', desc: '', args: []);
+  }
+
+  /// `Date`
+  String get date {
+    return Intl.message('Date', name: 'date', desc: '', args: []);
+  }
+
+  /// `Medicine Name`
+  String get medicine_name {
+    return Intl.message(
+      'Medicine Name',
+      name: 'medicine_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Frequency of Use`
+  String get frequency_of_use {
+    return Intl.message(
+      'Frequency of Use',
+      name: 'frequency_of_use',
+      desc: '',
+      args: [],
+    );
+  }
+
+
   /// `Usage Instructions`
   String get usage_instructions {
     return Intl.message(
       'Usage Instructions',
       name: 'usage_instructions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `notifications`
+  String get notifications {
+    return Intl.message(
+      'notifications',
+      name: 'notifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `enter your national ID`
+  String get enter_national_id {
+    return Intl.message(
+      'enter your national ID',
+      name: 'enter_national_id',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search`
+  String get search {
+    return Intl.message('Search', name: 'search', desc: '', args: []);
+  }
+
+  /// `Search History`
+  String get search_history {
+    return Intl.message(
+      'Search History',
+      name: 'search_history',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `please enter national Id `
+  String get please_enter_national_id {
+    return Intl.message(
+      'please enter national Id ',
+      name: 'please_enter_national_id',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `national id must be 14 digits`
+  String get national_id_must_be_14_digits {
+    return Intl.message(
+      'national id must be 14 digits',
+      name: 'national_id_must_be_14_digits',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `please enter practice license number`
+  String get please_enter_practice_license_number {
+    return Intl.message(
+      'please enter practice license number',
+      name: 'please_enter_practice_license_number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `license nubmer too short`
+  String get license_number_too_short {
+    return Intl.message(
+      'license nubmer too short',
+      name: 'license_number_too_short',
       desc: '',
       args: [],
     );

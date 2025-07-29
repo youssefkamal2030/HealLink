@@ -52,6 +52,14 @@ abstract class AppImages {
   static const String setting = "assets/images/setting.svg";
   static const String about = "assets/images/about.svg";
   static const String edit = "assets/images/edit.svg";
+  static const String patientImage1 = "assets/images/patient_1.png";
+  static const String patientImage2 = "assets/images/patient_2.png";
+  static const String starAmberIcon = "assets/images/star_amber_icon.svg";
+  static const String messageAmberIcon = "assets/images/message_amber_icon.svg";
+  static const String walletAmberIcon = "assets/images/wallet_amber_icon.svg";
+  static const String arrowSearchIcon = "aassets/images/arrow_search.svg";
+  static const String clockIcon = "assets/images/clock.svg";
+  static const String xIcon = "assets/images/x_icon.svg";
 
   // Shared additions
   static const String messageNavBar = "assets/images/message_nav_bar.svg";

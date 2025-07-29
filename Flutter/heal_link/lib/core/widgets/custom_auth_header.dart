@@ -4,8 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:heal_link/core/utils/app_images.dart';
 import 'package:heal_link/core/utils/app_styles.dart';
 
-class AuthCustomHeader extends StatelessWidget {
-  const AuthCustomHeader({super.key, required this.headerTitle, this.onTap});
+class CustomAuthHeader extends StatelessWidget {
+  const CustomAuthHeader({super.key, required this.headerTitle, this.onTap});
   final String headerTitle;
   final void Function()? onTap;
   @override
@@ -16,7 +16,13 @@ class AuthCustomHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GestureDetector(
-            onTap: onTap,
+            onTap: (){
+              if (onTap != null) {
+                onTap!();
+              } else {
+                Navigator.pop(context);
+              }
+            },
             child: SvgPicture.asset(AppImages.arrowLeftIcon),
           ),
           Spacer(),
