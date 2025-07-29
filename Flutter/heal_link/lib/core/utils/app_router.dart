@@ -13,7 +13,9 @@ import 'package:heal_link/features/doctor/doctor_home/presentation/views/doctor_
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/patient_view_details.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/prescription_view.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/total_patient_view.dart';
+import 'package:heal_link/features/doctor/doctor_notifications/presentation/views/doctor_notification_view.dart';
 import 'package:heal_link/features/doctor/doctor_profile/presentation/views/doctor_profile_view_body.dart';
+import 'package:heal_link/features/doctor/doctor_search/presentation/views/doctor_search_view.dart';
 import 'package:heal_link/features/doctor/personal_information/presentation/views/personal_info.dart';
 import 'package:heal_link/features/doctor/prescriptions/presentation/views/prescription.dart';
 import 'package:heal_link/features/on_boarding/presentation/views/on_boarding_view.dart';
@@ -48,8 +50,9 @@ abstract class AppRouter {
   static const prescriptionView = '/PrescriptionView';
   static const doctorProfileView = '/DoctorProfileView';
   static const personalInformationView = '/PersonalInformationView';
-  static const addPrescriptionView = '/addPrescriptionView';
   static const addPrescriptionConfirm = '/AddPrescriptionsConfirm';
+  static const doctorSearchView = '/DoctorSearchView';
+  static const doctorNotificationsView = '/DoctorNotificationsView';
 
   //* Patient Views
   static const patientSignInView = '/DoctorSignUpView';
@@ -185,6 +188,18 @@ abstract class AppRouter {
         path: addPrescriptionConfirm,
         builder: (BuildContext context, GoRouterState state) {
           return  AddPrescriptionsConfirm(addPrescriptionConfirmModel: state.extra as AddPrescriptionConfirmModel);
+        },
+      ),
+      GoRoute(
+        path: doctorSearchView,
+        builder: (BuildContext context, GoRouterState state) {
+          return  const DoctorSearchView();
+        },
+      ),
+      GoRoute(
+        path: doctorNotificationsView,
+        builder: (BuildContext context, GoRouterState state) {
+          return  DoctorNotificationsView();
         },
       ),
     ],

@@ -1,0 +1,15 @@
+[33m5ce6514[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mesraa_branch[m[33m, [m[1;31morigin/esraa_branch[m[33m)[m HEAD@{0}: commit: code DoctorScannerViewBody and DoctorSubscriptionViewBody UI
+[33mf4bdaea[m HEAD@{1}: pull origin develop: Fast-forward
+[33m40979b9[m HEAD@{2}: commit: Auth Feature Ui first commit
+[33m7c644a3[m HEAD@{3}: pull origin develop: Fast-forward
+[33mbf04817[m HEAD@{4}: checkout: moving from develop to esraa_branch
+[33m50e95e4[m[33m ([m[1;32mdevelop[m[33m)[m HEAD@{5}: reset: moving to HEAD
+[33m50e95e4[m[33m ([m[1;32mdevelop[m[33m)[m HEAD@{6}: checkout: moving from esraa_branch to develop
+[33mbf04817[m HEAD@{7}: checkout: moving from esraa_branch to esraa_branch
+[33mbf04817[m HEAD@{8}: commit: edit fontStyles
+[33m50e95e4[m[33m ([m[1;32mdevelop[m[33m)[m HEAD@{9}: checkout: moving from develop to esraa_branch
+[33m50e95e4[m[33m ([m[1;32mdevelop[m[33m)[m HEAD@{10}: checkout: moving from develop to develop
+[33m50e95e4[m[33m ([m[1;32mdevelop[m[33m)[m HEAD@{11}: pull origin develop: Fast-forward
+[33md6c1bc1[m HEAD@{12}: reset: moving to HEAD
+[33md6c1bc1[m HEAD@{13}: checkout: moving from main to develop
+[33ma03aff7[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{14}: clone: from https://github.com/Mahm0udbakir/heal-link.git

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:heal_link/core/utils/app_styles.dart';
 import 'package:heal_link/core/utils/function/app_colors.dart';
-import 'package:heal_link/core/widgets/custom_bottom_hint_of_text_field_part.dart';
 import 'package:heal_link/core/widgets/custom_text_form_field.dart';
 import 'package:heal_link/core/widgets/custom_title_of_text_field_section.dart';
 
@@ -14,6 +13,8 @@ class TextFieldPart extends StatelessWidget {
     this.isPassword = false,
     this.isSignIn = false,
     this.onForgetPass , 
+    this.customValidator,
+     this.controller,
   });
   final String titleText;
   final String hintText;
@@ -21,6 +22,8 @@ class TextFieldPart extends StatelessWidget {
   final bool isPassword;
   final bool isSignIn;
   final void Function()? onForgetPass ; 
+  final String? Function(String?)? customValidator ; 
+  final TextEditingController? controller; 
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,17 +32,21 @@ class TextFieldPart extends StatelessWidget {
         CustomTitleOfTextFieldSection(titleText: titleText),
         SizedBox(height: 8),
         CustomTextFormField(
+          controller: controller,
           hintText: hintText,
           icon: iconPath,
           isPassword: isPassword,
+          validator: customValidator,
+          
         ),
         SizedBox(height: 4),
         Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            CustomBottomHintOfTextFeildPart(
-              text: "This is a hint text to help user.",
-            ),
-            Spacer(),
+            // CustomBottomHintOfTextFeildPart(
+            //   text: "This is a hint text to help user.",
+            // ),
+            // Spacer(),
             isSignIn
                 ? GestureDetector(
                   onTap: onForgetPass,

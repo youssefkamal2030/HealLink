@@ -94,10 +94,20 @@
   "medicalLicenseNumber": "رقم الترخيص الطبي",
   "currentWorkplace": "مكان العمل الحالي / المستشفى",
   "thisMonth": "هذا الشهر",
-  "specialization": "التخصص"
+  "specialization": "التخصص",
   "add": "اضافه",
   "date": "التاريخ",
   "medicine_name": "اسم الدواء",
   "frequency_of_use": "عدد مرات الاستخدام",
-  "usage_instructions": "تعليمات الاستخدام"
+  "usage_instructions": "تعليمات الاستخدام",
+  "notifications": "الاشعارات", 
+  "enter_national_id" : "ادخل الرقم القومى" , 
+  "search" : "البحث" ,
+    "search_history" : "سجل البحث" , 
+      "please_enter_national_id" : "من فضلك ادخل الرقم القومى " , 
+  "national_id_must_be_14_digits" : "الرقم القومى يجب ان يكون 14 رقم " , 
+  "please_enter_practice_license_number" : "الرجاء إدخال رقم رخصة الممارسة", 
+  "license_number_too_short" : "رقم الرخصة قصير جدًا"
+
+
 }

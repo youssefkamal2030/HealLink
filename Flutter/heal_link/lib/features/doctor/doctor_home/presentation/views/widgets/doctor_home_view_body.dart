@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:heal_link/core/utils/app_images.dart';
+import 'package:heal_link/core/utils/app_router.dart';
 import 'package:heal_link/core/utils/app_styles.dart';
 import 'package:heal_link/core/widgets/custom_text_form_field2.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/widgets/patient_info_card.dart';
@@ -29,6 +31,9 @@ class DoctorHomeViewBody extends StatelessWidget {
                       controller: TextEditingController(),
                       validator: (value) {
                         return null;
+                      },
+                      onTap: () {
+                         context.push(AppRouter.doctorSearchView);
                       },
                       prefixIcon: AppImages.search,
                       borderRadiusSize: 8,
