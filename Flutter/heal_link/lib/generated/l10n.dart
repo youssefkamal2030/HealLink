@@ -28,9 +28,10 @@ class S {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
+    final name =
+        (locale.countryCode?.isEmpty ?? false)
+            ? locale.languageCode
+            : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -776,6 +777,27 @@ class S {
     return Intl.message(
       'Professional Info',
       name: 'professionalInfo',
+
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add`
+  String get add {
+    return Intl.message('Add', name: 'add', desc: '', args: []);
+  }
+
+  /// `Date`
+  String get date {
+    return Intl.message('Date', name: 'date', desc: '', args: []);
+  }
+
+  /// `Medicine Name`
+  String get medicine_name {
+    return Intl.message(
+      'Medicine Name',
+      name: 'medicine_name',
       desc: '',
       args: [],
     );
@@ -786,6 +808,17 @@ class S {
     return Intl.message(
       'Medical License Number',
       name: 'medicalLicenseNumber',
+
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Frequency of Use`
+  String get frequency_of_use {
+    return Intl.message(
+      'Frequency of Use',
+      name: 'frequency_of_use',
       desc: '',
       args: [],
     );
@@ -816,7 +849,7 @@ class S {
     );
   }
 
-  /// `Add`
+
   String get add {
     return Intl.message('Add', name: 'add', desc: '', args: []);
   }
@@ -845,6 +878,7 @@ class S {
       args: [],
     );
   }
+
 
   /// `Usage Instructions`
   String get usage_instructions {
