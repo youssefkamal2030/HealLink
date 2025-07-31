@@ -26,14 +26,15 @@ class DoctorHomeViewBody extends StatelessWidget {
                   children: [
                     SizedBox(height: 24),
                     CustomTextFormField2(
+                      showCursor: false,
                       hintText: S.of(context).searchPatient,
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.none,
                       controller: TextEditingController(),
                       validator: (value) {
                         return null;
                       },
                       onTap: () {
-                         context.push(AppRouter.doctorSearchView);
+                        context.push(AppRouter.doctorSearchView);
                       },
                       prefixIcon: AppImages.search,
                       borderRadiusSize: 8,
@@ -48,9 +49,12 @@ class DoctorHomeViewBody extends StatelessWidget {
                           style: AppTextStyles.popins500style20LightBlackColor,
                         ),
                         Spacer(),
-                        Text(
-                          S.of(context).see_all,
-                          style: AppTextStyles.popins400style12kPrimaryColor,
+                        InkWell(
+                          onTap: () => context.push(AppRouter.allPatientsView),
+                          child: Text(
+                            S.of(context).see_all,
+                            style: AppTextStyles.popins400style12kPrimaryColor,
+                          ),
                         ),
                         SizedBox(width: 3),
                       ],
@@ -70,7 +74,9 @@ class DoctorHomeViewBody extends StatelessWidget {
                 horizontal: 16.0,
                 vertical: 4,
               ),
-              child: PatientInfoCard(response: () {}),
+              child: PatientInfoCard(
+                response: () => context.push(AppRouter.patientDetailsView),
+              ),
             ),
             childCount: 3,
           ),

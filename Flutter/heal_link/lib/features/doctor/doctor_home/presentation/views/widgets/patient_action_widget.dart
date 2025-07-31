@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
-import 'package:heal_link/core/utils/app_router.dart';
 import 'package:heal_link/core/utils/function/app_colors.dart';
 import '../../../../../../core/utils/app_styles.dart';
 import '../../../../../../core/utils/constant.dart';
@@ -11,15 +9,17 @@ class PatientActionWidget extends StatelessWidget {
     super.key,
     required this.text,
     required this.image,
+    this.onTap,
   });
 
   final String text;
   final String image;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.push(AppRouter.addPrescriptionView),
+      onTap:  onTap,
       child: Container(
         height: 96,
         width: (AppConstant.width - 48) / 2,

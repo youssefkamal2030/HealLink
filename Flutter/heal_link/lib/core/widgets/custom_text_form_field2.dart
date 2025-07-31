@@ -19,8 +19,11 @@ class CustomTextFormField2 extends StatelessWidget {
   final Color? fillColor;
   final Color? borderSideColor;
   final FocusNode? focusNode;
-  final Widget? suffix ; 
+  final Widget? suffix;
+  final bool showCursor;
+
   final void Function()? xIconResponse;
+
   const CustomTextFormField2({
     super.key,
     required this.hintText,
@@ -37,8 +40,8 @@ class CustomTextFormField2 extends StatelessWidget {
     this.fillColor,
     this.borderSideColor,
     this.focusNode,
-    this.suffix , 
-    this.xIconResponse,
+    this.suffix,
+    this.xIconResponse,  this.showCursor=true,
   });
 
   @override
@@ -46,20 +49,21 @@ class CustomTextFormField2 extends StatelessWidget {
     return SizedBox(
       height: 40,
       child: TextFormField(
-        
         focusNode: focusNode,
         onTap: onTap,
         keyboardType: keyboardType,
+        showCursor: showCursor,
         controller: controller,
         validator: validator,
         onChanged: onChanged,
         onSaved: onSaved,
         decoration: InputDecoration(
           suffix: InkWell(
-            onTap : xIconResponse,
+            onTap: xIconResponse,
             child: Padding(
-             padding: const EdgeInsets.only(top: 10),
-              child: suffix),
+              padding: const EdgeInsets.only(top: 10),
+              child: suffix,
+            ),
           ),
           filled: true,
           fillColor: fillColor ?? AppColors.kWhiteColor,
