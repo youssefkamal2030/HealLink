@@ -30,12 +30,10 @@ class PatientViewDetails extends StatelessWidget {
                     image: AppImages.message,
                     text: S.of(context).message,
                   ),
-                  InkWell(
+                  PatientActionWidget(
+                    image: AppImages.prescriptions,
+                    text: S.of(context).addPrescription,
                     onTap: () => context.push(AppRouter.addPrescriptionView),
-                    child: PatientActionWidget(
-                      image: AppImages.prescriptions,
-                      text: S.of(context).addPrescription,
-                    ),
                   ),
                 ],
               ),
