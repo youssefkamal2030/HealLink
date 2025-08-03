@@ -3,8 +3,8 @@ import 'package:heal_link/core/widgets/custom_app_bar_pop_widget.dart';
 import 'package:heal_link/features/doctor/prescriptions/presentation/views/widgets/prescription_date.dart';
 import 'package:heal_link/generated/l10n.dart';
 
-class AddPrescriptionView extends StatelessWidget {
-  const AddPrescriptionView({super.key});
+class Prescriptions extends StatelessWidget {
+  const Prescriptions({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -53,7 +53,7 @@ class _AddPrescriptionBodyState extends State<AddPrescriptionBody> {
             if (!widget.isConfirm && widget.prescriptionList.isNotEmpty)
               AddedPrescriptionItem(
                 addPrescriptionModel:
-                    widget.prescriptionList[widget.prescriptionList.length - 1],
+                widget.prescriptionList[widget.prescriptionList.length - 1],
                 index: widget.prescriptionList.length,
               ),
             if (widget.isConfirm)
@@ -91,19 +91,21 @@ class _AddPrescriptionBodyState extends State<AddPrescriptionBody> {
                         medicineNameController.text,
                       )) {
                     AddPrescriptionModel addPrescriptionModel =
-                        AddPrescriptionModel(
-                          medicineName: medicineNameController.text,
-                          frequencyofUse: frequencyController.text,
-                          usageInstructions: instructionsController.text,
-                        );
+                    AddPrescriptionModel(
+                      medicineName: medicineNameController.text,
+                      frequencyofUse: frequencyController.text,
+                      usageInstructions: instructionsController.text,
+                    );
                     widget.prescriptionList.add(addPrescriptionModel);
                   } else {
                     isNameDuplicated(
-                          widget.prescriptionList,
-                          medicineNameController.text,
-                        )
-                        ? customAwesomeDialog(context, message: 'Medicine name is already found')
-                        : customAwesomeDialog(context, message: 'Please Enter medicine information to proceed');
+                      widget.prescriptionList,
+                      medicineNameController.text,
+                    )
+                        ? customAwesomeDialog(
+                        context, message: 'Medicine name is already found')
+                        : customAwesomeDialog(context,
+                        message: 'Please Enter medicine information to proceed');
                   }
                   setState(() {});
                 },
@@ -115,10 +117,8 @@ class _AddPrescriptionBodyState extends State<AddPrescriptionBody> {
   }
 }
 
-bool isNameDuplicated(
-  List<AddPrescriptionModel> prescriptionModel,
-  String medicineName,
-) {
+bool isNameDuplicated(List<AddPrescriptionModel> prescriptionModel,
+    String medicineName,) {
   for (var element in prescriptionModel) {
     if (element.medicineName == medicineName) {
       return true;

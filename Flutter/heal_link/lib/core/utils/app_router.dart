@@ -9,6 +9,8 @@ import 'package:heal_link/features/doctor/doctor_auth/presentation/views/doctor_
 import 'package:heal_link/features/doctor/doctor_home/data/models/add_prescription_confirm_model.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/add_prescriptions_confirm.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/add_prescriptions_view.dart';
+import 'package:heal_link/features/doctor/doctor_home/presentation/views/all_patients_view.dart';
+import 'package:heal_link/features/doctor/doctor_home/presentation/views/current_medications_view.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/doctor_home_view.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/patient_view_details.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/prescription_view.dart';
@@ -49,14 +51,18 @@ abstract class AppRouter {
   static const doctorHomeView = '/DoctorHomeView';
   static const totalPatientView = '/totalPatientView';
   static const patientDetailsView = '/PatientDetailsView';
-  static const addPrescriptionView = '/AddPrescriptionView';
+  static const prescriptions = '/AddPrescriptionView';
   static const prescriptionView = '/PrescriptionView';
   static const doctorProfileView = '/DoctorProfileView';
   static const personalInformationView = '/PersonalInformationView';
   static const addPrescriptionConfirm = '/AddPrescriptionsConfirm';
   static const doctorSearchView = '/DoctorSearchView';
   static const doctorNotificationsView = '/DoctorNotificationsView';
-  static const settingView = '/SettingView';
+ 
+  static const addPrescriptionView = '/addPrescriptionView';
+  static const currentMedicationsView = '/currentMedicationsView';
+  static const allPatientsView = '/AllPatientsView';
+   static const settingView = '/SettingView';
   static const accountInfoView = '/AccountInfoView';
   static const privacyView = '/PrivacyView';
 
@@ -164,6 +170,12 @@ abstract class AppRouter {
           return const AddPrescriptionView();
         },
       ),
+        GoRoute(
+        path: prescriptions,
+        builder: (BuildContext context, GoRouterState state) {
+          return const Prescriptions();
+        },
+      ),
 
       //! Patient Routers
       GoRoute(
@@ -227,6 +239,18 @@ abstract class AppRouter {
         path: doctorNotificationsView,
         builder: (BuildContext context, GoRouterState state) {
           return DoctorNotificationsView();
+        },
+      ),
+      GoRoute(
+        path: currentMedicationsView,
+        builder: (BuildContext context, GoRouterState state) {
+          return  CurrentMedicationsView();
+        },
+      ),
+      GoRoute(
+        path: allPatientsView,
+        builder: (BuildContext context, GoRouterState state) {
+          return  AllPatientsView();
         },
       ),
     ],
