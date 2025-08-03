@@ -32,10 +32,16 @@ class ProfileListTile extends StatelessWidget {
         child: Row(
           spacing: 8,
           children: [
-            SvgPicture.asset(img,),
+            SvgPicture.asset(img),
             Text(title, style: AppTextStyles.popins400style14LightBlackColor),
             const Spacer(),
-            SvgPicture.asset(AppImages.arrow, color: AppColors.kPrimaryColor),
+            SvgPicture.asset(
+              AppImages.arrow,
+              colorFilter: const ColorFilter.mode(
+                AppColors.kPrimaryColor,
+                BlendMode.srcIn,
+              ),
+            ),
           ],
         ),
       ),

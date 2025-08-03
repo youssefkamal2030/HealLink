@@ -1,9 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:heal_link/core/utils/app_styles.dart';
 import 'package:heal_link/core/utils/function/app_colors.dart';
-import 'package:heal_link/features/doctor/doctor_search/presentation/views/doctor_search_view.dart';
 import 'package:heal_link/features/doctor/doctor_search/presentation/widgets/search_filter_listview.dart';
 import 'package:heal_link/features/doctor/doctor_search/presentation/widgets/search_history_listview.dart';
 import 'package:heal_link/features/doctor/doctor_search/presentation/widgets/search_text_field.dart';

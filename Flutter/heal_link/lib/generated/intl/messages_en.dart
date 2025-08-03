@@ -24,14 +24,21 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "about": MessageLookupByLibrary.simpleMessage("About"),
     "accept": MessageLookupByLibrary.simpleMessage("Accept"),
+    "account": MessageLookupByLibrary.simpleMessage("Account"),
     "add": MessageLookupByLibrary.simpleMessage("Add"),
     "addPrescription": MessageLookupByLibrary.simpleMessage("Add Prescription"),
     "address": MessageLookupByLibrary.simpleMessage("Address"),
     "age": MessageLookupByLibrary.simpleMessage("Age"),
     "all": MessageLookupByLibrary.simpleMessage("All"),
     "allergies": MessageLookupByLibrary.simpleMessage("Allergies"),
+    "app_version_updates": MessageLookupByLibrary.simpleMessage(
+      "App Version & Updates",
+    ),
     "available_now": MessageLookupByLibrary.simpleMessage("Available now"),
     "basicInfo": MessageLookupByLibrary.simpleMessage("Basic Info"),
+    "biometric_authentication": MessageLookupByLibrary.simpleMessage(
+      "Biometric Authentication",
+    ),
     "change_profile": MessageLookupByLibrary.simpleMessage("Change Profile"),
     "chat_send_receive": MessageLookupByLibrary.simpleMessage(
       "Chat with your doctor, send test results, and receive updated prescriptions — all in a few taps",
@@ -58,7 +65,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "current_medications": MessageLookupByLibrary.simpleMessage(
       "Current Medications",
     ),
+    "data_storage": MessageLookupByLibrary.simpleMessage("Data & Storage"),
     "date": MessageLookupByLibrary.simpleMessage("Date"),
+    "deactivate_account": MessageLookupByLibrary.simpleMessage(
+      "Deactivate Account",
+    ),
+    "delete_account": MessageLookupByLibrary.simpleMessage("Delete Account"),
     "dont_have_account": MessageLookupByLibrary.simpleMessage(
       "Don’t have an account?",
     ),
@@ -94,12 +106,14 @@ class MessageLookup extends MessageLookupByLibrary {
       "Invite a family member to stay updated and support you on your health journey.",
     ),
     "lab_tests": MessageLookupByLibrary.simpleMessage("Lab Tests"),
+    "language": MessageLookupByLibrary.simpleMessage("Language"),
     "lastInteraction": MessageLookupByLibrary.simpleMessage(
       "Last interaction: ",
     ),
     "license_number_too_short": MessageLookupByLibrary.simpleMessage(
       "license nubmer too short",
     ),
+    "login_alerts": MessageLookupByLibrary.simpleMessage("Login Alerts"),
     "medicalLicenseNumber": MessageLookupByLibrary.simpleMessage(
       "Medical License Number",
     ),
@@ -125,6 +139,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "No patients at the moment.",
     ),
     "notification": MessageLookupByLibrary.simpleMessage("Notification"),
+    "notification_preferences": MessageLookupByLibrary.simpleMessage(
+      "Notification Preferences",
+    ),
     "notifications": MessageLookupByLibrary.simpleMessage("notifications"),
     "once_patients_chatting": MessageLookupByLibrary.simpleMessage(
       "Once patients start chatting with you, Their conversation will appear here.",
@@ -155,6 +172,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Practice License Number",
     ),
     "prescriptions": MessageLookupByLibrary.simpleMessage("Prescriptions"),
+    "privacy_security": MessageLookupByLibrary.simpleMessage(
+      "Privacy & Security",
+    ),
     "professionalInfo": MessageLookupByLibrary.simpleMessage(
       "Professional Info",
     ),
@@ -177,6 +197,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "see_all": MessageLookupByLibrary.simpleMessage("See all"),
     "send": MessageLookupByLibrary.simpleMessage("Send"),
     "setting": MessageLookupByLibrary.simpleMessage("Setting"),
+    "show_my_availability_status": MessageLookupByLibrary.simpleMessage(
+      "Show my Availability Status",
+    ),
     "sign_in": MessageLookupByLibrary.simpleMessage("Sign In"),
     "sign_up": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "skip": MessageLookupByLibrary.simpleMessage("Skip"),
@@ -190,6 +213,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "thisMonth": MessageLookupByLibrary.simpleMessage("This Month"),
     "total_patient": MessageLookupByLibrary.simpleMessage("Total Patient"),
     "try_another_way": MessageLookupByLibrary.simpleMessage("Try another way"),
+    "two_factor_authentication": MessageLookupByLibrary.simpleMessage(
+      "Two-Factor Authentication",
+    ),
     "type": MessageLookupByLibrary.simpleMessage("Type: "),
     "unread": MessageLookupByLibrary.simpleMessage("Unread"),
     "upload_instruction": MessageLookupByLibrary.simpleMessage(
@@ -208,6 +234,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "viewDetails": MessageLookupByLibrary.simpleMessage("View Details"),
     "viewPrescription": MessageLookupByLibrary.simpleMessage(
       "View Prescription",
+    ),
+    "who_can_view_my_profile": MessageLookupByLibrary.simpleMessage(
+      "Who can view my profile",
     ),
     "x_rays": MessageLookupByLibrary.simpleMessage("X-rays"),
     "your_health_smarter": MessageLookupByLibrary.simpleMessage(

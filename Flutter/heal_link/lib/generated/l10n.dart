@@ -931,6 +931,136 @@ class S {
       args: [],
     );
   }
+
+  /// `Account`
+  String get account {
+    return Intl.message('Account', name: 'account', desc: '', args: []);
+  }
+
+  /// `Account Info`
+  String get account_info {
+    return Intl.message(
+      'Account Info',
+      name: 'account_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Privacy & Security`
+  String get privacy_security {
+    return Intl.message(
+      'Privacy & Security',
+      name: 'privacy_security',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Data & Storage`
+  String get data_storage {
+    return Intl.message(
+      'Data & Storage',
+      name: 'data_storage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notification Preferences`
+  String get notification_preferences {
+    return Intl.message(
+      'Notification Preferences',
+      name: 'notification_preferences',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message('Language', name: 'language', desc: '', args: []);
+  }
+
+  /// `App Version & Updates`
+  String get app_version_updates {
+    return Intl.message(
+      'App Version & Updates',
+      name: 'app_version_updates',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Two-Factor Authentication`
+  String get two_factor_authentication {
+    return Intl.message(
+      'Two-Factor Authentication',
+      name: 'two_factor_authentication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Deactivate Account`
+  String get deactivate_account {
+    return Intl.message(
+      'Deactivate Account',
+      name: 'deactivate_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete Account`
+  String get delete_account {
+    return Intl.message(
+      'Delete Account',
+      name: 'delete_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Who can view my profile`
+  String get who_can_view_my_profile {
+    return Intl.message(
+      'Who can view my profile',
+      name: 'who_can_view_my_profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login Alerts`
+  String get login_alerts {
+    return Intl.message(
+      'Login Alerts',
+      name: 'login_alerts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Biometric Authentication`
+  String get biometric_authentication {
+    return Intl.message(
+      'Biometric Authentication',
+      name: 'biometric_authentication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show my Availability Status`
+  String get show_my_availability_status {
+    return Intl.message(
+      'Show my Availability Status',
+      name: 'show_my_availability_status',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
