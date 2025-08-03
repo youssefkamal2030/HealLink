@@ -20,6 +20,9 @@ import 'package:heal_link/features/doctor/doctor_profile/presentation/views/doct
 import 'package:heal_link/features/doctor/doctor_search/presentation/views/doctor_search_view.dart';
 import 'package:heal_link/features/doctor/personal_information/presentation/views/personal_info.dart';
 import 'package:heal_link/features/doctor/prescriptions/presentation/views/prescription.dart';
+import 'package:heal_link/features/doctor/setting/presentation/views/account_info_view.dart';
+import 'package:heal_link/features/doctor/setting/presentation/views/privacy_view.dart';
+import 'package:heal_link/features/doctor/setting/presentation/views/setting_view.dart';
 import 'package:heal_link/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:heal_link/features/on_boarding/presentation/views/user_type_screen.dart';
 import 'package:heal_link/features/patient/patient_auth/presentation/views/patient_sign_in_view.dart';
@@ -55,9 +58,13 @@ abstract class AppRouter {
   static const addPrescriptionConfirm = '/AddPrescriptionsConfirm';
   static const doctorSearchView = '/DoctorSearchView';
   static const doctorNotificationsView = '/DoctorNotificationsView';
+ 
   static const addPrescriptionView = '/addPrescriptionView';
   static const currentMedicationsView = '/currentMedicationsView';
   static const allPatientsView = '/AllPatientsView';
+   static const settingView = '/SettingView';
+  static const accountInfoView = '/AccountInfoView';
+  static const privacyView = '/PrivacyView';
 
   //* Patient Views
   static const patientSignInView = '/DoctorSignUpView';
@@ -140,6 +147,30 @@ abstract class AppRouter {
         },
       ),
       GoRoute(
+        path: settingView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const SettingView();
+        },
+      ),
+      GoRoute(
+        path: accountInfoView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const AccountInfoView();
+        },
+      ),
+      GoRoute(
+        path: privacyView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const PrivacyView();
+        },
+      ),
+      GoRoute(
+        path: addPrescriptionView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const AddPrescriptionView();
+        },
+      ),
+        GoRoute(
         path: prescriptions,
         builder: (BuildContext context, GoRouterState state) {
           return const Prescriptions();
@@ -186,25 +217,28 @@ abstract class AppRouter {
       GoRoute(
         path: addPrescriptionView,
         builder: (BuildContext context, GoRouterState state) {
-          return  AddPrescriptionsView();
+          return AddPrescriptionsView();
         },
       ),
       GoRoute(
         path: addPrescriptionConfirm,
         builder: (BuildContext context, GoRouterState state) {
-          return  AddPrescriptionsConfirm(addPrescriptionConfirmModel: state.extra as AddPrescriptionConfirmModel);
+          return AddPrescriptionsConfirm(
+            addPrescriptionConfirmModel:
+                state.extra as AddPrescriptionConfirmModel,
+          );
         },
       ),
       GoRoute(
         path: doctorSearchView,
         builder: (BuildContext context, GoRouterState state) {
-          return  const DoctorSearchView();
+          return const DoctorSearchView();
         },
       ),
       GoRoute(
         path: doctorNotificationsView,
         builder: (BuildContext context, GoRouterState state) {
-          return  DoctorNotificationsView();
+          return DoctorNotificationsView();
         },
       ),
       GoRoute(

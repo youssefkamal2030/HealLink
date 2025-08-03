@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "about": MessageLookupByLibrary.simpleMessage("حول"),
     "accept": MessageLookupByLibrary.simpleMessage("قبول"),
+    "account": MessageLookupByLibrary.simpleMessage("الحساب"),
     "add": MessageLookupByLibrary.simpleMessage("اضافه"),
     "addPrescription": MessageLookupByLibrary.simpleMessage(
       "اضافه الوصفة الطبية",
@@ -32,8 +33,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "age": MessageLookupByLibrary.simpleMessage("العمر"),
     "all": MessageLookupByLibrary.simpleMessage("الكل"),
     "allergies": MessageLookupByLibrary.simpleMessage("الحساسية"),
+    "app_version_updates": MessageLookupByLibrary.simpleMessage(
+      "إصدار التطبيق والتحديثات",
+    ),
     "available_now": MessageLookupByLibrary.simpleMessage("متاح الان"),
     "basicInfo": MessageLookupByLibrary.simpleMessage("المعلومات الأساسية"),
+    "biometric_authentication": MessageLookupByLibrary.simpleMessage(
+      "المصادقة البيومترية",
+    ),
     "change_profile": MessageLookupByLibrary.simpleMessage(
       "تغيير الملف الشخصي",
     ),
@@ -60,7 +67,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "current_medications": MessageLookupByLibrary.simpleMessage(
       "الأدوية الحالية",
     ),
+    "data_storage": MessageLookupByLibrary.simpleMessage("البيانات والتخزين"),
     "date": MessageLookupByLibrary.simpleMessage("التاريخ"),
+    "deactivate_account": MessageLookupByLibrary.simpleMessage("تعطيل الحساب"),
+    "delete_account": MessageLookupByLibrary.simpleMessage("Delete Account"),
     "dont_have_account": MessageLookupByLibrary.simpleMessage(
       "ليس لديك حساب؟ أنشئ حساب",
     ),
@@ -94,9 +104,13 @@ class MessageLookup extends MessageLookupByLibrary {
       "ادعُ أحد أفراد العائلة للبقاء على اطلاع ودعمك في رحلتك الصحية.",
     ),
     "lab_tests": MessageLookupByLibrary.simpleMessage("التحاليل المعملية"),
+    "language": MessageLookupByLibrary.simpleMessage("اللغة"),
     "lastInteraction": MessageLookupByLibrary.simpleMessage("آخر تفاعل: "),
     "license_number_too_short": MessageLookupByLibrary.simpleMessage(
       "رقم الرخصة قصير جدًا",
+    ),
+    "login_alerts": MessageLookupByLibrary.simpleMessage(
+      "تنبيهات تسجيل الدخول",
     ),
     "medicalLicenseNumber": MessageLookupByLibrary.simpleMessage(
       "رقم الترخيص الطبي",
@@ -123,6 +137,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "لا يوجد مرضى في الوقت الحالي.",
     ),
     "notification": MessageLookupByLibrary.simpleMessage("الإشعارات"),
+    "notification_preferences": MessageLookupByLibrary.simpleMessage(
+      "تفضيلات الإشعارات",
+    ),
     "notifications": MessageLookupByLibrary.simpleMessage("الاشعارات"),
     "once_patients_chatting": MessageLookupByLibrary.simpleMessage(
       "بمجرد أن يبدأ المرضى في التحدث معك، ستظهر محادثاتهم هنا.",
@@ -151,6 +168,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "رقم رخصة الممارسة",
     ),
     "prescriptions": MessageLookupByLibrary.simpleMessage("الوصفات الطبية"),
+    "privacy_security": MessageLookupByLibrary.simpleMessage(
+      "الخصوصية والأمان",
+    ),
     "professionalInfo": MessageLookupByLibrary.simpleMessage("معلومات مهنية"),
     "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
     "recent_patient": MessageLookupByLibrary.simpleMessage("المرضي الحالين"),
@@ -169,6 +189,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "see_all": MessageLookupByLibrary.simpleMessage("مشاهده الكل"),
     "send": MessageLookupByLibrary.simpleMessage("إرسال"),
     "setting": MessageLookupByLibrary.simpleMessage("الإعدادات"),
+    "show_my_availability_status": MessageLookupByLibrary.simpleMessage(
+      "إظهار حالة توفري",
+    ),
     "sign_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "sign_up": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
     "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
@@ -182,6 +205,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "thisMonth": MessageLookupByLibrary.simpleMessage("هذا الشهر"),
     "total_patient": MessageLookupByLibrary.simpleMessage("جمبع المرضي"),
     "try_another_way": MessageLookupByLibrary.simpleMessage("جرّب طريقة أخرى"),
+    "two_factor_authentication": MessageLookupByLibrary.simpleMessage(
+      "المصادقة الثنائية",
+    ),
     "type": MessageLookupByLibrary.simpleMessage("النوع: "),
     "unread": MessageLookupByLibrary.simpleMessage("غير المقروءة"),
     "upload_instruction": MessageLookupByLibrary.simpleMessage(
@@ -202,6 +228,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "viewDetails": MessageLookupByLibrary.simpleMessage("عرض التفاصيل"),
     "viewPrescription": MessageLookupByLibrary.simpleMessage(
       "عرض الوصفة الطبية",
+    ),
+    "who_can_view_my_profile": MessageLookupByLibrary.simpleMessage(
+      "من يمكنه رؤية ملفي الشخصي",
     ),
     "x_rays": MessageLookupByLibrary.simpleMessage("الأشعة"),
     "your_health_smarter": MessageLookupByLibrary.simpleMessage(

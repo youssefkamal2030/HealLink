@@ -77,8 +77,8 @@ class DoctorProfileViewBody extends StatelessWidget {
             ),
             SizedBox(height: 8),
             ProfileListTile(
-              onTap: (){
-                 context.push(AppRouter.doctorNotificationsView);
+              onTap: () {
+                context.push(AppRouter.doctorNotificationsView);
               },
               img: AppImages.notify,
               title: S.of(context).notification,
@@ -97,6 +97,14 @@ class DoctorProfileViewBody extends StatelessWidget {
             ProfileListTile(
               img: AppImages.support,
               title: S.of(context).support_help,
+            ),
+            SizedBox(height: 8),
+            ProfileListTile(
+              onTap: () {
+                context.push(AppRouter.settingView);
+              },
+              img: AppImages.setting,
+              title: S.of(context).setting,
             ),
             SizedBox(height: 8),
             ProfileListTile(img: AppImages.about, title: S.of(context).about),
