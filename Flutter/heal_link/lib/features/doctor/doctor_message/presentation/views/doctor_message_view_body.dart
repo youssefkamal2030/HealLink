@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:heal_link/core/utils/app_images.dart';
+import 'package:heal_link/core/utils/app_router.dart';
 import 'package:heal_link/core/widgets/custom_text_form_field2.dart';
 import 'package:heal_link/features/doctor/doctor_message/data/models/message_model.dart';
 import 'package:heal_link/core/widgets/custom_tab_button.dart';
@@ -37,6 +39,11 @@ class _DoctorMessageViewBodyState extends State<DoctorMessageViewBody> {
             ),
             SizedBox(height: 24),
             CustomTextFormField2(
+              onTap: () {
+                context.push(AppRouter.doctorSearchView);
+              },
+              showCursor: false,
+
               hintText: S.of(context).searchPatient,
               keyboardType: TextInputType.text,
               controller: TextEditingController(),

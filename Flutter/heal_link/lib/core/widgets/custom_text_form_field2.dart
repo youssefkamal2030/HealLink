@@ -7,7 +7,7 @@ import '../utils/function/app_colors.dart';
 class CustomTextFormField2 extends StatelessWidget {
   final String hintText;
   final TextInputType keyboardType;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final FormFieldValidator validator;
   final String? prefixIcon;
   final String? suffixIcon;
@@ -28,7 +28,7 @@ class CustomTextFormField2 extends StatelessWidget {
     super.key,
     required this.hintText,
     required this.keyboardType,
-    required this.controller,
+     this.controller,
     required this.validator,
     this.prefixIcon,
     this.suffixIcon,

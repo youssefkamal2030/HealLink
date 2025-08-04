@@ -24,6 +24,20 @@ class InfoField extends StatefulWidget {
 
 class _InfoFieldState extends State<InfoField> {
   bool isSwitchOn = true;
+  bool isEditing = false;
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.value ?? '');
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,28 +51,43 @@ class _InfoFieldState extends State<InfoField> {
       child: Row(
         children: [
           Expanded(
-            child: RichText(
-              text: TextSpan(
-                text: '${widget.label}: ',
-                style: AppTextStyles.popins500style14LightBlackColor,
-                children: [
-                  if (widget.value != null)
-                    TextSpan(
-                      text: widget.value,
-                      style: AppTextStyles.popins400style14LightBlackColor
-                          .copyWith(color: AppColors.kDarkGreyColor),
+            child:
+                isEditing
+                    ? TextField(
+                      controller: _controller,
+                      style: AppTextStyles.popins400style14LightBlackColor,
+                      decoration: const InputDecoration(
+                        isDense: true,
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.zero,
+                      ),
+                    )
+                    : RichText(
+                      text: TextSpan(
+                        text: '${widget.label}: ',
+                        style: AppTextStyles.popins500style14LightBlackColor,
+                        children: [
+                          TextSpan(
+                            text: widget.value ?? '',
+                            style: AppTextStyles.popins400style14LightBlackColor
+                                .copyWith(color: AppColors.kDarkGreyColor),
+                          ),
+                        ],
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                ],
-              ),
-              overflow: TextOverflow.ellipsis,
-            ),
           ),
-
           const SizedBox(width: 8),
-
           if (widget.isEditable)
             widget.img != null
-                ? SvgPicture.asset(widget.img!, height: 16, width: 16)
+                ? InkWell(
+                  onTap: () {
+                    setState(() {
+                      isEditing = !isEditing;
+                    });
+                  },
+                  child: SvgPicture.asset(widget.img!, height: 16, width: 16),
+                )
                 : Transform.scale(
                   scale: 0.8,
                   child: CupertinoSwitch(

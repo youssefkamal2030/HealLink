@@ -86,7 +86,7 @@ class DoctorProfileViewBody extends StatelessWidget {
             SizedBox(height: 8),
             ProfileListTile(
               img: AppImages.payment,
-              title: S.of(context).payment,
+              title: S.of(context).payment_methods,
             ),
             SizedBox(height: 8),
             ProfileListTile(
