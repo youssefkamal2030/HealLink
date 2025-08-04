@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:heal_link/core/utils/app_images.dart';
 import 'package:heal_link/core/utils/function/app_colors.dart';
 import 'package:heal_link/core/widgets/custom_text_form_field2.dart';
@@ -50,10 +48,6 @@ import 'package:heal_link/generated/l10n.dart';
 //   }
 // }
 
-
-
-
-
 class SearhTextField extends StatefulWidget {
   const SearhTextField({
     super.key,
@@ -61,9 +55,11 @@ class SearhTextField extends StatefulWidget {
     required this.focusNode,
     this.searchOnChanged,
   });
+
   final TextEditingController searchController;
   final FocusNode focusNode;
   final void Function(dynamic)? searchOnChanged;
+
   @override
   State<SearhTextField> createState() => _SearhTextFieldState();
 }
@@ -80,20 +76,24 @@ class _SearhTextFieldState extends State<SearhTextField> {
       keyboardType: TextInputType.text,
       controller: widget.searchController,
       focusNode: widget.focusNode,
-      validator: (value) {
-        return null;
+      validator: (value) => null,
+      onChanged: (val) {
+        setState(() {});
+        if (widget.searchOnChanged != null) {
+          widget.searchOnChanged!(val);
+        }
       },
-      onChanged: widget.searchOnChanged,
-      // onSaved: (value) {},
-      // onTap: () {},
+      suffixIcon:
+          widget.searchController.text.isNotEmpty ? AppImages.xIcon : null,
       suffixIconResponse: () {
         setState(() {
           widget.searchController.clear();
-          widget.focusNode.unfocus();
+          widget.focusNode.requestFocus();
+          if (widget.searchOnChanged != null) {
+            widget.searchOnChanged!("");
+          }
         });
       },
-      suffix:
-          widget.focusNode.hasFocus ? SvgPicture.asset(AppImages.xIcon) : null,
       prefixIcon: AppImages.search,
       borderRadiusSize: 8,
     );

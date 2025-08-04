@@ -29,7 +29,7 @@ class DoctorHomeViewBody extends StatelessWidget {
                       showCursor: false,
                       hintText: S.of(context).searchPatient,
                       keyboardType: TextInputType.none,
-                      controller: TextEditingController(),
+                      controller: null,
                       validator: (value) {
                         return null;
                       },

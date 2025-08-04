@@ -467,9 +467,9 @@ class S {
     );
   }
 
-  /// `Payment`
-  String get payment {
-    return Intl.message('Payment', name: 'payment', desc: '', args: []);
+  /// `Payment Methods`
+  String get payment_methods {
+    return Intl.message('Payment Methods', name: 'payment_methods', desc: '', args: []);
   }
 
   /// `Terms & Privacy Policy`

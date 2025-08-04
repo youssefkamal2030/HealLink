@@ -3,12 +3,14 @@ abstract class AppImages {
   static const String facebook = "assets/images/facebook.svg";
   static const String google = "assets/images/google.svg";
   static const String healLink = "assets/images/healLink.svg";
-  static const String onBoardingBackGround = "assets/images/onBoardingBackGround.png";
+  static const String onBoardingBackGround =
+      "assets/images/onBoardingBackGround.png";
   static const String onBoardingImage1 = "assets/images/onBoardingImage1.svg";
   static const String onBoardingImage2 = "assets/images/onBoardingImage2.svg";
   static const String onBoardingImage3 = "assets/images/onBoardingImage3.svg";
   static const String keyIcon = "assets/images/key.svg";
-  static const String clarityLicencesIcon = "assets/images/clarity_license-line.svg";
+  static const String clarityLicencesIcon =
+      "assets/images/clarity_license-line.svg";
   static const String smsIcon = "assets/images/sms.svg";
   static const String uploadImageIcon = "assets/images/upload_image.svg";
   static const String userIcon = "assets/images/user.svg";
@@ -21,7 +23,8 @@ abstract class AppImages {
   static const String trashIcon = "assets/images/trash.svg";
   static const String tickGreenIcon = "assets/images/tick-circle.svg";
   static const String authBackGround = "assets/images/auth_background.svg";
-  static const String authBackGroundPng = "assets/images/auth_background_png.png";
+  static const String authBackGroundPng =
+      "assets/images/auth_background_png.png";
   static const String home = "assets/images/home.svg";
 
   // Added from develop branch
@@ -57,7 +60,7 @@ abstract class AppImages {
   static const String starAmberIcon = "assets/images/star_amber_icon.svg";
   static const String messageAmberIcon = "assets/images/message_amber_icon.svg";
   static const String walletAmberIcon = "assets/images/wallet_amber_icon.svg";
-  static const String arrowSearchIcon = "aassets/images/arrow_search.svg";
+  static const String arrowSearchIcon = "assets/images/arrow_search.svg";
   static const String clockIcon = "assets/images/clock.svg";
   static const String xIcon = "assets/images/x_icon.svg";
 

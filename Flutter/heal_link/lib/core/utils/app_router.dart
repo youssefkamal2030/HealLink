@@ -58,11 +58,11 @@ abstract class AppRouter {
   static const addPrescriptionConfirm = '/AddPrescriptionsConfirm';
   static const doctorSearchView = '/DoctorSearchView';
   static const doctorNotificationsView = '/DoctorNotificationsView';
- 
+
   static const addPrescriptionView = '/addPrescriptionView';
   static const currentMedicationsView = '/currentMedicationsView';
   static const allPatientsView = '/AllPatientsView';
-   static const settingView = '/SettingView';
+  static const settingView = '/SettingView';
   static const accountInfoView = '/AccountInfoView';
   static const privacyView = '/PrivacyView';
 
@@ -167,10 +167,10 @@ abstract class AppRouter {
       GoRoute(
         path: addPrescriptionView,
         builder: (BuildContext context, GoRouterState state) {
-          return const AddPrescriptionView();
+          return const AddPrescriptionsView();
         },
       ),
-        GoRoute(
+      GoRoute(
         path: prescriptions,
         builder: (BuildContext context, GoRouterState state) {
           return const Prescriptions();
@@ -244,13 +244,13 @@ abstract class AppRouter {
       GoRoute(
         path: currentMedicationsView,
         builder: (BuildContext context, GoRouterState state) {
-          return  CurrentMedicationsView();
+          return CurrentMedicationsView();
         },
       ),
       GoRoute(
         path: allPatientsView,
         builder: (BuildContext context, GoRouterState state) {
-          return  AllPatientsView();
+          return AllPatientsView();
         },
       ),
     ],
