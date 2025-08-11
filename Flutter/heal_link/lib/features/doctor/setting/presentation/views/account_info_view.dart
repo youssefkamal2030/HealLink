@@ -13,7 +13,7 @@ class AccountInfoView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: [
-            CustomAppBarPopWidget(text: S.of(context).account_info),
+            CustomAppBarPopWidget(text: S.of(context).account),
             SizedBox(height: 24),
             ContactInfoSection(),
           ],
