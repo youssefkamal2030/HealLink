@@ -4,15 +4,18 @@ import '../../../../../../core/utils/app_images.dart';
 import '../../../../../../core/utils/app_styles.dart';
 import '../../../../../../core/utils/function/app_colors.dart';
 import '../../../../../../core/widgets/custom_empty_button.dart';
+import '../../../../../../generated/l10n.dart';
 import 'custom_circle_image.dart';
 
 class PatientInfoCard extends StatelessWidget {
-  const PatientInfoCard({super.key});
+  const PatientInfoCard({super.key, required this.response});
+
+  final void Function() response;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.all(7.5),
       decoration: BoxDecoration(
         color: AppColors.kWhiteColor,
         borderRadius: BorderRadius.circular(8),
@@ -47,7 +50,7 @@ class PatientInfoCard extends StatelessWidget {
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: 'Last interaction: ',
+                      text: S.of(context).lastInteraction,
                       style: AppTextStyles.popins400style12kPrimaryColor,
                     ),
                     TextSpan(
@@ -62,7 +65,7 @@ class PatientInfoCard extends StatelessWidget {
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: 'Type: ',
+                      text: S.of(context).type,
                       style: AppTextStyles.popins400style12kPrimaryColor,
                     ),
                     TextSpan(
@@ -84,10 +87,11 @@ class PatientInfoCard extends StatelessWidget {
                   borderRadius: 8,
                   height: 34,
                   borderSide: 1,
-                  text: 'View Details >',
-                  response: () {},
+                  text: S.of(context).viewDetails,
+                  response: response,
                   textStyle: AppTextStyles.popins400style14LightBlackColor
                       .copyWith(color: AppColors.kPrimaryColor),
+                  iconSize: 15,
                 ),
               ),
             ),

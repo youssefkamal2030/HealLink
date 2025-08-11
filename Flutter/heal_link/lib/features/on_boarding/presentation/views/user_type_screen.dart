@@ -15,7 +15,6 @@ class UserTypeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.kWhiteColor,
       body: Stack(
         children: [
           OnBoardingPageView(
@@ -36,23 +35,21 @@ class UserTypeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   CustomEmptyButton(
-                    text: S
-                        .of(context)
-                        .i_am_patient,
-                    response: () {
-                       context.push(AppRouter.patientSignUpView);
-                    },
-                    height: 39,
                     text: S.of(context).i_am_patient,
-                    response: () {},
+                    response: () {
+                      context.push(AppRouter.patientSignUpView);
+                    },
+                    height: 44,
+                    borderRadius: 16,
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 16),
                   CustomEmptyButton(
                     text: S.of(context).i_am_doctor,
                     response: () {
                       context.push(AppRouter.doctorSignUpFirstView);
-                      context.push(AppRouter.doctorHomeView);
                     },
+                    height: 44,
+                    borderRadius: 16,
                   ),
                 ],
               ),

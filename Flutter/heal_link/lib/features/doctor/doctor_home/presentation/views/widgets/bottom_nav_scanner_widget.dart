@@ -4,8 +4,8 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../../../core/utils/app_images.dart';
 import '../../../../../../core/utils/function/app_colors.dart';
 
-class ScannerWidget extends StatelessWidget {
-  const ScannerWidget({
+class BottomNavScannerWidget extends StatelessWidget {
+  const BottomNavScannerWidget({
     super.key,
     required this.onPressed,
     required this.selectedIndex,

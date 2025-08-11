@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:heal_link/core/widgets/auth_custom_header.dart';
+import 'package:heal_link/core/widgets/custom_auth_header.dart';
 
 class DoctorForgetPasswordHeader extends StatelessWidget {
   const DoctorForgetPasswordHeader({super.key});
@@ -8,7 +8,7 @@ class DoctorForgetPasswordHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: AuthCustomHeader(headerTitle: "Forget Password"),
+      child: CustomAuthHeader(headerTitle: "Forget Password"),
     );
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:heal_link/core/utils/app_images.dart';
 import 'package:heal_link/core/utils/app_styles.dart';
 import 'package:heal_link/core/utils/constant.dart';
-import '../../../../../core/utils/app_images.dart';
 
 class OnBoardingPageView extends StatelessWidget {
   const OnBoardingPageView({
@@ -13,6 +13,7 @@ class OnBoardingPageView extends StatelessWidget {
     this.topPadding,
     this.rightPadding,
     this.subTitleTextStyle,
+    this.subTitlePadding,
   });
 
   final String image;
@@ -21,6 +22,7 @@ class OnBoardingPageView extends StatelessWidget {
   final double? topPadding;
   final double? rightPadding;
   final TextStyle? subTitleTextStyle;
+  final double? subTitlePadding;
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +32,9 @@ class OnBoardingPageView extends StatelessWidget {
           children: [
             SizedBox(
               width: double.infinity,
-              child: SvgPicture.asset(
+              child: Image.asset(
                 AppImages.onBoardingBackGround,
-                height: AppConstant.height * .85,
+                height: AppConstant.height * .88,
                 width: double.infinity,
                 fit: BoxFit.cover,
               ),
@@ -47,7 +49,7 @@ class OnBoardingPageView extends StatelessWidget {
               right: 0,
               left: 0,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Column(
                   children: [
                     Text(
@@ -57,11 +59,15 @@ class OnBoardingPageView extends StatelessWidget {
                     ),
                     SizedBox(height: 30),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: subTitlePadding ?? 15,
+                      ),
                       child: Text(
                         subTitle,
                         textAlign: TextAlign.center,
-                        style:subTitleTextStyle?? AppTextStyles.popins400style14LightBlackColor,
+                        style:
+                            subTitleTextStyle ??
+                            AppTextStyles.popins400style14LightBlackColor,
                       ),
                     ),
                     SizedBox(height: 56),

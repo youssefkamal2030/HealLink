@@ -12,6 +12,7 @@ class OnBoardingPage1 extends StatelessWidget {
       image: AppImages.onBoardingImage1,
       title: S.of(context).your_health_smarter,
       subTitle: S.of(context).connect_doctor_track,
+      subTitlePadding: 40,
     );
   }
 }
