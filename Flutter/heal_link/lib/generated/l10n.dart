@@ -28,10 +28,9 @@ class S {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name =
-        (locale.countryCode?.isEmpty ?? false)
-            ? locale.languageCode
-            : locale.toString();
+    final name = (locale.countryCode?.isEmpty ?? false)
+        ? locale.languageCode
+        : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -467,9 +466,9 @@ class S {
     );
   }
 
-  /// `Payment Methods`
-  String get payment_methods {
-    return Intl.message('Payment Methods', name: 'payment_methods', desc: '', args: []);
+  /// `Payment`
+  String get payment {
+    return Intl.message('Payment', name: 'payment', desc: '', args: []);
   }
 
   /// `Terms & Privacy Policy`
@@ -935,16 +934,6 @@ class S {
   /// `Account`
   String get account {
     return Intl.message('Account', name: 'account', desc: '', args: []);
-  }
-
-  /// `Account Info`
-  String get account_info {
-    return Intl.message(
-      'Account Info',
-      name: 'account_info',
-      desc: '',
-      args: [],
-    );
   }
 
   /// `Privacy & Security`
