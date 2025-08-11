@@ -28,9 +28,10 @@ class ContactInfoSection extends StatelessWidget {
             img: AppImages.edit,
           ),
           InfoField(
-            label: S.of(context).address,
-            value: 'Cairo,Egypt',
+            label: S.of(context).password,
+            value: '******',
             isEditable: true,
+            isPassword: true,
             img: AppImages.edit,
           ),
           InfoField(
