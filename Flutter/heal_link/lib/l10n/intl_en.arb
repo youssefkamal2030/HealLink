@@ -120,19 +120,5 @@
   "who_can_view_my_profile": "Who can view my profile",
   "login_alerts": "Login Alerts",
   "biometric_authentication": "Biometric Authentication",
-  "show_my_availability_status": "Show my Availability Status",
-  "lipid_profile": "Lipid Profile",
-"cardiac_enzymes": "Cardiac Enzymes",
-"kidney_function": "Kidney Function",
-"blood_sugar": "Blood Sugar",
-"echocardiogram": "Echocardiogram",
-"chest_xray": "Chest X-ray",
-"ct_coronary_angiography": "CT Coronary Angiography",
-"cardiac_mri": "Cardiac MRI",
-"neurology": "Neurology",
-"orthopedics": "Orthopedics",
-"cardiology": "Cardiology",
-"dentistry": "Dentistry",
-"ophthalmology": "Ophthalmology"
-
+  "show_my_availability_status": "Show my Availability Status"
 }

@@ -39,15 +39,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "biometric_authentication": MessageLookupByLibrary.simpleMessage(
       "Biometric Authentication",
     ),
-    "blood_sugar": MessageLookupByLibrary.simpleMessage("Blood Sugar"),
-    "cardiac_enzymes": MessageLookupByLibrary.simpleMessage("Cardiac Enzymes"),
-    "cardiac_mri": MessageLookupByLibrary.simpleMessage("Cardiac MRI"),
-    "cardiology": MessageLookupByLibrary.simpleMessage("Cardiology"),
     "change_profile": MessageLookupByLibrary.simpleMessage("Change Profile"),
     "chat_send_receive": MessageLookupByLibrary.simpleMessage(
       "Chat with your doctor, send test results, and receive updated prescriptions — all in a few taps",
     ),
-    "chest_xray": MessageLookupByLibrary.simpleMessage("Chest X-ray"),
     "choose_role": MessageLookupByLibrary.simpleMessage(
       "Choose your role to get the experience that fits you best",
     ),
@@ -64,9 +59,6 @@ class MessageLookup extends MessageLookupByLibrary {
       "Connect with your doctor, track your condition, and get care from anywhere.",
     ),
     "contactInfo": MessageLookupByLibrary.simpleMessage("Contact Info"),
-    "ct_coronary_angiography": MessageLookupByLibrary.simpleMessage(
-      "CT Coronary Angiography",
-    ),
     "currentWorkplace": MessageLookupByLibrary.simpleMessage(
       "Current Workplace / Hospital",
     ),
@@ -79,11 +71,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Deactivate Account",
     ),
     "delete_account": MessageLookupByLibrary.simpleMessage("Delete Account"),
-    "dentistry": MessageLookupByLibrary.simpleMessage("Dentistry"),
     "dont_have_account": MessageLookupByLibrary.simpleMessage(
       "Don’t have an account?",
     ),
-    "echocardiogram": MessageLookupByLibrary.simpleMessage("Echocardiogram"),
     "email": MessageLookupByLibrary.simpleMessage("Email"),
     "emailAddress": MessageLookupByLibrary.simpleMessage(
       "Enter your email address",
@@ -115,7 +105,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "invite_family": MessageLookupByLibrary.simpleMessage(
       "Invite a family member to stay updated and support you on your health journey.",
     ),
-    "kidney_function": MessageLookupByLibrary.simpleMessage("Kidney Function"),
     "lab_tests": MessageLookupByLibrary.simpleMessage("Lab Tests"),
     "language": MessageLookupByLibrary.simpleMessage("Language"),
     "lastInteraction": MessageLookupByLibrary.simpleMessage(
@@ -124,7 +113,6 @@ class MessageLookup extends MessageLookupByLibrary {
     "license_number_too_short": MessageLookupByLibrary.simpleMessage(
       "license nubmer too short",
     ),
-    "lipid_profile": MessageLookupByLibrary.simpleMessage("Lipid Profile"),
     "login_alerts": MessageLookupByLibrary.simpleMessage("Login Alerts"),
     "medicalLicenseNumber": MessageLookupByLibrary.simpleMessage(
       "Medical License Number",
@@ -140,7 +128,6 @@ class MessageLookup extends MessageLookupByLibrary {
       "national id must be 14 digits",
     ),
     "nationality": MessageLookupByLibrary.simpleMessage("Nationality"),
-    "neurology": MessageLookupByLibrary.simpleMessage("Neurology"),
     "new_password_note": MessageLookupByLibrary.simpleMessage(
       "Your New Password Must Be Different From previous password",
     ),
@@ -162,9 +149,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "once_patients_subscribing": MessageLookupByLibrary.simpleMessage(
       "Once patients start subscribing with you, their information will appear here.",
     ),
-    "ophthalmology": MessageLookupByLibrary.simpleMessage("Ophthalmology"),
     "or_sign_up_with": MessageLookupByLibrary.simpleMessage("or Sign Up with"),
-    "orthopedics": MessageLookupByLibrary.simpleMessage("Orthopedics"),
     "password": MessageLookupByLibrary.simpleMessage("Password"),
     "past_surgeries": MessageLookupByLibrary.simpleMessage("Past Surgeries"),
     "patient_history": MessageLookupByLibrary.simpleMessage("Patient History"),

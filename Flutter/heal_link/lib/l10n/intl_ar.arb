@@ -120,19 +120,5 @@
   "who_can_view_my_profile": "من يمكنه رؤية ملفي الشخصي",
   "login_alerts": "تنبيهات تسجيل الدخول",
   "biometric_authentication": "المصادقة البيومترية",
-  "show_my_availability_status": "إظهار حالة توفري",
-  "lipid_profile": "ملف الدهون",
-"cardiac_enzymes": "إنزيمات القلب",
-"kidney_function": "وظائف الكلى",
-"blood_sugar": "سكر الدم",
-"echocardiogram": "تخطيط صدى القلب",
-"chest_xray": "أشعة سينية للصدر",
-"ct_coronary_angiography": "تصوير الشرايين التاجية بالاشعة المقطعية",
-"cardiac_mri": "تصوير القلب بالرنين المغناطيسي",
-"neurology": "طب الأعصاب",
-"orthopedics": "جراحة العظام",
-"cardiology": "طب القلب",
-"dentistry": "طب الأسنان",
-"ophthalmology": "طب العيون"
-
+  "show_my_availability_status": "إظهار حالة توفري"
 }

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:heal_link/core/utils/app_images.dart';
 import 'package:heal_link/core/utils/function/app_colors.dart';
 import 'package:heal_link/core/widgets/custom_elevated_button.dart';
-import 'package:heal_link/features/doctor/doctor_personal_information/presentation/views/widgets/info_field.dart';
+import 'package:heal_link/features/doctor/personal_information/presentation/views/widgets/info_field.dart';
 import 'package:heal_link/generated/l10n.dart';
 
 class ContactInfoSection extends StatelessWidget {
