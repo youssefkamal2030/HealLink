@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heal_link/core/widgets/custom_app_bar_pop_widget.dart';
-import 'package:heal_link/features/doctor/personal_information/presentation/views/widgets/basic_info_section.dart';
-import 'package:heal_link/features/doctor/personal_information/presentation/views/widgets/professional_info_section.dart';
+import 'package:heal_link/features/doctor/doctor_personal_information/presentation/views/widgets/basic_info_section.dart';
+import 'package:heal_link/features/doctor/doctor_personal_information/presentation/views/widgets/professional_info_section.dart';
 import 'package:heal_link/generated/l10n.dart';
 
 class PersonalInformationView extends StatelessWidget {

@@ -68,4 +68,6 @@ abstract class AppImages {
   static const String messageNavBar = "assets/images/message_nav_bar.svg";
   static const String prescriptions = "assets/images/prescriptions.svg";
   static const String addPrescriptions = "assets/images/add_prescription.svg";
+  static const String labTest = "assets/images/lab-test.svg";
+  static const String radiology = "assets/images/radiology.svg";
 }

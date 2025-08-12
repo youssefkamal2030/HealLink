@@ -24,8 +24,21 @@ class UploadedReports extends StatelessWidget {
           text: S.of(context).prescriptions,
           onTap: () => context.push(AppRouter.prescriptions),
         ),
-        CustomPatientHistoryRow(text: S.of(context).lab_tests, isLabTest: true),
-        CustomPatientHistoryRow(text: S.of(context).x_rays),
+        InkWell(
+          onTap: () {
+            context.push(AppRouter.labTestView);
+          },
+          child: CustomPatientHistoryRow(
+            text: S.of(context).lab_tests,
+            isLabTest: true,
+          ),
+        ),
+        InkWell(
+          onTap: () {
+            context.push(AppRouter.radiologyView);
+          },
+          child: CustomPatientHistoryRow(text: S.of(context).x_rays),
+        ),
         Divider(height: 0.5, thickness: 0.5),
       ],
     );

@@ -15,10 +15,12 @@ import 'package:heal_link/features/doctor/doctor_home/presentation/views/doctor_
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/patient_view_details.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/prescription_view.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/total_patient_view.dart';
+import 'package:heal_link/features/doctor/doctor_lab_tests/presentation/views/lab_test_view.dart';
 import 'package:heal_link/features/doctor/doctor_notifications/presentation/views/doctor_notification_view.dart';
 import 'package:heal_link/features/doctor/doctor_profile/presentation/views/doctor_profile_view_body.dart';
+import 'package:heal_link/features/doctor/doctor_radiology/presentation/views/radiology_view.dart';
 import 'package:heal_link/features/doctor/doctor_search/presentation/views/doctor_search_view.dart';
-import 'package:heal_link/features/doctor/personal_information/presentation/views/personal_info.dart';
+import 'package:heal_link/features/doctor/doctor_personal_information/presentation/views/personal_info.dart';
 import 'package:heal_link/features/doctor/prescriptions/presentation/views/prescription.dart';
 import 'package:heal_link/features/doctor/setting/presentation/views/account_info_view.dart';
 import 'package:heal_link/features/doctor/setting/presentation/views/privacy_view.dart';
@@ -65,6 +67,8 @@ abstract class AppRouter {
   static const settingView = '/SettingView';
   static const accountInfoView = '/AccountInfoView';
   static const privacyView = '/PrivacyView';
+  static const labTestView = '/labTestView';
+  static const radiologyView = '/radiologyView';
 
   //* Patient Views
   static const patientSignInView = '/DoctorSignUpView';
@@ -174,6 +178,19 @@ abstract class AppRouter {
         path: prescriptions,
         builder: (BuildContext context, GoRouterState state) {
           return const Prescriptions();
+        },
+      ),
+
+      GoRoute(
+        path: labTestView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const LabTestView();
+        },
+      ),
+      GoRoute(
+        path: radiologyView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const RadiologyView();
         },
       ),
 

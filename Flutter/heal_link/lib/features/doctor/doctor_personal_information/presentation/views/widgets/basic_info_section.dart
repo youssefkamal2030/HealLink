@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:heal_link/generated/l10n.dart';
 import 'package:heal_link/core/utils/app_styles.dart';
-import 'package:heal_link/features/doctor/personal_information/presentation/views/widgets/info_field.dart';
+import 'package:heal_link/features/doctor/doctor_personal_information/presentation/views/widgets/info_field.dart';
 
 class BasicInfoSection extends StatelessWidget {
   const BasicInfoSection({super.key});

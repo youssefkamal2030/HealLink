@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heal_link/core/widgets/custom_app_bar_pop_widget.dart';
-import 'package:heal_link/features/doctor/personal_information/presentation/views/widgets/info_field.dart';
+import 'package:heal_link/features/doctor/doctor_personal_information/presentation/views/widgets/info_field.dart';
 import 'package:heal_link/features/doctor/setting/presentation/views/widgets/setting_field.dart';
 import 'package:heal_link/generated/l10n.dart';
 
