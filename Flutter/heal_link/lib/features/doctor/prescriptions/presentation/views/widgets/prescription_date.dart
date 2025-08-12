@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:heal_link/core/utils/app_images.dart';
-import 'package:heal_link/features/doctor/prescriptions/presentation/views/widgets/custom_list_tile.dart';
+import 'package:heal_link/features/doctor/prescriptions/presentation/views/widgets/prescription_list_tile.dart';
 import 'package:heal_link/generated/l10n.dart';
 import 'package:heal_link/core/utils/app_styles.dart';
 
@@ -17,29 +16,11 @@ class PrescriptionDate extends StatelessWidget {
           S.of(context).thisMonth,
           style: AppTextStyles.popins500style16PrimaryColor,
         ),
-        CustomListTile(
-          title: 'Prescription',
-          date: '02/05/2025',
-          img: AppImages.prescriptions,
-        ),
-        CustomListTile(
-          title: 'Prescription',
-          date: '02/05/2025',
-          img: AppImages.prescriptions,
-        ),
-
+        PrescriptionListTile(),
+        PrescriptionListTile(),
         Text('Jun', style: AppTextStyles.popins500style16PrimaryColor),
-        CustomListTile(
-          title: 'Prescription',
-          date: '02/05/2025',
-          img: AppImages.prescriptions,
-        ),
-
-        CustomListTile(
-          title: 'Prescription',
-          date: '02/05/2025',
-          img: AppImages.prescriptions,
-        ),
+        PrescriptionListTile(),
+        PrescriptionListTile(),
       ],
     );
   }
