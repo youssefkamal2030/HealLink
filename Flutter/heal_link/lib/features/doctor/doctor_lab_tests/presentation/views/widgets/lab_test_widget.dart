@@ -4,8 +4,8 @@ import 'package:heal_link/features/doctor/prescriptions/presentation/views/widge
 import 'package:heal_link/generated/l10n.dart';
 import 'package:heal_link/core/utils/app_styles.dart';
 
-class PrescriptionDate extends StatelessWidget {
-  const PrescriptionDate({super.key});
+class LabTestWidget extends StatelessWidget {
+  const LabTestWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,27 +18,26 @@ class PrescriptionDate extends StatelessWidget {
           style: AppTextStyles.popins500style16PrimaryColor,
         ),
         CustomListTile(
-          title: 'Prescription',
+          img: AppImages.labTest,
+          title: S.of(context).lipid_profile,
           date: '02/05/2025',
-          img: AppImages.prescriptions,
         ),
         CustomListTile(
-          title: 'Prescription',
+          img: AppImages.labTest,
+          title: S.of(context).cardiac_enzymes,
           date: '02/05/2025',
-          img: AppImages.prescriptions,
         ),
 
         Text('Jun', style: AppTextStyles.popins500style16PrimaryColor),
         CustomListTile(
-          title: 'Prescription',
+          img: AppImages.labTest,
+          title: S.of(context).kidney_function,
           date: '02/05/2025',
-          img: AppImages.prescriptions,
         ),
-
         CustomListTile(
-          title: 'Prescription',
+          img: AppImages.labTest,
+          title: S.of(context).blood_sugar,
           date: '02/05/2025',
-          img: AppImages.prescriptions,
         ),
       ],
     );

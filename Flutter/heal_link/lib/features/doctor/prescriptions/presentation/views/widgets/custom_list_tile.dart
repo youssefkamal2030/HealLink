@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:heal_link/core/utils/app_images.dart';
 import 'package:heal_link/core/utils/app_styles.dart';
 
-class PrescriptionListTile extends StatelessWidget {
-  const PrescriptionListTile({super.key});
+class CustomListTile extends StatelessWidget {
+  const CustomListTile({
+    super.key,
+    required this.img,
+    required this.title,
+    required this.date,
+  });
+
+  final String img;
+  final String title;
+  final String date;
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +28,15 @@ class PrescriptionListTile extends StatelessWidget {
       child: Row(
         spacing: 8,
         children: [
-          SvgPicture.asset(AppImages.prescriptions, width: 48, height: 48),
+          SvgPicture.asset(img, width: 44, height: 44),
           Text(
-            'Prescription',
+            title,
             style: AppTextStyles.popins400style14LightBlackColor.copyWith(
               fontSize: 16,
             ),
           ),
           const Spacer(),
-          Text(
-            '02/05/2025',
-            style: AppTextStyles.popins400style10MediumGreyColor,
-          ),
+          Text(date, style: AppTextStyles.popins400style10MediumGreyColor),
         ],
       ),
     );

@@ -41,12 +41,19 @@ class MessageLookup extends MessageLookupByLibrary {
     "biometric_authentication": MessageLookupByLibrary.simpleMessage(
       "المصادقة البيومترية",
     ),
+    "blood_sugar": MessageLookupByLibrary.simpleMessage("سكر الدم"),
+    "cardiac_enzymes": MessageLookupByLibrary.simpleMessage("إنزيمات القلب"),
+    "cardiac_mri": MessageLookupByLibrary.simpleMessage(
+      "تصوير القلب بالرنين المغناطيسي",
+    ),
+    "cardiology": MessageLookupByLibrary.simpleMessage("طب القلب"),
     "change_profile": MessageLookupByLibrary.simpleMessage(
       "تغيير الملف الشخصي",
     ),
     "chat_send_receive": MessageLookupByLibrary.simpleMessage(
       "تحدث مع طبيبك، أرسل نتائج التحاليل، وتلقَّ وصفات محدثة — كل ذلك ببضع نقرات",
     ),
+    "chest_xray": MessageLookupByLibrary.simpleMessage("أشعة سينية للصدر"),
     "choose_role": MessageLookupByLibrary.simpleMessage(
       "اختر دورك للحصول على التجربة الأنسب لك",
     ),
@@ -61,6 +68,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "تواصل مع طبيبك، تتبع حالتك، واحصل على الرعاية من أي مكان.",
     ),
     "contactInfo": MessageLookupByLibrary.simpleMessage("معلومات الاتصال"),
+    "ct_coronary_angiography": MessageLookupByLibrary.simpleMessage(
+      "تصوير الشرايين التاجية بالاشعة المقطعية",
+    ),
     "currentWorkplace": MessageLookupByLibrary.simpleMessage(
       "مكان العمل الحالي / المستشفى",
     ),
@@ -71,9 +81,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "date": MessageLookupByLibrary.simpleMessage("التاريخ"),
     "deactivate_account": MessageLookupByLibrary.simpleMessage("تعطيل الحساب"),
     "delete_account": MessageLookupByLibrary.simpleMessage("Delete Account"),
+    "dentistry": MessageLookupByLibrary.simpleMessage("طب الأسنان"),
     "dont_have_account": MessageLookupByLibrary.simpleMessage(
       "ليس لديك حساب؟ أنشئ حساب",
     ),
+    "echocardiogram": MessageLookupByLibrary.simpleMessage("تخطيط صدى القلب"),
     "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
     "emailAddress": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
     "email_verification_sent": MessageLookupByLibrary.simpleMessage(
@@ -103,12 +115,14 @@ class MessageLookup extends MessageLookupByLibrary {
     "invite_family": MessageLookupByLibrary.simpleMessage(
       "ادعُ أحد أفراد العائلة للبقاء على اطلاع ودعمك في رحلتك الصحية.",
     ),
+    "kidney_function": MessageLookupByLibrary.simpleMessage("وظائف الكلى"),
     "lab_tests": MessageLookupByLibrary.simpleMessage("التحاليل المعملية"),
     "language": MessageLookupByLibrary.simpleMessage("اللغة"),
     "lastInteraction": MessageLookupByLibrary.simpleMessage("آخر تفاعل: "),
     "license_number_too_short": MessageLookupByLibrary.simpleMessage(
       "رقم الرخصة قصير جدًا",
     ),
+    "lipid_profile": MessageLookupByLibrary.simpleMessage("ملف الدهون"),
     "login_alerts": MessageLookupByLibrary.simpleMessage(
       "تنبيهات تسجيل الدخول",
     ),
@@ -126,6 +140,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "الرقم القومى يجب ان يكون 14 رقم ",
     ),
     "nationality": MessageLookupByLibrary.simpleMessage("الجنسية"),
+    "neurology": MessageLookupByLibrary.simpleMessage("طب الأعصاب"),
     "new_password_note": MessageLookupByLibrary.simpleMessage(
       "يجب أن تكون كلمة المرور الجديدة مختلفة عن السابقة",
     ),
@@ -147,9 +162,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "once_patients_subscribing": MessageLookupByLibrary.simpleMessage(
       "بمجرد أن يبدأ المرضى في الاشتراك معك، ستظهر معلوماتهم هنا.",
     ),
+    "ophthalmology": MessageLookupByLibrary.simpleMessage("طب العيون"),
     "or_sign_up_with": MessageLookupByLibrary.simpleMessage(
       "أو أنشئ حساب بواسطة",
     ),
+    "orthopedics": MessageLookupByLibrary.simpleMessage("جراحة العظام"),
     "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
     "past_surgeries": MessageLookupByLibrary.simpleMessage("العمليات السابقة"),
     "patient_history": MessageLookupByLibrary.simpleMessage("تاريخ المريض"),
