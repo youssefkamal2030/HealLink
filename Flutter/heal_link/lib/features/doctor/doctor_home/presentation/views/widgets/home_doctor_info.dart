@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-
 import '../../../../../../core/utils/app_images.dart';
 import '../../../../../../core/utils/function/build_home_box_decoration.dart';
-import 'available_row.dart';
+import '../../../../doctor_auth/presentation/widgets/notification_circle.dart';
 import 'doctor_details.dart';
 
 class HomeDoctorInfo extends StatelessWidget {
@@ -29,16 +27,15 @@ class HomeDoctorInfo extends StatelessWidget {
                 image: AppImages.person,
               ),
               Spacer(),
-              SvgPicture.asset(
-                AppImages.notificationDots,
-                fit: BoxFit.cover,
-              ),
+              NotificationCircle(),
             ],
           ),
           SizedBox(height: 16),
-          AvailableRow(),
+
+          // AvailableRow(),
         ],
       ),
     );
   }
 }
+

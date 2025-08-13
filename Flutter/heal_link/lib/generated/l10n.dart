@@ -28,10 +28,9 @@ class S {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name =
-        (locale.countryCode?.isEmpty ?? false)
-            ? locale.languageCode
-            : locale.toString();
+    final name = (locale.countryCode?.isEmpty ?? false)
+        ? locale.languageCode
+        : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -365,15 +364,7 @@ class S {
     );
   }
 
-  /// `Total Patient >`
-  String get total_patient {
-    return Intl.message(
-      'Total Patient >',
-      name: 'total_patient',
-      desc: '',
-      args: [],
-    );
-  }
+  // skipped getter for the 'total_patient>' key
 
   /// `Members`
   String get members {
@@ -440,6 +431,621 @@ class S {
     return Intl.message(
       'Once patients start subscribing with you, their information will appear here.',
       name: 'once_patients_subscribing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Patient’s Results`
+  String get patient_results {
+    return Intl.message(
+      'Patient’s Results',
+      name: 'patient_results',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Personal Information`
+  String get personal_information {
+    return Intl.message(
+      'Personal Information',
+      name: 'personal_information',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notification`
+  String get notification {
+    return Intl.message(
+      'Notification',
+      name: 'notification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment`
+  String get payment {
+    return Intl.message('Payment', name: 'payment', desc: '', args: []);
+  }
+
+  /// `Terms & Privacy Policy`
+  String get terms_and_privacy_policy {
+    return Intl.message(
+      'Terms & Privacy Policy',
+      name: 'terms_and_privacy_policy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Support Help`
+  String get support_help {
+    return Intl.message(
+      'Support Help',
+      name: 'support_help',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Setting`
+  String get setting {
+    return Intl.message('Setting', name: 'setting', desc: '', args: []);
+  }
+
+  /// `About`
+  String get about {
+    return Intl.message('About', name: 'about', desc: '', args: []);
+  }
+
+  /// `Messages`
+  String get messages {
+    return Intl.message('Messages', name: 'messages', desc: '', args: []);
+  }
+
+  /// `My Profile`
+  String get my_profile {
+    return Intl.message('My Profile', name: 'my_profile', desc: '', args: []);
+  }
+
+  /// `No chat at the moment.`
+  String get no_chat_at_moment {
+    return Intl.message(
+      'No chat at the moment.',
+      name: 'no_chat_at_moment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Once patients start chatting with you, Their conversation will appear here.`
+  String get once_patients_chatting {
+    return Intl.message(
+      'Once patients start chatting with you, Their conversation will appear here.',
+      name: 'once_patients_chatting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All`
+  String get all {
+    return Intl.message('All', name: 'all', desc: '', args: []);
+  }
+
+  /// `Unread`
+  String get unread {
+    return Intl.message('Unread', name: 'unread', desc: '', args: []);
+  }
+
+  /// `Change Profile`
+  String get change_profile {
+    return Intl.message(
+      'Change Profile',
+      name: 'change_profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search for a patient`
+  String get search_for_a_patient {
+    return Intl.message(
+      'Search for a patient',
+      name: 'search_for_a_patient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Prescriptions`
+  String get prescriptions {
+    return Intl.message(
+      'Prescriptions',
+      name: 'prescriptions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Uploaded Reports & Files`
+  String get uploaded_reports_files {
+    return Intl.message(
+      'Uploaded Reports & Files',
+      name: 'uploaded_reports_files',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lab Tests`
+  String get lab_tests {
+    return Intl.message('Lab Tests', name: 'lab_tests', desc: '', args: []);
+  }
+
+  /// `X-rays`
+  String get x_rays {
+    return Intl.message('X-rays', name: 'x_rays', desc: '', args: []);
+  }
+
+  /// `Patient History`
+  String get patient_history {
+    return Intl.message(
+      'Patient History',
+      name: 'patient_history',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chronic diseases`
+  String get chronic_diseases {
+    return Intl.message(
+      'Chronic diseases',
+      name: 'chronic_diseases',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Allergies`
+  String get allergies {
+    return Intl.message('Allergies', name: 'allergies', desc: '', args: []);
+  }
+
+  /// `Past Surgeries`
+  String get past_surgeries {
+    return Intl.message(
+      'Past Surgeries',
+      name: 'past_surgeries',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current Medications`
+  String get current_medications {
+    return Intl.message(
+      'Current Medications',
+      name: 'current_medications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search for a patient`
+  String get searchPatient {
+    return Intl.message(
+      'Search for a patient',
+      name: 'searchPatient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last interaction: `
+  String get lastInteraction {
+    return Intl.message(
+      'Last interaction: ',
+      name: 'lastInteraction',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Type: `
+  String get type {
+    return Intl.message('Type: ', name: 'type', desc: '', args: []);
+  }
+
+  /// `View Details`
+  String get viewDetails {
+    return Intl.message(
+      'View Details',
+      name: 'viewDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Patient`
+  String get total_patient {
+    return Intl.message(
+      'Total Patient',
+      name: 'total_patient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accept`
+  String get accept {
+    return Intl.message('Accept', name: 'accept', desc: '', args: []);
+  }
+
+  /// `Reject`
+  String get reject {
+    return Intl.message('Reject', name: 'reject', desc: '', args: []);
+  }
+
+  /// `Gender`
+  String get gender {
+    return Intl.message('Gender', name: 'gender', desc: '', args: []);
+  }
+
+  /// `Age`
+  String get age {
+    return Intl.message('Age', name: 'age', desc: '', args: []);
+  }
+
+  /// `View Prescription`
+  String get viewPrescription {
+    return Intl.message(
+      'View Prescription',
+      name: 'viewPrescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Prescription`
+  String get addPrescription {
+    return Intl.message(
+      'Add Prescription',
+      name: 'addPrescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Basic Info`
+  String get basicInfo {
+    return Intl.message('Basic Info', name: 'basicInfo', desc: '', args: []);
+  }
+
+  /// `Full Name`
+  String get fullName {
+    return Intl.message('Full Name', name: 'fullName', desc: '', args: []);
+  }
+
+  /// `Nationality`
+  String get nationality {
+    return Intl.message('Nationality', name: 'nationality', desc: '', args: []);
+  }
+
+  /// `Contact Info`
+  String get contactInfo {
+    return Intl.message(
+      'Contact Info',
+      name: 'contactInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Phone Number`
+  String get phoneNumber {
+    return Intl.message(
+      'Phone Number',
+      name: 'phoneNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your email address`
+  String get emailAddress {
+    return Intl.message(
+      'Enter your email address',
+      name: 'emailAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Address`
+  String get address {
+    return Intl.message('Address', name: 'address', desc: '', args: []);
+  }
+
+  /// `Professional Info`
+  String get professionalInfo {
+    return Intl.message(
+      'Professional Info',
+      name: 'professionalInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Medical License Number`
+  String get medicalLicenseNumber {
+    return Intl.message(
+      'Medical License Number',
+      name: 'medicalLicenseNumber',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current Workplace / Hospital`
+  String get currentWorkplace {
+    return Intl.message(
+      'Current Workplace / Hospital',
+      name: 'currentWorkplace',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This Month`
+  String get thisMonth {
+    return Intl.message('This Month', name: 'thisMonth', desc: '', args: []);
+  }
+
+  /// `Specialization`
+  String get specialization {
+    return Intl.message(
+      'Specialization',
+      name: 'specialization',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add`
+  String get add {
+    return Intl.message('Add', name: 'add', desc: '', args: []);
+  }
+
+  /// `Date`
+  String get date {
+    return Intl.message('Date', name: 'date', desc: '', args: []);
+  }
+
+  /// `Medicine Name`
+  String get medicine_name {
+    return Intl.message(
+      'Medicine Name',
+      name: 'medicine_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Frequency of Use`
+  String get frequency_of_use {
+    return Intl.message(
+      'Frequency of Use',
+      name: 'frequency_of_use',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Usage Instructions`
+  String get usage_instructions {
+    return Intl.message(
+      'Usage Instructions',
+      name: 'usage_instructions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `notifications`
+  String get notifications {
+    return Intl.message(
+      'notifications',
+      name: 'notifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `enter your national ID`
+  String get enter_national_id {
+    return Intl.message(
+      'enter your national ID',
+      name: 'enter_national_id',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search`
+  String get search {
+    return Intl.message('Search', name: 'search', desc: '', args: []);
+  }
+
+  /// `Search History`
+  String get search_history {
+    return Intl.message(
+      'Search History',
+      name: 'search_history',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `please enter national Id `
+  String get please_enter_national_id {
+    return Intl.message(
+      'please enter national Id ',
+      name: 'please_enter_national_id',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `national id must be 14 digits`
+  String get national_id_must_be_14_digits {
+    return Intl.message(
+      'national id must be 14 digits',
+      name: 'national_id_must_be_14_digits',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `please enter practice license number`
+  String get please_enter_practice_license_number {
+    return Intl.message(
+      'please enter practice license number',
+      name: 'please_enter_practice_license_number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `license nubmer too short`
+  String get license_number_too_short {
+    return Intl.message(
+      'license nubmer too short',
+      name: 'license_number_too_short',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account`
+  String get account {
+    return Intl.message('Account', name: 'account', desc: '', args: []);
+  }
+
+  /// `Privacy & Security`
+  String get privacy_security {
+    return Intl.message(
+      'Privacy & Security',
+      name: 'privacy_security',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Data & Storage`
+  String get data_storage {
+    return Intl.message(
+      'Data & Storage',
+      name: 'data_storage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notification Preferences`
+  String get notification_preferences {
+    return Intl.message(
+      'Notification Preferences',
+      name: 'notification_preferences',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message('Language', name: 'language', desc: '', args: []);
+  }
+
+  /// `App Version & Updates`
+  String get app_version_updates {
+    return Intl.message(
+      'App Version & Updates',
+      name: 'app_version_updates',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Two-Factor Authentication`
+  String get two_factor_authentication {
+    return Intl.message(
+      'Two-Factor Authentication',
+      name: 'two_factor_authentication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Deactivate Account`
+  String get deactivate_account {
+    return Intl.message(
+      'Deactivate Account',
+      name: 'deactivate_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete Account`
+  String get delete_account {
+    return Intl.message(
+      'Delete Account',
+      name: 'delete_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Who can view my profile`
+  String get who_can_view_my_profile {
+    return Intl.message(
+      'Who can view my profile',
+      name: 'who_can_view_my_profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login Alerts`
+  String get login_alerts {
+    return Intl.message(
+      'Login Alerts',
+      name: 'login_alerts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Biometric Authentication`
+  String get biometric_authentication {
+    return Intl.message(
+      'Biometric Authentication',
+      name: 'biometric_authentication',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show my Availability Status`
+  String get show_my_availability_status {
+    return Intl.message(
+      'Show my Availability Status',
+      name: 'show_my_availability_status',
       desc: '',
       args: [],
     );

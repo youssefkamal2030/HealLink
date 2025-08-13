@@ -1,0 +1,104 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:heal_link/core/utils/app_styles.dart';
+
+import '../utils/function/app_colors.dart';
+
+class CustomTextFormField2 extends StatelessWidget {
+  final String hintText;
+  final TextInputType keyboardType;
+  final TextEditingController? controller;
+  final FormFieldValidator validator;
+  final String? prefixIcon;
+  final String? suffixIcon;
+  final double borderRadiusSize;
+  final VoidCallback? suffixIconResponse;
+  final VoidCallback? onTap;
+  final ValueChanged? onChanged;
+  final ValueChanged? onSaved;
+  final Color? fillColor;
+  final Color? borderSideColor;
+  final FocusNode? focusNode;
+  final Widget? suffix;
+  final bool showCursor;
+
+  final void Function()? xIconResponse;
+
+  const CustomTextFormField2({
+    super.key,
+    required this.hintText,
+    required this.keyboardType,
+     this.controller,
+    required this.validator,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.borderRadiusSize = 12,
+    this.suffixIconResponse,
+    this.onChanged,
+    this.onTap,
+    this.onSaved,
+    this.fillColor,
+    this.borderSideColor,
+    this.focusNode,
+    this.suffix,
+    this.xIconResponse,  this.showCursor=true,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 40,
+      child: TextFormField(
+        focusNode: focusNode,
+        onTap: onTap,
+        keyboardType: keyboardType,
+        showCursor: showCursor,
+        controller: controller,
+        validator: validator,
+        onChanged: onChanged,
+        onSaved: onSaved,
+        decoration: InputDecoration(
+          suffix: InkWell(
+            onTap: xIconResponse,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: suffix,
+            ),
+          ),
+          filled: true,
+          fillColor: fillColor ?? AppColors.kWhiteColor,
+          prefixIconColor: AppColors.kTextFieldIconColor,
+          suffixIconColor: AppColors.kTextFieldIconColor,
+          prefixIcon:
+              prefixIcon != null
+                  ? SvgPicture.asset(prefixIcon!, fit: BoxFit.none)
+                  : null,
+          suffixIcon:
+              suffixIcon != null
+                  ? IconButton(
+                    onPressed: suffixIconResponse,
+                    icon: SvgPicture.asset(suffixIcon!),
+                  )
+                  : null,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: borderSideColor ?? AppColors.kWhiteColor,
+            ),
+            borderRadius: BorderRadius.circular(borderRadiusSize),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(borderRadiusSize),
+            borderSide: BorderSide(
+              color: borderSideColor ?? AppColors.kWhiteColor,
+            ),
+          ),
+          hintText: hintText,
+          hintStyle: AppTextStyles.popins400style12kPrimaryColor.copyWith(
+            color: AppColors.kTextFieldIconColor,
+          ),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      ),
+    );
+  }
+}
