@@ -7,6 +7,8 @@ namespace healLink.Application.Repositories
     public interface IUserRepository
     {
         Task<User> GetByEmailAsync(string email, CancellationToken cancellationToken);
+        Task<User?> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken = default);
+
         Task AddAsync(User user, CancellationToken cancellationToken);
         Task UpdateAsync(User user, CancellationToken cancellationToken);
     }

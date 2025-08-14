@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using healLink.Application.Queries;
+using HealLink.Contracts.Profile;
 
 namespace HealLink.Api.Controllers
 {
@@ -7,10 +9,24 @@ namespace HealLink.Api.Controllers
     [ApiController]
     public class ProfileController : ControllerBase
     {
-      public async Task<IActionResult> GetProfile(Guid userId)
+        private readonly IMediator _mediator;
+        public ProfileController(IMediator mediator)
         {
-           
-            return Ok(new { Message = "Profile retrieval not implemented yet." });
+            _mediator = mediator;
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetProfile(Guid userId)
+        {
+            var query = new GetProfileQuery(userId);
+            var result = await _mediator.Send(query);
+            
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            
+            return NotFound(result);
         }
     }
 }

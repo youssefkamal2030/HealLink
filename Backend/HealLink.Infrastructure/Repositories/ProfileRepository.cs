@@ -18,11 +18,11 @@ namespace HealLink.Infrastructure.Repositories
             _context = dbContext;
         }
 
-        public async Task<Patient?> GetPatientByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)
+        public async Task<Patient?> GetPatientByUserIdAsync(Guid UserId, CancellationToken cancellationToken = default)
         {
             return await _context.Patients
                 .Include(p => p.User)
-                .FirstOrDefaultAsync(p => p.UserId == userId, cancellationToken);
+                .FirstOrDefaultAsync(p => p.UserId == UserId, cancellationToken);
         }
 
         public async Task<Doctor?> GetDoctorByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)
@@ -30,6 +30,19 @@ namespace HealLink.Infrastructure.Repositories
             return await _context.Doctors
                 .Include(d => d.User)
                 .FirstOrDefaultAsync(d => d.UserId == userId, cancellationToken);
+        }
+
+    
+
+        public async Task<string?> GetGuardianNameByIdAsync(Guid guardianId, CancellationToken cancellationToken = default)
+        {
+            var guardian = await _context.Guardians
+                .Include(g => g.User)
+                .FirstOrDefaultAsync(g => g.Id == guardianId, cancellationToken);
+            
+            return guardian?.User != null 
+                ? $"{guardian.User.FirstName} {guardian.User.LastName}"
+                : null;
         }
 
         public async Task AddPatientAsync(Patient patient, CancellationToken cancellationToken = default)
