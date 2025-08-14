@@ -8,9 +8,7 @@ import '../../../../../../generated/l10n.dart';
 import 'custom_patient_history_row.dart';
 
 class PatientHistoryUploadedReport extends StatelessWidget {
-  const PatientHistoryUploadedReport({
-    super.key,
-  });
+  const PatientHistoryUploadedReport({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,18 +20,26 @@ class PatientHistoryUploadedReport extends StatelessWidget {
           style: AppTextStyles.popins500style16PrimaryColor,
         ),
         SizedBox(height: 8),
-        CustomPatientHistoryRow(text: S.of(context).chronic_diseases),
-        CustomPatientHistoryRow(text: S.of(context).allergies),
-        CustomPatientHistoryRow(text: S.of(context).past_surgeries),
+        CustomPatientHistoryRow(
+          text: S.of(context).chronic_diseases,
+          onTap: () => context.push(AppRouter.chronicDiseasesView),
+        ),
+        CustomPatientHistoryRow(
+          text: S.of(context).allergies,
+          onTap: () => context.push(AppRouter.allergiesView),
+        ),
+        CustomPatientHistoryRow(
+          text: S.of(context).past_surgeries,
+          onTap: () => context.push(AppRouter.pastSurgeriesView),
+        ),
         CustomPatientHistoryRow(
           text: S.of(context).current_medications,
           onTap: () => context.push(AppRouter.currentMedicationsView),
         ),
-        Divider(height: 0.5,thickness: 0.5,),
+        Divider(height: 0.5, thickness: 0.5),
         SizedBox(height: 16),
         UploadedReports(),
       ],
     );
   }
 }
-

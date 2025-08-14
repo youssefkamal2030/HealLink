@@ -11,12 +11,14 @@ class InfoField extends StatefulWidget {
     this.value,
     this.img,
     required this.isEditable,
+    this.isPassword = false, // 👈 إضافة اختيار جديد
   });
 
   final String label;
   final String? value;
   final String? img;
   final bool isEditable;
+  final bool isPassword; // 👈 لتحديد إذا كان الحقل باسورد
 
   @override
   State<InfoField> createState() => _InfoFieldState();
@@ -26,6 +28,7 @@ class _InfoFieldState extends State<InfoField> {
   bool isSwitchOn = true;
   bool isEditing = false;
   late TextEditingController _controller;
+  bool obscurePassword = true;
 
   @override
   void initState() {
@@ -55,6 +58,7 @@ class _InfoFieldState extends State<InfoField> {
                 isEditing
                     ? TextField(
                       controller: _controller,
+                      obscureText: widget.isPassword ? obscurePassword : false,
                       style: AppTextStyles.popins400style14LightBlackColor,
                       decoration: const InputDecoration(
                         isDense: true,
@@ -68,7 +72,10 @@ class _InfoFieldState extends State<InfoField> {
                         style: AppTextStyles.popins500style14LightBlackColor,
                         children: [
                           TextSpan(
-                            text: widget.value ?? '',
+                            text:
+                                widget.isPassword
+                                    ? '*' * (widget.value?.length ?? 0)
+                                    : widget.value ?? '',
                             style: AppTextStyles.popins400style14LightBlackColor
                                 .copyWith(color: AppColors.kDarkGreyColor),
                           ),
