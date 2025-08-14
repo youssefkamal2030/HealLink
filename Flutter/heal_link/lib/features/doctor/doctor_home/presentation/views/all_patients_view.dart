@@ -21,7 +21,7 @@ class AllPatientsView extends StatelessWidget {
         ),
         child: Column(
           children: [
-            CustomAppBarPopWidget(text: S.of(context).current_medications),
+            CustomAppBarPopWidget(text: S.of(context).total_patient),
             SizedBox(height: 23),
             Expanded(
               child: ListView.builder(
