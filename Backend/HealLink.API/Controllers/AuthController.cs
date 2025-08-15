@@ -7,18 +7,22 @@ using healLink.Application.Commands.Auth;
 using Microsoft.AspNetCore.Http;
 using HealLink.Infrastructure.Services;
 using healLink.Application.Interfaces;
+using HealLink.Contracts.Email;
+using ErrorOr;
+using Microsoft.AspNetCore.Identity.Data;
 
 namespace HealLink.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AuthController(IMediator mediator, IPhotoService photoService) : ControllerBase
+    public class AuthController(IMediator mediator, IPhotoService photoService, IEmailService emailService) : ControllerBase
     {
         private readonly IMediator _mediator = mediator;
         private readonly IPhotoService _photoService = photoService;
+        private readonly IEmailService _emailService = emailService;
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromForm] RegisterRequest request)
+        public async Task<IActionResult> Register([FromForm] Contracts.Auth.RegisterRequest request)
         {
             if (!Enum.TryParse<HealLink.Domain.Enums.UserRole>(request.Role, true, out var userRole))
             {
@@ -34,7 +38,7 @@ namespace HealLink.Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        public async Task<IActionResult> Login([FromBody] Contracts.Auth.LoginRequest request)
         {
             try
             {
@@ -47,22 +51,51 @@ namespace HealLink.Api.Controllers
                 return Unauthorized("Invalid credentials");
             }
         }
+        [HttpPost("confirm-email")]
+        public async Task<IActionResult> ConfirmEmail([FromBody] ConfirmEmailRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new { message = "Invalid request data" });
+
+            try
+            {
+                await _emailService.ConfirmEmailAsync(request);
+                return Ok(new { message = "Email confirmed successfully" });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "An unexpected error occurred" });
+            }
+        }
+ 
 
         [HttpPost("forgot-password")]
-        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
+        public async Task<IActionResult> ForgotPassword([FromBody] Contracts.Auth.ForgotPasswordRequest request)
         {
-            await _mediator.Send(new ForgotPasswordCommand(request.Email));
+            await _emailService.SendResetOtpAsync(request.Email);
          
             return Ok(new { Message = "If an account with that email exists, a password reset link has been sent." });
         }
+
         [HttpPost("reset-password")]
-        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
+        public async Task<IActionResult> ResetPassword([FromBody] Contracts.Auth.ResetPasswordRequest request)
         {
-            var command = new ResetPasswordCommand(request.Email, request.Token, request.NewPassword);
+            var command = new ResetPasswordCommand(request.Email, request.code,request.Token, request.NewPassword);
             var result = await _mediator.Send(command);
             if (result.Message == "Password reset Successfully")
                 return Ok(result);
             return BadRequest(result);
+        }
+        [HttpPost("resend-confirmation-email")]
+        public async Task<IActionResult> ResendConfirmationEmail([FromBody] Contracts.Auth.ForgotPasswordRequest request, CancellationToken cancellationToken)
+        {
+            await _emailService.ResendConfirmationEmailAsync(request.Email);
+           return Ok();
+
         }
     }
 }

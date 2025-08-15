@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ErrorOr;
 using healLink.Application.Commands.Auth;
 using healLink.Application.Repositories;
 using HealLink.Contracts.Auth;
@@ -24,6 +25,7 @@ namespace healLink.Application.Handlers.Auth
             _passwordHasher = passwordHasher;
 
         }
+
         public async Task<ResetPasswordResponse> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
@@ -31,20 +33,25 @@ namespace healLink.Application.Handlers.Auth
             {
                 return new ResetPasswordResponse("User not found");
             }
+
+            if (!await _userRepository.CheckOtpAsync(user.Id, request.Code, cancellationToken))
+            {
+                return new ResetPasswordResponse("Invalid OTP");
+            }
+
             var validationId = user.Id;
-             if(_jwtTokenGenerator.VerifyPasswordResetHmacCode(request.Token, out  validationId))
+            if (_jwtTokenGenerator.VerifyPasswordResetHmacCode(request.Token, out validationId))
             {
                 var newPassword = _passwordHasher.HashPassword(request.NewPassword);
                 user.ChangePassword(newPassword.Value);
                 await _userRepository.UpdateAsync(user, cancellationToken);
-                return new ResetPasswordResponse("Password reset Successfully");
 
+                return new ResetPasswordResponse("Password reset successfully");
             }
             else
             {
-                return new ResetPasswordResponse("Invalid Token or user ID mismatch");
+                return new ResetPasswordResponse("Invalid token or user ID mismatch");
             }
-
         }
     }
 }

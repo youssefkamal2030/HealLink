@@ -4,6 +4,7 @@ using HealLink.Domain.Entities;
 using healLink.Application.Repositories;
 using Microsoft.EntityFrameworkCore;
 using HealLink.Infrastructure.Data;
+using Azure.Core;
 
 namespace HealLink.Infrastructure.Repositories
 {
@@ -35,6 +36,14 @@ namespace HealLink.Infrastructure.Repositories
         {
             _context.Users.Update(user);
             await _context.SaveChangesAsync(cancellationToken);
+        }
+        public async Task<bool> CheckOtpAsync(Guid userId, string otpCode, CancellationToken cancellationToken)
+        {
+            var otp = await _context.OTPs
+                .Where(o => o.UserId == userId && o.Code == otpCode && o.ExpiryTime > DateTime.UtcNow)
+                .FirstOrDefaultAsync(cancellationToken);
+
+            return otp != null;
         }
 
         public Task<User> GetByIdAsync(Guid id, CancellationToken cancellationToken)

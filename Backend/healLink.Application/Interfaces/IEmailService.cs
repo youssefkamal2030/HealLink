@@ -14,6 +14,8 @@ namespace healLink.Application.Interfaces
         Task SendPasswordResetEmailAsync(string to, string resetLink);
         Task SendOtpAsync(User user);
         Task SendPasswordResetOtpAsync(User user);
-        Task ConfirmEmailAsync(ConfirmEmailRequest request);
+        Task<bool> ConfirmEmailAsync(ConfirmEmailRequest request);
+        Task<bool> SendResetOtpAsync(string email);
+        Task ResendConfirmationEmailAsync(string email, CancellationToken cancellationToken = default);
     }
 }
