@@ -1,0 +1,21 @@
+[build]
+builder = "DOCKERFILE"
+dockerfile = "Dockerfile"
+
+[deploy]
+startCommand = "dotnet HealLink.Api.dll"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
+[env]
+DOTNET_ENVIRONMENT = "Production"
+ASPNETCORE_URLS = "http://+:8080"
+
+[[services]]
+internal_port = 8080
+protocol = "http"
+
+  [services.concurrency]
+  type = "connections"
+  hard_limit = 25
+  soft_limit = 20
