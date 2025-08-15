@@ -7,10 +7,14 @@ using healLink.Application.Interfaces;
 using HealLink.Contracts.Auth;
 using HealLink.Infrastructure;
 using HealLink.Infrastructure.Data;
+using HealLink.Infrastructure.Services;
+using HealLink.Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace HealLink
@@ -31,6 +35,20 @@ namespace HealLink
             builder.Services.AddSwaggerGen();
             builder.WebHost.UseWebRoot("wwwroot");
 
+            // Configure EmailSender
+            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+            builder.Services.AddTransient<IEmailSender>(provider =>
+            {
+                var emailSettings = provider.GetRequiredService<IOptions<MailSettings>>().Value;
+                return new EmailSender(
+                    emailSettings.Email,
+                    emailSettings.AppPassword,
+                    emailSettings.Host,
+                    emailSettings.SSL,
+                    emailSettings.Port,
+                    emailSettings.IsBodyHtml
+                );
+            });
             builder.Services.AddMediatR(cfg =>
             cfg.RegisterServicesFromAssembly(typeof(LoginCommand).Assembly));
 

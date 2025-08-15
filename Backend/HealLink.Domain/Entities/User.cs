@@ -19,7 +19,8 @@ namespace HealLink.Domain.Entities
         public UserRole Role { get; private set; }
         public AccountStatus Status { get; private set; }
         public DateTime? LastLoginAt { get; private set; }
-
+        public ICollection<OTP> OTPs = [];
+        public bool EmailConfirmed { get; set; }
         private User() { } // For EF
 
         public User(string username, string passwordHash, string firstName, string lastName, string email, UserRole role)

@@ -10,20 +10,13 @@ using HealLink.Domain.Enums;
 using healLink.Application.Commands.Auth;
 using healLink.Application.Commands.Profile;
 
-public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisterResponse>
+public class RegisterCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasher, IApplicationDbContext context, IMediator mediator, IEmailService emailService) : IRequestHandler<RegisterCommand, RegisterResponse>
 {
-    private readonly IUserRepository _userRepository;
-    private readonly IPasswordHasher _passwordHasher;
-    private readonly IApplicationDbContext _context;
-    private readonly IMediator _mediator;
-
-    public RegisterCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasher, IApplicationDbContext context, IMediator mediator)
-    {
-        _userRepository = userRepository;
-        _passwordHasher = passwordHasher;
-        _mediator = mediator;
-        _context = context;
-    }
+    private readonly IUserRepository _userRepository = userRepository;
+    private readonly IPasswordHasher _passwordHasher = passwordHasher;
+    private readonly IApplicationDbContext _context = context;
+    private readonly IMediator _mediator = mediator;
+    private readonly IEmailService _emailService = emailService;
 
     public async Task<RegisterResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
@@ -55,10 +48,11 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisterR
 
         await _userRepository.AddAsync(user, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
-
+        await _emailService.SendOtpAsync(user);
         var CreateProfileCommand = new CreateProfileCommand(user.Id, user.Role, user.FirstName, user.LastName, "phonenumber", "Address");
         var result = await _mediator.Send(CreateProfileCommand);
 
         return new RegisterResponse("User registered successfully");
     }
+
 }

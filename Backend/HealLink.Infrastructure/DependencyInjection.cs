@@ -26,6 +26,8 @@ namespace HealLink.Infrastructure
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
             services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<EmailBodyBuilder>();
+
             return services;
         }
     }

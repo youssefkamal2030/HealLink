@@ -1,8 +1,10 @@
-﻿using System;
+﻿using ErrorOr;
+using HealLink.Contracts.Email;
+using HealLink.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace healLink.Application.Interfaces
 {
@@ -10,5 +12,8 @@ namespace healLink.Application.Interfaces
     {
         Task SendEmailAsync(string to, string subject, string body);
         Task SendPasswordResetEmailAsync(string to, string resetLink);
+        Task SendOtpAsync(User user);
+        Task SendPasswordResetOtpAsync(User user);
+        Task ConfirmEmailAsync(ConfirmEmailRequest request);
     }
 }
