@@ -20,6 +20,7 @@ import 'package:heal_link/features/doctor/doctor_home/presentation/views/prescri
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/total_patient_view.dart';
 import 'package:heal_link/features/doctor/doctor_notifications/presentation/views/doctor_notification_view.dart';
 import 'package:heal_link/features/doctor/doctor_profile/presentation/views/doctor_profile_view_body.dart';
+import 'package:heal_link/features/doctor/doctor_profile/presentation/views/privacy_policy_view.dart';
 import 'package:heal_link/features/doctor/doctor_search/presentation/views/doctor_search_view.dart';
 import 'package:heal_link/features/doctor/personal_information/presentation/views/personal_info.dart';
 import 'package:heal_link/features/doctor/prescriptions/presentation/views/prescription.dart';
@@ -71,6 +72,7 @@ abstract class AppRouter {
   static const pastSurgeriesView = '/PastSurgeriesView';
   static const allergiesView = '/AllergiesView';
   static const chronicDiseasesView = '/ChronicDiseasesView';
+  static const privacyPolicy = '/PrivacyPolicyView';
 
 
   //* Patient Views
@@ -276,6 +278,12 @@ abstract class AppRouter {
         path: chronicDiseasesView,
         builder: (BuildContext context, GoRouterState state) {
           return ChronicDiseasesView();
+        },
+      ),
+      GoRoute(
+        path: privacyPolicy,
+        builder: (BuildContext context, GoRouterState state) {
+          return PrivacyPolicyView();
         },
       ),
     ],
