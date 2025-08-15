@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using HealLink.Contracts.Auth;
 using healLink.Application.Commands;

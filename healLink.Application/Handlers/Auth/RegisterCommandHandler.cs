@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using HealLink.Contracts.Auth;
 using HealLink.Domain.Entities;
 using System.Threading;

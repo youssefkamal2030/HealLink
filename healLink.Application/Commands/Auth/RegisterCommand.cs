@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +15,7 @@ namespace healLink.Application.Commands.Auth
         string password,
         string email,
         UserRole Role,
-        IFormFile Idfront,
-        IFormFile Idback
+        IFormFile? Idfront,
+        IFormFile? Idback
     ) : IRequest<RegisterResponse>;
 }

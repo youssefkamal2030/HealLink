@@ -14,14 +14,14 @@ namespace HealLink.Contracts.Auth
     .Matches("[^a-zA-Z0-9]").WithMessage("Password must contain at least one special character.");
             RuleFor(x => x.Email).NotEmpty().EmailAddress();
             RuleFor(x => x.Role)
-                .Must(role => new[] { "Patient", "Doctor", "Admin" }.Contains(role))
-                .WithMessage("Role must be Patient, Doctor, or Admin.");
-            When(x => x.Role.ToLower() == "doctor", () =>
+                .Must(role => new[] { "Patient", "Doctor"}.Contains(role))
+                .WithMessage("Role must be Patient, Doctor");
+            When(x => x.Role == "Doctor", () =>
             {
-                RuleFor(x => x.Idfront).NotEmpty().WithMessage("Idfront is required for doctors.");
-                RuleFor(x => x.Idback).NotEmpty().WithMessage("Idback is required for doctors.");
+                RuleFor(x => x.Idfront).NotEmpty().WithMessage("ID front is required for doctors.");
+                RuleFor(x => x.Idback).NotEmpty().WithMessage("ID back is required for doctors.");
             });
            
         }
     }
-} 
+}
