@@ -24,7 +24,7 @@ namespace HealLink.Infrastructure.Data
         public DbSet<MedicalHistory> MedicalHistories { get; set; }
         public DbSet<MedicationReminder> MedicationReminders { get; set; }
         public DbSet<DoctorPatientConnection> DoctorPatientConnections { get; set; }
-
+        public DbSet<OTP> OTPs { get; set; }
         public HealLinkDbContext(DbContextOptions<HealLinkDbContext> options) : base(options)
         {
         }
@@ -32,6 +32,8 @@ namespace HealLink.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            // Keep this
+     
 
             // User
             modelBuilder.Entity<User>().ToTable("Users");
@@ -121,10 +123,10 @@ namespace HealLink.Infrastructure.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Subscription>()
-                .HasOne<Doctor>()
-                .WithMany()
-                .HasForeignKey(s => s.DoctorId)
-                .OnDelete(DeleteBehavior.Cascade);
+     .HasOne(s => s.Doctor)
+     .WithMany(d => d.Subscriptions)
+     .HasForeignKey(s => s.DoctorId)
+     .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Subscription>()
                 .HasOne<Patient>()

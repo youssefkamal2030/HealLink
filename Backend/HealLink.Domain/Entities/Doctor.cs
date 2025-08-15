@@ -30,7 +30,7 @@ namespace HealLink.Domain.Entities
         private readonly List<Guid> _patientIds = new();
         public IReadOnlyCollection<Guid> PatientIds => _patientIds.AsReadOnly();
         public User User { get; private set; }
-        public ICollection<Subscription> _subscription { get; private set; } = new List<Subscription>();
+        public ICollection<Subscription> Subscriptions { get; set; } = [];
 
         public Doctor(
             Guid userId,

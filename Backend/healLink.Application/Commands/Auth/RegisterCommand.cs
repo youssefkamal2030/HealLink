@@ -6,8 +6,16 @@ using System.Threading.Tasks;
 using HealLink.Contracts.Auth;
 using HealLink.Domain.Enums;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace healLink.Application.Commands.Auth
 {
-    public record RegisterCommand(string username , string password , string email, UserRole Role, string Idfront, string Idback) : IRequest<RegisterResponse>;
+    public record RegisterCommand(
+        string username,
+        string password,
+        string email,
+        UserRole Role,
+        IFormFile Idfront,
+        IFormFile Idback
+    ) : IRequest<RegisterResponse>;
 }

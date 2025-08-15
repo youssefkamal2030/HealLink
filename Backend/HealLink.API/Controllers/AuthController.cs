@@ -4,27 +4,29 @@ using HealLink.Contracts.Auth;
 using healLink.Application.Commands;
 using System.Threading.Tasks;
 using healLink.Application.Commands.Auth;
+using Microsoft.AspNetCore.Http;
+using HealLink.Infrastructure.Services;
+using healLink.Application.Interfaces;
 
 namespace HealLink.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AuthController : ControllerBase
+    public class AuthController(IMediator mediator, IPhotoService photoService) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        public AuthController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        private readonly IMediator _mediator = mediator;
+        private readonly IPhotoService _photoService = photoService;
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        public async Task<IActionResult> Register([FromForm] RegisterRequest request)
         {
             if (!Enum.TryParse<HealLink.Domain.Enums.UserRole>(request.Role, true, out var userRole))
             {
                 return BadRequest("Invalid role");
             }
-            var command = new RegisterCommand(request.username, request.Password, request.Email, userRole, "FrontUrl", "BackUrl");
+            var command = new RegisterCommand(request.username, request.Password, request.Email, userRole, request.Idfront , request.Idback);
+            var frontUrl = await _photoService.SavePhotoAsync(request.Idfront, "uploads");
+            var backUrl = await _photoService.SavePhotoAsync(request.Idback, "uploads");
             var result = await _mediator.Send(command);
             if (result.Message == "User registered successfully")
                 return Ok(result);

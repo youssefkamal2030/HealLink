@@ -24,6 +24,8 @@ namespace HealLink.Infrastructure.Repositories
             return await _context.Users
                 .FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
         }
+   
+
         public async Task AddAsync(User user, CancellationToken cancellationToken)
         {
             await _context.Users.AddAsync(user, cancellationToken);
@@ -33,6 +35,11 @@ namespace HealLink.Infrastructure.Repositories
         {
             _context.Users.Update(user);
             await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public Task<User> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 } 

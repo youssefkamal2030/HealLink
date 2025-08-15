@@ -10,6 +10,7 @@ using HealLink.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 
 namespace HealLink
@@ -28,6 +29,7 @@ namespace HealLink
             builder.Services.AddInfraStructer(builder.Configuration); 
             builder.Services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>());
             builder.Services.AddSwaggerGen();
+            builder.WebHost.UseWebRoot("wwwroot");
 
             builder.Services.AddMediatR(cfg =>
             cfg.RegisterServicesFromAssembly(typeof(LoginCommand).Assembly));
@@ -66,7 +68,12 @@ namespace HealLink
                     c.RoutePrefix = "swagger";
                 });
             }
-
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads")),
+                RequestPath = "/Uploads"
+            });
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();

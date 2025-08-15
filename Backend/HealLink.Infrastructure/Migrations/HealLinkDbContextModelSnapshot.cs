@@ -85,10 +85,6 @@ namespace HealLink.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NationalID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -297,6 +293,31 @@ namespace HealLink.Infrastructure.Migrations
                     b.ToTable("Notifications", (string)null);
                 });
 
+            modelBuilder.Entity("HealLink.Domain.Entities.OTP", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpiryTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("OTPs");
+                });
+
             modelBuilder.Entity("HealLink.Domain.Entities.Patient", b =>
                 {
                     b.Property<Guid>("Id")
@@ -428,9 +449,6 @@ namespace HealLink.Infrastructure.Migrations
                     b.Property<Guid>("DoctorId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("DoctorId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
@@ -452,8 +470,6 @@ namespace HealLink.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DoctorId");
-
-                    b.HasIndex("DoctorId1");
 
                     b.HasIndex("PatientId");
 
@@ -680,6 +696,17 @@ namespace HealLink.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("HealLink.Domain.Entities.OTP", b =>
+                {
+                    b.HasOne("HealLink.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("HealLink.Domain.Entities.Patient", b =>
                 {
                     b.HasOne("HealLink.Domain.Entities.Guardian", "Guardian")
@@ -729,21 +756,19 @@ namespace HealLink.Infrastructure.Migrations
 
             modelBuilder.Entity("HealLink.Domain.Entities.Subscription", b =>
                 {
-                    b.HasOne("HealLink.Domain.Entities.Doctor", null)
-                        .WithMany()
+                    b.HasOne("HealLink.Domain.Entities.Doctor", "Doctor")
+                        .WithMany("Subscriptions")
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("HealLink.Domain.Entities.Doctor", null)
-                        .WithMany("_subscription")
-                        .HasForeignKey("DoctorId1");
 
                     b.HasOne("HealLink.Domain.Entities.Patient", null)
                         .WithMany()
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Doctor");
                 });
 
             modelBuilder.Entity("HealLink.Domain.Entities.TestResult", b =>
@@ -762,7 +787,7 @@ namespace HealLink.Infrastructure.Migrations
 
             modelBuilder.Entity("HealLink.Domain.Entities.Doctor", b =>
                 {
-                    b.Navigation("_subscription");
+                    b.Navigation("Subscriptions");
                 });
 #pragma warning restore 612, 618
         }

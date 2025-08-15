@@ -22,4 +22,8 @@
     <ProjectReference Include="..\HealLink.Infrastructure\HealLink.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Uploads\" />
+  </ItemGroup>
+
 </Project>

@@ -9,12 +9,13 @@ namespace HealLink.Domain.Entities
     {
         public Guid PatientId { get; private set; }
         public Guid DoctorId { get; private set; }
-       public int Amount { get; private set; }
+        public Doctor Doctor { get; private set; }
+        public int Amount { get; private set; }
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
         public bool IsActive { get; private set; }
         public bool IsMonthly { get; private set; }
-
+    
         private Subscription() { } 
 
         public Subscription(Guid patientId, Guid doctorId, int amount, DateTime startDate, DateTime endDate, bool isMonthly)

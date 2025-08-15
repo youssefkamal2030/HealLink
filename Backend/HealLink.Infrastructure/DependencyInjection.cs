@@ -25,6 +25,7 @@ namespace HealLink.Infrastructure
             services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IProfileRepository, ProfileRepository>();
+            services.AddScoped<IPhotoService, PhotoService>();
             return services;
         }
     }
