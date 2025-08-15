@@ -25,8 +25,6 @@ namespace HealLink.Api.Controllers
                 return BadRequest("Invalid role");
             }
             var command = new RegisterCommand(request.username, request.Password, request.Email, userRole, request.Idfront , request.Idback);
-            var frontUrl = await _photoService.SavePhotoAsync(request.Idfront, "uploads");
-            var backUrl = await _photoService.SavePhotoAsync(request.Idback, "uploads");
             var result = await _mediator.Send(command);
             if (result.Message == "User registered successfully")
                 return Ok(result);

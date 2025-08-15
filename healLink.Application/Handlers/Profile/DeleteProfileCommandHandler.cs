@@ -1,12 +1,14 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using healLink.Application.Commands.Profile;
 using healLink.Application.Repositories;
+using HealLink.Contracts.Profile.Responses;
 using MediatR;
 
-namespace healLink.Application.Commands.Profile
+namespace healLink.Application.Handlers.Profile
 {
-    public class DeleteProfileCommandHandler : IRequestHandler<DeleteProfileCommand, DeleteProfileResponse>
+    public class DeleteProfileCommandHandler : IRequestHandler<DeleteDoctorProfileCommand, DeleteDoctorProfileResponse>
     {
         private readonly IProfileRepository _profileRepository;
 
@@ -15,7 +17,7 @@ namespace healLink.Application.Commands.Profile
             _profileRepository = profileRepository;
         }
 
-        public async Task<DeleteProfileResponse> Handle(DeleteProfileCommand request, CancellationToken cancellationToken)
+        public async Task<DeleteDoctorProfileResponse> Handle(DeleteDoctorProfileCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -23,16 +25,16 @@ namespace healLink.Application.Commands.Profile
                 
                 if (doctor == null)
                 {
-                    return new DeleteProfileResponse("Doctor profile not found.", false);
+                    return new DeleteDoctorProfileResponse("Doctor profile not found.", false);
                 }
 
                 await _profileRepository.DeleteDoctorAsync(request.DoctorId, cancellationToken);
 
-                return new DeleteProfileResponse("Doctor profile deleted successfully.");
+                return new DeleteDoctorProfileResponse("Doctor profile deleted successfully.");
             }
             catch (Exception ex)
             {
-                return new DeleteProfileResponse($"Failed to delete doctor profile: {ex.Message}", false);
+                return new DeleteDoctorProfileResponse($"Failed to delete doctor profile: {ex.Message}", false);
             }
         }
     }

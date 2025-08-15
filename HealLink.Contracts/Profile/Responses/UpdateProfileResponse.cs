@@ -1,6 +1,6 @@
 using System;
 
-    public record UpdateDoctorProfileResponse(
+    public record UpdateProfileResponse(
         string Message,
         bool Success = true
     );

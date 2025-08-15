@@ -1,22 +1,23 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using healLink.Application.Commands.Profile;
 using healLink.Application.Repositories;
 using HealLink.Domain.Entities;
 using MediatR;
 
-namespace healLink.Application.Commands.Profile
+namespace healLink.Application.Handlers.Profile
 {
-    public class UpdateProfileCommandHandler : IRequestHandler<UpdateProfileCommand, UpdateProfileResponse>
+    public class UpdateDoctorProfileCommandHandler : IRequestHandler<UpdateDoctorProfileCommand, UpdateProfileResponse>
     {
         private readonly IProfileRepository _profileRepository;
 
-        public UpdateProfileCommandHandler(IProfileRepository profileRepository)
+        public UpdateDoctorProfileCommandHandler(IProfileRepository profileRepository)
         {
             _profileRepository = profileRepository;
         }
 
-        public async Task<UpdateProfileResponse> Handle(UpdateProfileCommand request, CancellationToken cancellationToken)
+        public async Task<UpdateProfileResponse> Handle(UpdateDoctorProfileCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -27,7 +28,7 @@ namespace healLink.Application.Commands.Profile
                     return new UpdateProfileResponse("Doctor profile not found.", false);
                 }
 
-                // Update doctor using domain entity methods
+                
                 doctor.UpdatePersonalInfo(request.PersonalInfo);
                 doctor.UpdateAddress(request.Address);
                 doctor.UpdateProfessionalDetails(

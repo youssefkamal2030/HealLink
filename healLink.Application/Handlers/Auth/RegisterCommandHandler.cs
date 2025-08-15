@@ -10,8 +10,9 @@ using HealLink.Domain.Enums;
 using healLink.Application.Commands.Auth;
 using healLink.Application.Commands.Profile;
 
-public class RegisterCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasher, IApplicationDbContext context, IMediator mediator, IEmailService emailService) : IRequestHandler<RegisterCommand, RegisterResponse>
+public class RegisterCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasher, IApplicationDbContext context, IMediator mediator, IEmailService emailService, IPhotoService photoService) : IRequestHandler<RegisterCommand, RegisterResponse>
 {
+    private readonly IPhotoService _photoService = photoService;
     private readonly IUserRepository _userRepository = userRepository;
     private readonly IPasswordHasher _passwordHasher = passwordHasher;
     private readonly IApplicationDbContext _context = context;
@@ -49,7 +50,9 @@ public class RegisterCommandHandler(IUserRepository userRepository, IPasswordHas
         await _userRepository.AddAsync(user, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
         await _emailService.SendOtpAsync(user);
-        var CreateProfileCommand = new CreateProfileCommand(user.Id, user.Role, user.FirstName, user.LastName, "phonenumber", "Address");
+        var frontUrl = await _photoService.SavePhotoAsync(request.Idfront, "uploads");
+        var backUrl = await _photoService.SavePhotoAsync(request.Idback, "uploads");
+        var CreateProfileCommand = new CreateProfileCommand(user.Id, user.Role, user.FirstName, user.LastName, frontUrl, backUrl);
         var result = await _mediator.Send(CreateProfileCommand);
 
         return new RegisterResponse("User registered successfully");

@@ -8,55 +8,55 @@ namespace HealLink.Domain.Entities
 {
     public class Doctor : Entity
     {
-
         public Guid UserId { get; private set; }
-        public PersonalInfo PersonalInfo { get; private set; }
-        public Address Address { get; private set; }
+        public PersonalInfo? PersonalInfo { get; private set; }
+        public Address? Address { get; private set; }
 
-        public string LicenseNumber { get; private set; }
-        public string SyndicateIdImagePath { get; private set; } = null!;
-        public string PracticeLicenseNumber { get; private set; } = null!;
-        public string IdFront { get; } = null!;
-        public string IdBack { get; } = null!;
-        public string Specialization { get; private set; }
-        public string CurrentWorkplace { get; private set; }
-        public string Phone { get; private set; } = null!;
+        public string? LicenseNumber { get; private set; }
+        public string? SyndicateIdImagePath { get; private set; }
+        public string? PracticeLicenseNumber { get; private set; }
+        public string? IdFront { get; private set; }
+        public string? IdBack { get; private set; }
+        public string? Specialization { get; private set; }
+        public string? CurrentWorkplace { get; private set; }
+        public string? Phone { get; private set; }
 
-        public bool IsAvailableForChat { get; private set; }
-        public string QRCode { get; private set; }
-        public DateTime QRCodeGeneratedAt { get; private set; }
-        public bool IsApproved { get; private set; }
+        public bool IsAvailableForChat { get; private set; } = false;
+        public string? QRCode { get; private set; }
+        public DateTime? QRCodeGeneratedAt { get; private set; }
+        public bool IsApproved { get; private set; } = false;
 
         private readonly List<Guid> _patientIds = new();
         public IReadOnlyCollection<Guid> PatientIds => _patientIds.AsReadOnly();
-        public User User { get; private set; }
-        public ICollection<Subscription> Subscriptions { get; set; } = [];
+        public User? User { get; private set; }
+        public ICollection<Subscription>? Subscriptions { get; set; }
 
         public Doctor(
             Guid userId,
-            PersonalInfo personalInfo,
-            Address address,
-            string syndicateImagePath,
-            string Idfront,
-            string Idback,
-            string licenseNumber,
-            string practiceLicenseNumber,
-            string specialization,
-            string currentWorkplace,
-            string phone)
+            PersonalInfo? personalInfo = null,
+            Address? address = null,
+            string? syndicateImagePath = null,
+            string? idFront = null,
+            string? idBack = null,
+            string? licenseNumber = null,
+            string? practiceLicenseNumber = null,
+            string? specialization = null,
+            string? currentWorkplace = null,
+            string? phone = null)
         {
-            Id = userId;
+            UserId = userId;
             PersonalInfo = personalInfo;
             Address = address;
             SyndicateIdImagePath = syndicateImagePath;
-           IdFront = Idfront ;
-            IdBack = Idback;
+            IdFront = idFront;
+            IdBack = idBack;
             LicenseNumber = licenseNumber;
             PracticeLicenseNumber = practiceLicenseNumber;
             Specialization = specialization;
             CurrentWorkplace = currentWorkplace;
             Phone = phone;
         }
+
         private Doctor() { }
 
         public void Approve()
@@ -65,31 +65,29 @@ namespace HealLink.Domain.Entities
             UpdateTimestamp();
         }
 
-      
-
         public void SetChatAvailability(bool isAvailable)
         {
             IsAvailableForChat = isAvailable;
             UpdateTimestamp();
         }
-        
-        public void UpdatePersonalInfo(PersonalInfo personalInfo)
+
+        public void UpdatePersonalInfo(PersonalInfo? personalInfo)
         {
-            PersonalInfo = personalInfo ?? throw new ArgumentNullException(nameof(personalInfo));
+            PersonalInfo = personalInfo;
             UpdateTimestamp();
         }
-        
-        public void UpdateAddress(Address address)
+
+        public void UpdateAddress(Address? address)
         {
-            Address = address ?? throw new ArgumentNullException(nameof(address));
+            Address = address;
             UpdateTimestamp();
         }
-        
-        public void UpdateProfessionalDetails(string specialization, string currentWorkplace, string phone)
+
+        public void UpdateProfessionalDetails(string? specialization, string? currentWorkplace, string? phone)
         {
-            Specialization = !string.IsNullOrWhiteSpace(specialization) ? specialization : throw new ArgumentException("Specialization cannot be empty", nameof(specialization));
-            CurrentWorkplace = !string.IsNullOrWhiteSpace(currentWorkplace) ? currentWorkplace : throw new ArgumentException("Current workplace cannot be empty", nameof(currentWorkplace));
-            Phone = !string.IsNullOrWhiteSpace(phone) ? phone : throw new ArgumentException("Phone cannot be empty", nameof(phone));
+            Specialization = specialization;
+            CurrentWorkplace = currentWorkplace;
+            Phone = phone;
             UpdateTimestamp();
         }
 
@@ -102,7 +100,10 @@ namespace HealLink.Domain.Entities
 
         public bool IsQRCodeValid()
         {
-            return DateTime.UtcNow.Subtract(QRCodeGeneratedAt).TotalMinutes < 5;
+            if (!QRCodeGeneratedAt.HasValue)
+                return false;
+
+            return DateTime.UtcNow.Subtract(QRCodeGeneratedAt.Value).TotalMinutes < 5;
         }
 
         public void RefreshQRCodeIfNeeded()

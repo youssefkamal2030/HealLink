@@ -13,8 +13,10 @@ namespace healLink.Application.Commands.Profile
         UserRole Role,
         string? FirstName,
         string? LastName,
-        string? PhoneNumber,
-        string? Address
+        string? Idfront,
+        string? Idback
+
+
     ) : IRequest<CreateProfileResponse>;
 
 }

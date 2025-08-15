@@ -43,11 +43,10 @@ namespace healLink.Application.Handlers.Profile
                     return new CreateProfileResponse("Doctor profile already exists for this user.", false);
                 }
 
-                // Placeholder: construct Doctor when you have required data (PersonalInfo, Address, etc.)
-                // var newDoctor = new Doctor(request.UserId, personalInfo, address, syndicateImagePath, idFront, idBack, licenseNumber, practiceLicenseNumber, specialization, currentWorkplace, phone);
-                // await _profileRepository.AddDoctorAsync(newDoctor, cancellationToken);
+                var newDoctor = new Doctor(request.UserId,null, null,null,request.Idfront,request.Idback,null,null,null,null,null);
+                await _profileRepository.AddDoctorAsync(newDoctor, cancellationToken);
 
-                return new CreateProfileResponse("Doctor creation requires more data.", false);
+                return new CreateProfileResponse("Doctor profile created successfully.", true);
             }
 
             return new CreateProfileResponse("Unsupported role for profile creation.", false);

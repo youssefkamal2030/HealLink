@@ -155,18 +155,23 @@ namespace HealLink.Infrastructure.Repositories
                 .FirstOrDefaultAsync(d => d.Id == doctorId, cancellationToken);
         }
 
-        public async Task UpdateDoctorAsync(Doctor doctor, CancellationToken cancellationToken = default)
+        public async Task UpdateDoctorAsync(Doctor doctor, CancellationToken cancellationToken)
         {
             _context.Doctors.Update(doctor);
             await _context.SaveChangesAsync(cancellationToken);
         }
+
 
         public async Task DeleteDoctorAsync(Guid doctorId, CancellationToken cancellationToken = default)
         {
             var doctor = await _context.Doctors.FindAsync(new object[] { doctorId }, cancellationToken);
             if (doctor != null)
             {
-                _context.Doctors.Remove(doctor);
+                var user = await _context.Users.FindAsync(new object[] { doctor.UserId }, cancellationToken);
+                if (user != null)
+                {
+                    _context.Users.Remove(user);
+                }
                 await _context.SaveChangesAsync(cancellationToken);
             }
         }

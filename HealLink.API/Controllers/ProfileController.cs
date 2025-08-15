@@ -44,10 +44,10 @@ namespace HealLink.Api.Controllers
             return Ok(result);
         }
 
-        [HttpPut("doctor/{doctorId}")]
+        [HttpPut("{doctorId}")]
         public async Task<IActionResult> UpdateDoctorProfile(Guid doctorId, [FromBody] UpdateDoctorProfileRequest request)
         {
-            var command = new UpdateProfileCommand(
+            var command = new UpdateDoctorProfileCommand(
                 doctorId,
                 new PersonalInfo(request.FullName, request.Gender, request.Nationality),
                 new Address(request.Street, request.City, request.State, request.Country),
@@ -67,10 +67,10 @@ namespace HealLink.Api.Controllers
             return BadRequest(result);
         }
 
-        [HttpDelete("doctor/{doctorId}")]
+        [HttpDelete("{doctorId}")]
         public async Task<IActionResult> DeleteDoctorProfile(Guid doctorId)
         {
-            var command = new DeleteProfileCommand(doctorId);
+            var command = new DeleteDoctorProfileCommand(doctorId);
             var result = await _mediator.Send(command);
 
             if (result.Success)
@@ -80,5 +80,7 @@ namespace HealLink.Api.Controllers
 
             return NotFound(result);
         }
+
+      
     }
 }

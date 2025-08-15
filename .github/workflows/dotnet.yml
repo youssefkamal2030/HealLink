@@ -23,8 +23,16 @@ jobs:
         dotnet-version: 8.0.x
         cache: true
 
+    - name: Cache NuGet packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+
     - name: Restore dependencies
-      run: dotnet restore HealLink.sln
+      run: dotnet restore HealLink.sln --use-lock-file
 
     - name: Build
       run: dotnet build HealLink.sln --no-restore --configuration Release
@@ -34,4 +42,7 @@ jobs:
 
     - name: Publish API
       if: success()
-      run: dotnet publish HealLink.API\HealLink.Api.csproj -c Release -o ./publish
+      run: dotnet publish HealLink.API/HealLink.Api.csproj -c Release -o ./publish
+
+    - name: Verify publish output
+      run: ls -R ./publish
