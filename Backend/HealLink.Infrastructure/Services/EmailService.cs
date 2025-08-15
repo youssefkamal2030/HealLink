@@ -104,23 +104,32 @@ namespace HealLink.Infrastructure.Services
 
         public async Task<bool> ConfirmEmailAsync(ConfirmEmailRequest request)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == request.Email);
+            var user = await _context.Users
+                .FirstOrDefaultAsync(x => x.Email == request.Email);
+
             if (user == null)
                 return false;
 
             var otpRecord = await _context.OTPs
-                .FirstOrDefaultAsync(x => x.UserId == user.Id && x.Code == request.Code);
+                .FirstOrDefaultAsync(x =>
+                    x.UserId == user.Id &&
+                    x.Code == request.Code &&
+                    x.ExpiryTime > DateTime.UtcNow);
 
-            if (otpRecord == null || otpRecord.ExpiryTime < DateTime.UtcNow)
+            if (otpRecord == null)
                 return false;
 
             user.EmailConfirmed = true;
-            _context.OTPs.RemoveRange(_context.OTPs.Where(x => x.UserId == user.Id));
-            _context.Users.Update(user);
 
+            var allUserOtps = _context.OTPs.Where(x => x.UserId == user.Id);
+            _context.OTPs.RemoveRange(allUserOtps);
+
+            _context.Users.Update(user);
             await _context.SaveChangesAsync();
+
             return true;
         }
+
 
         public async Task ResendConfirmationEmailAsync(ResendConfirmationEmailRequest request)
         {

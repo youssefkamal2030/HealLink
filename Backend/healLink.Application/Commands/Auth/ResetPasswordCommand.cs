@@ -10,7 +10,6 @@ namespace healLink.Application.Commands.Auth
 {
     public record ResetPasswordCommand(
         string Email,
-        string Token,
         string Code,
         string NewPassword
     ) : IRequest<ResetPasswordResponse>;

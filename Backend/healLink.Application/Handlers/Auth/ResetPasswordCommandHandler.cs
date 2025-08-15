@@ -39,19 +39,14 @@ namespace healLink.Application.Handlers.Auth
                 return new ResetPasswordResponse("Invalid OTP");
             }
 
-            var validationId = user.Id;
-            if (_jwtTokenGenerator.VerifyPasswordResetHmacCode(request.Token, out validationId))
-            {
+          
                 var newPassword = _passwordHasher.HashPassword(request.NewPassword);
                 user.ChangePassword(newPassword.Value);
                 await _userRepository.UpdateAsync(user, cancellationToken);
 
                 return new ResetPasswordResponse("Password reset successfully");
-            }
-            else
-            {
-                return new ResetPasswordResponse("Invalid token or user ID mismatch");
-            }
+            
+            
         }
     }
 }

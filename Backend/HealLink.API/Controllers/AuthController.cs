@@ -59,8 +59,12 @@ namespace HealLink.Api.Controllers
 
             try
             {
-                await _emailService.ConfirmEmailAsync(request);
-                return Ok(new { message = "Email confirmed successfully" });
+                var isConfirmed = await _emailService.ConfirmEmailAsync(request);
+
+                if (isConfirmed)
+                    return Ok(new { message = "Email confirmed successfully" });
+                else
+                    return BadRequest(new { message = "Invalid email or OTP code" });
             }
             catch (InvalidOperationException ex)
             {
@@ -71,7 +75,8 @@ namespace HealLink.Api.Controllers
                 return StatusCode(500, new { message = "An unexpected error occurred" });
             }
         }
- 
+
+
 
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword([FromBody] Contracts.Auth.ForgotPasswordRequest request)
@@ -84,7 +89,7 @@ namespace HealLink.Api.Controllers
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword([FromBody] Contracts.Auth.ResetPasswordRequest request)
         {
-            var command = new ResetPasswordCommand(request.Email, request.code,request.Token, request.NewPassword);
+            var command = new ResetPasswordCommand(request.Email, request.code, request.NewPassword);
             var result = await _mediator.Send(command);
             if (result.Message == "Password reset Successfully")
                 return Ok(result);
