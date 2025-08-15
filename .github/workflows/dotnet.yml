@@ -16,13 +16,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+        cache: true
+
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore HealLink.sln
+
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build HealLink.sln --no-restore --configuration Release
+
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test HealLink.sln --no-build --verbosity normal --configuration Release
+
+    - name: Publish API
+      if: success()
+      run: dotnet publish HealLink.API\HealLink.Api.csproj -c Release -o ./publish
