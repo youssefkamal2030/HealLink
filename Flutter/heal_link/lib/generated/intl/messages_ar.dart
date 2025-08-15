@@ -168,6 +168,66 @@ class MessageLookup extends MessageLookupByLibrary {
       "رقم رخصة الممارسة",
     ),
     "prescriptions": MessageLookupByLibrary.simpleMessage("الوصفات الطبية"),
+    "privacy_intro_subtitle": MessageLookupByLibrary.simpleMessage(
+      "باستخدامك لتطبيقنا، فإنك توافق على الالتزام بالشروط والأحكام التالية:",
+    ),
+    "privacy_intro_title": MessageLookupByLibrary.simpleMessage(
+      "مرحبًا بك في Heal Link.",
+    ),
+    "privacy_section1_bullet1": MessageLookupByLibrary.simpleMessage(
+      "يوفر Heal Link منصة لربط المستخدمين بخدمات ومنشآت الرعاية الصحية.",
+    ),
+    "privacy_section1_bullet2": MessageLookupByLibrary.simpleMessage(
+      "توافق على استخدام التطبيق فقط للأغراض المشروعة وبطريقة لا تضر بالمستخدمين الآخرين أو الخدمة.",
+    ),
+    "privacy_section1_title": MessageLookupByLibrary.simpleMessage(
+      "1- استخدام الخدمة",
+    ),
+    "privacy_section2_bullet1": MessageLookupByLibrary.simpleMessage(
+      "أنت مسؤول عن دقة المعلومات الشخصية والطبية التي تقدمها.",
+    ),
+    "privacy_section2_bullet2": MessageLookupByLibrary.simpleMessage(
+      "قد يؤدي أي إساءة استخدام للخدمة إلى تعليق أو إنهاء حسابك.",
+    ),
+    "privacy_section2_title": MessageLookupByLibrary.simpleMessage(
+      "2- مسؤوليات المستخدم",
+    ),
+    "privacy_section3_bullet1": MessageLookupByLibrary.simpleMessage(
+      "سيتم التعامل مع بياناتك الشخصية وفقًا لسياسة الخصوصية الخاصة بنا.",
+    ),
+    "privacy_section3_bullet2": MessageLookupByLibrary.simpleMessage(
+      "نحن ملتزمون بحماية معلوماتك ولن نشاركها دون موافقتك إلا إذا كان ذلك مطلوبًا بموجب القانون.",
+    ),
+    "privacy_section3_title": MessageLookupByLibrary.simpleMessage(
+      "3- الخصوصية",
+    ),
+    "privacy_section4_bullet1": MessageLookupByLibrary.simpleMessage(
+      "جميع المحتويات والتصاميم والعلامات التجارية في التطبيق مملوكة لشركة Heal Link ولا يجوز استخدامها بدون إذن.",
+    ),
+    "privacy_section4_title": MessageLookupByLibrary.simpleMessage(
+      "4- الملكية الفكرية",
+    ),
+    "privacy_section5_bullet1": MessageLookupByLibrary.simpleMessage(
+      "لا تتحمل Heal Link أي مسؤولية عن النتائج الطبية أو النصائح المقدمة من قبل المهنيين عبر المنصة.",
+    ),
+    "privacy_section5_bullet2": MessageLookupByLibrary.simpleMessage(
+      "نحن غير مسؤولين عن أي أضرار ناتجة عن استخدام أو عدم القدرة على استخدام الخدمة.",
+    ),
+    "privacy_section5_title": MessageLookupByLibrary.simpleMessage(
+      "5- حدود المسؤولية",
+    ),
+    "privacy_section6_bullet1": MessageLookupByLibrary.simpleMessage(
+      "يجوز لنا تحديث هذه الشروط في أي وقت. استمرار استخدامك للتطبيق يعني موافقتك على الشروط المحدثة.",
+    ),
+    "privacy_section6_title": MessageLookupByLibrary.simpleMessage(
+      "6- التغييرات على الشروط",
+    ),
+    "privacy_section7_bullet1": MessageLookupByLibrary.simpleMessage(
+      "للاستفسارات حول هذه الشروط، يرجى الاتصال بنا على:",
+    ),
+    "privacy_section7_title": MessageLookupByLibrary.simpleMessage(
+      "7- اتصل بنا",
+    ),
     "privacy_security": MessageLookupByLibrary.simpleMessage(
       "الخصوصية والأمان",
     ),

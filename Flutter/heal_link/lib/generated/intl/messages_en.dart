@@ -172,6 +172,66 @@ class MessageLookup extends MessageLookupByLibrary {
       "Practice License Number",
     ),
     "prescriptions": MessageLookupByLibrary.simpleMessage("Prescriptions"),
+    "privacy_intro_subtitle": MessageLookupByLibrary.simpleMessage(
+      "By using our application, you agree to comply with and be bound by the following terms and conditions:",
+    ),
+    "privacy_intro_title": MessageLookupByLibrary.simpleMessage(
+      "Welcome to Heal Link.",
+    ),
+    "privacy_section1_bullet1": MessageLookupByLibrary.simpleMessage(
+      "Heal Link provides a platform to connect users with healthcare services and professionals.",
+    ),
+    "privacy_section1_bullet2": MessageLookupByLibrary.simpleMessage(
+      "You agree to use the app only for lawful purposes and in a way that does not harm other users or the service.",
+    ),
+    "privacy_section1_title": MessageLookupByLibrary.simpleMessage(
+      "1- Use of Service",
+    ),
+    "privacy_section2_bullet1": MessageLookupByLibrary.simpleMessage(
+      "You are responsible for the accuracy of the personal and medical information you provide.",
+    ),
+    "privacy_section2_bullet2": MessageLookupByLibrary.simpleMessage(
+      "Any misuse of the service may result in suspension or termination of your account.",
+    ),
+    "privacy_section2_title": MessageLookupByLibrary.simpleMessage(
+      "2- User Responsibilities",
+    ),
+    "privacy_section3_bullet1": MessageLookupByLibrary.simpleMessage(
+      "Your personal data will be handled according to our Privacy Policy.",
+    ),
+    "privacy_section3_bullet2": MessageLookupByLibrary.simpleMessage(
+      "We are committed to protecting your information and will not share it without your consent, except as required by law.",
+    ),
+    "privacy_section3_title": MessageLookupByLibrary.simpleMessage(
+      "3- Privacy",
+    ),
+    "privacy_section4_bullet1": MessageLookupByLibrary.simpleMessage(
+      "All content, design, and trademarks in the app belong to Heal Link and may not be used without permission.",
+    ),
+    "privacy_section4_title": MessageLookupByLibrary.simpleMessage(
+      "4- Intellectual Property",
+    ),
+    "privacy_section5_bullet1": MessageLookupByLibrary.simpleMessage(
+      "Heal Link is not responsible for any medical outcomes or advice given by professionals via the platform.",
+    ),
+    "privacy_section5_bullet2": MessageLookupByLibrary.simpleMessage(
+      "We are not liable for any damages resulting from the use or inability to use the service.",
+    ),
+    "privacy_section5_title": MessageLookupByLibrary.simpleMessage(
+      "5- Limitations of Liability",
+    ),
+    "privacy_section6_bullet1": MessageLookupByLibrary.simpleMessage(
+      "We may update these terms at any time. Continued use of the app means you accept the updated terms.",
+    ),
+    "privacy_section6_title": MessageLookupByLibrary.simpleMessage(
+      "6- Changes to Terms",
+    ),
+    "privacy_section7_bullet1": MessageLookupByLibrary.simpleMessage(
+      "For questions about these terms, please contact us at:",
+    ),
+    "privacy_section7_title": MessageLookupByLibrary.simpleMessage(
+      "7- Contact Us",
+    ),
     "privacy_security": MessageLookupByLibrary.simpleMessage(
       "Privacy & Security",
     ),

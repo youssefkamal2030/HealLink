@@ -97,6 +97,8 @@ class _AddPrescriptionBodyState extends State<AddPrescriptionBody> {
                       usageInstructions: instructionsController.text,
                     );
                     widget.prescriptionList.add(addPrescriptionModel);
+                    medicineNameController.clear();
+                    instructionsController.clear();
                   } else {
                     isNameDuplicated(
                       widget.prescriptionList,

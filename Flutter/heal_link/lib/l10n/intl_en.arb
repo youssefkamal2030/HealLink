@@ -120,5 +120,26 @@
   "who_can_view_my_profile": "Who can view my profile",
   "login_alerts": "Login Alerts",
   "biometric_authentication": "Biometric Authentication",
-  "show_my_availability_status": "Show my Availability Status"
+  "show_my_availability_status": "Show my Availability Status",
+  "privacy_intro_title": "Welcome to Heal Link.",
+  "privacy_intro_subtitle": "By using our application, you agree to comply with and be bound by the following terms and conditions:",
+  "privacy_section1_title": "1- Use of Service",
+  "privacy_section1_bullet1": "Heal Link provides a platform to connect users with healthcare services and professionals.",
+  "privacy_section1_bullet2": "You agree to use the app only for lawful purposes and in a way that does not harm other users or the service.",
+  "privacy_section2_title": "2- User Responsibilities",
+  "privacy_section2_bullet1": "You are responsible for the accuracy of the personal and medical information you provide.",
+  "privacy_section2_bullet2": "Any misuse of the service may result in suspension or termination of your account.",
+  "privacy_section3_title": "3- Privacy",
+  "privacy_section3_bullet1": "Your personal data will be handled according to our Privacy Policy.",
+  "privacy_section3_bullet2": "We are committed to protecting your information and will not share it without your consent, except as required by law.",
+  "privacy_section4_title": "4- Intellectual Property",
+  "privacy_section4_bullet1": "All content, design, and trademarks in the app belong to Heal Link and may not be used without permission.",
+  "privacy_section5_title": "5- Limitations of Liability",
+  "privacy_section5_bullet1": "Heal Link is not responsible for any medical outcomes or advice given by professionals via the platform.",
+  "privacy_section5_bullet2": "We are not liable for any damages resulting from the use or inability to use the service.",
+  "privacy_section6_title": "6- Changes to Terms",
+  "privacy_section6_bullet1": "We may update these terms at any time. Continued use of the app means you accept the updated terms.",
+  "privacy_section7_title": "7- Contact Us",
+  "privacy_section7_bullet1": "For questions about these terms, please contact us at:"
+
 }

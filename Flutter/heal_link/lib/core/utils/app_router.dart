@@ -10,13 +10,17 @@ import 'package:heal_link/features/doctor/doctor_home/data/models/add_prescripti
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/add_prescriptions_confirm.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/add_prescriptions_view.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/all_patients_view.dart';
+import 'package:heal_link/features/doctor/doctor_home/presentation/views/allergies_view.dart';
+import 'package:heal_link/features/doctor/doctor_home/presentation/views/chronic_diseases_view.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/current_medications_view.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/doctor_home_view.dart';
+import 'package:heal_link/features/doctor/doctor_home/presentation/views/past_surgeries_view.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/patient_view_details.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/prescription_view.dart';
 import 'package:heal_link/features/doctor/doctor_home/presentation/views/total_patient_view.dart';
 import 'package:heal_link/features/doctor/doctor_notifications/presentation/views/doctor_notification_view.dart';
 import 'package:heal_link/features/doctor/doctor_profile/presentation/views/doctor_profile_view_body.dart';
+import 'package:heal_link/features/doctor/doctor_profile/presentation/views/privacy_policy_view.dart';
 import 'package:heal_link/features/doctor/doctor_search/presentation/views/doctor_search_view.dart';
 import 'package:heal_link/features/doctor/personal_information/presentation/views/personal_info.dart';
 import 'package:heal_link/features/doctor/prescriptions/presentation/views/prescription.dart';
@@ -65,6 +69,11 @@ abstract class AppRouter {
   static const settingView = '/SettingView';
   static const accountInfoView = '/AccountInfoView';
   static const privacyView = '/PrivacyView';
+  static const pastSurgeriesView = '/PastSurgeriesView';
+  static const allergiesView = '/AllergiesView';
+  static const chronicDiseasesView = '/ChronicDiseasesView';
+  static const privacyPolicy = '/PrivacyPolicyView';
+
 
   //* Patient Views
   static const patientSignInView = '/DoctorSignUpView';
@@ -251,6 +260,30 @@ abstract class AppRouter {
         path: allPatientsView,
         builder: (BuildContext context, GoRouterState state) {
           return AllPatientsView();
+        },
+      ),
+      GoRoute(
+        path: pastSurgeriesView,
+        builder: (BuildContext context, GoRouterState state) {
+          return PastSurgeriesView();
+        },
+      ),
+      GoRoute(
+        path: allergiesView,
+        builder: (BuildContext context, GoRouterState state) {
+          return AllergiesView();
+        },
+      ),
+      GoRoute(
+        path: chronicDiseasesView,
+        builder: (BuildContext context, GoRouterState state) {
+          return ChronicDiseasesView();
+        },
+      ),
+      GoRoute(
+        path: privacyPolicy,
+        builder: (BuildContext context, GoRouterState state) {
+          return PrivacyPolicyView();
         },
       ),
     ],
