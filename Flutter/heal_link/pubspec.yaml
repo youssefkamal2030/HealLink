@@ -24,6 +24,7 @@ dependencies:
   intl_utils: ^2.8.11
   qr_flutter: ^4.1.0
   skeletonizer: ^2.1.0+1
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_lints: ^5.0.0

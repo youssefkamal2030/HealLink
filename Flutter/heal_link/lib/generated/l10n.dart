@@ -1050,6 +1050,206 @@ class S {
       args: [],
     );
   }
+
+  /// `Welcome to Heal Link.`
+  String get privacy_intro_title {
+    return Intl.message(
+      'Welcome to Heal Link.',
+      name: 'privacy_intro_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `By using our application, you agree to comply with and be bound by the following terms and conditions:`
+  String get privacy_intro_subtitle {
+    return Intl.message(
+      'By using our application, you agree to comply with and be bound by the following terms and conditions:',
+      name: 'privacy_intro_subtitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1- Use of Service`
+  String get privacy_section1_title {
+    return Intl.message(
+      '1- Use of Service',
+      name: 'privacy_section1_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Heal Link provides a platform to connect users with healthcare services and professionals.`
+  String get privacy_section1_bullet1 {
+    return Intl.message(
+      'Heal Link provides a platform to connect users with healthcare services and professionals.',
+      name: 'privacy_section1_bullet1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You agree to use the app only for lawful purposes and in a way that does not harm other users or the service.`
+  String get privacy_section1_bullet2 {
+    return Intl.message(
+      'You agree to use the app only for lawful purposes and in a way that does not harm other users or the service.',
+      name: 'privacy_section1_bullet2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2- User Responsibilities`
+  String get privacy_section2_title {
+    return Intl.message(
+      '2- User Responsibilities',
+      name: 'privacy_section2_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You are responsible for the accuracy of the personal and medical information you provide.`
+  String get privacy_section2_bullet1 {
+    return Intl.message(
+      'You are responsible for the accuracy of the personal and medical information you provide.',
+      name: 'privacy_section2_bullet1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Any misuse of the service may result in suspension or termination of your account.`
+  String get privacy_section2_bullet2 {
+    return Intl.message(
+      'Any misuse of the service may result in suspension or termination of your account.',
+      name: 'privacy_section2_bullet2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `3- Privacy`
+  String get privacy_section3_title {
+    return Intl.message(
+      '3- Privacy',
+      name: 'privacy_section3_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your personal data will be handled according to our Privacy Policy.`
+  String get privacy_section3_bullet1 {
+    return Intl.message(
+      'Your personal data will be handled according to our Privacy Policy.',
+      name: 'privacy_section3_bullet1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We are committed to protecting your information and will not share it without your consent, except as required by law.`
+  String get privacy_section3_bullet2 {
+    return Intl.message(
+      'We are committed to protecting your information and will not share it without your consent, except as required by law.',
+      name: 'privacy_section3_bullet2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `4- Intellectual Property`
+  String get privacy_section4_title {
+    return Intl.message(
+      '4- Intellectual Property',
+      name: 'privacy_section4_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All content, design, and trademarks in the app belong to Heal Link and may not be used without permission.`
+  String get privacy_section4_bullet1 {
+    return Intl.message(
+      'All content, design, and trademarks in the app belong to Heal Link and may not be used without permission.',
+      name: 'privacy_section4_bullet1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `5- Limitations of Liability`
+  String get privacy_section5_title {
+    return Intl.message(
+      '5- Limitations of Liability',
+      name: 'privacy_section5_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Heal Link is not responsible for any medical outcomes or advice given by professionals via the platform.`
+  String get privacy_section5_bullet1 {
+    return Intl.message(
+      'Heal Link is not responsible for any medical outcomes or advice given by professionals via the platform.',
+      name: 'privacy_section5_bullet1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We are not liable for any damages resulting from the use or inability to use the service.`
+  String get privacy_section5_bullet2 {
+    return Intl.message(
+      'We are not liable for any damages resulting from the use or inability to use the service.',
+      name: 'privacy_section5_bullet2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `6- Changes to Terms`
+  String get privacy_section6_title {
+    return Intl.message(
+      '6- Changes to Terms',
+      name: 'privacy_section6_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We may update these terms at any time. Continued use of the app means you accept the updated terms.`
+  String get privacy_section6_bullet1 {
+    return Intl.message(
+      'We may update these terms at any time. Continued use of the app means you accept the updated terms.',
+      name: 'privacy_section6_bullet1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `7- Contact Us`
+  String get privacy_section7_title {
+    return Intl.message(
+      '7- Contact Us',
+      name: 'privacy_section7_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `For questions about these terms, please contact us at:`
+  String get privacy_section7_bullet1 {
+    return Intl.message(
+      'For questions about these terms, please contact us at:',
+      name: 'privacy_section7_bullet1',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
