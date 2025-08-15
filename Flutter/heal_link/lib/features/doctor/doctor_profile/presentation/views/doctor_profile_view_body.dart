@@ -92,6 +92,7 @@ class DoctorProfileViewBody extends StatelessWidget {
             ProfileListTile(
               img: AppImages.terms,
               title: S.of(context).terms_and_privacy_policy,
+              onTap:() =>  context.push(AppRouter.privacyPolicy),
             ),
             SizedBox(height: 8),
             ProfileListTile(
