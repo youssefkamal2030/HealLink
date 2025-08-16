@@ -13,8 +13,6 @@ namespace HealLink.Domain.Entities
     {
         public string Username { get; private set; }
         public string PasswordHash { get; private set; }
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
         public string Email { get; private set; }
         public UserRole Role { get; private set; }
         public AccountStatus Status { get; private set; }
@@ -23,12 +21,11 @@ namespace HealLink.Domain.Entities
         public bool EmailConfirmed { get; set; }
         private User() { } // For EF
 
-        public User(string username, string passwordHash, string firstName, string lastName, string email, UserRole role)
+        public User(string username, string passwordHash, string email, UserRole role)
         {
             Username = username ?? throw new ArgumentNullException(nameof(username));
             PasswordHash = passwordHash ?? throw new ArgumentNullException(nameof(passwordHash));
-            FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName));
-            LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
+           
             Email = email ?? throw new ArgumentNullException(nameof(email));
             Role = role;
             Status = AccountStatus.Pending;
@@ -58,10 +55,9 @@ namespace HealLink.Domain.Entities
             UpdateTimestamp();
         }
 
-        public void UpdateProfile(string firstName, string lastName, string email)
+        public void UpdateProfile(string username, string email)
         {
-            FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName));
-            LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
+            Username = username ?? throw new ArgumentNullException(nameof(username));
             Email = email ?? throw new ArgumentNullException(nameof(email));
             UpdateTimestamp();
         }

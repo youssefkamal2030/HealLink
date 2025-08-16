@@ -40,7 +40,7 @@ namespace HealLink.Infrastructure.Repositories
                 .FirstOrDefaultAsync(g => g.Id == guardianId, cancellationToken);
             
             return guardian?.User != null 
-                ? $"{guardian.User.FirstName} {guardian.User.LastName}"
+                ? guardian.User.Username
                 : null;
         }
 
@@ -53,18 +53,17 @@ namespace HealLink.Infrastructure.Repositories
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 query = query.Where(d => 
-                    d.User.FirstName.Contains(searchTerm) ||
-                    d.User.LastName.Contains(searchTerm) ||
+                 
+                   d.User.Username.Contains(searchTerm) ||  
                     d.User.Email.Contains(searchTerm) ||
                     d.Specialization.Contains(searchTerm) ||
                     d.CurrentWorkplace.Contains(searchTerm) ||
-                    d.LicenseNumber.Contains(searchTerm)
+                    d.PracticeLicenseNumber.Contains(searchTerm)
                 );
             }
 
             return await query
-                .OrderBy(d => d.User.FirstName)
-                .ThenBy(d => d.User.LastName)
+                .OrderBy(d => d.User.Username)
                 .Skip(skip)
                 .Take(take)
                 .ToListAsync(cancellationToken);
@@ -80,17 +79,17 @@ namespace HealLink.Infrastructure.Repositories
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                query = query.Where(p => 
-                    p.User.FirstName.Contains(searchTerm) ||
-                    p.User.LastName.Contains(searchTerm) ||
+                query = query.Where(p =>
+                                      p.User.Username.Contains(searchTerm) ||
+
                     p.User.Email.Contains(searchTerm) ||
                     p.User.Username.Contains(searchTerm)
                 );
             }
 
             return await query
-                .OrderBy(p => p.User.FirstName)
-                .ThenBy(p => p.User.LastName)
+                .OrderBy(p => p.User.Username)
+                
                 .Skip(skip)
                 .Take(take)
                 .ToListAsync(cancellationToken);
@@ -105,12 +104,10 @@ namespace HealLink.Infrastructure.Repositories
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 query = query.Where(d => 
-                    d.User.FirstName.Contains(searchTerm) ||
-                    d.User.LastName.Contains(searchTerm) ||
+                    d.User.Username.Contains(searchTerm) ||
                     d.User.Email.Contains(searchTerm) ||
                     d.Specialization.Contains(searchTerm) ||
-                    d.CurrentWorkplace.Contains(searchTerm) ||
-                    d.LicenseNumber.Contains(searchTerm)
+                    d.CurrentWorkplace.Contains(searchTerm) 
                 );
             }
 
@@ -126,8 +123,7 @@ namespace HealLink.Infrastructure.Repositories
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 query = query.Where(p => 
-                    p.User.FirstName.Contains(searchTerm) ||
-                    p.User.LastName.Contains(searchTerm) ||
+                    p.User.Username.Contains(searchTerm) ||
                     p.User.Email.Contains(searchTerm) ||
                     p.User.Username.Contains(searchTerm)
                 );

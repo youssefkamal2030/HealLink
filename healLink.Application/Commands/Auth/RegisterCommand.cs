@@ -15,7 +15,8 @@ namespace healLink.Application.Commands.Auth
         string password,
         string email,
         UserRole Role,
-        IFormFile? Idfront,
-        IFormFile? Idback
+        string? Specilization,
+        string? PracticeLicenseNumber,
+        IFormFile? SyndicateId
     ) : IRequest<RegisterResponse>;
 }

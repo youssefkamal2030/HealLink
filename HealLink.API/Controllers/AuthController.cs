@@ -24,7 +24,7 @@ namespace HealLink.Api.Controllers
             {
                 return BadRequest("Invalid role");
             }
-            var command = new RegisterCommand(request.username, request.Password, request.Email, userRole, request.Idfront , request.Idback);
+            var command = new RegisterCommand(request.username, request.Password, request.Email, userRole,request.Specilization,request.PracticeLisenceNumber,request.SyndicateId);
             var result = await _mediator.Send(command);
             if (result.Message == "User registered successfully")
                 return Ok(result);

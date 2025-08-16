@@ -15,5 +15,6 @@ namespace HealLink.Domain.ValueObjects
             Gender = gender ?? throw new ArgumentNullException(nameof(gender));
             Nationality = nationality ?? throw new ArgumentNullException(nameof(nationality));
         }
+
     }
 } 

@@ -18,8 +18,7 @@ namespace HealLink.Contracts.Auth
                 .WithMessage("Role must be Patient, Doctor");
             When(x => x.Role == "Doctor", () =>
             {
-                RuleFor(x => x.Idfront).NotEmpty().WithMessage("ID front is required for doctors.");
-                RuleFor(x => x.Idback).NotEmpty().WithMessage("ID back is required for doctors.");
+                RuleFor(x => x.SyndicateId).NotEmpty().WithMessage("SyndicatId is required for doctors.");
             });
            
         }

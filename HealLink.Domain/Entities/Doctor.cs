@@ -9,17 +9,13 @@ namespace HealLink.Domain.Entities
     public class Doctor : Entity
     {
         public Guid UserId { get; private set; }
-        public PersonalInfo? PersonalInfo { get; private set; }
         public Address? Address { get; private set; }
 
-        public string? LicenseNumber { get; private set; }
+        public PersonalInfo? PersonalInfo { get; private set; }
         public string? SyndicateIdImagePath { get; private set; }
         public string? PracticeLicenseNumber { get; private set; }
-        public string? IdFront { get; private set; }
-        public string? IdBack { get; private set; }
         public string? Specialization { get; private set; }
         public string? CurrentWorkplace { get; private set; }
-        public string? Phone { get; private set; }
 
         public bool IsAvailableForChat { get; private set; } = false;
         public string? QRCode { get; private set; }
@@ -36,25 +32,20 @@ namespace HealLink.Domain.Entities
             PersonalInfo? personalInfo = null,
             Address? address = null,
             string? syndicateImagePath = null,
-            string? idFront = null,
-            string? idBack = null,
-            string? licenseNumber = null,
+            
             string? practiceLicenseNumber = null,
             string? specialization = null,
-            string? currentWorkplace = null,
-            string? phone = null)
+            string? currentWorkplace = null
+           )
         {
             UserId = userId;
             PersonalInfo = personalInfo;
-            Address = address;
             SyndicateIdImagePath = syndicateImagePath;
-            IdFront = idFront;
-            IdBack = idBack;
-            LicenseNumber = licenseNumber;
+  
             PracticeLicenseNumber = practiceLicenseNumber;
             Specialization = specialization;
             CurrentWorkplace = currentWorkplace;
-            Phone = phone;
+        
         }
 
         private Doctor() { }
@@ -87,7 +78,7 @@ namespace HealLink.Domain.Entities
         {
             Specialization = specialization;
             CurrentWorkplace = currentWorkplace;
-            Phone = phone;
+      
             UpdateTimestamp();
         }
 

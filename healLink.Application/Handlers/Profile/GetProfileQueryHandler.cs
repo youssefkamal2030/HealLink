@@ -59,12 +59,10 @@ namespace healLink.Application.Handlers.Profile
                 var doctorProfile = new DoctorProfileResponse(
                     Id: doctor.Id,
                     UserId: doctor.UserId,
-                    FullName: doctor.PersonalInfo?.FullName ?? $"{user.FirstName} {user.LastName}",
+                    FullName: doctor.PersonalInfo?.FullName ?? user.Username,
                     Email: user.Email,
-                    Phone: doctor.Phone,
                     Specialization: doctor.Specialization,
                     CurrentWorkplace: doctor.CurrentWorkplace,
-                    LicenseNumber: doctor.LicenseNumber,
                     PracticeLicenseNumber: doctor.PracticeLicenseNumber,
                     Address: address,
                     IsApproved: doctor.IsApproved,

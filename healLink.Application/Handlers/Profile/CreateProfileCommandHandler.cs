@@ -43,7 +43,7 @@ namespace healLink.Application.Handlers.Profile
                     return new CreateProfileResponse("Doctor profile already exists for this user.", false);
                 }
 
-                var newDoctor = new Doctor(request.UserId,null, null,null,request.Idfront,request.Idback,null,null,null,null,null);
+                var newDoctor = new Doctor(request.UserId,null,null,request.syndicateIdImagePath,request.practiceLicenseNumber,request.specialization,null);
                 await _profileRepository.AddDoctorAsync(newDoctor, cancellationToken);
 
                 return new CreateProfileResponse("Doctor profile created successfully.", true);

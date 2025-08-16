@@ -32,12 +32,10 @@ namespace healLink.Application.Handlers.Profile
             var doctorProfiles = doctors.Select(d => new DoctorProfileResponse(
                 Id: d.Id,
                 UserId: d.UserId,
-                FullName: d.PersonalInfo?.FullName ?? $"{d.User.FirstName} {d.User.LastName}",
+                FullName: d.User.Username,
                 Email: d.User.Email,
-                Phone: d.Phone,
                 Specialization: d.Specialization,
                 CurrentWorkplace: d.CurrentWorkplace,
-                LicenseNumber: d.LicenseNumber,
                 PracticeLicenseNumber: d.PracticeLicenseNumber,
                 Address: d.Address != null 
                     ? $"{d.Address.Street}, {d.Address.City}, {d.Address.State}, {d.Address}"
@@ -51,11 +49,11 @@ namespace healLink.Application.Handlers.Profile
             var patientProfiles = patients.Select(p => new PatientProfileResponse(
                 Id: p.Id,
                 UserId: p.UserId,
-                FullName: $"{p.User.FirstName} {p.User.LastName}",
+                FullName: p.User.Username,
                 Email: p.User.Email,
                 GuardianId: p.GuardianId,
                 GuardianName: p.Guardian?.User != null 
-                    ? $"{p.Guardian.User.FirstName} {p.Guardian.User.LastName}"
+                    ? p.Guardian.User.Username
                     : null,
                 CreatedAt: p.CreatedAt,
                 UpdatedAt: p.UpdatedAt

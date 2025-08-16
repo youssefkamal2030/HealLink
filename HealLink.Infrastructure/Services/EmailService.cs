@@ -84,7 +84,7 @@ namespace HealLink.Infrastructure.Services
             var emailBody = _builder.GenerateEmailBody("EmailConfirmation",
                 templateModel: new Dictionary<string, string>
                 {
-            { "{{name}}", user.FirstName },
+            { "{{name}}", user.Username },
             { "{{otp_code}}", otpCode },
             { "{{expiry_minutes}}", _otpExpiryMinutes.ToString() }
                 }
@@ -123,7 +123,7 @@ namespace HealLink.Infrastructure.Services
             var emailBody = _builder.GenerateEmailBody("ForgetPassword",
                 templateModel: new Dictionary<string, string>
                 {
-            { "{{name}}", user.FirstName },
+            { "{{name}}", user.Username },
             { "{{otp_code}}", otpCode },
             { "{{expiry_minutes}}", _otpExpiryMinutes.ToString() }
                 }
