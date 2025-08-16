@@ -20,9 +20,11 @@ The HealLink API provides endpoints for healthcare management, including user au
   "username": "string (min 3 chars)",
   "Password": "string (must contain upper, lower, digit, special char)",
   "Email": "string (valid email)",
-  "Role": "Patient|Doctor|Admin",
-  "Idfront": "file (optional)",
-  "Idback": "file (optional)"
+  "Role": "Patient|Doctor",
+  "PracticeLicenseNumber": "string (required for doctors)",
+  "Specialization": "string (required for doctors)",
+  "SyndicateId": "file (required for doctors)",
+  
 }
 ```
 
@@ -31,6 +33,9 @@ The HealLink API provides endpoints for healthcare management, including user au
 - `Password`: Required, must contain at least one uppercase letter, one lowercase letter, one digit, and one special character
 - `Email`: Required, must be a valid email address
 - `Role`: Must be one of `Patient`, `Doctor`, or `Admin`
+- `PracticeLicenseNumber`: Required when Role is `Doctor`
+- `Specialization`: Required when Role is `Doctor`
+- `SyndicateId`: Required file upload when Role is `Doctor`
 
 **Response:**
 - **Success (200 OK):**
@@ -159,12 +164,14 @@ The HealLink API provides endpoints for healthcare management, including user au
     "doctorProfile": {
       "id": "guid",
       "userId": "guid",
+      "gender": "string",
+      "city": "string",
+      "country": "string",
+      "nationality": "string",
       "fullName": "string",
       "email": "string",
-      "phone": "string",
       "specialization": "string",
       "currentWorkplace": "string",
-      "licenseNumber": "string",
       "practiceLicenseNumber": "string",
       "address": "string",
       "isApproved": true,
@@ -204,12 +211,14 @@ The HealLink API provides endpoints for healthcare management, including user au
       {
         "id": "guid",
         "userId": "guid",
+        "gender": "string",
+        "city": "string",
+        "country": "string",
+        "nationality": "string",
         "fullName": "string",
         "email": "string",
-        "phone": "string",
         "specialization": "string",
         "currentWorkplace": "string",
-        "licenseNumber": "string",
         "practiceLicenseNumber": "string",
         "address": "string",
         "isApproved": true,
@@ -308,12 +317,14 @@ The HealLink API provides endpoints for healthcare management, including user au
 public record DoctorProfileResponse(
     Guid Id,
     Guid UserId,
+    string Gender,
+    string City,
+    string Country,
+    string Nationality,
     string FullName,
     string Email,
-    string Phone,
     string Specialization,
     string CurrentWorkplace,
-    string LicenseNumber,
     string PracticeLicenseNumber,
     string Address,
     bool IsApproved,

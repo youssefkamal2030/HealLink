@@ -74,7 +74,7 @@ namespace HealLink.Domain.Entities
             UpdateTimestamp();
         }
 
-        public void UpdateProfessionalDetails(string? specialization, string? currentWorkplace, string? phone)
+        public void UpdateProfessionalDetails(string? specialization, string? currentWorkplace)
         {
             Specialization = specialization;
             CurrentWorkplace = currentWorkplace;

@@ -106,7 +106,7 @@ namespace HealLink.Infrastructure.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Doctors");
+                    b.ToTable("Doctors", (string)null);
                 });
 
             modelBuilder.Entity("HealLink.Domain.Entities.DoctorPatientConnection", b =>
@@ -166,7 +166,7 @@ namespace HealLink.Infrastructure.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Guardians");
+                    b.ToTable("Guardians", (string)null);
                 });
 
             modelBuilder.Entity("HealLink.Domain.Entities.MedicalHistory", b =>
@@ -302,7 +302,7 @@ namespace HealLink.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("OTPs");
+                    b.ToTable("OTPs", (string)null);
                 });
 
             modelBuilder.Entity("HealLink.Domain.Entities.Patient", b =>
@@ -330,7 +330,7 @@ namespace HealLink.Infrastructure.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Patients");
+                    b.ToTable("Patients", (string)null);
                 });
 
             modelBuilder.Entity("HealLink.Domain.Entities.Payment", b =>
@@ -579,7 +579,7 @@ namespace HealLink.Infrastructure.Migrations
 
                             b1.HasKey("DoctorId");
 
-                            b1.ToTable("Doctors");
+                            b1.ToTable("Doctors", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("DoctorId");
@@ -604,7 +604,7 @@ namespace HealLink.Infrastructure.Migrations
 
                             b1.HasKey("DoctorId");
 
-                            b1.ToTable("Doctors");
+                            b1.ToTable("Doctors", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("DoctorId");

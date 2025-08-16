@@ -9,6 +9,10 @@ namespace HealLink.Contracts.Profile
     public record DoctorProfileResponse(
         Guid Id,
         Guid UserId,
+        string Gender,
+        string city,
+        string country,
+        string nationality,
         string FullName,
         string Email,
         string Specialization,

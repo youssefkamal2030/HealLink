@@ -30,21 +30,25 @@ namespace healLink.Application.Handlers.Profile
             var patientsCount = await _profileRepository.GetPatientsCountAsync(request.SearchTerm, cancellationToken);
 
             var doctorProfiles = doctors.Select(d => new DoctorProfileResponse(
-                Id: d.Id,
-                UserId: d.UserId,
-                FullName: d.User.Username,
-                Email: d.User.Email,
-                Specialization: d.Specialization,
-                CurrentWorkplace: d.CurrentWorkplace,
-                PracticeLicenseNumber: d.PracticeLicenseNumber,
-                Address: d.Address != null 
-                    ? $"{d.Address.Street}, {d.Address.City}, {d.Address.State}, {d.Address}"
-                    : string.Empty,
-                IsApproved: d.IsApproved,
-                IsAvailableForChat: d.IsAvailableForChat,
-                CreatedAt: d.CreatedAt,
-                UpdatedAt: d.UpdatedAt
-            )).ToList();
+     Id: d.Id,
+     UserId: d.UserId,
+     Gender: d.PersonalInfo?.Gender ?? string.Empty, 
+     nationality: d.PersonalInfo?.Nationality ?? string.Empty, 
+     city: d.Address?.City ?? string.Empty, 
+     country: d.Address?.Country ?? string.Empty, 
+     FullName: d.User?.Username ?? string.Empty,
+     Email: d.User?.Email ?? string.Empty, 
+     Specialization: d.Specialization ?? string.Empty, 
+     CurrentWorkplace: d.CurrentWorkplace ?? string.Empty, 
+     PracticeLicenseNumber: d.PracticeLicenseNumber ?? string.Empty, 
+     Address: d.Address != null
+         ? $"{d.Address.City}, {d.Address.Country}" 
+         : string.Empty,
+     IsApproved: d.IsApproved,
+     IsAvailableForChat: d.IsAvailableForChat,
+     CreatedAt: d.CreatedAt,
+     UpdatedAt: d.UpdatedAt
+ )).ToList();
 
             var patientProfiles = patients.Select(p => new PatientProfileResponse(
                 Id: p.Id,

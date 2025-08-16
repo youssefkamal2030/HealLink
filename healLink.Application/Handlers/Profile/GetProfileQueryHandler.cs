@@ -53,7 +53,7 @@ namespace healLink.Application.Handlers.Profile
             {
                 var user = await _userRepository.GetUserByIdAsync(request.UserId, cancellationToken);
                 var address = doctor.Address != null 
-                    ? $"{doctor.Address.Street}, {doctor.Address.City}, {doctor.Address.State}, {doctor.Address}"
+                    ? $"{doctor.Address}, {doctor.Address.City}, {doctor.Address}, {doctor.Address}"
                     : string.Empty;
 
                 var doctorProfile = new DoctorProfileResponse(
@@ -61,6 +61,10 @@ namespace healLink.Application.Handlers.Profile
                     UserId: doctor.UserId,
                     FullName: doctor.PersonalInfo?.FullName ?? user.Username,
                     Email: user.Email,
+                    Gender: doctor.PersonalInfo.Gender,
+                    nationality: doctor.PersonalInfo.Nationality,
+                    city: doctor.Address?.City ?? string.Empty,
+                    country: doctor.Address?.Country ?? string.Empty,
                     Specialization: doctor.Specialization,
                     CurrentWorkplace: doctor.CurrentWorkplace,
                     PracticeLicenseNumber: doctor.PracticeLicenseNumber,

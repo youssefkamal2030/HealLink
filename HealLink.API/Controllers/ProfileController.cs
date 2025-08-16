@@ -50,10 +50,9 @@ namespace HealLink.Api.Controllers
             var command = new UpdateDoctorProfileCommand(
                 doctorId,
                 new PersonalInfo(request.FullName, request.Gender, request.Nationality),
-                new Address(request.Street, request.City, request.State, request.Country),
+                new Address(request.City, request.Country),
                 request.Specialization,
                 request.CurrentWorkplace,
-                request.Phone,
                 request.IsAvailableForChat
             );
 

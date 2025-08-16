@@ -9,13 +9,18 @@
 - **Endpoint:** `POST /Auth/register`
 - **Description:** Registers a new user (Patient, Doctor, or Admin).
 
-### Request Body
+### Request Body (multipart/form-data)
 ```json
 {
   "username": "string (min 3 chars)",
   "Password": "string (must contain upper, lower, digit, special char)",
   "Email": "string (valid email)",
-  "Role": "Patient|Doctor|Admin"
+  "Role": "Patient|Doctor|Admin",
+  "PracticeLicenseNumber": "string (required for doctors)",
+  "Specialization": "string (required for doctors)",
+  "SyndicateId": "file (required for doctors)",
+  "Idfront": "file (optional)",
+  "Idback": "file (optional)"
 }
 ```
 
@@ -24,6 +29,9 @@
 - `Password`: Required, must contain at least one uppercase letter, one lowercase letter, one digit, and one special character
 - `Email`: Required, must be a valid email address
 - `Role`: Must be one of `Patient`, `Doctor`, or `Admin`
+- `PracticeLicenseNumber`: Required when Role is `Doctor`
+- `Specialization`: Required when Role is `Doctor`
+- `SyndicateId`: Required file upload when Role is `Doctor`
 
 ### Response
 - **Success:**
@@ -203,4 +211,4 @@ curl -X POST "https://creative-endlessly-bullfrog.ngrok-free.app/Auth/reset-pass
     "Token": "<reset_token>",
     "NewPassword": "NewPassword@123"
   }'
-``` 
+```

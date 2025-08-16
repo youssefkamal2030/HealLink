@@ -11,7 +11,6 @@ namespace healLink.Application.Commands.Profile
         Address? Address,
         string? Specialization,
         string? CurrentWorkplace,
-        string? Phone,
         bool? IsAvailableForChat = null
     ) : IRequest<UpdateProfileResponse>;
 }

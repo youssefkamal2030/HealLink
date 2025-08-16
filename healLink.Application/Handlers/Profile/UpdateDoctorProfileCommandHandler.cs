@@ -33,8 +33,8 @@ namespace healLink.Application.Handlers.Profile
                 doctor.UpdateAddress(request.Address);
                 doctor.UpdateProfessionalDetails(
                     request.Specialization,
-                    request.CurrentWorkplace,
-                    request.Phone
+                    request.CurrentWorkplace
+                   
                 );
                 
                 if (request.IsAvailableForChat.HasValue)
