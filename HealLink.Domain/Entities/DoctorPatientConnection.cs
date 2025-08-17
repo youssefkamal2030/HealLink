@@ -10,7 +10,8 @@ namespace HealLink.Domain.Entities
         public Guid PatientId { get; private set; }
         public ConnectionStatus Status { get; private set; }
         public DateTime? AcceptedAt { get; private set; }
-
+        public Doctor Doctor { get; private set; }
+        public Patient Patient { get; private set; }
         private DoctorPatientConnection() { } // For EF
 
         public DoctorPatientConnection(Guid doctorId, Guid patientId)
@@ -32,5 +33,6 @@ namespace HealLink.Domain.Entities
             Status = ConnectionStatus.Rejected;
             UpdateTimestamp();
         }
+
     }
 } 

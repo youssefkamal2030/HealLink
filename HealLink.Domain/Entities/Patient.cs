@@ -14,6 +14,7 @@ namespace HealLink.Domain.Entities
 
         private readonly List<Guid> _doctorIds = new();
         public IReadOnlyCollection<Guid> DoctorIds => _doctorIds.AsReadOnly();
+        public ICollection<DoctorPatientConnection> DoctorConnections { get; set; } = new List<DoctorPatientConnection>();
 
         private Patient() { } // For EF
 

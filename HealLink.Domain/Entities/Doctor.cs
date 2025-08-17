@@ -26,6 +26,7 @@ namespace HealLink.Domain.Entities
         public IReadOnlyCollection<Guid> PatientIds => _patientIds.AsReadOnly();
         public User? User { get; private set; }
         public ICollection<Subscription>? Subscriptions { get; set; }
+        public ICollection<DoctorPatientConnection> PatientConnections { get; set; } = new List<DoctorPatientConnection>();
 
         public Doctor(
             Guid userId,

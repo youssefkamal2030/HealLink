@@ -4,6 +4,7 @@ using healLink.Application.Queries;
 using healLink.Application.Commands.Profile;
 using HealLink.Contracts.Profile;
 using HealLink.Domain.ValueObjects;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HealLink.Api.Controllers
 {
@@ -67,9 +68,19 @@ namespace HealLink.Api.Controllers
         }
 
         [HttpDelete("{doctorId}")]
+        [Authorize(Roles = "Admin,Doctor")]
         public async Task<IActionResult> DeleteDoctorProfile(Guid doctorId)
         {
-            var command = new DeleteDoctorProfileCommand(doctorId);
+            // Extract user ID from JWT token
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier) 
+                           ?? User.FindFirst("sub");
+            
+            if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out var authenticatedUserId))
+            {
+                return Unauthorized(new { success = false, message = "Unable to identify user from token" });
+            }
+
+            var command = new DeleteDoctorProfileCommand(doctorId, authenticatedUserId);
             var result = await _mediator.Send(command);
 
             if (result.Success)
@@ -77,7 +88,9 @@ namespace HealLink.Api.Controllers
                 return Ok(result);
             }
 
-            return NotFound(result);
+            return result.Message.Contains("unauthorized") 
+                ? Forbid() 
+                : NotFound(result);
         }
 
       

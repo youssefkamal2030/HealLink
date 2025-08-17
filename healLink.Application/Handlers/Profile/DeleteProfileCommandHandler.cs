@@ -28,6 +28,12 @@ namespace healLink.Application.Handlers.Profile
                     return new DeleteDoctorProfileResponse("Doctor profile not found.", false);
                 }
 
+                // Authorization check: Only allow deletion if the authenticated user owns the profile
+                if (doctor.UserId != request.AuthenticatedUserId)
+                {
+                    return new DeleteDoctorProfileResponse("Unauthorized: You can only delete your own profile.", false);
+                }
+
                 await _profileRepository.DeleteDoctorAsync(request.DoctorId, cancellationToken);
 
                 return new DeleteDoctorProfileResponse("Doctor profile deleted successfully.");

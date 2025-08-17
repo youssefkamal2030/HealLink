@@ -39,7 +39,7 @@ public class JwtTokenGenerator : IJwtTokenGenerator
             issuer: jwtSettings["Issuer"],
             audience: jwtSettings["Audience"],
             claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(double.Parse(jwtSettings["ExpiryMinutes"])),
+            expires: DateTime.UtcNow.AddDays(double.Parse(jwtSettings["ExpiryMinutes"])),
             signingCredentials: creds
         );
 

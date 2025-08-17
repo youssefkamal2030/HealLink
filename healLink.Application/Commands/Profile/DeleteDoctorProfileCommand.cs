@@ -5,7 +5,8 @@ using MediatR;
 namespace healLink.Application.Commands.Profile
 {
     public record DeleteDoctorProfileCommand(
-        Guid DoctorId
+        Guid DoctorId,
+        Guid AuthenticatedUserId
     ) : IRequest<DeleteDoctorProfileResponse>;
 
    

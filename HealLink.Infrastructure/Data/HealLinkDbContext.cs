@@ -98,14 +98,14 @@ namespace HealLink.Infrastructure.Data
 
             // Doctor-Patient Connection - CASCADE from Doctor, RESTRICT from Patient
             modelBuilder.Entity<DoctorPatientConnection>()
-                .HasOne<Doctor>()
-                .WithMany()
-                .HasForeignKey(c => c.DoctorId)
-                .OnDelete(DeleteBehavior.Cascade);
+      .HasOne(c => c.Doctor)
+      .WithMany(d => d.PatientConnections) // Map to new navigation property
+      .HasForeignKey(c => c.DoctorId)
+      .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<DoctorPatientConnection>()
-                .HasOne<Patient>()
-                .WithMany()
+                .HasOne(c => c.Patient)
+                .WithMany(p => p.DoctorConnections) // Map to new navigation property
                 .HasForeignKey(c => c.PatientId)
                 .OnDelete(DeleteBehavior.Restrict);
 

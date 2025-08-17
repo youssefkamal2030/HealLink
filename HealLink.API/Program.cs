@@ -4,6 +4,7 @@ using System.Text;
 using FluentValidation.AspNetCore;
 using healLink.Application.Commands.Auth;
 using healLink.Application.Interfaces;
+using HealLink.API.Hubs;
 using HealLink.Contracts.Auth;
 using HealLink.Infrastructure;
 using HealLink.Infrastructure.Data;
@@ -34,6 +35,11 @@ namespace HealLink
             builder.Services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>());
             builder.Services.AddSwaggerGen();
             builder.WebHost.UseWebRoot("wwwroot");
+            builder.Services.AddSignalR(options =>
+            {
+                options.EnableDetailedErrors = true; // Enable detailed errors for debugging
+            });
+            builder.Services.AddSignalR();
 
             // Configure EmailSender
             builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
@@ -95,7 +101,7 @@ namespace HealLink
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
-
+            app.MapHub<NotificationHub>("/notificationHub");
             app.Run();
         }
     }
