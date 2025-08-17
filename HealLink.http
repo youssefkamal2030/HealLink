@@ -1,6 +1,0 @@
-@HealLink_HostAddress = http://localhost:5162
-
-GET {{HealLink_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
