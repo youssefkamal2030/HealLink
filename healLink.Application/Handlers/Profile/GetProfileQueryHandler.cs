@@ -35,10 +35,7 @@ namespace healLink.Application.Handlers.Profile
       UserId: patient.UserId,
       FullName: user?.Username, 
       Email: user?.Email,
-      GuardianId: patient?.GuardianId,
-      GuardianName: guardianName,
-      CreatedAt: patient.CreatedAt,
-      UpdatedAt: patient.UpdatedAt
+      GuardianId: patient?.GuardianId
   );
 
                 return new ProfileResponse(

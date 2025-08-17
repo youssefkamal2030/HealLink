@@ -6,11 +6,11 @@ namespace HealLink.Domain.Entities
 {
     public class Notification : Entity
     {
-        public Guid UserId { get; private set; }
-        public string Title { get; private set; }
-        public string Message { get; private set; }
-        public string Type { get; private set; }
-        public bool IsRead { get; private set; }
+        public Guid? UserId { get; private set; }
+        public string? Title { get; private set; }
+        public string? Message { get; private set; }
+        public string? Type { get; private set; }
+        public bool? IsRead { get; private set; }
         public DateTime? ReadAt { get; private set; }
         public Dictionary<string, object> Data { get; private set; }
 

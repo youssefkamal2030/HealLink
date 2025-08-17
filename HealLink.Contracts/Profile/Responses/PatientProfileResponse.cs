@@ -11,9 +11,6 @@ namespace HealLink.Contracts.Profile
         Guid UserId,
         string FullName,
         string Email,
-        Guid? GuardianId,
-        string? GuardianName,
-        DateTime CreatedAt,
-        DateTime UpdatedAt
+        Guid? GuardianId
     );
 }

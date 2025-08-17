@@ -10,16 +10,19 @@ namespace HealLink.Domain.Aggregates
         public MedicalHistory MedicalHistory { get; private set; }
         private readonly List<TestResult> _testResults = new();
         private readonly List<MedicationReminder> _medicationReminders = new();
+        private readonly List<DoctorPatientConnection> _connections = new();
 
         public IReadOnlyCollection<TestResult> TestResults => _testResults.AsReadOnly();
         public IReadOnlyCollection<MedicationReminder> MedicationReminders => _medicationReminders.AsReadOnly();
+        public IReadOnlyCollection<DoctorPatientConnection> Connections => _connections.AsReadOnly();
 
-        public PatientAggregate(Patient patient, MedicalHistory medicalHistory, IEnumerable<TestResult> testResults, IEnumerable<MedicationReminder> reminders)
+        public PatientAggregate(Patient patient, MedicalHistory medicalHistory, IEnumerable<TestResult> testResults, IEnumerable<MedicationReminder> reminders, IEnumerable<DoctorPatientConnection> connections)
         {
             Patient = patient ?? throw new ArgumentNullException(nameof(patient));
             MedicalHistory = medicalHistory ?? throw new ArgumentNullException(nameof(medicalHistory));
             if (testResults != null) _testResults.AddRange(testResults);
             if (reminders != null) _medicationReminders.AddRange(reminders);
+            if (connections != null) _connections.AddRange(connections);
         }
 
         public void UploadTestResult(TestResult result, Guid actingUserId)
@@ -46,4 +49,4 @@ namespace HealLink.Domain.Aggregates
         //    MedicalHistory.UpdateNotes(notes);
         //}
     }
-} 
+}

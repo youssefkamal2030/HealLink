@@ -27,6 +27,7 @@ namespace HealLink.Domain.Entities
         public User? User { get; private set; }
         public ICollection<Subscription>? Subscriptions { get; set; }
         public ICollection<DoctorPatientConnection> PatientConnections { get; set; } = new List<DoctorPatientConnection>();
+        public ICollection<Notification> notifications { get; set; } = new List<Notification>();    
 
         public Doctor(
             Guid userId,
@@ -122,6 +123,12 @@ namespace HealLink.Domain.Entities
                 _patientIds.Remove(patientId);
                 UpdateTimestamp();
             }
+        }
+        public void AddNotification(Notification notification)
+        {
+            if (notification == null) throw new ArgumentNullException(nameof(notification));
+            notifications.Add(notification);
+            UpdateTimestamp();
         }
     }
 }

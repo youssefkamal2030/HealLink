@@ -55,12 +55,7 @@ namespace healLink.Application.Handlers.Profile
                 UserId: p.UserId,
                 FullName: p.User.Username,
                 Email: p.User.Email,
-                GuardianId: p.GuardianId,
-                GuardianName: p.Guardian?.User != null 
-                    ? p.Guardian.User.Username
-                    : null,
-                CreatedAt: p.CreatedAt,
-                UpdatedAt: p.UpdatedAt
+                GuardianId: p.GuardianId
             )).ToList();
 
             var totalCount = doctorsCount + patientsCount;
