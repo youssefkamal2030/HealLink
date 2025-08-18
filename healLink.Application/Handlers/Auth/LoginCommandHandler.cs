@@ -28,7 +28,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResponse>
         }
 
         var token = await _jwtTokenGenerator.GenerateTokenAsync(user);
-        return new LoginResponse(token);
+        return new LoginResponse(user.Id,user.Username,user.Email,token);
     }
 }
 

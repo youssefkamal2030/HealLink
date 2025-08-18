@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HealLink.Contracts.Auth
 {
-   public record LoginResponse(string token);
+   public record LoginResponse(Guid userId, string username,string Email, string token);
     
     
 }
