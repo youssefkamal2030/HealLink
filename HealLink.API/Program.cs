@@ -27,7 +27,7 @@ namespace HealLink
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddDbContext<HealLinkDbContext>(options =>
-                 options.UseSqlServer(builder.Configuration.GetConnectionString("RemoteConnection")));
+                 options.UseSqlServer(builder.Configuration.GetConnectionString("localConnection")));
             builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<HealLinkDbContext>());
 
             // Add services to the container.  
