@@ -49,7 +49,10 @@ public class RegisterCommandHandler(IUserRepository userRepository, IPasswordHas
         var SyndicateIdPath = await _photoService.SavePhotoAsync(request.SyndicateId, "uploads");
         var CreateProfileCommand = new CreateProfileCommand(user.Id, user.Role,request.Specilization,request.PracticeLicenseNumber,SyndicateIdPath );
         var result = await _mediator.Send(CreateProfileCommand);
-
+        if(result.Success == false)
+        {
+            return new RegisterResponse("Profile creation failed: " + result.Message);
+        }
         return new RegisterResponse("User registered successfully");
     }
 

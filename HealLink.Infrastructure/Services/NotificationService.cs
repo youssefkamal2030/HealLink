@@ -10,12 +10,12 @@ namespace HealLink.Infrastructure.Services
 {
     public class NotificationService : INotificationService
     {
-        //private readonly IHubContext<NotificationHub> _hubContext;
+        private readonly IHubContext<NotificationHub> _hubContext;
 
-        //public NotificationService(IHubContext<NotificationHub> hubContext)
-        //{
-        //    _hubContext = hubContext;
-        //}
+        public NotificationService(IHubContext<NotificationHub> hubContext)
+        {
+            _hubContext = hubContext;
+        }
 
         public Task NotifyDoctorOfPendingRequest(Guid doctorId, Guid patientId, Guid connectionId)
         {
