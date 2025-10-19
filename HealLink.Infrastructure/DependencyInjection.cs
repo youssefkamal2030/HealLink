@@ -30,6 +30,7 @@ namespace HealLink.Infrastructure
             services.AddScoped<EmailBodyBuilder>();
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IDoctorRepository, DoctorRepository>();
+            services.AddScoped<IConnectionRequestsRepository, ConnectionRequestsRepository>();  
 
             return services;
         }

@@ -12,5 +12,11 @@ namespace HealLink.Domain.Entities
         public Guid DoctorId { get; private set; }
         public Guid PatientId { get; private set; }
         public string Status { get; private set; } = "Pending";
+        public ConnectionRequest(Guid doctorId, Guid patientId)
+        {
+            DoctorId = doctorId;
+            PatientId = patientId;
+        }
+
     }
 }

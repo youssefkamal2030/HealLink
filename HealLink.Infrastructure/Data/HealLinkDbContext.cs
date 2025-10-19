@@ -24,6 +24,7 @@ namespace HealLink.Infrastructure.Data
         public DbSet<MedicalHistory> MedicalHistories { get; set; }
         public DbSet<MedicationReminder> MedicationReminders { get; set; }
         public DbSet<DoctorPatientConnection> DoctorPatientConnections { get; set; }
+        public DbSet<ConnectionRequest> connectionRequests { get; set; }
         public DbSet<OTP> OTPs { get; set; }
         public HealLinkDbContext(DbContextOptions<HealLinkDbContext> options) : base(options)
         {
