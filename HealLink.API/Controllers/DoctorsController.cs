@@ -1,5 +1,4 @@
-﻿// HealLink.API/Controllers/DoctorsController.cs
-using healLink.Application.Queries;
+﻿using healLink.Application.Queries;
 using HealLink.Contracts.Doctor.Requests;
 using HealLink.Contracts.Doctor.Responses;
 using MediatR;
@@ -23,7 +22,7 @@ namespace HealLink.API.Controllers
         {
             var query = new GetConnectedPatientsQuery(doctorId);
             var result = await _mediator.Send(query);
-            return result.Success ? Ok(result) : BadRequest(result);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
     }
 }

@@ -10,6 +10,7 @@ namespace healLink.Application.Repositories
     public interface IPatientRepository
     {
         Task<PatientAggregate> GetAggregateByPatientId(Guid PatientId);
+        Task<string> GetPatientNameById(Guid patientId);
         Task UpdateAggregate(PatientAggregate aggregate);
     }
 }

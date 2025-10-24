@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using healLink.Application.Common.Models;
 using healLink.Application.Queries;
 using healLink.Application.Repositories;
 using HealLink.Contracts.Doctor.Responses;
@@ -13,7 +14,7 @@ using MediatR;
 
 namespace HealLink.Application.Handlers.Doctor
 {
-    public class GetConnectedPatientsQueryHandler : IRequestHandler<GetConnectedPatientsQuery, ConnectedPatientsResponse>
+    public class GetConnectedPatientsQueryHandler : IRequestHandler<GetConnectedPatientsQuery, Result<ConnectedPatientsResponse>>
     {
         private readonly IDoctorRepository _doctorRepository;
         private readonly IPatientRepository _patientRepository;
@@ -24,12 +25,12 @@ namespace HealLink.Application.Handlers.Doctor
             _patientRepository = patientRepository;
         }
 
-        public async Task<ConnectedPatientsResponse> Handle(GetConnectedPatientsQuery request, CancellationToken cancellationToken)
+        public async Task<Result<ConnectedPatientsResponse>> Handle(GetConnectedPatientsQuery request, CancellationToken cancellationToken)
         {
             var doctorAggregate = await _doctorRepository.GetAggregateByDoctorId(request.DoctorId);
             if (doctorAggregate == null)
             {
-                return new ConnectedPatientsResponse(false, "Doctor not found.", new List<PatientProfileResponse>(), 0);
+                return Result<ConnectedPatientsResponse>.Failure("doctor not found");
             }
 
             var connectedPatientIds = doctorAggregate.Connections
@@ -53,7 +54,13 @@ namespace HealLink.Application.Handlers.Doctor
                 }
             }
 
-            return new ConnectedPatientsResponse(true, "Connected patients retrieved successfully.", connectedPatients, connectedPatients.Count);
+            var response = new ConnectedPatientsResponse(
+             Success: true,
+             Message: "Connected patients retrieved successfully.",
+             ConnectedPatients: connectedPatients,
+             TotalCount: connectedPatients.Count
+         );
+            return Result<ConnectedPatientsResponse>.Success(response);
         }
     }
 }
