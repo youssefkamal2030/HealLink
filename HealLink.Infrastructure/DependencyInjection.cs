@@ -13,6 +13,7 @@ using healLink.Application.Interfaces;
 using Microsoft.Extensions.Configuration;
 using HealLink.Infrastructure.Services;
 using healLink.Application.Repositories;
+using HealLink.Application.Interfaces;
 
 namespace HealLink.Infrastructure
 {
@@ -31,6 +32,7 @@ namespace HealLink.Infrastructure
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IDoctorRepository, DoctorRepository>();
             services.AddScoped<IConnectionRequestsRepository, ConnectionRequestsRepository>();  
+            services.AddScoped<INotificationService, NotificationService>();
 
             return services;
         }

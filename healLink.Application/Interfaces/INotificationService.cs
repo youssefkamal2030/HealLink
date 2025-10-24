@@ -8,9 +8,8 @@ namespace HealLink.Application.Interfaces
 {
     public interface INotificationService
     {
-        Task SendDoctorConnectionRequestNotification(string doctorId, string patientId);
 
+        Task NotifyDoctorOfPendingRequest(Guid doctorId, Guid patientId, Guid connectionRequestId);
         Task NotifyPatientOfAcceptance(Guid patientId, Guid doctorId);
-        Task NotifyPatientOfRejection(Guid patientId, Guid doctorId);
     }
 }
