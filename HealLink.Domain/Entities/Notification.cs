@@ -20,11 +20,6 @@ namespace HealLink.Domain.Entities
         public bool IsRead { get; private set; }
         public DateTime? ReadAt { get; private set; }
         
-        // Related entities (for context)
-        public Guid? RelatedDoctorId { get; private set; }
-        public Guid? RelatedPatientId { get; private set; }
-        public Guid? ConnectionId { get; private set; }
-        
         // Navigation properties
         public Doctor Doctor { get; private set; }
         public Patient Patient { get; private set; }
@@ -36,9 +31,7 @@ namespace HealLink.Domain.Entities
             Guid doctorId,
             string title,
             string message,
-            string type,
-            Guid? relatedPatientId = null,
-            Guid? connectionId = null)
+            string type)
         {
             return new Notification
             {
@@ -47,9 +40,7 @@ namespace HealLink.Domain.Entities
                 Title = title ?? throw new ArgumentNullException(nameof(title)),
                 Message = message ?? throw new ArgumentNullException(nameof(message)),
                 Type = type ?? throw new ArgumentNullException(nameof(type)),
-                IsRead = false,
-                RelatedPatientId = relatedPatientId,
-                ConnectionId = connectionId
+                IsRead = false
             };
         }
         
@@ -58,9 +49,7 @@ namespace HealLink.Domain.Entities
             Guid patientId,
             string title,
             string message,
-            string type,
-            Guid? relatedDoctorId = null,
-            Guid? connectionId = null)
+            string type)
         {
             return new Notification
             {
@@ -69,9 +58,7 @@ namespace HealLink.Domain.Entities
                 Title = title ?? throw new ArgumentNullException(nameof(title)),
                 Message = message ?? throw new ArgumentNullException(nameof(message)),
                 Type = type ?? throw new ArgumentNullException(nameof(type)),
-                IsRead = false,
-                RelatedDoctorId = relatedDoctorId,
-                ConnectionId = connectionId
+                IsRead = false
             };
         }
         

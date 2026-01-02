@@ -42,9 +42,7 @@ namespace HealLink.Infrastructure.Services
                 doctorId: doctorId,
                 title: "New Connection Request",
                 message: $"You have a new connection request from Patient {data.PatientName}.",
-                type: "ConnectionRequest",
-                relatedPatientId: data.PatientId,
-                connectionId: data.RequestId
+                type: "ConnectionRequest"
             );
             
             await _notificationRepository.CreateNotificationAsync(notification);
@@ -76,8 +74,7 @@ namespace HealLink.Infrastructure.Services
                 patientId: patientId,
                 title: "Connection Accepted",
                 message: "Your connection request has been accepted by the doctor.",
-                type: "ConnectionAccepted",
-                relatedDoctorId: doctorId
+                type: "ConnectionAccepted"
             );
             
             await _notificationRepository.CreateNotificationAsync(notification);
@@ -108,8 +105,7 @@ namespace HealLink.Infrastructure.Services
                 patientId: patientId,
                 title: "Connection Rejected",
                 message: "Your connection request has been rejected by the doctor.",
-                type: "ConnectionRejected",
-                relatedDoctorId: doctorId
+                type: "ConnectionRejected"
             );
             
             await _notificationRepository.CreateNotificationAsync(notification);
