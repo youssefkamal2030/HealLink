@@ -1,31 +1,80 @@
 ﻿using System;
-using System.Collections.Generic;
 using HealLink.Domain.Base;
+using HealLink.Domain.Enums;
 
 namespace HealLink.Domain.Entities
 {
     public class Notification : Entity
     {
-        public Guid? UserId { get; private set; }
-        public string? Title { get; private set; }
-        public string? Message { get; private set; }
-        public string? Type { get; private set; }
-        public bool? IsRead { get; private set; }
+        // Recipient information
+        public Guid? DoctorId { get; private set; }
+        public Guid? PatientId { get; private set; }
+        public RecipientType RecipientType { get; private set; }
+        
+        // Notification content
+        public string Title { get; private set; }
+        public string Message { get; private set; }
+        public string Type { get; private set; }
+        
+        // Status
+        public bool IsRead { get; private set; }
         public DateTime? ReadAt { get; private set; }
-        public Dictionary<string, object> Data { get; private set; }
-
-        private Notification() { } 
-
-        public Notification(Guid userId, string title, string message, string type, Dictionary<string, object> data = null)
+        
+        // Related entities (for context)
+        public Guid? RelatedDoctorId { get; private set; }
+        public Guid? RelatedPatientId { get; private set; }
+        public Guid? ConnectionId { get; private set; }
+        
+        // Navigation properties
+        public Doctor Doctor { get; private set; }
+        public Patient Patient { get; private set; }
+        
+        private Notification() { } // EF Core
+        
+        // Factory method for doctor notifications
+        public static Notification ForDoctor(
+            Guid doctorId,
+            string title,
+            string message,
+            string type,
+            Guid? relatedPatientId = null,
+            Guid? connectionId = null)
         {
-            UserId = userId;
-            Title = title ?? throw new ArgumentNullException(nameof(title));
-            Message = message ?? throw new ArgumentNullException(nameof(message));
-            Type = type ?? throw new ArgumentNullException(nameof(type));
-            IsRead = false;
-            Data = data ?? new Dictionary<string, object>();
+            return new Notification
+            {
+                DoctorId = doctorId,
+                RecipientType = RecipientType.Doctor,
+                Title = title ?? throw new ArgumentNullException(nameof(title)),
+                Message = message ?? throw new ArgumentNullException(nameof(message)),
+                Type = type ?? throw new ArgumentNullException(nameof(type)),
+                IsRead = false,
+                RelatedPatientId = relatedPatientId,
+                ConnectionId = connectionId
+            };
         }
-
+        
+        // Factory method for patient notifications
+        public static Notification ForPatient(
+            Guid patientId,
+            string title,
+            string message,
+            string type,
+            Guid? relatedDoctorId = null,
+            Guid? connectionId = null)
+        {
+            return new Notification
+            {
+                PatientId = patientId,
+                RecipientType = RecipientType.Patient,
+                Title = title ?? throw new ArgumentNullException(nameof(title)),
+                Message = message ?? throw new ArgumentNullException(nameof(message)),
+                Type = type ?? throw new ArgumentNullException(nameof(type)),
+                IsRead = false,
+                RelatedDoctorId = relatedDoctorId,
+                ConnectionId = connectionId
+            };
+        }
+        
         public void MarkAsRead()
         {
             IsRead = true;

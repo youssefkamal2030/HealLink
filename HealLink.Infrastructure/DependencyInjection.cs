@@ -12,7 +12,6 @@ using Microsoft.Extensions.DependencyInjection;
 using healLink.Application.Interfaces;
 using Microsoft.Extensions.Configuration;
 using HealLink.Infrastructure.Services;
-using healLink.Application.Repositories;
 using HealLink.Application.Interfaces;
 
 namespace HealLink.Infrastructure
@@ -31,7 +30,8 @@ namespace HealLink.Infrastructure
             services.AddScoped<EmailBodyBuilder>();
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IDoctorRepository, DoctorRepository>();
-            services.AddScoped<IConnectionRequestsRepository, ConnectionRequestsRepository>();  
+            services.AddScoped<IConnectionRepository, ConnectionRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
             services.AddScoped<INotificationService, NotificationService>();
 
             return services;

@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using HealLink.Domain.Base;
+using HealLink.Domain.DomainEvents;
 using HealLink.Domain.Entities;
 using HealLink.Domain.Enums;
 using HealLink.Domain.ValueObjects;
 
 namespace HealLink.Domain.Aggregates
 {
-    public class DoctorAggregate
+    public class DoctorAggregate : AggregateRoot
     {
         public Doctor Doctor { get; private set; }
         public Address ClinicAddress { get; private set; }
@@ -30,10 +33,18 @@ namespace HealLink.Domain.Aggregates
 
             connection.Accept();
             Doctor.AddPatient(connection.PatientId);  // Sync _patientIds
-            // Sync lists (only on accept)
-            Doctor.AddPatient(connection.PatientId);
-            // Note: Also sync Patient's list – load PatientAggregate if needed, or raise event to handle async
+            
+            // Raise domain event
+            AddDomainEvent(new ConnectionAcceptedEvent(
+                connectionId,
+                Doctor.Id,
+                connection.PatientId,
+                DateTime.UtcNow
+            ));
+            
+            // Note: Also sync Patient's list â€“ load PatientAggregate if needed, or raise event to handle async
         }
+        
         public void RejectPatientRequest(Guid connectionId)
         {
             var connection = _connections.Find(c => c.Id == connectionId);
@@ -43,7 +54,13 @@ namespace HealLink.Domain.Aggregates
             connection.Reject();
             _connections.Remove(connection); 
             Doctor.PatientConnections.Remove(connection);
-          
+            
+            // Raise domain event
+            AddDomainEvent(new ConnectionRejectedEvent(
+                connectionId,
+                Doctor.Id,
+                connection.PatientId
+            ));
         }
 
         public void UpdateClinicAddress(Address newAddress)

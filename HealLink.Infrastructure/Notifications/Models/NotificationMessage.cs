@@ -13,5 +13,6 @@ namespace HealLink.Infrastructure.Notifications.Models
         public DateTime Timestamp { get; set; }
         public Guid ConnectionRequestId { get; set; }
         public Guid PatientId { get; set; }
+        public Guid DoctorId { get; set; }
     }
 }

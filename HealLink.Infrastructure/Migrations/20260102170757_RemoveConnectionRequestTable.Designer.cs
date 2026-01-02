@@ -4,6 +4,7 @@ using HealLink.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealLink.Infrastructure.Migrations
 {
     [DbContext(typeof(HealLinkDbContext))]
-    partial class HealLinkDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260102170757_RemoveConnectionRequestTable")]
+    partial class RemoveConnectionRequestTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -246,58 +249,38 @@ namespace HealLink.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ConnectionId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("DoctorId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("DoctorId1")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsRead")
+                    b.Property<bool?>("IsRead")
                         .HasColumnType("bit");
 
                     b.Property<string>("Message")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("PatientId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("ReadAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("RecipientType")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("RelatedDoctorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("RelatedPatientId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Type")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DoctorId");
 
-                    b.HasIndex("DoctorId1");
-
-                    b.HasIndex("PatientId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Notifications", (string)null);
                 });
@@ -695,23 +678,14 @@ namespace HealLink.Infrastructure.Migrations
 
             modelBuilder.Entity("HealLink.Domain.Entities.Notification", b =>
                 {
-                    b.HasOne("HealLink.Domain.Entities.Doctor", "Doctor")
-                        .WithMany()
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
                     b.HasOne("HealLink.Domain.Entities.Doctor", null)
                         .WithMany("notifications")
-                        .HasForeignKey("DoctorId1");
+                        .HasForeignKey("DoctorId");
 
-                    b.HasOne("HealLink.Domain.Entities.Patient", "Patient")
+                    b.HasOne("HealLink.Domain.Entities.User", null)
                         .WithMany()
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Doctor");
-
-                    b.Navigation("Patient");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("HealLink.Domain.Entities.OTP", b =>

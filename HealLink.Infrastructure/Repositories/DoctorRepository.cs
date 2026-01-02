@@ -6,17 +6,19 @@ using HealLink.Domain.Aggregates;
 using HealLink.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using HealLink.Domain.Entities;
-using healLink.Application.Repositories;
+using MediatR;
 
 namespace HealLink.Infrastructure.Repositories
 {
     public class DoctorRepository : IDoctorRepository
     {
         private readonly HealLinkDbContext _context;
+        private readonly IMediator _mediator;
 
-        public DoctorRepository(HealLinkDbContext context)
+        public DoctorRepository(HealLinkDbContext context, IMediator mediator)
         {
             _context = context;
+            _mediator = mediator;
         }
 
         public async Task<DoctorAggregate> GetAggregateByDoctorId(Guid doctorId)
@@ -40,7 +42,8 @@ namespace HealLink.Infrastructure.Repositories
             }
 
            
-            return new DoctorAggregate(doctor, doctor.Address, null);
+            // Pass the actual connections to the aggregate instead of null
+            return new DoctorAggregate(doctor, doctor.Address, doctor.PatientConnections);
         }
 
         public async Task UpdateAggregate(DoctorAggregate aggregate)
@@ -57,7 +60,23 @@ namespace HealLink.Infrastructure.Repositories
                 _context.Users.Update(aggregate.Doctor.User);
             }
 
+            // Update each connection that was modified in the aggregate
+            // This ensures status changes (Accept/Reject) are persisted to the database
+            foreach (var connection in aggregate.Doctor.PatientConnections)
+            {
+                _context.DoctorPatientConnections.Update(connection);
+            }
+
             await _context.SaveChangesAsync();
+            
+            // Dispatch domain events from the aggregate after successful save
+            var domainEvents = aggregate.DomainEvents.ToList();
+            aggregate.ClearDomainEvents();
+            
+            foreach (var domainEvent in domainEvents)
+            {
+                await _mediator.Publish(domainEvent);
+            }
         }
     }
 }

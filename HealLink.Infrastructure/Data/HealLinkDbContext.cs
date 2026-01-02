@@ -24,8 +24,8 @@ namespace HealLink.Infrastructure.Data
         public DbSet<MedicalHistory> MedicalHistories { get; set; }
         public DbSet<MedicationReminder> MedicationReminders { get; set; }
         public DbSet<DoctorPatientConnection> DoctorPatientConnections { get; set; }
-        public DbSet<ConnectionRequest> connectionRequests { get; set; }
         public DbSet<OTP> OTPs { get; set; }
+
         public HealLinkDbContext(DbContextOptions<HealLinkDbContext> options) : base(options)
         {
         }
@@ -123,6 +123,19 @@ namespace HealLink.Infrastructure.Data
                 .HasForeignKey(p => p.PatientId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // Notifications - Doctor/Patient relationships
+            modelBuilder.Entity<Notification>()
+                .HasOne(n => n.Doctor)
+                .WithMany()
+                .HasForeignKey(n => n.DoctorId)
+                .OnDelete(DeleteBehavior.NoAction);
+                
+            modelBuilder.Entity<Notification>()
+                .HasOne(n => n.Patient)
+                .WithMany()
+                .HasForeignKey(n => n.PatientId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<Subscription>()
      .HasOne(s => s.Doctor)
      .WithMany(d => d.Subscriptions)
@@ -155,13 +168,6 @@ namespace HealLink.Infrastructure.Data
                 .HasForeignKey(c => c.ReceiverId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Notifications - CASCADE from User
-            modelBuilder.Entity<Notification>()
-                .HasOne<User>()
-                .WithMany()
-                .HasForeignKey(n => n.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
             // TestResult - Guardian relationship
             modelBuilder.Entity<TestResult>()
                 .HasOne<Guardian>()
@@ -180,8 +186,7 @@ namespace HealLink.Infrastructure.Data
             modelBuilder.Entity<Prescription>().ToTable("Prescriptions");
             modelBuilder.Entity<Payment>().ToTable("Payments");
             modelBuilder.Entity<Subscription>().ToTable("Subscriptions");
-            modelBuilder.Entity<Notification>().ToTable("Notifications")
-                .Ignore(N => N.Data);
+            modelBuilder.Entity<Notification>().ToTable("Notifications");
             modelBuilder.Entity<ChatMessage>().ToTable("ChatMessages");
             modelBuilder.Entity<TestResult>().ToTable("TestResults");
             modelBuilder.Entity<MedicalHistory>()

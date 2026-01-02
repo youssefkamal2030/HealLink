@@ -1,6 +1,7 @@
 using System;
 using HealLink.Domain.Base;
 using HealLink.Domain.Enums;
+using MediatR;
 
 namespace HealLink.Domain.Entities
 {

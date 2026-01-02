@@ -11,12 +11,15 @@ namespace HealLink.Api.Controllers
     public class ConnectionsController(IMediator _mediator) : ControllerBase
     {
         private readonly IMediator Mediator = _mediator;
+
         [HttpPost("RequestConnection")]
         public async Task<IActionResult> RequestConnection(CreateConnectionRequest request)
         {
             var Command = new CreateConnectionRequestCommand(request.DoctorId, request.PatientId);
             var result = await _mediator.Send(Command);
-          return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
+
+     
     }
 }

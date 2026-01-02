@@ -10,12 +10,14 @@ namespace healLink.Application.Handlers.Connection
     public class CreateConnectionRequestCommandHandler
         : IRequestHandler<CreateConnectionRequestCommand, Result<CreateConnectionRequestResponse>>
     {
-        private readonly IConnectionRequestsRepository _connectionRequestsRepository;
+        private readonly IConnectionRepository _connectionRepository;
         private readonly IMediator _mediator;
-        public CreateConnectionRequestCommandHandler(IConnectionRequestsRepository connectionRequestsRepository
-            ,IMediator mediator)
+
+        public CreateConnectionRequestCommandHandler(
+            IConnectionRepository connectionRepository,
+            IMediator mediator)
         {
-            _connectionRequestsRepository = connectionRequestsRepository;
+            _connectionRepository = connectionRepository;
             _mediator = mediator;
         }
 
@@ -25,14 +27,20 @@ namespace healLink.Application.Handlers.Connection
         {
             try
             {
-                if (await _connectionRequestsRepository.ExistAsync(request.DoctorId, request.PatientId))
+                // Check if connection already exists
+                if (await _connectionRepository.ConnectionExistsAsync(request.DoctorId, request.PatientId))
                     return Result<CreateConnectionRequestResponse>.Failure("Connection request already exists.");
 
-                var connectionRequest = new ConnectionRequest(request.DoctorId, request.PatientId);
-                var result = await _connectionRequestsRepository.AddConnectionAsync(connectionRequest);
-                await _mediator.Publish(new ConnectionRequestCreatedEvent(result.Id, result.DoctorId, result.PatientId), cancellationToken);
+                // Create DoctorPatientConnection
+                var connection = new DoctorPatientConnection(request.DoctorId, request.PatientId);
+                var result = await _connectionRepository.AddConnectionAsync(connection);
 
-                var response = new CreateConnectionRequestResponse(result.Id, result.Status);
+                // Publish domain event
+                await _mediator.Publish(
+                    new ConnectionRequestCreatedEvent(result.Id, result.DoctorId, result.PatientId), 
+                    cancellationToken);
+
+                var response = new CreateConnectionRequestResponse(result.Id, result.Status.ToString());
                 return Result<CreateConnectionRequestResponse>.Success(response);
             }
             catch
