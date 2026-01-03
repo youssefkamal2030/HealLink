@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using healLink.Application.Repositories;
 using HealLink.Domain.Entities;
 using HealLink.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace HealLink.Infrastructure.Repositories
 {
@@ -24,6 +27,33 @@ namespace HealLink.Infrastructure.Repositories
             await _context.SaveChangesAsync();
             
             return notification;
+        }
+
+        public async Task<List<Notification>> GetDoctorNotificationsAsync(Guid doctorId)
+        {
+            return await _context.Notifications
+                .Where(n => n.DoctorId == doctorId)
+                .OrderByDescending(n => n.CreatedAt)
+                .ToListAsync();
+        }
+
+        public async Task<List<Notification>> GetPatientNotificationsAsync(Guid patientId)
+        {
+            return await _context.Notifications
+                .Where(n => n.PatientId == patientId)
+                .OrderByDescending(n => n.CreatedAt)
+                .ToListAsync();
+        }
+
+        public async Task<Notification> GetByIdAsync(Guid id)
+        {
+            return await _context.Notifications.FindAsync(id);
+        }
+
+        public async Task UpdateNotificationAsync(Notification notification)
+        {
+            _context.Notifications.Update(notification);
+            await _context.SaveChangesAsync();
         }
     }
 }

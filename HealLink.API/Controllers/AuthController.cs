@@ -32,7 +32,7 @@ namespace HealLink.Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        public async Task<IActionResult> Login(LoginRequest request)
         {
             try
             {
@@ -47,14 +47,14 @@ namespace HealLink.Api.Controllers
         }
 
         [HttpPost("forgot-password")]
-        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
+        public async Task<IActionResult> ForgotPassword( ForgotPasswordRequest request)
         {
             await _mediator.Send(new ForgotPasswordCommand(request.Email));
          
             return Ok(new { Message = "If an account with that email exists, a password reset link has been sent." });
         }
         [HttpPost("reset-password")]
-        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
+        public async Task<IActionResult> ResetPassword( ResetPasswordRequest request)
         {
             var command = new ResetPasswordCommand(request.Email, request.Token, request.NewPassword);
             var result = await _mediator.Send(command);
