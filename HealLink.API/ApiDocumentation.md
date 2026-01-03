@@ -1,18 +1,27 @@
 # HealLink API Documentation
 
-**Base URL:** `https://heallink-production.up.railway.app`
+**Base URL (Production):** `https://heallink-production.up.railway.app`  
+**Base URL (Local):** `https://localhost:7001`
 
-## Overview
+## 📋 Table of Contents
 
-The HealLink API provides endpoints for healthcare management, including user authentication, profile management, and healthcare provider/patient interactions.
+- [Authentication](#authentication-endpoints)
+- [Profile Management](#profile-endpoints)
+- [Connection Management](#connection-endpoints)
+- [Notifications](#notification-endpoints)
+- [Doctor Operations](#doctor-endpoints)
+- [Data Models](#data-models)
+- [Error Handling](#error-handling)
+
+---
 
 ## Authentication Endpoints
 
-### Register User
+### 1. Register User
 
 **Endpoint:** `POST /Auth/register`
 
-**Description:** Registers a new user (Patient, Doctor, or Admin) in the system.
+**Description:** Registers a new user (Patient or Doctor) in the system.
 
 **Request Body (multipart/form-data):**
 ```json
@@ -23,19 +32,9 @@ The HealLink API provides endpoints for healthcare management, including user au
   "Role": "Patient|Doctor",
   "PracticeLicenseNumber": "string (required for doctors)",
   "Specialization": "string (required for doctors)",
-  "SyndicateId": "file (required for doctors)",
-  
+  "SyndicateId": "file (required for doctors)"
 }
 ```
-
-**Validation Rules:**
-- `username`: Required, minimum 3 characters
-- `Password`: Required, must contain at least one uppercase letter, one lowercase letter, one digit, and one special character
-- `Email`: Required, must be a valid email address
-- `Role`: Must be one of `Patient`, `Doctor`, or `Admin`
-- `PracticeLicenseNumber`: Required when Role is `Doctor`
-- `Specialization`: Required when Role is `Doctor`
-- `SyndicateId`: Required file upload when Role is `Doctor`
 
 **Response:**
 - **Success (200 OK):**
@@ -51,7 +50,7 @@ The HealLink API provides endpoints for healthcare management, including user au
   }
   ```
 
-### Login
+### 2. Login
 
 **Endpoint:** `POST /Auth/login`
 
@@ -60,7 +59,7 @@ The HealLink API provides endpoints for healthcare management, including user au
 **Request Body:**
 ```json
 {
-  "Email": "string (valid email)",
+  "Email": "string",
   "Password": "string"
 }
 ```
@@ -77,16 +76,16 @@ The HealLink API provides endpoints for healthcare management, including user au
   "Invalid credentials"
   ```
 
-### Forgot Password
+### 3. Forgot Password
 
 **Endpoint:** `POST /Auth/forgot-password`
 
-**Description:** Initiates a password reset process by sending a reset link to the user's email.
+**Description:** Initiates password reset process by sending a reset link to the user's email.
 
 **Request Body:**
 ```json
 {
-  "Email": "string (valid email)"
+  "Email": "string"
 }
 ```
 
@@ -98,7 +97,7 @@ The HealLink API provides endpoints for healthcare management, including user au
   }
   ```
 
-### Reset Password
+### 4. Reset Password
 
 **Endpoint:** `POST /Auth/reset-password`
 
@@ -107,9 +106,9 @@ The HealLink API provides endpoints for healthcare management, including user au
 **Request Body:**
 ```json
 {
-  "Email": "string (valid email)",
-  "Token": "string (reset token)",
-  "NewPassword": "string (must contain upper, lower, digit, special char)"
+  "Email": "string",
+  "Token": "string",
+  "NewPassword": "string"
 }
 ```
 
@@ -120,26 +119,19 @@ The HealLink API provides endpoints for healthcare management, including user au
     "message": "Password reset Successfully"
   }
   ```
-- **Failure (400 Bad Request):**
-  ```json
-  {
-    "message": "<error message>"
-  }
-  ```
+
+---
 
 ## Profile Endpoints
 
-### Get User Profile
+### 1. Get User Profile
 
 **Endpoint:** `GET /api/Profile/{userId}`
 
-**Description:** Retrieves a user's profile information based on their role (Patient or Doctor).
-
-**Path Parameters:**
-- `userId`: GUID of the user
+**Description:** Retrieves a user's profile information based on their role.
 
 **Response:**
-- **Success (200 OK):**
+- **Success (200 OK) - Patient:**
   ```json
   {
     "success": true,
@@ -156,44 +148,12 @@ The HealLink API provides endpoints for healthcare management, including user au
     }
   }
   ```
-  OR
-  ```json
-  {
-    "success": true,
-    "message": "Profile retrieved successfully",
-    "doctorProfile": {
-      "id": "guid",
-      "userId": "guid",
-      "gender": "string",
-      "city": "string",
-      "country": "string",
-      "nationality": "string",
-      "fullName": "string",
-      "email": "string",
-      "specialization": "string",
-      "currentWorkplace": "string",
-      "practiceLicenseNumber": "string",
-      "address": "string",
-      "isApproved": true,
-      "isAvailableForChat": true,
-      "createdAt": "datetime",
-      "updatedAt": "datetime"
-    }
-  }
-  ```
-- **Failure (404 Not Found):**
-  ```json
-  {
-    "success": false,
-    "message": "Profile not found for the specified user"
-  }
-  ```
 
-### Get All Profiles
+### 2. Get All Profiles
 
 **Endpoint:** `GET /api/Profile`
 
-**Description:** Retrieves paginated lists of all doctors and patients with optional filtering.
+**Description:** Retrieves paginated lists of all doctors and patients.
 
 **Query Parameters:**
 - `page`: integer (default: 1)
@@ -201,56 +161,11 @@ The HealLink API provides endpoints for healthcare management, including user au
 - `searchTerm`: string (optional)
 - `roleFilter`: string (optional)
 
-**Response:**
-- **Success (200 OK):**
-  ```json
-  {
-    "success": true,
-    "message": "Retrieved X doctors and Y patients successfully",
-    "doctors": [
-      {
-        "id": "guid",
-        "userId": "guid",
-        "gender": "string",
-        "city": "string",
-        "country": "string",
-        "nationality": "string",
-        "fullName": "string",
-        "email": "string",
-        "specialization": "string",
-        "currentWorkplace": "string",
-        "practiceLicenseNumber": "string",
-        "address": "string",
-        "isApproved": true,
-        "isAvailableForChat": true,
-        "createdAt": "datetime",
-        "updatedAt": "datetime"
-      }
-    ],
-    "patients": [
-      {
-        "id": "guid",
-        "userId": "guid",
-        "fullName": "string",
-        "email": "string",
-        "guardianId": "guid?",
-        "guardianName": "string?",
-        "createdAt": "datetime",
-        "updatedAt": "datetime"
-      }
-    ],
-    "totalCount": 0
-  }
-  ```
-
-### Update Doctor Profile
+### 3. Update Doctor Profile
 
 **Endpoint:** `PUT /api/Profile/doctor/{doctorId}`
 
 **Description:** Updates a doctor's profile information.
-
-**Path Parameters:**
-- `doctorId`: GUID of the doctor
 
 **Request Body:**
 ```json
@@ -269,64 +184,299 @@ The HealLink API provides endpoints for healthcare management, including user au
 }
 ```
 
-**Response:**
-- **Success (200 OK):**
-  ```json
-  {
-    "success": true,
-    "message": "Doctor profile updated successfully"
-  }
-  ```
-- **Failure (400 Bad Request):**
-  ```json
-  {
-    "success": false,
-    "message": "<error message>"
-  }
-  ```
-
-### Delete Doctor Profile
+### 4. Delete Doctor Profile
 
 **Endpoint:** `DELETE /api/Profile/doctor/{doctorId}`
 
 **Description:** Deletes a doctor's profile.
 
-**Path Parameters:**
-- `doctorId`: GUID of the doctor
+---
+
+## Connection Endpoints
+
+### 1. Request Connection
+
+**Endpoint:** `POST /api/Connections/Request`
+
+**Description:** Patient sends a connection request to a doctor.
+
+**Request Body:**
+```json
+{
+  "doctorId": "guid",
+  "patientId": "guid"
+}
+```
+
+**Response:**
+- **Success (200 OK):**
+  ```json
+  {
+    "id": "guid",
+    "doctorId": "guid",
+    "patientId": "guid",
+    "status": "Pending",
+    "createdAt": "datetime"
+  }
+  ```
+
+### 2. Accept Connection
+
+**Endpoint:** `POST /api/Connections/Accept`
+
+**Description:** Doctor accepts a patient's connection request.
+
+**Request Body:**
+```json
+{
+  "connectionId": "guid",
+  "doctorId": "guid"
+}
+```
+
+**Response:**
+- **Success (200 OK):**
+  ```json
+  {
+    "message": "Connection accepted successfully"
+  }
+  ```
+
+### 3. Reject Connection
+
+**Endpoint:** `POST /api/Connections/Reject`
+
+**Description:** Doctor rejects a patient's connection request.
+
+**Request Body:**
+```json
+{
+  "connectionId": "guid",
+  "doctorId": "guid"
+}
+```
+
+**Response:**
+- **Success (200 OK):**
+  ```json
+  {
+    "message": "Connection rejected successfully"
+  }
+  ```
+
+### 4. Get Pending Connections for Doctor
+
+**Endpoint:** `GET /api/Connections/Doctor/{doctorId}/Pending`
+
+**Description:** Retrieves all pending connection requests for a doctor.
 
 **Response:**
 - **Success (200 OK):**
   ```json
   {
     "success": true,
-    "message": "Doctor profile deleted successfully"
+    "message": "Pending connections retrieved successfully.",
+    "connections": [
+      {
+        "id": "guid",
+        "doctorId": "guid",
+        "patientId": "guid",
+        "status": "Pending",
+        "createdAt": "datetime",
+        "acceptedAt": null
+      }
+    ],
+    "totalCount": 5
   }
   ```
-- **Failure (404 Not Found):**
+
+### 5. Get All Connections for Doctor
+
+**Endpoint:** `GET /api/Connections/Doctor/{doctorId}`
+
+**Description:** Retrieves all connections (Pending, Accepted, Rejected) for a doctor.
+
+**Response:**
+- **Success (200 OK):**
   ```json
   {
-    "success": false,
-    "message": "Doctor profile not found"
+    "success": true,
+    "message": "Doctor connections retrieved successfully.",
+    "connections": [...],
+    "totalCount": 10
   }
   ```
+
+### 6. Get All Connections for Patient
+
+**Endpoint:** `GET /api/Connections/Patient/{patientId}`
+
+**Description:** Retrieves all connections for a patient.
+
+**Response:**
+- **Success (200 OK):**
+  ```json
+  {
+    "success": true,
+    "message": "Patient connections retrieved successfully.",
+    "connections": [...],
+    "totalCount": 3
+  }
+  ```
+
+---
+
+## Notification Endpoints
+
+### 1. Get Doctor Notifications
+
+**Endpoint:** `GET /api/Notifications/Doctor/{doctorId}`
+
+**Description:** Retrieves all notifications for a specific doctor.
+
+**Response:**
+- **Success (200 OK):**
+  ```json
+  {
+    "success": true,
+    "message": "Notifications retrieved successfully.",
+    "notifications": [
+      {
+        "id": "guid",
+        "title": "New Connection Request",
+        "message": "You have a new connection request from Patient John Doe.",
+        "type": "ConnectionRequest",
+        "isRead": false,
+        "readAt": null,
+        "createdAt": "datetime"
+      }
+    ],
+    "totalCount": 5
+  }
+  ```
+
+### 2. Get Patient Notifications
+
+**Endpoint:** `GET /api/Notifications/Patient/{patientId}`
+
+**Description:** Retrieves all notifications for a specific patient.
+
+**Response:**
+- **Success (200 OK):**
+  ```json
+  {
+    "success": true,
+    "message": "Notifications retrieved successfully.",
+    "notifications": [
+      {
+        "id": "guid",
+        "title": "Connection Accepted",
+        "message": "Your connection request has been accepted by the doctor.",
+        "type": "ConnectionAccepted",
+        "isRead": false,
+        "readAt": null,
+        "createdAt": "datetime"
+      }
+    ],
+    "totalCount": 3
+  }
+  ```
+
+### 3. Mark Notification as Read
+
+**Endpoint:** `PUT /api/Notifications/{notificationId}/MarkAsRead`
+
+**Description:** Marks a notification as read.
+
+**Response:**
+- **Success (200 OK):**
+  ```json
+  {
+    "message": "Notification marked as read successfully"
+  }
+  ```
+
+---
+
+## Doctor Endpoints
+
+### 1. Get Connected Patients
+
+**Endpoint:** `GET /Doctors/{doctorId}/ConnectedPatients`
+
+**Description:** Retrieves all patients who have an accepted connection with the doctor.
+
+**Response:**
+- **Success (200 OK):**
+  ```json
+  {
+    "success": true,
+    "message": "Connected patients retrieved successfully.",
+    "connectedPatients": [
+      {
+        "id": "guid",
+        "userId": "guid",
+        "fullName": "string",
+        "email": "string",
+        "guardianId": "guid?",
+        "guardianName": "string?"
+      }
+    ],
+    "totalCount": 10
+  }
+  ```
+
+### 2. Accept Connection (Deprecated)
+
+**Endpoint:** `POST /Doctors/Accept`
+
+**Note:** Use `/api/Connections/Accept` instead. This endpoint remains for backward compatibility.
+
+### 3. Reject Connection (Deprecated)
+
+**Endpoint:** `POST /Doctors/Reject`
+
+**Note:** Use `/api/Connections/Reject` instead. This endpoint remains for backward compatibility.
+
+---
 
 ## Data Models
 
-### Doctor Profile Response
+### ConnectionResponse
+```csharp
+public record ConnectionResponse(
+    Guid Id,
+    Guid DoctorId,
+    Guid PatientId,
+    string Status,
+    DateTime CreatedAt,
+    DateTime? AcceptedAt
+);
+```
+
+### NotificationResponse
+```csharp
+public record NotificationResponse(
+    Guid Id,
+    string Title,
+    string Message,
+    string Type,
+    bool IsRead,
+    DateTime? ReadAt,
+    DateTime CreatedAt
+);
+```
+
+### DoctorProfileResponse
 ```csharp
 public record DoctorProfileResponse(
     Guid Id,
     Guid UserId,
-    string Gender,
-    string City,
-    string Country,
-    string Nationality,
     string FullName,
     string Email,
     string Specialization,
     string CurrentWorkplace,
     string PracticeLicenseNumber,
-    string Address,
     bool IsApproved,
     bool IsAvailableForChat,
     DateTime CreatedAt,
@@ -334,7 +484,7 @@ public record DoctorProfileResponse(
 );
 ```
 
-### Patient Profile Response
+### PatientProfileResponse
 ```csharp
 public record PatientProfileResponse(
     Guid Id,
@@ -348,16 +498,21 @@ public record PatientProfileResponse(
 );
 ```
 
+---
+
 ## Error Handling
 
 All endpoints follow consistent error handling patterns:
 
-- **400 Bad Request**: Validation errors or invalid input
-- **401 Unauthorized**: Authentication failures
-- **404 Not Found**: Resource not found
-- **500 Internal Server Error**: Server-side errors
+| Status Code | Description |
+|-------------|-------------|
+| **200 OK** | Successful operation |
+| **400 Bad Request** | Validation errors or invalid input |
+| **401 Unauthorized** | Authentication required or failed |
+| **404 Not Found** | Resource not found |
+| **500 Internal Server Error** | Server-side errors |
 
-Error responses follow this format:
+**Error Response Format:**
 ```json
 {
   "success": false,
@@ -365,29 +520,124 @@ Error responses follow this format:
 }
 ```
 
-## Rate Limiting
-
-API endpoints may be rate-limited to prevent abuse. Check response headers for rate limit information.
+---
 
 ## Authentication
 
 Most endpoints require JWT authentication. Include the token in the Authorization header:
+
 ```
 Authorization: Bearer <your_jwt_token>
 ```
 
-## Content Types
+Get a token by calling the `/Auth/login` endpoint.
 
-- **Request**: `application/json` (except file uploads)
-- **Response**: `application/json`
-- **File Uploads**: `multipart/form-data`
+---
+
+## Notification Types
+
+| Type | Description |
+|------|-------------|
+| `ConnectionRequest` | Patient sent a connection request |
+| `ConnectionAccepted` | Doctor accepted the connection |
+| `ConnectionRejected` | Doctor rejected the connection |
+
+---
+
+## Connection Status
+
+| Status | Description |
+|--------|-------------|
+| `Pending` | Connection request sent, awaiting doctor action |
+| `Accepted` | Doctor accepted the connection |
+| `Rejected` | Doctor rejected the connection |
+
+---
+
+## Real-time Features (SignalR)
+
+HealLink uses SignalR for real-time notifications. Connect to the SignalR hub at:
+
+```
+wss://heallink-production.up.railway.app/notificationHub
+```
+
+**Hub Methods:**
+- `ReceiveNotification(NotificationMessage message)` - Receive real-time notifications
+
+---
+
+## Rate Limiting
+
+API endpoints may be rate-limited to prevent abuse. Default limits:
+- **100 requests per minute** per IP address
+- Check `X-RateLimit-*` headers for current limits
+
+---
 
 ## Pagination
 
-List endpoints support pagination through `page` and `pageSize` query parameters.
+List endpoints support pagination through query parameters:
+- `page`: Page number (default: 1)
+- `pageSize`: Items per page (default: 20, max: 100)
 
-## Filtering and Search
+---
 
-The `GetAllProfiles` endpoint supports:
-- `searchTerm`: Search across name, email, and specialization fields
-- `roleFilter`: Filter by user role ("Doctor" or "Patient")
+## API Versioning
+
+Current API version: **v1.0**
+
+Future versions will be accessible via:
+```
+/api/v2/endpoint
+```
+
+---
+
+## Complete Endpoint Summary
+
+| Category | Endpoint | Method | Auth Required |
+|----------|----------|--------|---------------|
+| **Auth** | `/Auth/register` | POST | No |
+| **Auth** | `/Auth/login` | POST | No |
+| **Auth** | `/Auth/forgot-password` | POST | No |
+| **Auth** | `/Auth/reset-password` | POST | No |
+| **Profiles** | `/api/Profile/{userId}` | GET | Yes |
+| **Profiles** | `/api/Profile` | GET | Yes |
+| **Profiles** | `/api/Profile/doctor/{doctorId}` | PUT | Yes |
+| **Profiles** | `/api/Profile/doctor/{doctorId}` | DELETE | Yes |
+| **Connections** | `/api/Connections/Request` | POST | Yes |
+| **Connections** | `/api/Connections/Accept` | POST | Yes |
+| **Connections** | `/api/Connections/Reject` | POST | Yes |
+| **Connections** | `/api/Connections/Doctor/{doctorId}/Pending` | GET | Yes |
+| **Connections** | `/api/Connections/Doctor/{doctorId}` | GET | Yes |
+| **Connections** | `/api/Connections/Patient/{patientId}` | GET | Yes |
+| **Notifications** | `/api/Notifications/Doctor/{doctorId}` | GET | Yes |
+| **Notifications** | `/api/Notifications/Patient/{patientId}` | GET | Yes |
+| **Notifications** | `/api/Notifications/{notificationId}/MarkAsRead` | PUT | Yes |
+| **Doctors** | `/Doctors/{doctorId}/ConnectedPatients` | GET | Yes |
+| **Doctors** | `/Doctors/Accept` | POST | Yes |
+| **Doctors** | `/Doctors/Reject` | POST | Yes |
+
+**Total Endpoints:** 21
+
+---
+
+## Swagger Documentation
+
+Interactive API documentation is available at:
+- **Local:** `https://localhost:7001/swagger`
+- **Production:** `https://heallink-production.up.railway.app/swagger`
+
+---
+
+## Support
+
+For API support or questions:
+- **Email:** support@heallink.com
+- **Documentation:** [GitHub Repository](https://github.com/yourusername/heallink)
+
+---
+
+**Last Updated:** January 3, 2026  
+**API Version:** 1.0
