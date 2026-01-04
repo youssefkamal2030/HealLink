@@ -6,6 +6,7 @@ using healLink.Application.Commands.Auth;
 using healLink.Application.Interfaces;
 using HealLink.Contracts.Auth;
 using HealLink.Infrastructure;
+using HealLink.API.Middleware;
 using HealLink.Infrastructure.Data;
 using HealLink.Infrastructure.Notifications.Hubs;
 using HealLink.Infrastructure.Services;
@@ -98,6 +99,10 @@ namespace HealLink
         Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads")),
                 RequestPath = "/Uploads"
             });
+            
+            // Global exception handling middleware
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
+            
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();

@@ -4,10 +4,12 @@ using HealLink.Contracts.Connections.Requests;
 using HealLink.Contracts.Doctor.Requests;
 using HealLink.Contracts.Doctor.Responses;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HealLink.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class DoctorsController : ControllerBase

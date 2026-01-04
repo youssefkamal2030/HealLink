@@ -2,10 +2,12 @@
 using healLink.Application.Queries;
 using HealLink.Contracts.Connections.Requests;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HealLink.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ConnectionsController : ControllerBase

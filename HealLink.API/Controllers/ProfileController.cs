@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HealLink.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProfileController : ControllerBase
