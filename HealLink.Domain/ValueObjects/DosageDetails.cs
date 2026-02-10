@@ -25,7 +25,7 @@ namespace HealLink.Domain.ValueObjects
                 if (ScheduledTimes[i] != other.ScheduledTimes[i]) return false;
             return MedicationName == other.MedicationName && Dosage == other.Dosage && Instructions == other.Instructions;
         }
-
-        public override int GetHashCode() => HashCode.Combine(MedicationName, Dosage, Instructions, ScheduledTimes);
+       
+      
     }
 } 

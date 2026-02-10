@@ -54,7 +54,6 @@ namespace HealLink.API.Middleware
             {
                 success = false,
                 message = message,
-                // Only include detailed error information in development
                 details = _environment.IsDevelopment() ? exception.Message : null,
                 stackTrace = _environment.IsDevelopment() ? exception.StackTrace : null
             };

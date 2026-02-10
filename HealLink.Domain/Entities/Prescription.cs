@@ -10,7 +10,7 @@ namespace HealLink.Domain.Entities
     {
         public Guid PatientId { get; private set; }
         public Guid DoctorId { get; private set; }
-        public string Instructions { get; private set; }
+      
         public string Notes { get; private set; }
         public PrescriptionStatus Status { get; private set; }
         public DateTime? ExpiresAt { get; private set; }
@@ -24,7 +24,6 @@ namespace HealLink.Domain.Entities
         {
             PatientId = patientId;
             DoctorId = doctorId;
-            Instructions = instructions ?? string.Empty;
             Notes = notes ?? string.Empty;
             Status = PrescriptionStatus.Active;
             ExpiresAt = expiresAt;
@@ -35,10 +34,16 @@ namespace HealLink.Domain.Entities
             }
         }
 
-        public void UpdateInstructions(string instructions)
+        public void UpdateInstructions(MedicationDosage medicationDosage)
         {
-            Instructions = instructions ?? string.Empty;
-            UpdateTimestamp();
+            var existingMedication = _medications.Find(m => m.MedicationName == medicationDosage.MedicationName);
+            if (existingMedication != null)
+            {
+                _medications.Remove(existingMedication);
+                _medications.Add(medicationDosage);
+            }
+           
+                UpdateTimestamp();
         }
 
         public void UpdateNotes(string notes)
