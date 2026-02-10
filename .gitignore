@@ -650,7 +650,7 @@ coverage/
 *.sqlite3
 *.db
 *.db3
-
+*.kiro
 # Local Configuration
 **/appsettings.Development.json
 **/appsettings.local.json

@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using HealLink.Domain.Base;
@@ -37,17 +37,21 @@ namespace HealLink.Domain.Entities
             _medications.AddRange(medications);
         }
 
-        public void UpdateInstructions(MedicationDosage medicationDosage)
+        public void UpdateMedication(MedicationDosage medication)
         {
-            var existingMedication = _medications.Find(m => m.MedicationName == medicationDosage.MedicationName);
-            if (existingMedication != null)
-            {
-                _medications.Remove(existingMedication);
-                _medications.Add(medicationDosage);
-            }
-           
-                UpdateTimestamp();
+            if (medication == null)
+                throw new ArgumentNullException(nameof(medication));
+
+            var existingMedication = _medications.Find(m => m.MedicationName == medication.MedicationName);
+
+            if (existingMedication == null)
+                throw new InvalidOperationException($"Medication '{medication.MedicationName}' not found in prescription");
+
+            _medications.Remove(existingMedication);
+            _medications.Add(medication);
+            UpdateTimestamp();
         }
+
 
         public void UpdateNotes(string notes)
         {
@@ -57,18 +61,27 @@ namespace HealLink.Domain.Entities
 
         public void Activate()
         {
+            if (Status == PrescriptionStatus.Expired)
+                throw new InvalidOperationException("Cannot activate an expired prescription");
+            
             Status = PrescriptionStatus.Active;
             UpdateTimestamp();
         }
 
         public void Deactivate()
         {
+            if (Status == PrescriptionStatus.Expired)
+                throw new InvalidOperationException("Cannot deactivate an expired prescription");
+            
             Status = PrescriptionStatus.Inactive;
             UpdateTimestamp();
         }
 
         public void Expire()
         {
+            if (Status == PrescriptionStatus.Expired)
+                throw new InvalidOperationException("Prescription is already expired");
+            
             Status = PrescriptionStatus.Expired;
             UpdateTimestamp();
         }
@@ -88,11 +101,18 @@ namespace HealLink.Domain.Entities
 
         public void RemoveMedication(MedicationDosage medication)
         {
-            if (_medications.Contains(medication))
-            {
-                _medications.Remove(medication);
-                UpdateTimestamp();
-            }
+            if (medication == null)
+                throw new ArgumentNullException(nameof(medication));
+
+            if (!_medications.Contains(medication))
+                throw new InvalidOperationException($"Medication '{medication.MedicationName}' not found in prescription");
+
+            if (_medications.Count == 1)
+                throw new InvalidOperationException("Cannot remove the last medication from a prescription");
+
+            _medications.Remove(medication);
+            UpdateTimestamp();
         }
+
     }
 }
