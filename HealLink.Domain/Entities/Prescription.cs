@@ -1,5 +1,6 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using HealLink.Domain.Base;
 using HealLink.Domain.Enums;
 using HealLink.Domain.ValueObjects;
@@ -20,18 +21,20 @@ namespace HealLink.Domain.Entities
 
         private Prescription() { } 
 
-        public Prescription(Guid patientId, Guid doctorId, string instructions, string notes, List<MedicationDosage> medications, DateTime? expiresAt = null)
+        public Prescription(Guid patientId, Guid doctorId, string notes, List<MedicationDosage> medications, DateTime? expiresAt = null)
         {
+            if (medications == null || medications.Count == 0)
+                throw new InvalidOperationException("Prescription must contain at least one medication");
+            
+            if (expiresAt.HasValue && expiresAt.Value < DateTime.UtcNow)
+                throw new ArgumentException("Expiration date cannot be in the past", nameof(expiresAt));
+            
             PatientId = patientId;
             DoctorId = doctorId;
             Notes = notes ?? string.Empty;
             Status = PrescriptionStatus.Active;
             ExpiresAt = expiresAt;
-
-            if (medications != null)
-            {
-                _medications.AddRange(medications);
-            }
+            _medications.AddRange(medications);
         }
 
         public void UpdateInstructions(MedicationDosage medicationDosage)
@@ -72,9 +75,16 @@ namespace HealLink.Domain.Entities
 
         public void AddMedication(MedicationDosage medication)
         {
+            if (medication == null)
+                throw new ArgumentNullException(nameof(medication));
+
+            if (_medications.Any(m => m.MedicationName == medication.MedicationName))
+                throw new InvalidOperationException($"Medication '{medication.MedicationName}' already exists in prescription");
+
             _medications.Add(medication);
             UpdateTimestamp();
         }
+
 
         public void RemoveMedication(MedicationDosage medication)
         {
