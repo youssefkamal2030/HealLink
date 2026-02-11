@@ -1,5 +1,4 @@
 using MediatR;
-using HealLink.Contracts.Auth;
 using HealLink.Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,6 +8,7 @@ using healLink.Application.Repositories;
 using HealLink.Domain.Enums;
 using healLink.Application.Commands.Auth;
 using healLink.Application.Commands.Profile;
+using HealLink.Contracts.Auth.Responses;
 
 public class RegisterCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasher, IMediator mediator, IEmailService emailService, IPhotoService photoService) : IRequestHandler<RegisterCommand, RegisterResponse>
 {

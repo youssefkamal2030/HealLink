@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HealLink.Contracts.Profile.Responses;
 using HealLink.Domain.Enums;
 using HealLink.Domain.ValueObjects;
 using MediatR;

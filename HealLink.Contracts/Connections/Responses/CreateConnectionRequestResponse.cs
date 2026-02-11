@@ -1,4 +1,4 @@
-﻿namespace healLink.Application.Handlers.Connection
+﻿namespace HealLink.Contracts.Connections.Responses
 {
     public record CreateConnectionRequestResponse(
         Guid ConnectionRequestId,

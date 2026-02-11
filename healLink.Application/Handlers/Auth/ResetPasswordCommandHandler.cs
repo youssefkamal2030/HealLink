@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using healLink.Application.Commands.Auth;
 using healLink.Application.Repositories;
-using HealLink.Contracts.Auth;
+using HealLink.Contracts.Auth.Responses;
 using HealLink.Domain.Common;
 using MediatR;
 

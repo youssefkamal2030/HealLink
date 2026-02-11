@@ -1,4 +1,5 @@
 using FluentValidation;
+using HealLink.Contracts.Profile.Requests;
 
 namespace HealLink.Contracts.Profile.Validators
 {

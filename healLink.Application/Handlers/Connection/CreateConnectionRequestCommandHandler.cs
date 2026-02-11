@@ -1,6 +1,7 @@
 ﻿using healLink.Application.Commands.Connections;
 using healLink.Application.Common.Models;
 using healLink.Application.Repositories;
+using HealLink.Contracts.Connections.Responses;
 using HealLink.Domain.DomainEvents;
 using HealLink.Domain.Entities;
 using MediatR;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using healLink.Application.Common.Models;
-using healLink.Application.Handlers.Connection;
+using HealLink.Contracts.Connections.Responses;
 using MediatR;
 
 namespace healLink.Application.Commands.Connections

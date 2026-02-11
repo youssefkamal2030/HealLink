@@ -1,10 +1,10 @@
 ﻿using MediatR;
-using HealLink.Contracts.Auth;
 using HealLink.Domain.Entities;
 using healLink.Application.Interfaces;
 using HealLink.Domain.Common;
 using healLink.Application.Repositories;
 using healLink.Application.Commands.Auth;
+using HealLink.Contracts.Auth.Responses;
 
 public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResponse>
 {

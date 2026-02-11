@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using healLink.Application.Commands.Profile;
 using healLink.Application.Repositories;
+using HealLink.Contracts.Profile.Responses;
 using HealLink.Domain.Entities;
 using HealLink.Domain.Enums;
 using MediatR;

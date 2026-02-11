@@ -2,9 +2,9 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using healLink.Application.Queries;
 using healLink.Application.Commands.Profile;
-using HealLink.Contracts.Profile;
 using HealLink.Domain.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
+using HealLink.Contracts.Profile.Requests;
 
 namespace HealLink.Api.Controllers
 {

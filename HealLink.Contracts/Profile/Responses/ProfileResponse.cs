@@ -1,6 +1,6 @@
 using System;
 
-namespace HealLink.Contracts.Profile
+namespace HealLink.Contracts.Profile.Responses
 {
     public record ProfileResponse(
         bool Success,

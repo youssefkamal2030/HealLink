@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HealLink.Contracts.Profile
+namespace HealLink.Contracts.Profile.Responses
 {
     public record PatientProfileResponse(
         Guid Id,

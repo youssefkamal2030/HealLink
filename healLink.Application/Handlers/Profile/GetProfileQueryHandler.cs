@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using healLink.Application.Queries;
 using healLink.Application.Repositories;
 using HealLink.Contracts.Profile;
+using HealLink.Contracts.Profile.Responses;
 using HealLink.Domain.Entities;
 using MediatR;
 

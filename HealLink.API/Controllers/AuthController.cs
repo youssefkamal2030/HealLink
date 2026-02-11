@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using HealLink.Contracts.Auth;
 using healLink.Application.Commands;
 using System.Threading.Tasks;
 using healLink.Application.Commands.Auth;
 using Microsoft.AspNetCore.Http;
 using HealLink.Infrastructure.Services;
 using healLink.Application.Interfaces;
+using HealLink.Contracts.Auth.Requests;
 
 namespace HealLink.Api.Controllers
 {

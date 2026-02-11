@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HealLink.Contracts.Auth
+namespace HealLink.Contracts.Auth.Responses
 {
     public record ResetPasswordResponse(string Message);
 }

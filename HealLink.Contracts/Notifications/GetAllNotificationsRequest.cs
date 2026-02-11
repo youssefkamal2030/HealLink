@@ -1,4 +1,4 @@
-﻿namespace HealLink.Api.Controllers
+﻿namespace HealLink.Contracts.Notifications
 {
     public record GetAllNotificationsRequest(Guid UserId, string UserType);
 

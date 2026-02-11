@@ -1,6 +1,7 @@
 using FluentValidation;
+using HealLink.Contracts.Auth.Requests;
 
-namespace HealLink.Contracts.Auth
+namespace HealLink.Contracts.Auth.Validators
 {
     public class RegisterRequestValidator : AbstractValidator<RegisterRequest>
     {

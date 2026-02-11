@@ -1,4 +1,5 @@
 using FluentValidation;
+using HealLink.Contracts.Auth.Requests;
 
 namespace HealLink.Contracts.Auth.Validators
 {

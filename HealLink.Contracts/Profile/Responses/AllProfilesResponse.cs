@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace HealLink.Contracts.Profile
+namespace HealLink.Contracts.Profile.Responses
 {
     public record AllProfilesResponse(
         bool Success,

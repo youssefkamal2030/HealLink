@@ -32,6 +32,10 @@ namespace HealLink.Infrastructure
             services.AddScoped<IDoctorRepository, DoctorRepository>();
             services.AddScoped<IConnectionRepository, ConnectionRepository>();
             services.AddScoped<INotificationRepository, NotificationRepository>();
+            
+            // Notification services - Clean Architecture compliant
+            services.AddScoped<INotificationPersistenceService, NotificationPersistenceService>();
+            // Note: IRealTimeNotificationService is registered in API layer to avoid circular dependency
             services.AddScoped<INotificationService, NotificationService>();
 
             return services;

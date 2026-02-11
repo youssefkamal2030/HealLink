@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HealLink.Contracts.Auth;
+using HealLink.Contracts.Auth.Responses;
 using HealLink.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Http;

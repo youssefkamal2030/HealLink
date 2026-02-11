@@ -4,11 +4,11 @@ using System.Text;
 using FluentValidation.AspNetCore;
 using healLink.Application.Commands.Auth;
 using healLink.Application.Interfaces;
-using HealLink.Contracts.Auth;
+using HealLink.Application.Interfaces;
 using HealLink.Infrastructure;
 using HealLink.API.Middleware;
+using HealLink.API.Hubs;
 using HealLink.Infrastructure.Data;
-using HealLink.Infrastructure.Notifications.Hubs;
 using HealLink.Infrastructure.Services;
 using HealLink.Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -18,8 +18,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using HealLink.Contracts.Auth.Validators;
 
-namespace HealLink
+namespace HealLink.Api
 {
     public class Program
     {
@@ -32,7 +33,11 @@ namespace HealLink
             builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<HealLinkDbContext>());
 
             // Add services to the container.  
-            builder.Services.AddInfraStructer(builder.Configuration); 
+            builder.Services.AddInfraStructer(builder.Configuration);
+            
+            // Register SignalR notification service (must be in API layer to avoid circular dependency)
+            builder.Services.AddScoped<IRealTimeNotificationService, SignalRNotificationService<NotificationHub>>();
+            
             builder.Services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>());
             builder.Services.AddSwaggerGen();
             builder.WebHost.UseWebRoot("wwwroot");
@@ -106,7 +111,11 @@ namespace HealLink
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
+            
+            // Map SignalR hubs
             app.MapHub<NotificationHub>("/notificationHub");
+            app.MapHub<ChatHub>("/chatHub");
+            
             app.Run();
         }
     }

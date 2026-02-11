@@ -1,6 +1,6 @@
 using System;
 
-namespace HealLink.Contracts.Profile
+namespace HealLink.Contracts.Profile.Requests
 {
     public record UpdateDoctorProfileRequest
     {

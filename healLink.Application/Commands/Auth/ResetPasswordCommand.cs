@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HealLink.Contracts.Auth;
+using HealLink.Contracts.Auth.Responses;
 using MediatR;
 
 namespace healLink.Application.Commands.Auth

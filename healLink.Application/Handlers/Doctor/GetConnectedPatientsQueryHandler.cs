@@ -8,7 +8,7 @@ using healLink.Application.Common.Models;
 using healLink.Application.Queries;
 using healLink.Application.Repositories;
 using HealLink.Contracts.Doctor.Responses;
-using HealLink.Contracts.Profile;
+using HealLink.Contracts.Profile.Responses;
 using HealLink.Domain.Enums;
 using MediatR;
 

@@ -1,7 +1,6 @@
-﻿
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
-namespace HealLink.Contracts.Auth
+namespace HealLink.Contracts.Auth.Requests
 {
    public record RegisterRequest(
        string username, 

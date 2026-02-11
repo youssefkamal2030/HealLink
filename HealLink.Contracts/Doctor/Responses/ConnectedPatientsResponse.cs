@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HealLink.Contracts.Profile;
+using HealLink.Contracts.Profile.Responses;
 
 namespace HealLink.Contracts.Doctor.Responses
 {
