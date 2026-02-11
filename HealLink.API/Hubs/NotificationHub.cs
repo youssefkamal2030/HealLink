@@ -1,4 +1,5 @@
 using HealLink.Contracts.Notifications;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace HealLink.API.Hubs;
@@ -6,7 +7,9 @@ namespace HealLink.API.Hubs;
 /// <summary>
 /// SignalR hub for real-time notifications
 /// Handles client connections and server-to-client communication
+/// Requires authentication for all operations
 /// </summary>
+[Authorize]
 public class NotificationHub : Hub<INotificationClient>
 {
     private readonly ILogger<NotificationHub> _logger;

@@ -72,9 +72,33 @@ namespace HealLink.Infrastructure.Repositories
         }
 
 
-        public Task<List<ChatMessage>> GetChatHistoryAsync(string userId1, string userId2)
+        public async Task<List<ChatMessage>> GetChatHistoryAsync(Guid userId1, Guid userId2)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var messages = await _context.ChatMessages
+                    .Where(m => 
+                        (m.SenderId == userId1 && m.ReceiverId == userId2) ||
+                        (m.SenderId == userId2 && m.ReceiverId == userId1))
+                    .OrderBy(m => m.CreatedAt)
+                    .ToListAsync();
+
+                _logger.LogInformation(
+                    "Retrieved {Count} messages between users {UserId1} and {UserId2}",
+                    messages.Count,
+                    userId1,
+                    userId2);
+
+                return messages;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex,
+                    "Error retrieving chat history between users {UserId1} and {UserId2}",
+                    userId1,
+                    userId2);
+                throw;
+            }
         }
     }
 }

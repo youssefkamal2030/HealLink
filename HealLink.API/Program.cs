@@ -84,6 +84,24 @@ namespace HealLink.Api
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Secret"])),
                     RoleClaimType = "Role"
                 };
+                
+                // Configure JWT authentication for SignalR
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+                        var path = context.HttpContext.Request.Path;
+                        
+                        // If the request is for SignalR hubs, read the token from query string
+                        if (!string.IsNullOrEmpty(accessToken) && 
+                            (path.StartsWithSegments("/chatHub") || path.StartsWithSegments("/notificationHub")))
+                        {
+                            context.Token = accessToken;
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
             });
             var app = builder.Build();
 

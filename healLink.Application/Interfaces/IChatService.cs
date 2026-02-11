@@ -9,7 +9,7 @@ namespace healLink.Application.Interfaces
 {
     public interface IChatService
     {
-        Task<List<ChatMessage>> GetChatHistoryAsync(string userId1, string userId2);
+        Task<List<ChatMessage>> GetChatHistoryAsync(Guid userId1, Guid userId2);
         Task SendMessageAsync(Guid senderId, Guid receiverId, string message);
     }
 }

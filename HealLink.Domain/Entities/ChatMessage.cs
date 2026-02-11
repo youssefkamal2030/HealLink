@@ -18,9 +18,21 @@ namespace HealLink.Domain.Entities
 
         public ChatMessage(Guid senderId, Guid receiverId, string content)
         {
+            if (senderId == Guid.Empty)
+                throw new ArgumentException("SenderId cannot be empty", nameof(senderId));
+            
+            if (receiverId == Guid.Empty)
+                throw new ArgumentException("ReceiverId cannot be empty", nameof(receiverId));
+            
+            if (string.IsNullOrWhiteSpace(content))
+                throw new ArgumentException("Message content cannot be empty", nameof(content));
+            
+            if (content.Length > 5000)
+                throw new ArgumentException("Message content cannot exceed 5000 characters", nameof(content));
+
             SenderId = senderId;
             ReceiverId = receiverId;
-            Content = content ?? throw new ArgumentNullException(nameof(content));
+            Content = content;
             Status = MessageStatus.Sent;
         }
 

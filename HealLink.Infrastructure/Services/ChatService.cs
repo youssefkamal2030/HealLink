@@ -13,16 +13,30 @@ namespace HealLink.Infrastructure.Services
     {
         private readonly IChatRepository _chatRepository = chatRepository;
 
-        public Task<List<ChatMessage>> GetChatHistoryAsync(string userId1, string userId2)
+        public async Task<List<ChatMessage>> GetChatHistoryAsync(Guid userId1, Guid userId2)
         {
-            throw new NotImplementedException();
+            return await _chatRepository.GetChatHistoryAsync(userId1, userId2);
         }
 
-        public Task SendMessageAsync(Guid senderId, Guid receiverId, string message)
+        public async Task SendMessageAsync(Guid senderId, Guid receiverId, string message)
         {
-            
+            if (string.IsNullOrWhiteSpace(message))
+            {
+                throw new ArgumentException("Message content cannot be empty", nameof(message));
+            }
+
+            if (senderId == Guid.Empty)
+            {
+                throw new ArgumentException("SenderId is required", nameof(senderId));
+            }
+
+            if (receiverId == Guid.Empty)
+            {
+                throw new ArgumentException("ReceiverId is required", nameof(receiverId));
+            }
+
             var chatMessage = new ChatMessage(senderId, receiverId, message);
-            return _chatRepository.AddChatMessageAsync(chatMessage);
+            await _chatRepository.AddChatMessageAsync(chatMessage);
         }
     }
 }
