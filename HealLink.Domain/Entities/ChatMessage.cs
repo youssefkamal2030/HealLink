@@ -16,7 +16,7 @@ namespace HealLink.Domain.Entities
 
         private ChatMessage() { } // For EF
 
-        public ChatMessage(Guid senderId, Guid receiverId, string content, Guid? guardianId = null)
+        public ChatMessage(Guid senderId, Guid receiverId, string content)
         {
             SenderId = senderId;
             ReceiverId = receiverId;
@@ -36,6 +36,12 @@ namespace HealLink.Domain.Entities
             Status = MessageStatus.Read;
             ReadAt = DateTime.UtcNow;
             UpdateTimestamp();
+        }
+        public void SetCreatedAt(DateTime createdAt)
+        {
+            if (createdAt == default)
+                throw new ArgumentException("CreatedAt must be a valid date.", nameof(createdAt));
+            CreatedAt = createdAt;
         }
     }
 }

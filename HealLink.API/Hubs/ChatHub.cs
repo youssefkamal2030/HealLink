@@ -1,4 +1,4 @@
-using HealLink.Infrastructure.Data;
+using healLink.Application.Interfaces;
 using Microsoft.AspNetCore.SignalR;
 
 namespace HealLink.API.Hubs;
@@ -7,22 +7,21 @@ namespace HealLink.API.Hubs;
 /// SignalR hub for real-time chat functionality
 /// Placeholder for future chat feature implementation
 /// </summary>
-public class ChatHub : Hub
+public class ChatHub(ILogger<ChatHub> logger, IChatService chatService) : Hub
 {
-    private readonly ILogger<ChatHub> _logger;
-    private readonly HealLinkDbContext _dbContext;
+    private readonly ILogger<ChatHub> _logger = logger;
+    private readonly IChatService _chatService = chatService;
 
-    public ChatHub(ILogger<ChatHub> logger, HealLinkDbContext dbContext)
-    {
-        _logger = logger;
-        _dbContext = dbContext;
-    }
+ 
 
-    public async Task SendMessage(string userId, string message)
+    public async Task SendMessage(Guid senderID , Guid reciverID, string message)
     {
-        _logger.LogInformation("User {UserId} sending message", userId);
+        _logger.LogInformation("User {senderID} sending message", senderID);
         // Broadcast the message to all clients except the sender
-        await Clients.Others.SendAsync("ReceiveMessage", userId, message);
+        _chatService.SendMessageAsync( senderID,reciverID, message);
+        await Clients.Others.SendAsync("ReceiveMessage", senderID, message);
+        
+        
     }
 
     public override async Task OnConnectedAsync()
