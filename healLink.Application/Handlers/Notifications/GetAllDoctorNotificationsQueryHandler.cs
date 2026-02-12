@@ -15,6 +15,8 @@ namespace healLink.Application.Handlers.Notifications
 
         public GetAllDoctorNotificationsQueryHandler(INotificationRepository notificationRepository)
         {
+
+
             _notificationRepository = notificationRepository;
         }
 

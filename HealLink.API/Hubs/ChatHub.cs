@@ -20,35 +20,27 @@ public class ChatHub(ILogger<ChatHub> logger, IChatService chatService) : Hub
     {
         try
         {
-            //  Validate sender is authenticated user
             var authenticatedUserId = Context.UserIdentifier;
             if (authenticatedUserId != senderId.ToString())
             {
-                _logger.LogWarning("User {AuthUserId} attempted to send as {SenderId}", 
-                    authenticatedUserId, senderId);
+                
                 await Clients.Caller.SendAsync("MessageFailed", "Cannot send messages as another user");
                 return;
             }
 
-            // Validate message
             if (string.IsNullOrWhiteSpace(message))
             {
-                _logger.LogWarning("User {SenderId} attempted to send empty message", senderId);
                 await Clients.Caller.SendAsync("MessageFailed", "Message cannot be empty");
                 return;
             }
-
-            //  Persist message FIRST 
+            if(await _chatService.ValidateConnection(senderId, receiverId))
+            {
+                await Clients.Caller.SendAsync("MessageFailed", "No connection exists between sender and receiver");
+                return;
+            }
             await _chatService.SendMessageAsync(senderId, receiverId, message);
-            
-            _logger.LogInformation("Message persisted. Sender: {SenderId}, Receiver: {ReceiverId}", 
-                senderId, receiverId);
-
-            //  Send to SPECIFIC receiver 
             await Clients.User(receiverId.ToString())
                 .SendAsync("ReceiveMessage", senderId, message, DateTime.UtcNow);
-            
-            //  Confirm to sender
             await Clients.Caller.SendAsync("MessageSent", senderId, receiverId, message, DateTime.UtcNow);
         }
         catch (Exception ex)
@@ -56,7 +48,6 @@ public class ChatHub(ILogger<ChatHub> logger, IChatService chatService) : Hub
             _logger.LogError(ex, "Failed to send message from {SenderId} to {ReceiverId}", 
                 senderId, receiverId);
             
-            // Notify sender of failure
             await Clients.Caller.SendAsync("MessageFailed", "Failed to send message. Please try again.");
         }
     }

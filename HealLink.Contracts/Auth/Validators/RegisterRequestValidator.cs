@@ -9,9 +9,9 @@ namespace HealLink.Contracts.Auth.Validators
         {
             RuleFor(x => x.username).NotEmpty().MinimumLength(3);
             RuleFor(x => x.Password)
-         
+
              .Matches("[a-z]").WithMessage("Password must contain at least one lowercase letter.")
-    .Matches("[0-9]").WithMessage("Password must contain at least one digit.")
+    .Matches("[0-9]").WithMessage("Password must contain at least one digit.");
    
             RuleFor(x => x.Email).NotEmpty().EmailAddress();
             RuleFor(x => x.Role)
