@@ -12,6 +12,6 @@ namespace healLink.Application.Interfaces
     {
         Task<Result<List<ChatMessage>>> GetChatHistoryAsync(Guid userId1, Guid userId2);
         Task<Result<Guid>> SendMessageAsync(Guid senderId, Guid receiverId, string message);
-        Task<Result<bool>> ValidateConnection (Guid doctorId, Guid patientId);
+        Task<Result<bool>> ValidateConnection(Guid senderId, Guid receiverId);
     }
 }

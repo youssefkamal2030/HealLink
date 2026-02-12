@@ -23,7 +23,6 @@ public class ChatHub(ILogger<ChatHub> logger, IChatService chatService) : Hub
             var authenticatedUserId = Context.UserIdentifier;
             if (authenticatedUserId != senderId.ToString())
             {
-                
                 await Clients.Caller.SendAsync("MessageFailed", "Cannot send messages as another user");
                 return;
             }
@@ -33,14 +32,24 @@ public class ChatHub(ILogger<ChatHub> logger, IChatService chatService) : Hub
                 await Clients.Caller.SendAsync("MessageFailed", "Message cannot be empty");
                 return;
             }
-            if(await _chatService.ValidateConnection(senderId, receiverId))
+
+            var validationResult = await _chatService.ValidateConnection(senderId, receiverId);
+            if (!validationResult.IsSuccess)
             {
-                await Clients.Caller.SendAsync("MessageFailed", "No connection exists between sender and receiver");
+                await Clients.Caller.SendAsync("MessageFailed", validationResult.Error);
                 return;
             }
-            await _chatService.SendMessageAsync(senderId, receiverId, message);
+
+            var sendResult = await _chatService.SendMessageAsync(senderId, receiverId, message);
+            if (!sendResult.IsSuccess)
+            {
+                await Clients.Caller.SendAsync("MessageFailed", sendResult.Error);
+                return;
+            }
+
             await Clients.User(receiverId.ToString())
                 .SendAsync("ReceiveMessage", senderId, message, DateTime.UtcNow);
+            
             await Clients.Caller.SendAsync("MessageSent", senderId, receiverId, message, DateTime.UtcNow);
         }
         catch (Exception ex)
@@ -56,28 +65,39 @@ public class ChatHub(ILogger<ChatHub> logger, IChatService chatService) : Hub
     {
         try
         {
-            // Validate authenticated user is one of the participants
             var authenticatedUserId = Context.UserIdentifier;
             if (authenticatedUserId != userId1.ToString() && authenticatedUserId != userId2.ToString())
             {
-                _logger.LogWarning("User {AuthUserId} attempted to access chat history between {UserId1} and {UserId2}", 
+                _logger.LogWarning("User {AuthUserId} attempted to access chat history between {UserId1} and {UserId2}",
                     authenticatedUserId, userId1, userId2);
                 await Clients.Caller.SendAsync("ChatHistoryFailed", "Unauthorized access to chat history");
                 return;
             }
 
-            var messages = await _chatService.GetChatHistoryAsync(userId1, userId2);
-            
-            _logger.LogInformation("Retrieved {Count} messages for users {UserId1} and {UserId2}", 
-                messages.Count, userId1, userId2);
+            var validationResult = await _chatService.ValidateConnection(userId1, userId2);
+            if (!validationResult.IsSuccess)
+            {
+                await Clients.Caller.SendAsync("ChatHistoryFailed", validationResult.Error);
+                return;
+            }
 
-            await Clients.Caller.SendAsync("ChatHistoryReceived", messages);
+            var historyResult = await _chatService.GetChatHistoryAsync(userId1, userId2);
+            if (!historyResult.IsSuccess)
+            {
+                await Clients.Caller.SendAsync("ChatHistoryFailed", historyResult.Error);
+                return;
+            }
+
+            _logger.LogInformation("Retrieved {Count} messages for users {UserId1} and {UserId2}",
+                historyResult.Value.Count, userId1, userId2);
+
+            await Clients.Caller.SendAsync("ChatHistoryReceived", historyResult.Value);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to retrieve chat history between {UserId1} and {UserId2}", 
+            _logger.LogError(ex, "Failed to retrieve chat history between {UserId1} and {UserId2}",
                 userId1, userId2);
-            
+
             await Clients.Caller.SendAsync("ChatHistoryFailed", "Failed to retrieve chat history");
         }
     }

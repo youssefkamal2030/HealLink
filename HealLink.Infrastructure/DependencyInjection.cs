@@ -34,6 +34,7 @@ namespace HealLink.Infrastructure
             services.AddScoped<INotificationRepository, NotificationRepository>();
             services.AddScoped<IChatRepository, ChatRepository>();
             services.AddScoped<IChatService, ChatService>();
+            services.AddScoped<IUserRoleResolver, UserRoleResolver>();
 
             // Notification services - Clean Architecture compliant
             services.AddScoped<INotificationPersistenceService, NotificationPersistenceService>();

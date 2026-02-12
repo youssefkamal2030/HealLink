@@ -3,7 +3,7 @@ using healLink.Application.Common.Models;
 using healLink.Application.Interfaces;
 using healLink.Application.Repositories;
 using HealLink.Domain.Entities;
-using HealLink.Infrastructure.Repositories;
+using HealLink.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +12,10 @@ using System.Threading.Tasks;
 
 namespace HealLink.Infrastructure.Services
 {
-    public class ChatService(IChatRepository chatRepository, IConnectionRepository connectionRepository) : IChatService
+    public class ChatService(IChatRepository chatRepository, IUserRoleResolver userRoleResolver, IConnectionRepository connectionRepository) : IChatService
     {
         private readonly IChatRepository _chatRepository = chatRepository;
+        private readonly IUserRoleResolver _userRoleResolver = userRoleResolver;
         private readonly IConnectionRepository _connectionRepository = connectionRepository;
 
         public async Task<Result<List<ChatMessage>>> GetChatHistoryAsync(Guid userId1, Guid userId2)
@@ -47,12 +48,44 @@ namespace HealLink.Infrastructure.Services
         return Result<Guid>.Success(chatMessage.Id);
     }
 
-        public async Task<Result<bool>> ValidateConnection(Guid doctorId, Guid patientId)
+        public async Task<Result<bool>> ValidateConnection(Guid senderId, Guid receiverId)
         {
-            if(!await _connectionRepository.ConnectionExistsAsync(doctorId, patientId))
+            var senderInfo = await _userRoleResolver.ResolveUserAsync(senderId);
+            var receiverInfo = await _userRoleResolver.ResolveUserAsync(receiverId);
+
+            if (senderInfo == null)
+            {
+                return Result<bool>.Failure("Sender user not found or invalid role.");
+            }
+
+            if (receiverInfo == null)
+            {
+                return Result<bool>.Failure("Receiver user not found or invalid role.");
+            }
+
+            var (senderRole, senderEntityId) = senderInfo.Value;
+            var (receiverRole, receiverEntityId) = receiverInfo.Value;
+
+            bool areConnected = false;
+
+            if (senderRole == UserRole.Doctor && receiverRole == UserRole.Patient)
+            {
+                areConnected = await _connectionRepository.ConnectionExistsAsync(senderEntityId, receiverEntityId);
+            }
+            else if (senderRole == UserRole.Patient && receiverRole == UserRole.Doctor)
+            {
+                areConnected = await _connectionRepository.ConnectionExistsAsync(receiverEntityId, senderEntityId);
+            }
+            else
+            {
+                return Result<bool>.Failure("Chat is only allowed between doctors and patients.");
+            }
+
+            if (!areConnected)
             {
                 return Result<bool>.Failure("No connection exists between the doctor and patient.");
             }
+
             return Result<bool>.Success(true);
         }
     }
