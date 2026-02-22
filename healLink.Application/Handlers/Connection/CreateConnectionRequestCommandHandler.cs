@@ -11,14 +11,14 @@ namespace healLink.Application.Handlers.Connection
     public class CreateConnectionRequestCommandHandler
         : IRequestHandler<CreateConnectionRequestCommand, Result<CreateConnectionRequestResponse>>
     {
-        private readonly IConnectionRepository _connectionRepository;
+        private readonly IDoctorPatientDoctorPatientConnectionRepository _DoctorPatientConnectionRepository;
         private readonly IMediator _mediator;
 
         public CreateConnectionRequestCommandHandler(
-            IConnectionRepository connectionRepository,
+            IDoctorPatientDoctorPatientConnectionRepository DoctorPatientConnectionRepository,
             IMediator mediator)
         {
-            _connectionRepository = connectionRepository;
+            _DoctorPatientConnectionRepository = DoctorPatientConnectionRepository;
             _mediator = mediator;
         }
 
@@ -29,12 +29,12 @@ namespace healLink.Application.Handlers.Connection
             try
             {
                 // Check if connection already exists
-                if (await _connectionRepository.ConnectionExistsAsync(request.DoctorId, request.PatientId))
+                if (await _DoctorPatientConnectionRepository.ConnectionExistsAsync(request.DoctorId, request.PatientId))
                     return Result<CreateConnectionRequestResponse>.Failure("Connection request already exists.");
 
                 // Create DoctorPatientConnection
                 var connection = new DoctorPatientConnection(request.DoctorId, request.PatientId);
-                var result = await _connectionRepository.AddConnectionAsync(connection);
+                var result = await _DoctorPatientConnectionRepository.AddAsync(connection);
 
                 // Publish domain event
                 await _mediator.Publish(

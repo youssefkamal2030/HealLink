@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace HealLink.Infrastructure.Services
 {
-    public class ChatService(IChatRepository chatRepository, IUserRoleResolver userRoleResolver, IConnectionRepository connectionRepository) : IChatService
+    public class ChatService(IChatRepository chatRepository, IUserRoleResolver userRoleResolver, IDoctorPatientDoctorPatientConnectionRepository DoctorPatientConnectionRepository) : IChatService
     {
         private readonly IChatRepository _chatRepository = chatRepository;
         private readonly IUserRoleResolver _userRoleResolver = userRoleResolver;
-        private readonly IConnectionRepository _connectionRepository = connectionRepository;
+        private readonly IDoctorPatientDoctorPatientConnectionRepository _DoctorPatientConnectionRepository = DoctorPatientConnectionRepository;
 
         public async Task<Result<List<ChatMessage>>> GetChatHistoryAsync(Guid userId1, Guid userId2)
         {
@@ -70,11 +70,11 @@ namespace HealLink.Infrastructure.Services
 
             if (senderRole == UserRole.Doctor && receiverRole == UserRole.Patient)
             {
-                areConnected = await _connectionRepository.ConnectionExistsAsync(senderEntityId, receiverEntityId);
+                areConnected = await _DoctorPatientConnectionRepository.ConnectionExistsAsync(senderEntityId, receiverEntityId);
             }
             else if (senderRole == UserRole.Patient && receiverRole == UserRole.Doctor)
             {
-                areConnected = await _connectionRepository.ConnectionExistsAsync(receiverEntityId, senderEntityId);
+                areConnected = await _DoctorPatientConnectionRepository.ConnectionExistsAsync(receiverEntityId, senderEntityId);
             }
             else
             {

@@ -10,21 +10,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HealLink.Infrastructure.Repositories
 {
-    public class ConnectionRepository : IConnectionRepository
+    public class DoctorPatientConnectionRepository : IDoctorPatientDoctorPatientConnectionRepository
     {
         private readonly HealLinkDbContext _context;
 
-        public ConnectionRepository(HealLinkDbContext context)
+        public DoctorPatientConnectionRepository(HealLinkDbContext context)
         {
             _context = context;
         }
 
-        public async Task<DoctorPatientConnection> AddConnectionAsync(DoctorPatientConnection connection)
-        {
-            await _context.DoctorPatientConnections.AddAsync(connection);
-            await _context.SaveChangesAsync();
-            return connection;
-        }
+      
 
         public async Task<bool> ConnectionExistsAsync(Guid doctorId, Guid patientId)
         {
@@ -59,6 +54,33 @@ namespace HealLink.Infrastructure.Repositories
         public async Task<DoctorPatientConnection> GetConnectionByIdAsync(Guid connectionId)
         {
             return await _context.DoctorPatientConnections.FindAsync(connectionId);
+        }
+
+        public Task<DoctorPatientConnection> GetByIdAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<DoctorPatientConnection>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<DoctorPatientConnection> AddAsync(DoctorPatientConnection entity)
+        {
+			await _context.DoctorPatientConnections.AddAsync(entity);
+			await _context.SaveChangesAsync();
+            return entity;
+		}
+
+        public Task UpdateAsync(DoctorPatientConnection entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteAsync(DoctorPatientConnection entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

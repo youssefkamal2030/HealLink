@@ -11,16 +11,16 @@ namespace healLink.Application.Handlers.Connection
 {
     public class GetPatientConnectionsQueryHandler : IRequestHandler<GetPatientConnectionsQuery, Result<ConnectionsListResponse>>
     {
-        private readonly IConnectionRepository _connectionRepository;
+        private readonly IDoctorPatientDoctorPatientConnectionRepository _DoctorPatientConnectionRepository;
 
-        public GetPatientConnectionsQueryHandler(IConnectionRepository connectionRepository)
+        public GetPatientConnectionsQueryHandler(IDoctorPatientDoctorPatientConnectionRepository DoctorPatientConnectionRepository)
         {
-            _connectionRepository = connectionRepository;
+            _DoctorPatientConnectionRepository = DoctorPatientConnectionRepository;
         }
 
         public async Task<Result<ConnectionsListResponse>> Handle(GetPatientConnectionsQuery request, CancellationToken cancellationToken)
         {
-            var connections = await _connectionRepository.GetConnectionsForPatientAsync(request.PatientId);
+            var connections = await _DoctorPatientConnectionRepository.GetConnectionsForPatientAsync(request.PatientId);
 
             var connectionResponses = connections.Select(c => new ConnectionResponse(
                 Id: c.Id,

@@ -21,6 +21,16 @@ namespace HealLink.Infrastructure.Repositories
             _mediator = mediator;
         }
 
+        public Task<DoctorAggregate> AddAsync(DoctorAggregate entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteAsync(DoctorAggregate entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<DoctorAggregate> GetAggregateByDoctorId(Guid doctorId)
         {
             if (doctorId == Guid.Empty)
@@ -44,6 +54,16 @@ namespace HealLink.Infrastructure.Repositories
            
             // Pass the actual connections to the aggregate instead of null
             return new DoctorAggregate(doctor, doctor.Address, doctor.PatientConnections);
+        }
+
+        public Task<IEnumerable<DoctorAggregate>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<DoctorAggregate> GetByIdAsync(Guid id)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task UpdateAggregate(DoctorAggregate aggregate)
@@ -77,6 +97,11 @@ namespace HealLink.Infrastructure.Repositories
             {
                 await _mediator.Publish(domainEvent);
             }
+        }
+
+        public Task UpdateAsync(DoctorAggregate entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }
