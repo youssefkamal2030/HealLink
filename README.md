@@ -324,3 +324,5 @@ For questions or support, please contact: [youssefkamal8567@gmail.com]
 ---
 
 **Built with  using .NET 9**
+
+For Deep inspection [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/youssefkamal2030/HealLink)
