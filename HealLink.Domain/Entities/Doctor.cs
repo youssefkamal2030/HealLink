@@ -1,12 +1,17 @@
-using System;
-using System.Collections.Generic;
 using HealLink.Domain.Base;
+using HealLink.Domain.DomainEvents;
 using HealLink.Domain.Enums;
 using HealLink.Domain.ValueObjects;
+using System;
+using System.Collections.Generic;
 
 namespace HealLink.Domain.Entities
 {
-    public class Doctor : Entity
+    // TODO: [DDD] QRCode is stored as a raw string — it should use the existing QRCode value object (HealLink.Domain/ValueObjects/QRCode.cs) instead of duplicating the concept with QRCode + QRCodeGeneratedAt fields.
+    // TODO: [DDD] GenerateQRCode() and IsQRCodeValid() duplicate logic already defined in the QRCode value object — consolidate into the value object.
+    // TODO: [DDD] _patientIds list is maintained in parallel with Connections navigation property — dual state management risks inconsistency; remove _patientIds and derive connected patients from Connections directly.
+    // TODO: [DDD] AddNotification() pushes directly onto the collection — notifications should be raised as domain events instead.
+    public class Doctor : AggregateRoot
     {
         public Guid UserId { get; private set; }
         public Address? Address { get; private set; }
@@ -25,9 +30,12 @@ namespace HealLink.Domain.Entities
         private readonly List<Guid> _patientIds = new();
         public IReadOnlyCollection<Guid> PatientIds => _patientIds.AsReadOnly();
         public User? User { get; private set; }
+
+        // TODO: [DDD] These collections have public setters — replace with private-backed IReadOnlyCollection exposed through the aggregate methods only.
         public ICollection<Subscription>? Subscriptions { get; set; }
-        public ICollection<DoctorPatientConnection> PatientConnections { get; set; } = new List<DoctorPatientConnection>();
-        public ICollection<Notification> notifications { get; set; } = new List<Notification>();    
+        public ICollection<DoctorPatientConnection> PatientConnections { get; set; } = [];
+        public ICollection<Notification> notifications { get; set; } = [];
+
 
         public Doctor(
             Guid userId,
@@ -129,6 +137,50 @@ namespace HealLink.Domain.Entities
             if (notification == null) throw new ArgumentNullException(nameof(notification));
             notifications.Add(notification);
             UpdateTimestamp();
+        }
+        public void AcceptPatientRequest(Guid connectionId)
+        {
+            var connection = PatientConnections.FirstOrDefault(c => c.Id == connectionId);
+            if (connection == null) throw new InvalidOperationException("Connection not found.");
+            if (connection.Status != ConnectionStatus.Pending) throw new InvalidOperationException("Not pending.");
+
+            connection.Accept();
+            AddPatient(connection.PatientId);
+
+            AddDomainEvent(new ConnectionAcceptedEvent(
+                connectionId,
+                Id,
+                connection.PatientId,
+                DateTime.UtcNow
+            ));
+
+            // Note: Also sync Patient's list – load PatientAggregate if needed, or raise event to handle async
+        }
+
+        public void RejectPatientRequest(Guid connectionId)
+        {
+            var connection = PatientConnections.FirstOrDefault(c => c.Id == connectionId);
+            if (connection == null) throw new InvalidOperationException("Connection not found.");
+            if (connection.Status != ConnectionStatus.Pending) throw new InvalidOperationException("Not pending.");
+
+            connection.Reject();
+            PatientConnections.Remove(connection);
+
+            // Raise domain event
+            AddDomainEvent(new ConnectionRejectedEvent(
+                connectionId,
+                Id,
+                connection.PatientId
+            ));
+        }
+
+     
+        public void AddConnection(DoctorPatientConnection connection)
+        {
+            if (connection == null) throw new ArgumentNullException(nameof(connection));
+            if (PatientConnections.Any(c => c.PatientId == connection.PatientId && c.Status != ConnectionStatus.Rejected))
+                throw new InvalidOperationException("Connection already exists or pending.");
+            PatientConnections.Add(connection);
         }
     }
 }

@@ -5,6 +5,9 @@ using HealLink.Domain.ValueObjects;
 
 namespace HealLink.Domain.Entities
 {
+    // TODO: [DDD] Payment.Amount is typed as int — should use the Money value object or at minimum decimal to represent monetary values accurately.
+    // TODO: [DDD] No domain event raised on MarkAsCompleted() or MarkAsFailed() — payment state changes are significant domain events.
+    // TODO: [DDD] PaymentDetails value object already exists (HealLink.Domain/ValueObjects/PaymentDetails.cs) but is not used here — Amount, PaymentMethod should be encapsulated in it.
     public class Payment : Entity
     {
         public Guid PatientId { get; private set; }

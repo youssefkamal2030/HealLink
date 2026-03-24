@@ -5,6 +5,10 @@ using HealLink.Domain.ValueObjects;
 
 namespace HealLink.Domain.Entities
 {
+    // TODO: [DDD] MedicalHistory constructor accepts a 'description' parameter but never assigns it — silent data loss.
+    // TODO: [DDD] MedicalHistory manually sets Id and CreatedAt in the constructor, duplicating what Entity base already does in its constructor — remove these redundant assignments.
+    // TODO: [DDD] Details (MedicalHistoryDetails value object) is never initialized in the constructor — entity can exist in an invalid state with a null Details property.
+    // TODO: [AGGREGATE] MedicalHistory belongs inside PatientAggregate as an owned entity — it must never be mutated from outside the aggregate boundary. UpdateDetails() should only be callable through PatientAggregate, not directly on the entity from application layer code.
     public class MedicalHistory : Entity
     {
         public Guid PatientId { get; private set; }

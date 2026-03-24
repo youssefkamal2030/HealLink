@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace HealLink.Domain.Entities
 {
+    // TODO: [DDD] This class is an infrastructure/persistence concern (event sourcing outbox), not a domain concept.
+    // TODO: [DDD] It should live in HealLink.Infrastructure, not in the Domain layer.
+    // TODO: [DDD] Naming conflicts with the domain concept of IDomainEvent — rename to OutboxMessage or DomainEventOutbox.
+    // TODO: [DDD] All properties have public setters — this is a data bag, not a domain object.
     public class DomainEvent
     {
         public Guid Id { get; set; }

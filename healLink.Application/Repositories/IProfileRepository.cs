@@ -7,6 +7,8 @@ using HealLink.Domain.Entities;
 
 namespace healLink.Application.Repositories
 {
+    //Todo : this should inherit from the generic repository interface to reduce code duplication 
+
     public interface IProfileRepository
     {
         Task<Patient?> GetPatientByUserIdAsync(Guid userId, CancellationToken cancellationToken = default);

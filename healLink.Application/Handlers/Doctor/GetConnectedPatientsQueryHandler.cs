@@ -27,13 +27,13 @@ namespace HealLink.Application.Handlers.Doctor
 
         public async Task<Result<ConnectedPatientsResponse>> Handle(GetConnectedPatientsQuery request, CancellationToken cancellationToken)
         {
-            var doctorAggregate = await _doctorRepository.GetAggregateByDoctorId(request.DoctorId);
-            if (doctorAggregate == null)
+            var doctor = await _doctorRepository.GetByDoctorId(request.DoctorId);
+            if (doctor == null)
             {
                 return Result<ConnectedPatientsResponse>.Failure("doctor not found");
             }
 
-            var connectedPatientIds = doctorAggregate.Connections
+            var connectedPatientIds = doctor.PatientConnections
                 .Where(c => c.Status == ConnectionStatus.Accepted)
                 .Select(c => c.PatientId)
                 .ToList();

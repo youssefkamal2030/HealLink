@@ -3,6 +3,7 @@ using HealLink.Domain.Enums;
 
 namespace HealLink.Domain.ValueObjects
 {
+    // TODO: [DDD] PersonalInfo is missing Equals/GetHashCode overrides — value objects must implement structural equality, not reference equality.
     public class PersonalInfo
     {
         public string FullName { get; private set; }

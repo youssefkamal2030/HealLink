@@ -4,6 +4,13 @@ using HealLink.Domain.Enums;
 
 namespace HealLink.Domain.Entities
 {
+    // TODO: [DDD] ChatMessage.SetCreatedAt() allows external mutation of CreatedAt — this is an infrastructure concern and breaks the immutability of audit timestamps.
+    // TODO: [DDD] ChatMessage does not raise domain events on MarkAsRead() or MarkAsDelivered() — these transitions may need to notify other parts of the system.
+    // TODO: [AGGREGATE-MISSING] ChatMessage has no aggregate. ChatMessage entities need a ConversationAggregate as their root, keyed by the two participant IDs (SenderId + ReceiverId pair). Without it:
+    //   - BR-CHAT-01 (chat only between connected users) cannot be enforced at the domain level — nothing prevents a message between unconnected users.
+    //   - BR-CHAT-02 (doctor must have IsAvailableForChat = true) has no enforcement point.
+    //   - BR-CHAT-04 (Sent → Delivered → Read is one-way) is defined on the entity but the aggregate is the right place to guard the transition sequence across the conversation.
+    //   ConversationAggregate should own a List<ChatMessage>, enforce the connection pre-condition on creation, and raise MessageSentEvent / MessageReadEvent domain events.
     public class ChatMessage : Entity
     {
         public Guid SenderId { get; private set; }

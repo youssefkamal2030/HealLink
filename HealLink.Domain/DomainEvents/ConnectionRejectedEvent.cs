@@ -4,6 +4,7 @@ using MediatR;
 
 namespace HealLink.Domain.DomainEvents
 {
+    // TODO: [DDD] Domain events should not directly depend on MediatR (INotification) in the domain layer — MediatR is an application/infrastructure concern. IDomainEvent already extends INotification via Base; the explicit INotification here is redundant but also leaks the dependency.
     public record ConnectionRejectedEvent(
         Guid ConnectionId,
         Guid DoctorId,

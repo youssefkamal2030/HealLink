@@ -7,6 +7,8 @@ using HealLink.Domain.Aggregates;
 
 namespace healLink.Application.Repositories
 {
+    //Todo : this should inherit from the generic repository interface to reduce code duplication 
+
     public interface IPatientRepository
     {
         Task<PatientAggregate> GetAggregateByPatientId(Guid PatientId);

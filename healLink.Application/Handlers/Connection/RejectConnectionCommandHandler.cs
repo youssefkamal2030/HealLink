@@ -22,17 +22,14 @@ namespace healLink.Application.Handlers.Connection
         {
             try
             {
-                // Load doctor aggregate
-                var doctorAggregate = await _doctorRepository.GetAggregateByDoctorId(request.DoctorId);
+                var doctor = await _doctorRepository.GetByDoctorId(request.DoctorId);
 
-                if (doctorAggregate == null)
+                if (doctor == null)
                     return Result<ConnectionActionResponse>.Failure("Doctor not found");
 
-                // Reject the connection (raises domain event)
-                doctorAggregate.RejectPatientRequest(request.ConnectionId);
+                doctor.RejectPatientRequest(request.ConnectionId);
 
-                // Save aggregate (this will dispatch domain events)
-                await _doctorRepository.UpdateAggregate(doctorAggregate);
+                await _doctorRepository.UpdateAsync(doctor);
 
                 return Result<ConnectionActionResponse>.Success(
                     new ConnectionActionResponse("Connection rejected successfully"));

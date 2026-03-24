@@ -5,6 +5,10 @@ using MediatR;
 
 namespace HealLink.Domain.Entities
 {
+    // TODO: [AGGREGATE] DoctorPatientConnection imports MediatR — the domain layer should have no dependency on application/infrastructure frameworks.
+    // TODO: [DDD] No domain event raised on Accept() or Reject() — these are significant state transitions; events should be raised here or by the owning aggregate.
+    // TODO: [AGGREGATE] DoctorPatientConnection is owned by DoctorAggregate — it must only be created and mutated through DoctorAggregate methods (AddConnection, AcceptPatientRequest, RejectPatientRequest). Direct instantiation from the application layer bypasses the duplicate-connection invariant (BR-CON-02) enforced in DoctorAggregate.AddConnection().
+    // TODO: [AGGREGATE] PatientAggregate also holds a List<DoctorPatientConnection> — this is the dual-ownership problem. Pick one: DoctorAggregate owns the connection objects; PatientAggregate holds only a List<Guid> of connected DoctorIds updated via domain events (ConnectionAcceptedEvent / ConnectionRejectedEvent).
     public class DoctorPatientConnection : Entity
     {
         public Guid DoctorId { get; private set; }

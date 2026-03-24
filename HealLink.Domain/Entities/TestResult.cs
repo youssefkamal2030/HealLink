@@ -4,6 +4,8 @@ using HealLink.Domain.Enums;
 
 namespace HealLink.Domain.Entities
 {
+    // TODO: [AGGREGATE] TestResult belongs inside PatientAggregate as an owned entity — UploadTestResult() in PatientAggregate already enforces the guardian authorization (BR-MED-03). Direct construction and persistence of TestResult outside the aggregate bypasses that invariant entirely.
+    // TODO: [AGGREGATE] UpdateFile() and UpdateDescription() should only be callable through PatientAggregate — direct calls from the application layer bypass the aggregate boundary.
     public class TestResult : Entity
     {
         public Guid PatientId { get; private set; }
