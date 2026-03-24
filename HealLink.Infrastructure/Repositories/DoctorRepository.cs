@@ -39,7 +39,7 @@ namespace HealLink.Infrastructure.Repositories
             var doctor = await _context.Doctors
                 .Include(d => d.User)
                 .Include(d => d.Address)
-                .Include(d => d.Connections)
+                .Include(d => d.PatientConnections)
                 .ThenInclude(c => c.Patient)
                 .FirstOrDefaultAsync(d => d.Id == doctorId);
 

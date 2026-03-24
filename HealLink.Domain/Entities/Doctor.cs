@@ -14,6 +14,7 @@ namespace HealLink.Domain.Entities
     public class Doctor : AggregateRoot
     {
         public Guid UserId { get; private set; }
+        public User? User { get; private set; }
         public Address? Address { get; private set; }
 
         public PersonalInfo? PersonalInfo { get; private set; }
@@ -28,13 +29,13 @@ namespace HealLink.Domain.Entities
         public bool IsApproved { get; private set; } = false;
 
         private readonly List<Guid> _patientIds = new();
+        private readonly List<Subscription> _subscriptions = new();
+        private readonly List<DoctorPatientConnection> _connections = new();
+        private readonly List<Notification> _notifications = new();
         public IReadOnlyCollection<Guid> PatientIds => _patientIds.AsReadOnly();
-        public User? User { get; private set; }
-
-        // TODO: [DDD] These collections have public setters — replace with private-backed IReadOnlyCollection exposed through the aggregate methods only.
-        public ICollection<Subscription>? Subscriptions { get; set; }
-        public ICollection<DoctorPatientConnection> PatientConnections { get; set; } = [];
-        public ICollection<Notification> notifications { get; set; } = [];
+        public IReadOnlyCollection<Subscription> Subscriptions => _subscriptions;
+        public IReadOnlyCollection<DoctorPatientConnection> PatientConnections => _connections;
+        public IReadOnlyCollection<Notification> Notifications => _notifications;
 
 
         public Doctor(
@@ -135,7 +136,7 @@ namespace HealLink.Domain.Entities
         public void AddNotification(Notification notification)
         {
             if (notification == null) throw new ArgumentNullException(nameof(notification));
-            notifications.Add(notification);
+            _notifications.Add(notification);
             UpdateTimestamp();
         }
         public void AcceptPatientRequest(Guid connectionId)
@@ -153,8 +154,6 @@ namespace HealLink.Domain.Entities
                 connection.PatientId,
                 DateTime.UtcNow
             ));
-
-            // Note: Also sync Patient's list – load PatientAggregate if needed, or raise event to handle async
         }
 
         public void RejectPatientRequest(Guid connectionId)
@@ -164,9 +163,8 @@ namespace HealLink.Domain.Entities
             if (connection.Status != ConnectionStatus.Pending) throw new InvalidOperationException("Not pending.");
 
             connection.Reject();
-            PatientConnections.Remove(connection);
+            _connections.Remove(connection);
 
-            // Raise domain event
             AddDomainEvent(new ConnectionRejectedEvent(
                 connectionId,
                 Id,
@@ -174,13 +172,12 @@ namespace HealLink.Domain.Entities
             ));
         }
 
-     
         public void AddConnection(DoctorPatientConnection connection)
         {
             if (connection == null) throw new ArgumentNullException(nameof(connection));
             if (PatientConnections.Any(c => c.PatientId == connection.PatientId && c.Status != ConnectionStatus.Rejected))
                 throw new InvalidOperationException("Connection already exists or pending.");
-            PatientConnections.Add(connection);
+            _connections.Add(connection);
         }
     }
 }
