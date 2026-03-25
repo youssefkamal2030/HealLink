@@ -7,6 +7,11 @@ using HealLink.Domain.ValueObjects;
 
 namespace HealLink.Domain.Entities
 {
+    // TODO: [TOMORROW-1] Change `Prescription : Entity` to `Prescription : AggregateRoot`
+    // TODO: [TOMORROW-2] In the constructor, after setting all fields, add: AddDomainEvent(new PrescriptionCreatedEvent(Id, PatientId)) — the event already exists in HealLink.Domain/DomainEvents/PrescriptionCreatedEvent.cs, it's just never raised
+    // TODO: [TOMORROW-3] Delete HealLink.Domain/Aggregates/PrescriptionAggregate.cs — it's a redundant wrapper that duplicates _medications as a second _dosages list, creating a dual-state bug
+    // TODO: [TOMORROW-4] Add a private List<MedicationReminder> _reminders and expose it as IReadOnlyCollection<MedicationReminder> Reminders
+    // TODO: [TOMORROW-5] Add a GenerateReminders() method that iterates _medications, and for each MedicationDosage creates one MedicationReminder per ScheduledTime entry, adding them to _reminders. Call this at the end of the constructor.
     public class Prescription : Entity
     {
         public Guid PatientId { get; private set; }
