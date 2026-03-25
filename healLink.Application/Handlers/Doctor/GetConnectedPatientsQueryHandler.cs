@@ -41,15 +41,15 @@ namespace HealLink.Application.Handlers.Doctor
             var connectedPatients = new List<PatientProfileResponse>();
             foreach (var patientId in connectedPatientIds)
             {
-                var patientAggregate = await _patientRepository.GetAggregateByPatientId(patientId);
-                if (patientAggregate?.Patient != null && patientAggregate.Patient.User != null)
+                var patient = await _patientRepository.GetByPatientId(patientId);
+               if (patient?.User != null)
                 {
                     connectedPatients.Add(new PatientProfileResponse(
-                        Id: patientAggregate.Patient.Id,
-                        UserId: patientAggregate.Patient.UserId,
-                        FullName: patientAggregate.Patient.User.Username,
-                        Email: patientAggregate.Patient.User.Email,
-                        GuardianId: patientAggregate.Patient.GuardianId
+                        Id: patient.Id,
+                        UserId: patient.UserId,
+                        FullName: patient.User.Username,
+                        Email: patient.User.Email,
+                        GuardianId: patient.GuardianId
                     ));
                 }
             }

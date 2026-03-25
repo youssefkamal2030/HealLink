@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using healLink.Application.Repositories;
-using HealLink.Domain.Common;
+﻿using FluentValidation;
+using healLink.Application.Behaviors;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using healLink.Application.Interfaces;
 
 namespace healLink.Application
 {
@@ -14,7 +9,12 @@ namespace healLink.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-         
+            // Register all FluentValidation validators from the Contracts assembly
+            services.AddValidatorsFromAssemblyContaining<HealLink.Contracts.Auth.Validators.RegisterRequestValidator>();
+
+            // Register the validation pipeline behavior — runs before every command/query handler
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
             return services;
         }
     }

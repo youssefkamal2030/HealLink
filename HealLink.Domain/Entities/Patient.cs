@@ -5,11 +5,9 @@ using HealLink.Domain.Enums;
 
 namespace HealLink.Domain.Entities
 {
-    // TODO: [DDD] Patient does not extend AggregateRoot — it cannot raise domain events (e.g., PatientRegisteredEvent should be raised here).
-    // TODO: [DDD] DoctorConnections has a public setter — external code can replace the entire collection, violating encapsulation.
-    // TODO: [DDD] _doctorIds list is maintained in parallel with DoctorConnections navigation property — dual state management risks inconsistency; pick one source of truth.
-    // TODO: [DDD] ConnectToDoctor/DisconnectFromDoctor mutate _doctorIds but don't raise domain events for these significant state changes.
-    public class Patient : Entity
+    // TODO: [DDD] Patient does not raise domain events yet — PatientRegisteredEvent should be raised in the constructor.
+    // TODO: [DDD] UploadTestResult/ConfirmMedicationReminder use UnauthorizedAccessException — replace with a domain-specific exception.
+    public class Patient : AggregateRoot
     {
         public Guid UserId { get; private set; }
         public User User { get; private set; }
@@ -17,15 +15,18 @@ namespace HealLink.Domain.Entities
          public Guardian Guardian { get; private set; }
 
         private readonly List<Guid> _doctorIds = new();
-        public IReadOnlyCollection<Guid> DoctorIds => _doctorIds.AsReadOnly();
-        public ICollection<DoctorPatientConnection> DoctorConnections { get; set; } = new List<DoctorPatientConnection>();
+        public ICollection<DoctorPatientConnection> DoctorConnections { get; private set; } = [];
+        public MedicalHistory MedicalHistory { get; private set; }
+        private readonly List<TestResult> _testResults = new();
+        private readonly List<MedicationReminder> _medicationReminders = [];
 
-        private Patient() { } // For EF
+        private Patient() { }
 
         public Patient(Guid userId)
         {
             UserId = userId;
         }
+      
 
         public void AssignGuardian(Guid guardianId)
         {
@@ -39,22 +40,37 @@ namespace HealLink.Domain.Entities
             UpdateTimestamp();
         }
 
-        public void ConnectToDoctor(Guid doctorId)
+      
+        
+
+        public IReadOnlyCollection<TestResult> TestResults => _testResults.AsReadOnly();
+        public IReadOnlyCollection<MedicationReminder> MedicationReminders => _medicationReminders.AsReadOnly();
+
+      
+
+        public void UploadTestResult(TestResult result, Guid actingUserId)
         {
-            if (!_doctorIds.Contains(doctorId))
-            {
-                _doctorIds.Add(doctorId);
-                UpdateTimestamp();
-            }
+            if (actingUserId != UserId && actingUserId != GuardianId)
+                throw new UnauthorizedAccessException("Only the patient or their guardian can upload test results.");
+            _testResults.Add(result);
         }
 
-        public void DisconnectFromDoctor(Guid doctorId)
+        public void ConfirmMedicationReminder(Guid reminderId, Guid actingUserId)
         {
-            if (_doctorIds.Contains(doctorId))
-            {
-                _doctorIds.Remove(doctorId);
-                UpdateTimestamp();
-            }
+            if (actingUserId != UserId && actingUserId != GuardianId)
+                throw new UnauthorizedAccessException("Only the patient or their guardian can confirm reminders.");
+            var reminder = _medicationReminders.Find(r => r.Id == reminderId);
+            if (reminder == null) throw new InvalidOperationException("Reminder not found.");
+            reminder.MarkAsTaken();
         }
+
+        //public void UpdateMedicalHistory(string chronicConditions, string allergies, string medications, string surgeries, string familyHistory, string notes)
+        //{
+        //    MedicalHistory.UpdateConditions(chronicConditions);
+        //    MedicalHistory.UpdateAllergies(allergies);
+        //    MedicalHistory.UpdateMedications(medications);
+        //    MedicalHistory.UpdateNotes(notes);
+        //}
     }
+
 }

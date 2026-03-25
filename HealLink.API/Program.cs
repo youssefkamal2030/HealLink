@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Text;
 using FluentValidation.AspNetCore;
+using healLink.Application;
 using healLink.Application.Commands.Auth;
 using healLink.Application.Interfaces;
 using HealLink.Application.Interfaces;
@@ -34,11 +35,12 @@ namespace HealLink.Api
 
             // Add services to the container.  
             builder.Services.AddInfraStructer(builder.Configuration);
+            builder.Services.AddApplication();
             
             // Register SignalR notification service (must be in API layer to avoid circular dependency)
             builder.Services.AddScoped<IRealTimeNotificationService, SignalRNotificationService<NotificationHub>>();
             
-            builder.Services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterRequestValidator>());
+            builder.Services.AddControllers();
             builder.Services.AddSwaggerGen();
             builder.WebHost.UseWebRoot("wwwroot");
             builder.Services.AddSignalR(options =>

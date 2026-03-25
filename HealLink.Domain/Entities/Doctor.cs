@@ -9,7 +9,6 @@ namespace HealLink.Domain.Entities
 {
     // TODO: [DDD] QRCode is stored as a raw string — it should use the existing QRCode value object (HealLink.Domain/ValueObjects/QRCode.cs) instead of duplicating the concept with QRCode + QRCodeGeneratedAt fields.
     // TODO: [DDD] GenerateQRCode() and IsQRCodeValid() duplicate logic already defined in the QRCode value object — consolidate into the value object.
-    // TODO: [DDD] _patientIds list is maintained in parallel with Connections navigation property — dual state management risks inconsistency; remove _patientIds and derive connected patients from Connections directly.
     // TODO: [DDD] AddNotification() pushes directly onto the collection — notifications should be raised as domain events instead.
     public class Doctor : AggregateRoot
     {
@@ -28,11 +27,9 @@ namespace HealLink.Domain.Entities
         public DateTime? QRCodeGeneratedAt { get; private set; }
         public bool IsApproved { get; private set; } = false;
 
-        private readonly List<Guid> _patientIds = new();
         private readonly List<Subscription> _subscriptions = new();
         private readonly List<DoctorPatientConnection> _connections = new();
         private readonly List<Notification> _notifications = new();
-        public IReadOnlyCollection<Guid> PatientIds => _patientIds.AsReadOnly();
         public IReadOnlyCollection<Subscription> Subscriptions => _subscriptions;
         public IReadOnlyCollection<DoctorPatientConnection> PatientConnections => _connections;
         public IReadOnlyCollection<Notification> Notifications => _notifications;
@@ -116,29 +113,14 @@ namespace HealLink.Domain.Entities
             }
         }
 
-        public void AddPatient(Guid patientId)
-        {
-            if (!_patientIds.Contains(patientId))
-            {
-                _patientIds.Add(patientId);
-                UpdateTimestamp();
-            }
-        }
-
-        public void RemovePatient(Guid patientId)
-        {
-            if (_patientIds.Contains(patientId))
-            {
-                _patientIds.Remove(patientId);
-                UpdateTimestamp();
-            }
-        }
+     
         public void AddNotification(Notification notification)
         {
             if (notification == null) throw new ArgumentNullException(nameof(notification));
             _notifications.Add(notification);
             UpdateTimestamp();
         }
+
         public void AcceptPatientRequest(Guid connectionId)
         {
             var connection = PatientConnections.FirstOrDefault(c => c.Id == connectionId);
@@ -146,7 +128,7 @@ namespace HealLink.Domain.Entities
             if (connection.Status != ConnectionStatus.Pending) throw new InvalidOperationException("Not pending.");
 
             connection.Accept();
-            AddPatient(connection.PatientId);
+           
 
             AddDomainEvent(new ConnectionAcceptedEvent(
                 connectionId,
