@@ -9,7 +9,7 @@ namespace HealLink.Domain.Entities
     // TODO: [DDD] Amount is typed as int — monetary values should use the Money value object (HealLink.Domain/ValueObjects/Money.cs) to encapsulate currency and amount together.
     // TODO: [DDD] Doctor navigation property has no setter visibility control — it should be private set or removed (use DoctorId for reference within the domain).
     // TODO: [DDD] No domain event raised on Deactivate() or Renew() — these are significant state transitions that downstream contexts may need to react to.
-    public class Subscription : Entity
+    public class Subscription : AggregateRoot
     {
         public Guid PatientId { get; private set; }
         public Guid DoctorId { get; private set; }

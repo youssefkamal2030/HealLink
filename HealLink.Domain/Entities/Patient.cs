@@ -7,6 +7,12 @@ namespace HealLink.Domain.Entities
 {
     // TODO: [DDD] Patient does not raise domain events yet — PatientRegisteredEvent should be raised in the constructor.
     // TODO: [DDD] UploadTestResult/ConfirmMedicationReminder use UnauthorizedAccessException — replace with a domain-specific exception.
+    // TODO: [TOMORROW-3] Raise PatientRegisteredEvent(Id, UserId) at the end of the Patient(Guid userId) constructor. The event class already exists in HealLink.Domain/DomainEvents/.
+    // TODO: [TOMORROW-3] Replace ICollection<DoctorPatientConnection> DoctorConnections with a private List<Guid> _connectedDoctorIds and expose it as IReadOnlyCollection<Guid> ConnectedDoctorIds. This resolves the dual-ownership problem — DoctorAggregate owns the DoctorPatientConnection objects; Patient only tracks the IDs of connected doctors.
+    // TODO: [TOMORROW-3] Add AddConnectedDoctor(Guid doctorId) method — appends to _connectedDoctorIds if not already present, calls UpdateTimestamp().
+    // TODO: [TOMORROW-3] Add RemoveConnectedDoctor(Guid doctorId) method — removes from _connectedDoctorIds if present, calls UpdateTimestamp().
+    // TODO: [TOMORROW-3] Update ConnectionAcceptedHandler in the Application layer to load the Patient aggregate and call patient.AddConnectedDoctor(notification.DoctorId) after the connection is accepted.
+    // TODO: [TOMORROW-3] Update ConnectionRejectedHandler in the Application layer to load the Patient aggregate and call patient.RemoveConnectedDoctor(notification.DoctorId) if the doctor ID is present.
     public class Patient : AggregateRoot
     {
         public Guid UserId { get; private set; }

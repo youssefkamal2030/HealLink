@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using HealLink.Domain.Base;
+using HealLink.Domain.DomainEvents;
 using HealLink.Domain.Enums;
 using HealLink.Domain.ValueObjects;
 
 namespace HealLink.Domain.Entities
 {
-    // TODO: [TOMORROW-1] Change `Prescription : Entity` to `Prescription : AggregateRoot`
-    // TODO: [TOMORROW-2] In the constructor, after setting all fields, add: AddDomainEvent(new PrescriptionCreatedEvent(Id, PatientId)) — the event already exists in HealLink.Domain/DomainEvents/PrescriptionCreatedEvent.cs, it's just never raised
-    // TODO: [TOMORROW-3] Delete HealLink.Domain/Aggregates/PrescriptionAggregate.cs — it's a redundant wrapper that duplicates _medications as a second _dosages list, creating a dual-state bug
-    // TODO: [TOMORROW-4] Add a private List<MedicationReminder> _reminders and expose it as IReadOnlyCollection<MedicationReminder> Reminders
     // TODO: [TOMORROW-5] Add a GenerateReminders() method that iterates _medications, and for each MedicationDosage creates one MedicationReminder per ScheduledTime entry, adding them to _reminders. Call this at the end of the constructor.
-    public class Prescription : Entity
+    public class Prescription : AggregateRoot
     {
         public Guid PatientId { get; private set; }
         public Guid DoctorId { get; private set; }
@@ -22,7 +19,11 @@ namespace HealLink.Domain.Entities
         public DateTime? ExpiresAt { get; private set; }
 
         private readonly List<MedicationDosage> _medications = new();
+        private readonly List<MedicationReminder> _reminders = new();
+
         public IReadOnlyCollection<MedicationDosage> Medications => _medications.AsReadOnly();
+        public IReadOnlyCollection<MedicationReminder> Reminders => _reminders.AsReadOnly();    
+
 
         private Prescription() { } 
 
@@ -40,6 +41,8 @@ namespace HealLink.Domain.Entities
             Status = PrescriptionStatus.Active;
             ExpiresAt = expiresAt;
             _medications.AddRange(medications);
+
+            AddDomainEvent(new PrescriptionCreatedEvent(Id, PatientId));
         }
 
         public void UpdateMedication(MedicationDosage medication)
@@ -118,6 +121,6 @@ namespace HealLink.Domain.Entities
             _medications.Remove(medication);
             UpdateTimestamp();
         }
-
+      
     }
 }

@@ -17,6 +17,7 @@ namespace healLink.Application.Handlers.Connection
 
         public async Task Handle(ConnectionAcceptedEvent notification, CancellationToken cancellationToken)
         {
+            // TODO: [TOMORROW-3] Load the Patient aggregate via IPatientRepository and call patient.AddConnectedDoctor(notification.DoctorId), then persist. This keeps Patient's connected doctor list in sync via domain event rather than direct collection mutation.
             // Send notification to patient about acceptance
             await _notificationService.NotifyPatientOfAcceptance(
                 notification.PatientId,

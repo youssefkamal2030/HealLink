@@ -17,6 +17,7 @@ namespace healLink.Application.Handlers.Connection
 
         public async Task Handle(ConnectionRejectedEvent notification, CancellationToken cancellationToken)
         {
+            // TODO: [TOMORROW-3] Load the Patient aggregate via IPatientRepository and call patient.RemoveConnectedDoctor(notification.DoctorId) if present, then persist. Keeps Patient's connected doctor list consistent on rejection.
             // Send notification to patient about rejection
             await _notificationService.NotifyPatientOfRejection(
                 notification.PatientId,

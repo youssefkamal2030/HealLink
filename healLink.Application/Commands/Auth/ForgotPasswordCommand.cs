@@ -7,8 +7,8 @@ using MediatR;
 
 namespace healLink.Application.Commands.Auth
 {
-    // TODO: [TOMORROW-8] Create ForgotPasswordCommandValidator : AbstractValidator<ForgotPasswordCommand> in this folder
-    //   Rules: Email NotEmpty + EmailAddress()
+    
+    // TODO: [TOMORROW-5] Create ForgotPasswordCommandValidator in this folder — rules: RuleFor(x => x.Email).NotEmpty().EmailAddress().
     public record ForgotPasswordCommand(
         string Email
     ): IRequest;
