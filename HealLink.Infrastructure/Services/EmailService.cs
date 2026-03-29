@@ -70,13 +70,7 @@ namespace HealLink.Infrastructure.Services
                 _context.OTPs.RemoveRange(existingOtps);
             }
 
-            var otp = new OTP
-            {
-                Code = otpCode,
-                ExpiryTime = DateTime.UtcNow.AddMinutes(_otpExpiryMinutes),
-                UserId = user.Id,
-                User = user
-            };
+           var otp = new OTP(otpCode, DateTime.UtcNow.AddMinutes(_otpExpiryMinutes), user.Id);
 
             _context.OTPs.Add(otp);
             await _context.SaveChangesAsync();
@@ -109,13 +103,7 @@ namespace HealLink.Infrastructure.Services
                 _context.OTPs.RemoveRange(existingOtps);
             }
 
-            var otp = new OTP
-            {
-                Code = otpCode,
-                ExpiryTime = DateTime.UtcNow.AddMinutes(_otpExpiryMinutes),
-                UserId = user.Id,
-                User = user
-            };
+            var otp = new OTP(otpCode, DateTime.UtcNow.AddMinutes(_otpExpiryMinutes), user.Id);
 
             _context.OTPs.Add(otp);
             await _context.SaveChangesAsync();

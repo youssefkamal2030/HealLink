@@ -14,13 +14,7 @@ namespace HealLink.Domain.Entities
     // TODO: [DDD] User does not extend AggregateRoot — it cannot raise domain events (e.g., UserRegistered, PasswordChanged).
     // TODO: [DDD] Email and Username have no format validation in the constructor — domain invariants (valid email format, non-empty username) should be enforced here.
     // TODO: [AGGREGATE-MISSING] User has no aggregate. User + OTP belong in a UserAggregate that extends AggregateRoot. OTP only exists in the context of a User (email confirmation BR-AUTH-03, password reset BR-AUTH-05). The invariants — OTP expiry (BR-AUTH-06), single-use invalidation, account status transitions (BR-AUTH-07) — all belong in one boundary. Without this aggregate, nothing in the domain enforces these rules.
-    // TODO: [TOMORROW-1] Promote User to extend AggregateRoot instead of Entity.
-    // TODO: [TOMORROW-1] Replace the public OTPs field with a private List<OTP> _otps and expose it as IReadOnlyCollection<OTP> OTPs.
-    // TODO: [TOMORROW-1] Add RequestOtp(string code, DateTime expiry) method — creates a new OTP owned by this aggregate, invalidates any existing active OTP for the same user, and adds it to _otps.
-    // TODO: [TOMORROW-1] Add InvalidateOtp(string code) method — finds the matching OTP, calls otp.Invalidate(), and enforces that an expired OTP cannot be used (BR-AUTH-06).
-    // TODO: [TOMORROW-1] Add ConfirmEmail() method that sets EmailConfirmed = true and removes the public setter from EmailConfirmed.
-    // TODO: [TOMORROW-1] Raise a new UserRegisteredEvent(Id, Email, Role) domain event at the end of the constructor. Create UserRegisteredEvent in HealLink.Domain/DomainEvents/.
-    public class User : Entity
+    public class User : AggregateRoot
     {
         public string Username { get; private set; }
         public string PasswordHash { get; private set; }
@@ -28,7 +22,8 @@ namespace HealLink.Domain.Entities
         public UserRole Role { get; private set; }
         public AccountStatus Status { get; private set; }
         public DateTime? LastLoginAt { get; private set; }
-        public ICollection<OTP> OTPs = [];
+        private readonly List<OTP> _otps = [];
+        public IReadOnlyCollection<OTP> OTPs => _otps.AsReadOnly();
         public bool EmailConfirmed { get; set; }
         private User() { } // For EF
 
@@ -36,12 +31,26 @@ namespace HealLink.Domain.Entities
         {
             Username = username ?? throw new ArgumentNullException(nameof(username));
             PasswordHash = passwordHash ?? throw new ArgumentNullException(nameof(passwordHash));
-           
+
             Email = email ?? throw new ArgumentNullException(nameof(email));
             Role = role;
             Status = AccountStatus.Pending;
+            AddDomainEvent(new DomainEvents.UserRegisteredEvent(Id, Email, Role.ToString()));
+
         }
 
+        public OTP RequestOTP(string code, DateTime expiry)
+        {
+            var existingOtp = _otps.FirstOrDefault(o => !o.IsUsed && !o.IsExpired());
+            if (existingOtp != null)
+            {
+                existingOtp.Invalidate();
+            }
+            var newOtp = new OTP(code, expiry, Id);
+            _otps.Add(newOtp);
+            UpdateTimestamp();
+            return newOtp;
+        }
         public void Activate()
         {
             Status = AccountStatus.Active;
@@ -76,6 +85,19 @@ namespace HealLink.Domain.Entities
         public void ChangePassword(string newPasswordHash)
         {
             PasswordHash = newPasswordHash ?? throw new ArgumentNullException(nameof(newPasswordHash));
+            UpdateTimestamp();
+        }
+        public void invalidateOtp(string code)
+        {
+            var otp = _otps.FirstOrDefault(o => o.Code == code);
+            if (otp == null)
+                throw new InvalidOperationException("OTP not found");
+            otp.Invalidate();
+            UpdateTimestamp();
+        }
+        public void ConfirmEmail()
+        {
+            EmailConfirmed = true;
             UpdateTimestamp();
         }
     }
