@@ -8,12 +8,7 @@ using HealLink.Domain.Enums;
 using HealLink.Domain.ValueObjects;
 
 namespace HealLink.Domain.Entities
-{
-    // TODO: [DDD] User.EmailConfirmed has a public setter — state should only change through a domain method (e.g., ConfirmEmail()).
-    // TODO: [DDD] OTPs collection is a public field (not a property) — this bypasses encapsulation entirely; should be a private list exposed as IReadOnlyCollection.
-    // TODO: [DDD] User does not extend AggregateRoot — it cannot raise domain events (e.g., UserRegistered, PasswordChanged).
-    // TODO: [DDD] Email and Username have no format validation in the constructor — domain invariants (valid email format, non-empty username) should be enforced here.
-    // TODO: [AGGREGATE-MISSING] User has no aggregate. User + OTP belong in a UserAggregate that extends AggregateRoot. OTP only exists in the context of a User (email confirmation BR-AUTH-03, password reset BR-AUTH-05). The invariants — OTP expiry (BR-AUTH-06), single-use invalidation, account status transitions (BR-AUTH-07) — all belong in one boundary. Without this aggregate, nothing in the domain enforces these rules.
+{    // TODO: [BUG-1] EmailService.SendOtpAsync and SendPasswordResetOtpAsync bypass this aggregate entirely — they create OTP directly via new OTP(...) and persist via _context.OTPs. They must instead call user.RequestOTP(code, expiry) and save through IUserRepository so the aggregate boundary is respected.
     public class User : AggregateRoot
     {
         public string Username { get; private set; }
@@ -24,7 +19,7 @@ namespace HealLink.Domain.Entities
         public DateTime? LastLoginAt { get; private set; }
         private readonly List<OTP> _otps = [];
         public IReadOnlyCollection<OTP> OTPs => _otps.AsReadOnly();
-        public bool EmailConfirmed { get; set; }
+        public bool EmailConfirmed { get; private set; }
         private User() { } // For EF
 
         public User(string username, string passwordHash, string email, UserRole role)
@@ -87,7 +82,7 @@ namespace HealLink.Domain.Entities
             PasswordHash = newPasswordHash ?? throw new ArgumentNullException(nameof(newPasswordHash));
             UpdateTimestamp();
         }
-        public void invalidateOtp(string code)
+        public void InvalidateOtp(string code)
         {
             var otp = _otps.FirstOrDefault(o => o.Code == code);
             if (otp == null)

@@ -59,6 +59,9 @@ namespace HealLink.Infrastructure.Services
 
         public async Task SendOtpAsync(User  user)
         {
+            // TODO: [BUG-1] This method bypasses the User aggregate — it creates OTP directly via new OTP(...) and persists via _context.OTPs.
+            // TODO: [BUG-1] Replace with: var otp = user.RequestOTP(otpCode, DateTime.UtcNow.AddMinutes(_otpExpiryMinutes)); then save user via IUserRepository.
+            // TODO: [BUG-1] The manual _context.OTPs.RemoveRange block is also redundant — User.RequestOTP() already invalidates the existing active OTP internally.
             var otpCode = new Random().Next(100000, 999999).ToString();
 
             var existingOtps = await _context.OTPs
@@ -92,6 +95,8 @@ namespace HealLink.Infrastructure.Services
 
         public async Task SendPasswordResetOtpAsync(User  user)
         {
+            // TODO: [BUG-1] Same aggregate bypass as SendOtpAsync — creates OTP directly and persists via _context.OTPs.
+            // TODO: [BUG-1] Replace with: var otp = user.RequestOTP(otpCode, DateTime.UtcNow.AddMinutes(_otpExpiryMinutes)); then save user via IUserRepository.
             var otpCode = new Random().Next(100000, 999999).ToString();
 
             var existingOtps = await _context.OTPs

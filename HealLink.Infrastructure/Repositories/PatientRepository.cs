@@ -16,7 +16,7 @@ namespace HealLink.Infrastructure.Repositories
             return await _context.Patients
                 .Include(p => p.User)
                 .Include(p => p.Guardian)
-                .Include(p => p.DoctorConnections)
+                .Include(p => p.ConnectedDoctorIds)
                 .FirstOrDefaultAsync(p => p.Id == patientId);
         }
 

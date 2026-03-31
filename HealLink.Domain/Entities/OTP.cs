@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 
 namespace HealLink.Domain.Entities;
 
-// TODO: [DDD] OTP is an Entity but doesn't extend Entity base class — it has no identity, encapsulation, or domain behavior.
-// TODO: [DDD] All properties have public setters, violating encapsulation. State should only change through domain methods.
-// TODO: [DDD] Id is int instead of Guid, inconsistent with the rest of the domain model.
-// TODO: [DDD] No domain logic (e.g., IsExpired(), Invalidate()) — behavior belongs here, not in application/infrastructure layers.
-// TODO: [DDD] No validation in constructor — OTP should enforce invariants (non-empty code, future expiry time).
-// TODO: [AGGREGATE-MISSING] OTP has no aggregate. It must be owned by UserAggregate — OTP is only valid in the context of a User. The invariants (BR-AUTH-06: expires after 10 minutes, single-use invalidation) cannot be enforced without a parent aggregate root managing the OTP lifecycle. Add IsExpired() and Invalidate() methods here, and enforce them through UserAggregate.
+// DONE: OTP now extends Entity (Guid Id, CreatedAt, UpdatedAt), has private setters, IsUsed flag, IsExpired(), Invalidate(), and constructor validation.
+// DONE: Owned by User aggregate — created only via User.RequestOTP().
 public class OTP : Entity
 {
    
@@ -22,7 +18,7 @@ public class OTP : Entity
     public Guid UserId { get;  private set; }
 
     public User? User { get; private set; }
-    public bool IsUsed { get; private set; } = true;
+    public bool IsUsed { get; private set; } = false;
     public OTP(){ }
     public OTP(string code, DateTime expiryTime, Guid userId)
     {

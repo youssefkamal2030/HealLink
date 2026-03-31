@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using HealLink.Domain.Base;
+using HealLink.Domain.DomainEvents;
 using HealLink.Domain.Enums;
 
 namespace HealLink.Domain.Entities
 {
     // TODO: [DDD] Patient does not raise domain events yet — PatientRegisteredEvent should be raised in the constructor.
     // TODO: [DDD] UploadTestResult/ConfirmMedicationReminder use UnauthorizedAccessException — replace with a domain-specific exception.
-    // TODO: [TOMORROW-3] Raise PatientRegisteredEvent(Id, UserId) at the end of the Patient(Guid userId) constructor. The event class already exists in HealLink.Domain/DomainEvents/.
-    // TODO: [TOMORROW-3] Replace ICollection<DoctorPatientConnection> DoctorConnections with a private List<Guid> _connectedDoctorIds and expose it as IReadOnlyCollection<Guid> ConnectedDoctorIds. This resolves the dual-ownership problem — DoctorAggregate owns the DoctorPatientConnection objects; Patient only tracks the IDs of connected doctors.
-    // TODO: [TOMORROW-3] Add AddConnectedDoctor(Guid doctorId) method — appends to _connectedDoctorIds if not already present, calls UpdateTimestamp().
-    // TODO: [TOMORROW-3] Add RemoveConnectedDoctor(Guid doctorId) method — removes from _connectedDoctorIds if present, calls UpdateTimestamp().
-    // TODO: [TOMORROW-3] Update ConnectionAcceptedHandler in the Application layer to load the Patient aggregate and call patient.AddConnectedDoctor(notification.DoctorId) after the connection is accepted.
-    // TODO: [TOMORROW-3] Update ConnectionRejectedHandler in the Application layer to load the Patient aggregate and call patient.RemoveConnectedDoctor(notification.DoctorId) if the doctor ID is present.
+    // TODO: [TASK-A] Replace ICollection<DoctorPatientConnection> DoctorConnections with a private List<Guid> _connectedDoctorIds and expose it as IReadOnlyCollection<Guid> ConnectedDoctorIds. DoctorAggregate owns the connection objects; Patient only tracks the IDs of connected doctors.
+    // TODO: [TASK-A] Add AddConnectedDoctor(Guid doctorId) — appends to _connectedDoctorIds if not already present, calls UpdateTimestamp(). [done]
+    // TODO: [TASK-A] Add RemoveConnectedDoctor(Guid doctorId) — removes from _connectedDoctorIds if present, calls UpdateTimestamp().[done]
+    // TODO: [TASK-A] Update ConnectionAcceptedHandler to load Patient via IPatientRepository and call patient.AddConnectedDoctor(notification.DoctorId), then persist.
+    // TODO: [TASK-A] Update ConnectionRejectedHandler to load Patient via IPatientRepository and call patient.RemoveConnectedDoctor(notification.DoctorId), then persist.
     public class Patient : AggregateRoot
     {
         public Guid UserId { get; private set; }
@@ -20,17 +20,22 @@ namespace HealLink.Domain.Entities
         public Guid? GuardianId { get; private set; }
          public Guardian Guardian { get; private set; }
 
-        private readonly List<Guid> _doctorIds = new();
-        public ICollection<DoctorPatientConnection> DoctorConnections { get; private set; } = [];
-        public MedicalHistory MedicalHistory { get; private set; }
-        private readonly List<TestResult> _testResults = new();
+        private readonly List<Guid> _connectedDoctorIds = [];
+        private readonly List<TestResult> _testResults = [];
         private readonly List<MedicationReminder> _medicationReminders = [];
+        public IReadOnlyCollection<TestResult> TestResults => _testResults;
+        public IReadOnlyCollection<MedicationReminder> MedicationReminders => _medicationReminders;
+        public IReadOnlyCollection<Guid> ConnectedDoctorIds => _connectedDoctorIds;
+
+        public MedicalHistory MedicalHistory { get; private set; }
+       
 
         private Patient() { }
 
         public Patient(Guid userId)
         {
             UserId = userId;
+            AddDomainEvent(new PatientRegisteredEvent(Id));
         }
       
 
@@ -49,9 +54,7 @@ namespace HealLink.Domain.Entities
       
         
 
-        public IReadOnlyCollection<TestResult> TestResults => _testResults.AsReadOnly();
-        public IReadOnlyCollection<MedicationReminder> MedicationReminders => _medicationReminders.AsReadOnly();
-
+        
       
 
         public void UploadTestResult(TestResult result, Guid actingUserId)
@@ -77,6 +80,25 @@ namespace HealLink.Domain.Entities
         //    MedicalHistory.UpdateMedications(medications);
         //    MedicalHistory.UpdateNotes(notes);
         //}
+
+        public void AddConnectedDoctor(Guid doctorId)
+        {
+            var exisitingdoctorId = ConnectedDoctorIds.FirstOrDefault(doctorId);
+            if (exisitingdoctorId != null)
+                throw new Exception("Doctor Already Exists");
+           _connectedDoctorIds.Add(doctorId);
+            UpdateTimestamp();
+        }
+        public void RemoveConnectedDoctor(Guid doctorId)
+        {
+
+            var exisitingdoctorId = ConnectedDoctorIds.FirstOrDefault(doctorId);
+            if (exisitingdoctorId == null)
+                throw new Exception("No Doctor Found with this Id");
+         _connectedDoctorIds.Remove(doctorId);
+            UpdateTimestamp();
+         
+        }
     }
 
 }
