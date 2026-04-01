@@ -30,7 +30,13 @@ namespace HealLink.Api
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddDbContext<HealLinkDbContext>(options =>
-                 options.UseSqlServer(builder.Configuration.GetConnectionString("localConnection")));
+            {
+                var useInMemory = builder.Configuration["UseInMemoryDatabase"] == "true";
+                if (useInMemory)
+                    options.UseInMemoryDatabase("HealLinkTest");
+                else
+                    options.UseSqlServer(builder.Configuration.GetConnectionString("localConnection"));
+            });
             builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<HealLinkDbContext>());
 
             // Add services to the container.  
@@ -113,12 +119,15 @@ namespace HealLink.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "HealLink API V1");
                 c.RoutePrefix = string.Empty;
             });
-            app.UseStaticFiles(new StaticFileOptions
+            var uploadsPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads");
+            if (Directory.Exists(uploadsPath))
             {
-                FileProvider = new PhysicalFileProvider(
-        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Uploads")),
-                RequestPath = "/Uploads"
-            });
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(uploadsPath),
+                    RequestPath = "/Uploads"
+                });
+            }
             
             // Global exception handling middleware
             app.UseMiddleware<ExceptionHandlingMiddleware>();

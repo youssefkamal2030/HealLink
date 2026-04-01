@@ -36,7 +36,10 @@ public class RegisterCommandHandler(IUserRepository userRepository, IPasswordHas
 
         await _emailService.SendOtpAsync(user);
 
-        var syndicateIdPath = await _photoService.SavePhotoAsync(request.SyndicateId, "uploads");
+        var syndicateIdPath = request.SyndicateId != null
+            ? await _photoService.SavePhotoAsync(request.SyndicateId, "uploads")
+            : null;
+
         var createProfileCommand = new CreateProfileCommand(user.Id, user.Role, request.Specilization, request.PracticeLicenseNumber, syndicateIdPath);
         var result = await _mediator.Send(createProfileCommand, cancellationToken);
 

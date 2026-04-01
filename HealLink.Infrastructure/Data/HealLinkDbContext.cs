@@ -73,6 +73,10 @@ namespace HealLink.Infrastructure.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
             // Patient-related entities - CASCADE from Patient
+            // Ignore Patient.MedicalHistory navigation — EF manages via MedicalHistory.PatientId FK
+            modelBuilder.Entity<Patient>()
+                .Ignore(p => p.MedicalHistory);
+
             modelBuilder.Entity<MedicalHistory>()
                 .HasOne<Patient>()
                 .WithMany()

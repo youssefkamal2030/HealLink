@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -42,6 +43,7 @@ namespace HealLink.API.Middleware
 
             var (statusCode, message) = exception switch
             {
+                ValidationException ve => (HttpStatusCode.BadRequest, string.Join("; ", ve.Errors.Select(e => e.ErrorMessage))),
                 UnauthorizedAccessException => (HttpStatusCode.Unauthorized, "Unauthorized access"),
                 ArgumentNullException => (HttpStatusCode.BadRequest, "Invalid request data"),
                 ArgumentException => (HttpStatusCode.BadRequest, exception.Message),

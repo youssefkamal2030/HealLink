@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36212.18
+# Visual Studio Version 18
+VisualStudioVersion = 18.4.11620.152 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "healLink.Application", "healLink.Application\healLink.Application.csproj", "{84A3A8BF-9045-4ABA-A3A3-2DA1F49A28CE}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealLink.Contracts", "HealLink.Contracts\HealLink.Contracts.csproj", "{833924A7-1C0F-4A6D-8617-BEC09B35144C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealLink.Domain.Tests", "HealLink.Domain.Tests\HealLink.Domain.Tests.csproj", "{230F781B-E0A1-43DA-B851-993C30A9E889}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealLink.Integration.Tests", "HealLink.Integration.Tests\HealLink.Integration.Tests.csproj", "{AB099FC5-FAF7-493B-995E-DCCFB9B2D256}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +99,18 @@ Global
 		{230F781B-E0A1-43DA-B851-993C30A9E889}.Release|x64.Build.0 = Release|Any CPU
 		{230F781B-E0A1-43DA-B851-993C30A9E889}.Release|x86.ActiveCfg = Release|Any CPU
 		{230F781B-E0A1-43DA-B851-993C30A9E889}.Release|x86.Build.0 = Release|Any CPU
+		{AB099FC5-FAF7-493B-995E-DCCFB9B2D256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB099FC5-FAF7-493B-995E-DCCFB9B2D256}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB099FC5-FAF7-493B-995E-DCCFB9B2D256}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AB099FC5-FAF7-493B-995E-DCCFB9B2D256}.Debug|x64.Build.0 = Debug|Any CPU
+		{AB099FC5-FAF7-493B-995E-DCCFB9B2D256}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AB099FC5-FAF7-493B-995E-DCCFB9B2D256}.Debug|x86.Build.0 = Debug|Any CPU
+		{AB099FC5-FAF7-493B-995E-DCCFB9B2D256}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB099FC5-FAF7-493B-995E-DCCFB9B2D256}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB099FC5-FAF7-493B-995E-DCCFB9B2D256}.Release|x64.ActiveCfg = Release|Any CPU
+		{AB099FC5-FAF7-493B-995E-DCCFB9B2D256}.Release|x64.Build.0 = Release|Any CPU
+		{AB099FC5-FAF7-493B-995E-DCCFB9B2D256}.Release|x86.ActiveCfg = Release|Any CPU
+		{AB099FC5-FAF7-493B-995E-DCCFB9B2D256}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
