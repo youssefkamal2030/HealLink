@@ -132,16 +132,16 @@ namespace HealLink.Infrastructure.Repositories
             return await query.CountAsync(cancellationToken);
         }
 
-        public async Task AddPatientAsync(Patient patient, CancellationToken cancellationToken = default)
+        public Task AddPatientAsync(Patient patient, CancellationToken cancellationToken = default)
         {
             _context.Patients.Add(patient);
-            await _context.SaveChangesAsync(cancellationToken);
+            return Task.CompletedTask;
         }
 
-        public async Task AddDoctorAsync(Doctor doctor, CancellationToken cancellationToken = default)
+        public Task AddDoctorAsync(Doctor doctor, CancellationToken cancellationToken = default)
         {
             _context.Doctors.Add(doctor);
-            await _context.SaveChangesAsync(cancellationToken);
+            return Task.CompletedTask;
         }
 
         public async Task<Doctor?> GetDoctorByIdAsync(Guid doctorId, CancellationToken cancellationToken = default)
@@ -151,12 +151,11 @@ namespace HealLink.Infrastructure.Repositories
                 .FirstOrDefaultAsync(d => d.Id == doctorId, cancellationToken);
         }
 
-        public async Task UpdateDoctorAsync(Doctor doctor, CancellationToken cancellationToken)
+        public Task UpdateDoctorAsync(Doctor doctor, CancellationToken cancellationToken)
         {
             _context.Doctors.Update(doctor);
-            await _context.SaveChangesAsync(cancellationToken);
+            return Task.CompletedTask;
         }
-
 
         public async Task DeleteDoctorAsync(Guid doctorId, CancellationToken cancellationToken = default)
         {
@@ -165,10 +164,7 @@ namespace HealLink.Infrastructure.Repositories
             {
                 var user = await _context.Users.FindAsync(new object[] { doctor.UserId }, cancellationToken);
                 if (user != null)
-                {
                     _context.Users.Remove(user);
-                }
-                await _context.SaveChangesAsync(cancellationToken);
             }
         }
     }

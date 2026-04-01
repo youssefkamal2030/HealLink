@@ -106,7 +106,7 @@ namespace HealLink.Infrastructure.Data
 
             modelBuilder.Entity<DoctorPatientConnection>()
                 .HasOne(c => c.Patient)
-                .WithMany(p => p.ConnectedDoctorIds) // Map to new navigation property
+                .WithMany() // Map to new navigation property
                 .HasForeignKey(c => c.PatientId)
                 .OnDelete(DeleteBehavior.Restrict);
 

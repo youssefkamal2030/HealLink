@@ -2,23 +2,20 @@
 using System.Linq;
 using System.Threading.Tasks;
 using healLink.Application.Repositories;
+using HealLink.Domain.Entities;
 using HealLink.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using HealLink.Domain.Entities;
-using MediatR;
 
 namespace HealLink.Infrastructure.Repositories
 {
-    // ToDo: the rest of the methods need to be implemented and remove the duplicate code with the generic CRUDE methods in the generic repository interface
+    // ToDo: the rest of the generic IRepository<T> methods (GetAllAsync, DeleteAsync) still need implementing.
     public class DoctorRepository : IDoctorRepository
     {
         private readonly HealLinkDbContext _context;
-        private readonly IMediator _mediator;
 
-        public DoctorRepository(HealLinkDbContext context, IMediator mediator)
+        public DoctorRepository(HealLinkDbContext context)
         {
             _context = context;
-            _mediator = mediator;
         }
 
         public Task<Doctor> AddAsync(Doctor entity)
@@ -31,21 +28,6 @@ namespace HealLink.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<Doctor> GetByDoctorId(Guid doctorId)
-        {
-            if (doctorId == Guid.Empty)
-                throw new ArgumentException("Doctor ID cannot be empty.", nameof(doctorId));
-
-            var doctor = await _context.Doctors
-                .Include(d => d.User)
-                .Include(d => d.Address)
-                .Include(d => d.PatientConnections)
-                .ThenInclude(c => c.Patient)
-                .FirstOrDefaultAsync(d => d.Id == doctorId);
-
-            return doctor;
-        }
-
         public Task<IEnumerable<Doctor>> GetAllAsync()
         {
             throw new NotImplementedException();
@@ -56,10 +38,22 @@ namespace HealLink.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task UpdateAsync(Doctor doctor)
+        public async Task<Doctor> GetByDoctorId(Guid doctorId)
         {
-            if (doctor == null)
-                throw new ArgumentNullException(nameof(doctor));
+            if (doctorId == Guid.Empty)
+                throw new ArgumentException("Doctor ID cannot be empty.", nameof(doctorId));
+
+            return await _context.Doctors
+                .Include(d => d.User)
+                .Include(d => d.Address)
+                .Include(d => d.PatientConnections)
+                    .ThenInclude(c => c.Patient)
+                .FirstOrDefaultAsync(d => d.Id == doctorId);
+        }
+
+        public Task UpdateAsync(Doctor doctor)
+        {
+            if (doctor == null) throw new ArgumentNullException(nameof(doctor));
 
             _context.Doctors.Update(doctor);
 
@@ -69,14 +63,7 @@ namespace HealLink.Infrastructure.Repositories
             foreach (var connection in doctor.PatientConnections)
                 _context.DoctorPatientConnections.Update(connection);
 
-            await _context.SaveChangesAsync();
-
-            // Dispatch domain events after successful save
-            var domainEvents = doctor.DomainEvents.ToList();
-            doctor.ClearDomainEvents();
-
-            foreach (var domainEvent in domainEvents)
-                await _mediator.Publish(domainEvent);
+            return Task.CompletedTask;
         }
     }
 }

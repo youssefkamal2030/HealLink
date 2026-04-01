@@ -6,7 +6,7 @@ using HealLink.Domain.Enums;
 
 namespace HealLink.Domain.Entities
 {
-    // TODO: [DDD] Patient does not raise domain events yet — PatientRegisteredEvent should be raised in the constructor.
+    
     // TODO: [DDD] UploadTestResult/ConfirmMedicationReminder use UnauthorizedAccessException — replace with a domain-specific exception.
     // TODO: [TASK-A] Replace ICollection<DoctorPatientConnection> DoctorConnections with a private List<Guid> _connectedDoctorIds and expose it as IReadOnlyCollection<Guid> ConnectedDoctorIds. DoctorAggregate owns the connection objects; Patient only tracks the IDs of connected doctors.
     // TODO: [TASK-A] Add AddConnectedDoctor(Guid doctorId) — appends to _connectedDoctorIds if not already present, calls UpdateTimestamp(). [done]
@@ -50,13 +50,6 @@ namespace HealLink.Domain.Entities
             GuardianId = null;
             UpdateTimestamp();
         }
-
-      
-        
-
-        
-      
-
         public void UploadTestResult(TestResult result, Guid actingUserId)
         {
             if (actingUserId != UserId && actingUserId != GuardianId)
@@ -83,8 +76,8 @@ namespace HealLink.Domain.Entities
 
         public void AddConnectedDoctor(Guid doctorId)
         {
-            var exisitingdoctorId = ConnectedDoctorIds.FirstOrDefault(doctorId);
-            if (exisitingdoctorId != null)
+           
+            if (_connectedDoctorIds.Contains(doctorId))
                 throw new Exception("Doctor Already Exists");
            _connectedDoctorIds.Add(doctorId);
             UpdateTimestamp();
@@ -92,8 +85,8 @@ namespace HealLink.Domain.Entities
         public void RemoveConnectedDoctor(Guid doctorId)
         {
 
-            var exisitingdoctorId = ConnectedDoctorIds.FirstOrDefault(doctorId);
-            if (exisitingdoctorId == null)
+
+            if (!_connectedDoctorIds.Contains(doctorId))
                 throw new Exception("No Doctor Found with this Id");
          _connectedDoctorIds.Remove(doctorId);
             UpdateTimestamp();

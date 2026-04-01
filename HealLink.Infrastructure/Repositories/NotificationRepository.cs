@@ -20,40 +20,30 @@ namespace HealLink.Infrastructure.Repositories
 
         public async Task<Notification> CreateNotificationAsync(Notification notification)
         {
-            if (notification == null)
-                throw new ArgumentNullException(nameof(notification));
-
+            if (notification == null) throw new ArgumentNullException(nameof(notification));
             await _context.Notifications.AddAsync(notification);
-            await _context.SaveChangesAsync();
-            
             return notification;
         }
 
         public async Task<List<Notification>> GetDoctorNotificationsAsync(Guid doctorId)
-        {
-            return await _context.Notifications
+            => await _context.Notifications
                 .Where(n => n.DoctorId == doctorId)
                 .OrderByDescending(n => n.CreatedAt)
                 .ToListAsync();
-        }
 
         public async Task<List<Notification>> GetPatientNotificationsAsync(Guid patientId)
-        {
-            return await _context.Notifications
+            => await _context.Notifications
                 .Where(n => n.PatientId == patientId)
                 .OrderByDescending(n => n.CreatedAt)
                 .ToListAsync();
-        }
 
         public async Task<Notification> GetByIdAsync(Guid id)
-        {
-            return await _context.Notifications.FindAsync(id);
-        }
+            => await _context.Notifications.FindAsync(id);
 
-        public async Task UpdateNotificationAsync(Notification notification)
+        public Task UpdateNotificationAsync(Notification notification)
         {
             _context.Notifications.Update(notification);
-            await _context.SaveChangesAsync();
+            return Task.CompletedTask;
         }
     }
 }

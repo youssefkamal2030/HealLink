@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using healLink.Application.Commands.Profile;
+using healLink.Application.Interfaces;
 using healLink.Application.Repositories;
 using HealLink.Contracts.Profile.Responses;
 using HealLink.Domain.Entities;
@@ -15,37 +14,38 @@ namespace healLink.Application.Handlers.Profile
     public class CreateProfileCommandHandler : IRequestHandler<CreateProfileCommand, CreateProfileResponse>
     {
         private readonly IProfileRepository _profileRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CreateProfileCommandHandler(IProfileRepository profileRepository)
+        public CreateProfileCommandHandler(IProfileRepository profileRepository, IUnitOfWork unitOfWork)
         {
             _profileRepository = profileRepository;
+            _unitOfWork = unitOfWork;
         }
+
         public async Task<CreateProfileResponse> Handle(CreateProfileCommand request, CancellationToken cancellationToken)
         {
             if (request.Role == UserRole.Patient)
             {
                 var existingPatient = await _profileRepository.GetPatientByUserIdAsync(request.UserId, cancellationToken);
                 if (existingPatient != null)
-                {
                     return new CreateProfileResponse("Patient profile already exists for this user.", false);
-                }
 
                 var newPatient = new Patient(request.UserId);
                 await _profileRepository.AddPatientAsync(newPatient, cancellationToken);
+                await _unitOfWork.SaveChangesAsync(cancellationToken);
 
                 return new CreateProfileResponse("Patient profile created successfully.", true);
             }
 
-            if (request.Role == HealLink.Domain.Enums.UserRole.Doctor)
+            if (request.Role == UserRole.Doctor)
             {
                 var existingDoctor = await _profileRepository.GetDoctorByUserIdAsync(request.UserId, cancellationToken);
                 if (existingDoctor != null)
-                {
                     return new CreateProfileResponse("Doctor profile already exists for this user.", false);
-                }
 
-                var newDoctor = new Doctor(request.UserId,null,null,request.syndicateIdImagePath,request.practiceLicenseNumber,request.specialization,null);
+                var newDoctor = new Doctor(request.UserId, null, null, request.syndicateIdImagePath, request.practiceLicenseNumber, request.specialization, null);
                 await _profileRepository.AddDoctorAsync(newDoctor, cancellationToken);
+                await _unitOfWork.SaveChangesAsync(cancellationToken);
 
                 return new CreateProfileResponse("Doctor profile created successfully.", true);
             }

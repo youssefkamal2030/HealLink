@@ -10,50 +10,39 @@ using healLink.Application.Commands.Auth;
 using healLink.Application.Commands.Profile;
 using HealLink.Contracts.Auth.Responses;
 
-public class RegisterCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasher, IMediator mediator, IEmailService emailService, IPhotoService photoService) : IRequestHandler<RegisterCommand, RegisterResponse>
+public class RegisterCommandHandler(IUserRepository userRepository, IPasswordHasher passwordHasher, IMediator mediator, IEmailService emailService, IPhotoService photoService, IUnitOfWork unitOfWork) : IRequestHandler<RegisterCommand, RegisterResponse>
 {
     private readonly IPhotoService _photoService = photoService;
     private readonly IUserRepository _userRepository = userRepository;
     private readonly IPasswordHasher _passwordHasher = passwordHasher;
     private readonly IMediator _mediator = mediator;
     private readonly IEmailService _emailService = emailService;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
     public async Task<RegisterResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
         var existingUser = await _userRepository.GetByEmailAsync(request.email, cancellationToken);
         if (existingUser != null)
-        {
-            return new RegisterResponse("Email Already Taken"); 
-        }
+            return new RegisterResponse("Email Already Taken");
 
-        
         var hashedPasswordResult = _passwordHasher.HashPassword(request.password);
-
         if (hashedPasswordResult.IsError)
-        {
             return new RegisterResponse("Password hashing failed");
-        }
 
-        var hashedPassword = hashedPasswordResult.Value;
-
-
-        var user = new User(
-            request.username,
-            hashedPassword,
-            request.email,
-            request.Role
-        );
+        var user = new User(request.username, hashedPasswordResult.Value, request.email, request.Role);
 
         await _userRepository.AddAsync(user, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
+
         await _emailService.SendOtpAsync(user);
-        var SyndicateIdPath = await _photoService.SavePhotoAsync(request.SyndicateId, "uploads");
-        var CreateProfileCommand = new CreateProfileCommand(user.Id, user.Role,request.Specilization,request.PracticeLicenseNumber,SyndicateIdPath );
-        var result = await _mediator.Send(CreateProfileCommand);
-        if(result.Success == false)
-        {
+
+        var syndicateIdPath = await _photoService.SavePhotoAsync(request.SyndicateId, "uploads");
+        var createProfileCommand = new CreateProfileCommand(user.Id, user.Role, request.Specilization, request.PracticeLicenseNumber, syndicateIdPath);
+        var result = await _mediator.Send(createProfileCommand, cancellationToken);
+
+        if (!result.Success)
             return new RegisterResponse("Profile creation failed: " + result.Message);
-        }
+
         return new RegisterResponse("User registered successfully");
     }
-
 }

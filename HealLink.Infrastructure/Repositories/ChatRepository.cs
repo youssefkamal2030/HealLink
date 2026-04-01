@@ -46,10 +46,9 @@ namespace HealLink.Infrastructure.Repositories
             try
             {
                 await _context.ChatMessages.AddAsync(message);
-                await _context.SaveChangesAsync();
 
                 _logger.LogInformation(
-                    "Chat message stored successfully. MessageId: {MessageId}, SenderId: {SenderId}",
+                    "Chat message staged for save. MessageId: {MessageId}, SenderId: {SenderId}",
                     message.Id,
                     message.SenderId);
             }

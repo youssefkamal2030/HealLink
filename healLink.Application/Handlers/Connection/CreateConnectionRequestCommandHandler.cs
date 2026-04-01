@@ -1,8 +1,8 @@
 ﻿using healLink.Application.Commands.Connections;
 using healLink.Application.Common.Models;
+using healLink.Application.Interfaces;
 using healLink.Application.Repositories;
 using HealLink.Contracts.Connections.Responses;
-using HealLink.Domain.DomainEvents;
 using HealLink.Domain.Entities;
 using MediatR;
 
@@ -11,38 +11,34 @@ namespace healLink.Application.Handlers.Connection
     public class CreateConnectionRequestCommandHandler
         : IRequestHandler<CreateConnectionRequestCommand, Result<CreateConnectionRequestResponse>>
     {
-        private readonly IDoctorPatientDoctorPatientConnectionRepository _DoctorPatientConnectionRepository;
-        private readonly IMediator _mediator;
+        private readonly IDoctorPatientDoctorPatientConnectionRepository _connectionRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
         public CreateConnectionRequestCommandHandler(
-            IDoctorPatientDoctorPatientConnectionRepository DoctorPatientConnectionRepository,
-            IMediator mediator)
+            IDoctorPatientDoctorPatientConnectionRepository connectionRepository,
+            IUnitOfWork unitOfWork)
         {
-            _DoctorPatientConnectionRepository = DoctorPatientConnectionRepository;
-            _mediator = mediator;
+            _connectionRepository = connectionRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Result<CreateConnectionRequestResponse>> Handle(
-         CreateConnectionRequestCommand request,
-         CancellationToken cancellationToken)
+            CreateConnectionRequestCommand request,
+            CancellationToken cancellationToken)
         {
             try
             {
-                // Check if connection already exists
-                if (await _DoctorPatientConnectionRepository.ConnectionExistsAsync(request.DoctorId, request.PatientId))
+                if (await _connectionRepository.ConnectionExistsAsync(request.DoctorId, request.PatientId))
                     return Result<CreateConnectionRequestResponse>.Failure("Connection request already exists.");
 
-                // Create DoctorPatientConnection
                 var connection = new DoctorPatientConnection(request.DoctorId, request.PatientId);
-                var result = await _DoctorPatientConnectionRepository.AddAsync(connection);
+                var result = await _connectionRepository.AddAsync(connection);
 
-                // Publish domain event
-                await _mediator.Publish(
-                    new ConnectionRequestCreatedEvent(result.Id, result.DoctorId, result.PatientId), 
-                    cancellationToken);
+                // UnitOfWork saves and dispatches ConnectionRequestCreatedEvent raised by the aggregate
+                await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-                var response = new CreateConnectionRequestResponse(result.Id, result.Status.ToString());
-                return Result<CreateConnectionRequestResponse>.Success(response);
+                return Result<CreateConnectionRequestResponse>.Success(
+                    new CreateConnectionRequestResponse(result.Id, result.Status.ToString()));
             }
             catch
             {

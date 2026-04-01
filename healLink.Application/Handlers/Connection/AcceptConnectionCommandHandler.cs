@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using healLink.Application.Commands.Connections;
 using healLink.Application.Common.Models;
+using healLink.Application.Interfaces;
 using healLink.Application.Repositories;
 using HealLink.Contracts.Connections.Responses;
 using MediatR;
@@ -12,10 +13,12 @@ namespace healLink.Application.Handlers.Connection
     public class AcceptConnectionCommandHandler : IRequestHandler<AcceptConnectionCommand, Result<ConnectionActionResponse>>
     {
         private readonly IDoctorRepository _doctorRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AcceptConnectionCommandHandler(IDoctorRepository doctorRepository)
+        public AcceptConnectionCommandHandler(IDoctorRepository doctorRepository, IUnitOfWork unitOfWork)
         {
             _doctorRepository = doctorRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Result<ConnectionActionResponse>> Handle(AcceptConnectionCommand request, CancellationToken cancellationToken)
@@ -23,16 +26,14 @@ namespace healLink.Application.Handlers.Connection
             try
             {
                 var doctor = await _doctorRepository.GetByDoctorId(request.DoctorId);
-
                 if (doctor == null)
                     return Result<ConnectionActionResponse>.Failure("Doctor not found");
 
                 doctor.AcceptPatientRequest(request.ConnectionId);
-
                 await _doctorRepository.UpdateAsync(doctor);
+                await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-                return Result<ConnectionActionResponse>.Success(
-                    new ConnectionActionResponse("Connection accepted successfully"));
+                return Result<ConnectionActionResponse>.Success(new ConnectionActionResponse("Connection accepted successfully"));
             }
             catch (InvalidOperationException ex)
             {
