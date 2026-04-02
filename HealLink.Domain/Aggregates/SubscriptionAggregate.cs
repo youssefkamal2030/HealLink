@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using HealLink.Domain.Base;
 using HealLink.Domain.Entities;
 
 namespace HealLink.Domain.Aggregates
@@ -9,7 +10,7 @@ namespace HealLink.Domain.Aggregates
     // TODO: [AGGREGATE] Payment state transitions (Complete, Fail, Refund) are managed directly on the Payment entity from outside the aggregate — the aggregate must expose these as methods (e.g., CompletePayment(), FailPayment(), RefundPayment()) to enforce invariants and raise domain events.
     // TODO: [AGGREGATE] Payment.Refund() has no guard — per BR-SUB-06, a failed payment cannot be refunded. That invariant must be enforced here in the aggregate's RefundPayment() method, not left to callers.
     // TODO: [AGGREGATE-MISSING] Domain events are entirely absent — SubscriptionRenewed, SubscriptionDeactivated, PaymentCompleted, PaymentFailed are all significant state transitions per the business rules and must be raised from this aggregate.
-    public class SubscriptionAggregate
+    public class SubscriptionAggregate : AggregateRoot
     {
         public Subscription Subscription { get; private set; }
         private readonly List<Payment> _payments = new();

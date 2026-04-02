@@ -5,7 +5,6 @@ using HealLink.Domain.ValueObjects;
 
 namespace HealLink.Domain.Entities
 {
-    // TODO: [DDD] Subscription does not extend AggregateRoot — it cannot raise domain events.
     // TODO: [DDD] Amount is typed as int — monetary values should use the Money value object (HealLink.Domain/ValueObjects/Money.cs) to encapsulate currency and amount together.
     // TODO: [DDD] Doctor navigation property has no setter visibility control — it should be private set or removed (use DoctorId for reference within the domain).
     // TODO: [DDD] No domain event raised on Deactivate() or Renew() — these are significant state transitions that downstream contexts may need to react to.
@@ -17,8 +16,8 @@ namespace HealLink.Domain.Entities
     {
         public Guid PatientId { get; private set; }
         public Guid DoctorId { get; private set; }
-        public Doctor Doctor { get; private set; }
-        public int Amount { get; private set; }
+        public Doctor? Doctor { get; private set; }
+        public Money Amount { get; private set; }
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
         public bool IsActive { get; private set; }
@@ -26,7 +25,7 @@ namespace HealLink.Domain.Entities
     
         private Subscription() { } 
 
-        public Subscription(Guid patientId, Guid doctorId, int amount, DateTime startDate, DateTime endDate, bool isMonthly)
+        public Subscription(Guid patientId, Guid doctorId, Money amount, DateTime startDate, DateTime endDate, bool isMonthly)
         {
             PatientId = patientId;
             DoctorId = doctorId;

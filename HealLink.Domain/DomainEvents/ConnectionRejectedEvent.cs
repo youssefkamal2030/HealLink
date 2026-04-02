@@ -9,7 +9,7 @@ namespace HealLink.Domain.DomainEvents
         Guid ConnectionId,
         Guid DoctorId,
         Guid PatientId
-    ) : IDomainEvent, INotification
+    ) : IDomainEvent
     {
         public DateTime OccurredOn { get; } = DateTime.UtcNow;
     }
