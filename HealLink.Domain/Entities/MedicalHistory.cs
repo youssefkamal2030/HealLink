@@ -22,11 +22,11 @@ namespace HealLink.Domain.Entities
 
         public MedicalHistory(Guid patientId, MedicalHistoryType type, string? description = null, string? fileLink = null)
         {
-            Id = Guid.NewGuid();
+            
             PatientId = patientId;
             Type = type;
             FileLink = fileLink;
-            CreatedAt = DateTime.UtcNow;
+           
         }
 
         public void UpdateDetails(MedicalHistoryDetails newDetails)

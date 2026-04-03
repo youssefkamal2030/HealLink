@@ -8,11 +8,6 @@ namespace HealLink.Domain.Entities
 {
     
     // TODO: [DDD] UploadTestResult/ConfirmMedicationReminder use UnauthorizedAccessException — replace with a domain-specific exception.
-    // TODO: [TASK-A] Replace ICollection<DoctorPatientConnection> DoctorConnections with a private List<Guid> _connectedDoctorIds and expose it as IReadOnlyCollection<Guid> ConnectedDoctorIds. DoctorAggregate owns the connection objects; Patient only tracks the IDs of connected doctors.
-    // TODO: [TASK-A] Add AddConnectedDoctor(Guid doctorId) — appends to _connectedDoctorIds if not already present, calls UpdateTimestamp(). [done]
-    // TODO: [TASK-A] Add RemoveConnectedDoctor(Guid doctorId) — removes from _connectedDoctorIds if present, calls UpdateTimestamp().[done]
-    // TODO: [TASK-A] Update ConnectionAcceptedHandler to load Patient via IPatientRepository and call patient.AddConnectedDoctor(notification.DoctorId), then persist.
-    // TODO: [TASK-A] Update ConnectionRejectedHandler to load Patient via IPatientRepository and call patient.RemoveConnectedDoctor(notification.DoctorId), then persist.
     public class Patient : AggregateRoot
     {
         public Guid UserId { get; private set; }
