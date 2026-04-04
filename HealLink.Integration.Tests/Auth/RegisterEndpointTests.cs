@@ -30,7 +30,7 @@ namespace HealLink.Integration.Tests.Auth
 
         private async Task ConfirmEmailAsync(string email)
         {
-            await _client.PostAsJsonAsync("/Auth/confirm-email",
+            await _client.PostAsJsonAsync("api/Auth/confirm-email",
                 new { Email = email, Code = FakeEmailService.TestOtpCode });
         }
 
@@ -39,7 +39,7 @@ namespace HealLink.Integration.Tests.Auth
         [Fact]
         public async Task Register_WithValidPatientPayload_Returns200()
         {
-            var response = await _client.PostAsync("/Auth/register", ValidPatientForm($"ok_{Guid.NewGuid()}@test.com"));
+            var response = await _client.PostAsync("api/Auth/register", ValidPatientForm($"ok_{Guid.NewGuid()}@test.com"));
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
@@ -47,7 +47,7 @@ namespace HealLink.Integration.Tests.Auth
         public async Task Register_WithValidPayload_CreatesUserInDatabase()
         {
             var email = $"db_{Guid.NewGuid()}@test.com";
-            await _client.PostAsync("/Auth/register", ValidPatientForm(email));
+            await _client.PostAsync("api/Auth/register", ValidPatientForm(email));
 
             using var db = _factory.CreateDbContext();
             var user = await db.Users.FirstOrDefaultAsync(u => u.Email == email);
@@ -58,7 +58,7 @@ namespace HealLink.Integration.Tests.Auth
         public async Task Register_WithValidPatientPayload_CreatesPatientProfile()
         {
             var email = $"profile_{Guid.NewGuid()}@test.com";
-            await _client.PostAsync("/Auth/register", ValidPatientForm(email));
+            await _client.PostAsync("api/Auth/register", ValidPatientForm(email));
 
             using var db = _factory.CreateDbContext();
             var user = await db.Users.FirstOrDefaultAsync(u => u.Email == email);
@@ -73,9 +73,9 @@ namespace HealLink.Integration.Tests.Auth
         public async Task ConfirmEmail_WithValidOtp_Returns200()
         {
             var email = $"confirm_{Guid.NewGuid()}@test.com";
-            await _client.PostAsync("/Auth/register", ValidPatientForm(email));
+            await _client.PostAsync("api/Auth/register", ValidPatientForm(email));
 
-            var response = await _client.PostAsJsonAsync("/Auth/confirm-email",
+            var response = await _client.PostAsJsonAsync("api/Auth/confirm-email",
                 new { Email = email, Code = FakeEmailService.TestOtpCode });
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -85,7 +85,7 @@ namespace HealLink.Integration.Tests.Auth
         public async Task ConfirmEmail_WithValidOtp_SetsEmailConfirmedInDatabase()
         {
             var email = $"confirmed_{Guid.NewGuid()}@test.com";
-            await _client.PostAsync("/Auth/register", ValidPatientForm(email));
+            await _client.PostAsync("api/Auth/register", ValidPatientForm(email));
             await ConfirmEmailAsync(email);
 
             using var db = _factory.CreateDbContext();
@@ -98,9 +98,9 @@ namespace HealLink.Integration.Tests.Auth
         public async Task ConfirmEmail_WithWrongOtp_Returns400()
         {
             var email = $"wrongotp_{Guid.NewGuid()}@test.com";
-            await _client.PostAsync("/Auth/register", ValidPatientForm(email));
+            await _client.PostAsync("api/Auth/register", ValidPatientForm(email));
 
-            var response = await _client.PostAsJsonAsync("/Auth/confirm-email",
+            var response = await _client.PostAsJsonAsync("api/Auth/confirm-email",
                 new { Email = email, Code = "999999" });
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -110,10 +110,10 @@ namespace HealLink.Integration.Tests.Auth
         public async Task ConfirmEmail_WhenAlreadyConfirmed_Returns400()
         {
             var email = $"double_{Guid.NewGuid()}@test.com";
-            await _client.PostAsync("/Auth/register", ValidPatientForm(email));
+            await _client.PostAsync("api/Auth/register", ValidPatientForm(email));
             await ConfirmEmailAsync(email);
 
-            var response = await _client.PostAsJsonAsync("/Auth/confirm-email",
+            var response = await _client.PostAsJsonAsync("api/Auth/confirm-email",
                 new { Email = email, Code = FakeEmailService.TestOtpCode });
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -125,8 +125,8 @@ namespace HealLink.Integration.Tests.Auth
         public async Task Register_WithDuplicateEmail_ReturnsBadRequest()
         {
             var email = $"dup_{Guid.NewGuid()}@test.com";
-            await _client.PostAsync("/Auth/register", ValidPatientForm(email));
-            var secondResponse = await _client.PostAsync("/Auth/register", ValidPatientForm(email));
+            await _client.PostAsync("api/Auth/register", ValidPatientForm(email));
+            var secondResponse = await _client.PostAsync("api/Auth/register", ValidPatientForm(email));
             var body = await secondResponse.Content.ReadAsStringAsync();
             Assert.Contains("Email Already Taken", body, StringComparison.OrdinalIgnoreCase);
         }
@@ -142,7 +142,7 @@ namespace HealLink.Integration.Tests.Auth
             form.Add(new StringContent(""), "Email");
             form.Add(new StringContent("Patient"), "Role");
 
-            var response = await _client.PostAsync("/Auth/register", form);
+            var response = await _client.PostAsync("api/Auth/register", form);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
@@ -155,7 +155,7 @@ namespace HealLink.Integration.Tests.Auth
             form.Add(new StringContent("not-an-email"), "Email");
             form.Add(new StringContent("Patient"), "Role");
 
-            var response = await _client.PostAsync("/Auth/register", form);
+            var response = await _client.PostAsync("api/Auth/register", form);
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
     }

@@ -22,6 +22,15 @@ namespace HealLink.Infrastructure.Repositories
                 .Include(p => p.Guardian)
                 .FirstOrDefaultAsync(p => p.Id == patientId);
 
+        public async Task<List<Patient>> GetByPatientIdsAsync(IEnumerable<Guid> patientIds, CancellationToken cancellationToken = default)
+        {
+            var ids = patientIds.ToList();
+            return await _context.Patients
+                .Include(p => p.User)
+                .Where(p => ids.Contains(p.Id))
+                .ToListAsync(cancellationToken);
+        }
+
         public Task<string> GetPatientNameById(Guid patientId)
             => _context.Patients
                 .Where(p => p.Id == patientId)

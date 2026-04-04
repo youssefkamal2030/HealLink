@@ -50,8 +50,8 @@ namespace healLink.Application.Handlers.Profile
             if (doctor != null)
             {
                 var user = await _userRepository.GetUserByIdAsync(request.UserId, cancellationToken);
-                var address = doctor.Address != null 
-                    ? $"{doctor.Address}, {doctor.Address.City}, {doctor.Address}, {doctor.Address}"
+                var address = doctor.Address != null
+                    ? $"{doctor.Address.City}, {doctor.Address.Country}"
                     : string.Empty;
 
                 var doctorProfile = new DoctorProfileResponse(

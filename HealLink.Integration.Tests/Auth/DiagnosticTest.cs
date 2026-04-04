@@ -26,7 +26,7 @@ namespace HealLink.Integration.Tests.Auth
             form.Add(new StringContent($"diag_{Guid.NewGuid()}@test.com"), "Email");
             form.Add(new StringContent("Patient"), "Role");
 
-            var response = await _client.PostAsync("/Auth/register", form);
+            var response = await _client.PostAsync("api/Auth/register", form);
             var body = await response.Content.ReadAsStringAsync();
             _output.WriteLine($"Status: {response.StatusCode}");
             _output.WriteLine($"Body: {body}");
@@ -42,9 +42,9 @@ namespace HealLink.Integration.Tests.Auth
             form.Add(new StringContent("Test@1234"), "Password");
             form.Add(new StringContent(email), "Email");
             form.Add(new StringContent("Patient"), "Role");
-            await _client.PostAsync("/Auth/register", form);
+            await _client.PostAsync("api/Auth/register", form);
 
-            var confirmResponse = await _client.PostAsJsonAsync("/Auth/confirm-email",
+            var confirmResponse = await _client.PostAsJsonAsync("api/Auth/confirm-email",
                 new { Email = email, Code = FakeEmailService.TestOtpCode });
             var body = await confirmResponse.Content.ReadAsStringAsync();
             _output.WriteLine($"Status: {confirmResponse.StatusCode}");

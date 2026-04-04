@@ -1,7 +1,4 @@
-﻿// HealLink.Application/Handlers/Doctor/GetConnectedPatientsQueryHandler.cs
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using healLink.Application.Common.Models;
@@ -29,38 +26,31 @@ namespace HealLink.Application.Handlers.Doctor
         {
             var doctor = await _doctorRepository.GetByDoctorId(request.DoctorId);
             if (doctor == null)
-            {
-                return Result<ConnectedPatientsResponse>.Failure("doctor not found");
-            }
+                return Result<ConnectedPatientsResponse>.Failure("Doctor not found.");
 
             var connectedPatientIds = doctor.PatientConnections
                 .Where(c => c.Status == ConnectionStatus.Accepted)
                 .Select(c => c.PatientId)
                 .ToList();
 
-            var connectedPatients = new List<PatientProfileResponse>();
-            foreach (var patientId in connectedPatientIds)
-            {
-                var patient = await _patientRepository.GetByPatientId(patientId);
-               if (patient?.User != null)
-                {
-                    connectedPatients.Add(new PatientProfileResponse(
-                        Id: patient.Id,
-                        UserId: patient.UserId,
-                        FullName: patient.User.Username,
-                        Email: patient.User.Email,
-                        GuardianId: patient.GuardianId
-                    ));
-                }
-            }
+            // Single query instead of one per patient
+            var patients = await _patientRepository.GetByPatientIdsAsync(connectedPatientIds, cancellationToken);
 
-            var response = new ConnectedPatientsResponse(
-             Success: true,
-             Message: "Connected patients retrieved successfully.",
-             ConnectedPatients: connectedPatients,
-             TotalCount: connectedPatients.Count
-         );
-            return Result<ConnectedPatientsResponse>.Success(response);
+            var connectedPatients = patients
+                .Where(p => p.User != null)
+                .Select(p => new PatientProfileResponse(
+                    Id: p.Id,
+                    UserId: p.UserId,
+                    FullName: p.User.Username,
+                    Email: p.User.Email,
+                    GuardianId: p.GuardianId))
+                .ToList();
+
+            return Result<ConnectedPatientsResponse>.Success(new ConnectedPatientsResponse(
+                Success: true,
+                Message: "Connected patients retrieved successfully.",
+                ConnectedPatients: connectedPatients,
+                TotalCount: connectedPatients.Count));
         }
     }
 }

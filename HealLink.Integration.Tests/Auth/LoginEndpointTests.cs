@@ -21,10 +21,10 @@ namespace HealLink.Integration.Tests.Auth
             form.Add(new StringContent(password), "Password");
             form.Add(new StringContent(email), "Email");
             form.Add(new StringContent("Patient"), "Role");
-            await _client.PostAsync("/Auth/register", form);
+            await _client.PostAsync("api/Auth/register", form);
 
             // FakeEmailService always uses "000000" as the OTP code
-            await _client.PostAsJsonAsync("/Auth/confirm-email",
+            await _client.PostAsJsonAsync("api/Auth/confirm-email",
                 new { Email = email, Code = FakeEmailService.TestOtpCode });
         }
 
@@ -36,7 +36,7 @@ namespace HealLink.Integration.Tests.Auth
             var email = $"login_{Guid.NewGuid()}@test.com";
             await RegisterAndConfirmAsync(email);
 
-            var response = await _client.PostAsJsonAsync("/Auth/login",
+            var response = await _client.PostAsJsonAsync("api/Auth/login",
                 new { Email = email, Password = "Test@1234" });
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -48,7 +48,7 @@ namespace HealLink.Integration.Tests.Auth
             var email = $"token_{Guid.NewGuid()}@test.com";
             await RegisterAndConfirmAsync(email);
 
-            var response = await _client.PostAsJsonAsync("/Auth/login",
+            var response = await _client.PostAsJsonAsync("api/Auth/login",
                 new { Email = email, Password = "Test@1234" });
 
             var body = await response.Content.ReadAsStringAsync();
@@ -64,10 +64,10 @@ namespace HealLink.Integration.Tests.Auth
             form.Add(new StringContent("Test@1234"), "Password");
             form.Add(new StringContent(email), "Email");
             form.Add(new StringContent("Patient"), "Role");
-            await _client.PostAsync("/Auth/register", form);
+            await _client.PostAsync("api/Auth/register", form);
             // deliberately skip confirm-email
 
-            var response = await _client.PostAsJsonAsync("/Auth/login",
+            var response = await _client.PostAsJsonAsync("api/Auth/login",
                 new { Email = email, Password = "Test@1234" });
 
             Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
@@ -78,7 +78,7 @@ namespace HealLink.Integration.Tests.Auth
         [Fact]
         public async Task Login_WithNonExistentEmail_ReturnsUnauthorized()
         {
-            var response = await _client.PostAsJsonAsync("/Auth/login",
+            var response = await _client.PostAsJsonAsync("api/Auth/login",
                 new { Email = "nobody@nowhere.com", Password = "Test@1234" });
 
             Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
@@ -89,7 +89,7 @@ namespace HealLink.Integration.Tests.Auth
         [Fact]
         public async Task Login_WithEmptyEmail_Returns400()
         {
-            var response = await _client.PostAsJsonAsync("/Auth/login",
+            var response = await _client.PostAsJsonAsync("api/Auth/login",
                 new { Email = "", Password = "Test@1234" });
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -98,7 +98,7 @@ namespace HealLink.Integration.Tests.Auth
         [Fact]
         public async Task Login_WithInvalidEmailFormat_Returns400()
         {
-            var response = await _client.PostAsJsonAsync("/Auth/login",
+            var response = await _client.PostAsJsonAsync("api/Auth/login",
                 new { Email = "not-an-email", Password = "Test@1234" });
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -107,7 +107,7 @@ namespace HealLink.Integration.Tests.Auth
         [Fact]
         public async Task Login_WithEmptyPassword_Returns400()
         {
-            var response = await _client.PostAsJsonAsync("/Auth/login",
+            var response = await _client.PostAsJsonAsync("api/Auth/login",
                 new { Email = "valid@test.com", Password = "" });
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
