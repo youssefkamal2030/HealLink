@@ -30,7 +30,7 @@ namespace HealLink.Infrastructure
             services.AddScoped<EmailBodyBuilder>();
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IDoctorRepository, DoctorRepository>();
-            services.AddScoped<IDoctorPatientDoctorPatientConnectionRepository, DoctorPatientConnectionRepository>();
+            services.AddScoped<IDoctorPatientConnectionRepository, DoctorPatientConnectionRepository>();
             services.AddScoped<INotificationRepository, NotificationRepository>();
             services.AddScoped<IChatRepository, ChatRepository>();
             services.AddScoped<IChatService, ChatService>();

@@ -14,7 +14,7 @@ namespace HealLink.Integration.Tests.Auth
             _client = factory.CreateClient();
         }
 
-        private async Task RegisterAsync(string email, string password = "Test@1234")
+        private async Task RegisterAndConfirmAsync(string email, string password = "Test@1234")
         {
             var form = new MultipartFormDataContent();
             form.Add(new StringContent("loginuser"), "username");
@@ -22,6 +22,10 @@ namespace HealLink.Integration.Tests.Auth
             form.Add(new StringContent(email), "Email");
             form.Add(new StringContent("Patient"), "Role");
             await _client.PostAsync("/Auth/register", form);
+
+            // FakeEmailService always uses "000000" as the OTP code
+            await _client.PostAsJsonAsync("/Auth/confirm-email",
+                new { Email = email, Code = FakeEmailService.TestOtpCode });
         }
 
         // ── Happy path ───────────────────────────────────────────────────────
@@ -30,7 +34,7 @@ namespace HealLink.Integration.Tests.Auth
         public async Task Login_WithValidCredentials_Returns200()
         {
             var email = $"login_{Guid.NewGuid()}@test.com";
-            await RegisterAsync(email);
+            await RegisterAndConfirmAsync(email);
 
             var response = await _client.PostAsJsonAsync("/Auth/login",
                 new { Email = email, Password = "Test@1234" });
@@ -42,13 +46,31 @@ namespace HealLink.Integration.Tests.Auth
         public async Task Login_WithValidCredentials_ReturnsNonEmptyBody()
         {
             var email = $"token_{Guid.NewGuid()}@test.com";
-            await RegisterAsync(email);
+            await RegisterAndConfirmAsync(email);
 
             var response = await _client.PostAsJsonAsync("/Auth/login",
                 new { Email = email, Password = "Test@1234" });
 
             var body = await response.Content.ReadAsStringAsync();
             Assert.False(string.IsNullOrWhiteSpace(body));
+        }
+
+        [Fact]
+        public async Task Login_WithUnconfirmedEmail_ReturnsUnauthorized()
+        {
+            var email = $"unconfirmed_{Guid.NewGuid()}@test.com";
+            var form = new MultipartFormDataContent();
+            form.Add(new StringContent("loginuser"), "username");
+            form.Add(new StringContent("Test@1234"), "Password");
+            form.Add(new StringContent(email), "Email");
+            form.Add(new StringContent("Patient"), "Role");
+            await _client.PostAsync("/Auth/register", form);
+            // deliberately skip confirm-email
+
+            var response = await _client.PostAsJsonAsync("/Auth/login",
+                new { Email = email, Password = "Test@1234" });
+
+            Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
         }
 
         // ── Wrong credentials ────────────────────────────────────────────────

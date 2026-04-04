@@ -23,12 +23,13 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResponse>
     {
         var user = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
         if (user == null || !_passwordHasher.IsCorrectPassword(request.Password, user.PasswordHash))
-        {
             throw new UnauthorizedAccessException("Invalid credentials");
-        }
+
+        if (!user.EmailConfirmed)
+            throw new UnauthorizedAccessException("Email not confirmed. Please verify your email before logging in.");
 
         var token = await _jwtTokenGenerator.GenerateTokenAsync(user);
-        return new LoginResponse(user.Id,user.Username,user.Email,token);
+        return new LoginResponse(user.Id, user.Username, user.Email, token);
     }
 }
 

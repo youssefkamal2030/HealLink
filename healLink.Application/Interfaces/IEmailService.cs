@@ -12,8 +12,8 @@ namespace healLink.Application.Interfaces
     {
         Task SendEmailAsync(string to, string subject, string body);
         Task SendPasswordResetEmailAsync(string to, string resetLink);
-        Task SendOtpAsync(User user);
-        Task SendPasswordResetOtpAsync(User user);
+        Task<string> SendOtpAsync(User user);       // returns the OTP code so caller can persist it
+        Task<string> SendPasswordResetOtpAsync(User user);
         Task ConfirmEmailAsync(ConfirmEmailRequest request);
     }
 }

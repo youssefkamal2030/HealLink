@@ -37,7 +37,17 @@ namespace HealLink.Infrastructure.Data
      
 
             // User
-            modelBuilder.Entity<User>().ToTable("Users");
+            modelBuilder.Entity<User>()
+                .ToTable("Users")
+                .Ignore(u => u.OTPs); // OTPs is a domain-only collection; EF manages OTPs via the OTPs DbSet
+
+            // OTP — FK to User only; no navigation properties tracked by EF
+            modelBuilder.Entity<OTP>()
+                .Ignore(o => o.User)
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(o => o.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Patient - CASCADE from User, NO ACTION to Guardian
             modelBuilder.Entity<Patient>()
@@ -145,6 +155,9 @@ namespace HealLink.Infrastructure.Data
      .WithMany(d => d.Subscriptions)
      .HasForeignKey(s => s.DoctorId)
      .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Subscription>()
+                .OwnsOne(s => s.Amount);
 
             modelBuilder.Entity<Subscription>()
                 .HasOne<Patient>()

@@ -6,9 +6,10 @@ using HealLink.Domain.Entities;
 
 namespace healLink.Application.Repositories
 {
-    public interface IDoctorPatientDoctorPatientConnectionRepository : IRepository<DoctorPatientConnection>
+    public interface IDoctorPatientConnectionRepository : IRepository<DoctorPatientConnection>
     {
         Task<bool> ConnectionExistsAsync(Guid doctorId, Guid patientId);
+        Task<bool> AcceptedConnectionExistsAsync(Guid doctorId, Guid patientId);
         Task<List<DoctorPatientConnection>> GetPendingConnectionsForDoctorAsync(Guid doctorId);
         Task<List<DoctorPatientConnection>> GetConnectionsForDoctorAsync(Guid doctorId);
         Task<List<DoctorPatientConnection>> GetConnectionsForPatientAsync(Guid patientId);

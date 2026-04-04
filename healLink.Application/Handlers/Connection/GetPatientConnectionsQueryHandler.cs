@@ -11,9 +11,9 @@ namespace healLink.Application.Handlers.Connection
 {
     public class GetPatientConnectionsQueryHandler : IRequestHandler<GetPatientConnectionsQuery, Result<ConnectionsListResponse>>
     {
-        private readonly IDoctorPatientDoctorPatientConnectionRepository _DoctorPatientConnectionRepository;
+        private readonly IDoctorPatientConnectionRepository _DoctorPatientConnectionRepository;
 
-        public GetPatientConnectionsQueryHandler(IDoctorPatientDoctorPatientConnectionRepository DoctorPatientConnectionRepository)
+        public GetPatientConnectionsQueryHandler(IDoctorPatientConnectionRepository DoctorPatientConnectionRepository)
         {
             _DoctorPatientConnectionRepository = DoctorPatientConnectionRepository;
         }

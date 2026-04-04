@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HealLink.Infrastructure.Repositories
 {
-    public class DoctorPatientConnectionRepository : IDoctorPatientDoctorPatientConnectionRepository
+    public class DoctorPatientConnectionRepository : IDoctorPatientConnectionRepository
     {
         private readonly HealLinkDbContext _context;
 
@@ -22,6 +22,12 @@ namespace HealLink.Infrastructure.Repositories
         public async Task<bool> ConnectionExistsAsync(Guid doctorId, Guid patientId)
             => await _context.DoctorPatientConnections
                 .AnyAsync(c => c.DoctorId == doctorId && c.PatientId == patientId);
+
+        public async Task<bool> AcceptedConnectionExistsAsync(Guid doctorId, Guid patientId)
+            => await _context.DoctorPatientConnections
+                .AnyAsync(c => c.DoctorId == doctorId
+                            && c.PatientId == patientId
+                            && c.Status == ConnectionStatus.Accepted);
 
         public async Task<List<DoctorPatientConnection>> GetPendingConnectionsForDoctorAsync(Guid doctorId)
             => await _context.DoctorPatientConnections

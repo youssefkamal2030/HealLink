@@ -31,10 +31,16 @@ public class RegisterCommandHandler(IUserRepository userRepository, IPasswordHas
 
         var user = new User(request.username, hashedPasswordResult.Value, request.email, request.Role);
 
+        // Stage the user first so it exists before the OTP references it
         await _userRepository.AddAsync(user, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        await _emailService.SendOtpAsync(user);
+        // SendOtpAsync calls user.RequestOTP() and returns the code.
+        // We then stage the new OTP and save — one commit for user + OTP together.
+        var otpCode = await _emailService.SendOtpAsync(user);
+        var newOtp = user.OTPs.First(o => o.Code == otpCode);
+        await _userRepository.AddOtpAsync(newOtp, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         var syndicateIdPath = request.SyndicateId != null
             ? await _photoService.SavePhotoAsync(request.SyndicateId, "uploads")

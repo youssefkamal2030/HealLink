@@ -34,5 +34,18 @@ namespace HealLink.Infrastructure.Repositories
             _context.Users.Update(user);
             return Task.CompletedTask;
         }
+
+        public async Task AddOtpAsync(OTP otp, CancellationToken cancellationToken = default)
+            => await _context.OTPs.AddAsync(otp, cancellationToken);
+
+        public Task UpdateOtpAsync(OTP otp, CancellationToken cancellationToken = default)
+        {
+            _context.OTPs.Update(otp);
+            return Task.CompletedTask;
+        }
+
+        public async Task<OTP?> GetActiveOtpAsync(Guid userId, string code, CancellationToken cancellationToken = default)
+            => await _context.OTPs
+                .FirstOrDefaultAsync(o => o.UserId == userId && o.Code == code, cancellationToken);
     }
 }

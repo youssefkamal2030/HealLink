@@ -11,11 +11,11 @@ namespace healLink.Application.Handlers.Connection
     public class CreateConnectionRequestCommandHandler
         : IRequestHandler<CreateConnectionRequestCommand, Result<CreateConnectionRequestResponse>>
     {
-        private readonly IDoctorPatientDoctorPatientConnectionRepository _connectionRepository;
+        private readonly IDoctorPatientConnectionRepository _connectionRepository;
         private readonly IUnitOfWork _unitOfWork;
 
         public CreateConnectionRequestCommandHandler(
-            IDoctorPatientDoctorPatientConnectionRepository connectionRepository,
+            IDoctorPatientConnectionRepository connectionRepository,
             IUnitOfWork unitOfWork)
         {
             _connectionRepository = connectionRepository;
