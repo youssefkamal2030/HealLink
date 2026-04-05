@@ -8,20 +8,20 @@ using HealLink.Domain.DomainEvents;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace healLink.Application.Handlers.Connection
+namespace healLink.Application.Handlers.EventHandlers
 {
-    public class ConnectionRejectedHandler : INotificationHandler<DomainEventNotification<ConnectionRejectedEvent>>
+    public class ConnectionRejectedEventHandler : INotificationHandler<DomainEventNotification<ConnectionRejectedEvent>>
     {
         private readonly INotificationService _notificationService;
         private readonly IPatientRepository _patientRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ILogger<ConnectionRejectedHandler> _logger;
+        private readonly ILogger<ConnectionRejectedEventHandler> _logger;
 
-        public ConnectionRejectedHandler(
+        public ConnectionRejectedEventHandler(
             INotificationService notificationService,
             IPatientRepository patientRepository,
             IUnitOfWork unitOfWork,
-            ILogger<ConnectionRejectedHandler> logger)
+            ILogger<ConnectionRejectedEventHandler> logger)
         {
             _notificationService = notificationService;
             _patientRepository = patientRepository;
@@ -31,6 +31,9 @@ namespace healLink.Application.Handlers.Connection
 
         public async Task Handle(DomainEventNotification<ConnectionRejectedEvent> domainEvent, CancellationToken cancellationToken)
         {
+            // TODO: [REFACTOR-P2] Same nested SaveChangesAsync issue as ConnectionAcceptedHandler.
+            // The correct fix: dispatch UpdatePatientConnectionCommand(notification.PatientId, notification.DoctorId, ConnectionOperation.Remove)
+            // and let that command handler own the save. Remove _unitOfWork injection from this handler entirely.
             var notification = domainEvent.DomainEvent;
             var patient = await _patientRepository.GetByPatientId(notification.PatientId);
             if (patient == null)
