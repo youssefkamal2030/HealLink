@@ -10,6 +10,7 @@ namespace HealLink.Domain.Entities
     // TODO: [DDD] It should live in HealLink.Infrastructure, not in the Domain layer.
     // TODO: [DDD] Naming conflicts with the domain concept of IDomainEvent — rename to OutboxMessage or DomainEventOutbox.
     // TODO: [DDD] All properties have public setters — this is a data bag, not a domain object.
+    // TODO: [REFACTOR-P1] Move this entire file to HealLink.Infrastructure/Persistence/OutboxMessage.cs and rename the class to OutboxMessage. Update any references. If this class is not currently used anywhere (check with a codebase search), simply delete it.
     public class DomainEvent
     {
         public Guid Id { get; set; }

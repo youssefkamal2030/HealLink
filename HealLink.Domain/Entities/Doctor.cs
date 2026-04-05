@@ -10,6 +10,9 @@ namespace HealLink.Domain.Entities
     // TODO: [DDD] QRCode is stored as a raw string — it should use the existing QRCode value object (HealLink.Domain/ValueObjects/QRCode.cs) instead of duplicating the concept with QRCode + QRCodeGeneratedAt fields.
     // TODO: [DDD] GenerateQRCode() and IsQRCodeValid() duplicate logic already defined in the QRCode value object — consolidate into the value object.
     // TODO: [DDD] AddNotification() pushes directly onto the collection — notifications should be raised as domain events instead.
+    // TODO: [REFACTOR-P3] Replace `string? QRCode` and `DateTime? QRCodeGeneratedAt` fields with a single `QRCode? QRCode` property using the existing QRCode value object. Update GenerateQRCode() to construct a new QRCode(Guid.NewGuid().ToString(), DateTime.UtcNow) and assign it. Update IsQRCodeValid() to delegate to QRCode.IsValid(). Update RefreshQRCodeIfNeeded() accordingly. Update DbContext to OwnsOne(d => d.QRCode).
+    // TODO: [REFACTOR-P3] Remove AddNotification() from Doctor — notifications are a cross-cutting concern and should be created by the NotificationPersistenceService, not pushed onto the aggregate. The _notifications collection and Notifications property can remain for EF loading but AddNotification() should be removed from the public API.
+    // TODO: [REFACTOR-P3] Raise DoctorApprovedEvent in Approve() — the event class already exists in HealLink.Domain/DomainEvents/DoctorApprovedEvent.cs but is never raised.
     public class Doctor : AggregateRoot
     {
         public Guid UserId { get; private set; }

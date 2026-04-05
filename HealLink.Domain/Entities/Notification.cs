@@ -10,6 +10,8 @@ namespace HealLink.Domain.Entities
     // TODO: [AGGREGATE-MISSING] Notification has no aggregate boundary. Notifications are currently attached to Doctor via a public collection with a public setter, completely outside any aggregate's control. Two options:
     //   Option A (preferred): Fold notifications into their respective aggregates — DoctorAggregate owns doctor notifications, PatientAggregate owns patient notifications. Each aggregate exposes an AddNotification() method and raises the appropriate domain event.
     //   Option B: Create a dedicated NotificationAggregate per recipient, keyed by RecipientId + RecipientType, owning a List<Notification>. This is appropriate if notification querying/pagination becomes a first-class concern.
+    // TODO: [REFACTOR-P3] Add a NotificationType enum to HealLink.Domain/Enums/DomainEnums.cs with values: ConnectionRequest, ConnectionAccepted, ConnectionRejected, MedicationMissed, PrescriptionCreated. Replace the string Type property with NotificationType Type. Update Notification.ForDoctor() and ForPatient() factory methods to accept NotificationType instead of string. Update all callers in NotificationPersistenceService.
+    // TODO: [REFACTOR-P3] Make Doctor and Patient navigation properties private set: `public Doctor? Doctor { get; private set; }` and `public Patient? Patient { get; private set; }`.
     //   Either way, the current pattern of Doctor.notifications having a public setter must be removed.
     public class Notification : Entity
     {

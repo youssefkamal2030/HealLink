@@ -1,6 +1,5 @@
 ﻿using System;
 using HealLink.Domain.Base;
-using MediatR;
 
 namespace HealLink.Domain.DomainEvents
 {

@@ -16,15 +16,13 @@ namespace HealLink.Domain.Entities
         public Guid PatientId { get; private set; }
         public MedicalHistoryDetails Details { get; private set; }
         public string? FileLink { get; private set; } = null;
-        public MedicalHistoryType Type { get; private set; } = MedicalHistoryType.Medication;
 
         private MedicalHistory() { } // For EF
 
-        public MedicalHistory(Guid patientId, MedicalHistoryType type, string? description = null, string? fileLink = null)
+        public MedicalHistory(Guid patientId, string? description = null, string? fileLink = null)
         {
             
             PatientId = patientId;
-            Type = type;
             FileLink = fileLink;
            
         }

@@ -8,6 +8,9 @@ namespace HealLink.Domain.Entities
 {
     
     // TODO: [DDD] UploadTestResult/ConfirmMedicationReminder use UnauthorizedAccessException — replace with a domain-specific exception.
+    // TODO: [REFACTOR-P2] Create a domain-specific exception class HealLink.Domain/Exceptions/DomainUnauthorizedException.cs (extends Exception). Replace all UnauthorizedAccessException throws in Patient with it. Update ExceptionHandlingMiddleware to map DomainUnauthorizedException → 403 Forbidden.
+    // TODO: [REFACTOR-P2] AddConnectedDoctor/RemoveConnectedDoctor throw generic Exception — replace with InvalidOperationException and a descriptive message consistent with the rest of the domain.
+    // TODO: [REFACTOR-P3] Patient.Guardian navigation property is public with no setter — should be private set. Same for Patient.User. These are EF navigation properties and should not be assignable from outside the aggregate.
     public class Patient : AggregateRoot
     {
         public Guid UserId { get; private set; }

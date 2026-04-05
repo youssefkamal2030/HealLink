@@ -11,6 +11,8 @@ namespace HealLink.Domain.Entities
     //   - BR-CHAT-02 (doctor must have IsAvailableForChat = true) has no enforcement point.
     //   - BR-CHAT-04 (Sent → Delivered → Read is one-way) is defined on the entity but the aggregate is the right place to guard the transition sequence across the conversation.
     //   ConversationAggregate should own a List<ChatMessage>, enforce the connection pre-condition on creation, and raise MessageSentEvent / MessageReadEvent domain events.
+    // TODO: [REFACTOR-P4] Remove SetCreatedAt() — it exists only because ChatRepository used to set CreatedAt manually. Now that ChatMessage.CreatedAt is set by Entity base constructor, this method is dead code and a DDD violation. Remove it and update ChatRepository to stop calling it.
+    // TODO: [REFACTOR-P4] Add status transition guard to MarkAsDelivered(): throw InvalidOperationException if Status != Sent. Add guard to MarkAsRead(): throw if Status != Delivered. This enforces the one-way Sent → Delivered → Read invariant (BR-CHAT-04) at the entity level.
     public class ChatMessage : Entity
     {
         public Guid SenderId { get; private set; }

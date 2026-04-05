@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ErrorOr;
+using healLink.Application.Common.Adapters;
 using healLink.Application.DTOs;
 using healLink.Application.Repositories;
 using HealLink.Application.Interfaces;
@@ -12,7 +13,7 @@ using MediatR;
 
 namespace healLink.Application.Handlers.Connection
 {
-    public class ConnectionRequestCreatedHandler : INotificationHandler<ConnectionRequestCreatedEvent>
+    public class ConnectionRequestCreatedHandler : INotificationHandler<DomainEventNotification<ConnectionRequestCreatedEvent>>
     {
         private readonly INotificationService _notificationService;
         private readonly IPatientRepository _patientRepository;
@@ -21,8 +22,9 @@ namespace healLink.Application.Handlers.Connection
             _notificationService = notificationService;
             _patientRepository = patientRepository;
         }
-        public async Task Handle(ConnectionRequestCreatedEvent request, CancellationToken cancellationToken)
+        public async Task Handle(DomainEventNotification<ConnectionRequestCreatedEvent> domainEvent, CancellationToken cancellationToken)
         {
+            var request = domainEvent.DomainEvent;
             var patientName = await _patientRepository.GetPatientNameById(request.PatientId);
             var data = new DoctorConnectionRequestNotificationData(request.RequestId, request.PatientId, patientName);
             await _notificationService.NotifyDoctorOfPendingRequest(

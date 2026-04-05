@@ -208,7 +208,6 @@ namespace HealLink.Infrastructure.Data
             modelBuilder.Entity<TestResult>().ToTable("TestResults");
             modelBuilder.Entity<MedicalHistory>()
                 .ToTable("MedicalHistories")
-                .Ignore(m => m.Type)
                 .Ignore(m => m.Details);
             modelBuilder.Entity<MedicationReminder>().ToTable("MedicationReminders");
             modelBuilder.Entity<DoctorPatientConnection>().ToTable("DoctorPatientConnections");

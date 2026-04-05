@@ -4,6 +4,8 @@ using HealLink.Domain.Enums;
 
 namespace HealLink.Domain.Entities
 {
+    // TODO: [REFACTOR-P3] DoctorPatientConnection.Accept() and Reject() are called directly from outside the aggregate — these should only be callable through DoctorAggregate.AcceptPatientRequest() and RejectPatientRequest(), which already exist and enforce the Pending status guard. The public Accept()/Reject() methods on the entity are a leaky API; consider making them internal.
+    // TODO: [REFACTOR-P3] Doctor? and Patient? navigation properties are nullable but have no setter visibility — should be private set to prevent external assignment.
     public class DoctorPatientConnection : Entity
     {
         public Guid DoctorId { get; private set; }

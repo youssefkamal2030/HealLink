@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using healLink.Application.Common.Adapters;
 using healLink.Application.Interfaces;
 using healLink.Application.Repositories;
 using HealLink.Application.Interfaces;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace healLink.Application.Handlers.Connection
 {
-    public class ConnectionAcceptedHandler : INotificationHandler<ConnectionAcceptedEvent>
+    public class ConnectionAcceptedHandler : INotificationHandler<DomainEventNotification<ConnectionAcceptedEvent>>
     {
         private readonly INotificationService _notificationService;
         private readonly IPatientRepository _patientRepository;
@@ -28,8 +29,9 @@ namespace healLink.Application.Handlers.Connection
             _logger = logger;
         }
 
-        public async Task Handle(ConnectionAcceptedEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(DomainEventNotification<ConnectionAcceptedEvent> domainEvent, CancellationToken cancellationToken)
         {
+            var notification = domainEvent.DomainEvent; 
             var patient = await _patientRepository.GetByPatientId(notification.PatientId);
             if (patient == null)
             {
@@ -47,5 +49,7 @@ namespace healLink.Application.Handlers.Connection
                 notification.DoctorId
             );
         }
+
+     
     }
 }

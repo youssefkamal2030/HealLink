@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using healLink.Application.Common.Adapters;
 using healLink.Application.Interfaces;
 using HealLink.Domain.Base;
 using HealLink.Infrastructure.Data;
@@ -22,7 +23,6 @@ namespace HealLink.Infrastructure.Persistence
 
         public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            // Collect domain events from all tracked aggregate roots before saving
             var aggregates = _context.ChangeTracker
                 .Entries<AggregateRoot>()
                 .Where(e => e.Entity.DomainEvents.Any())
@@ -33,15 +33,19 @@ namespace HealLink.Infrastructure.Persistence
                 .SelectMany(a => a.DomainEvents)
                 .ToList();
 
-            // Clear events before save so re-entrancy doesn't double-dispatch
             foreach (var aggregate in aggregates)
                 aggregate.ClearDomainEvents();
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            // Dispatch events after the transaction commits
             foreach (var domainEvent in domainEvents)
-                await _mediator.Publish(domainEvent, cancellationToken);
+            {
+                // using reflection to create a domain event notification for each domain event and publish it using MediatR during runtime without knowing the specific type of the domain event at compile time
+                var notificationType = typeof(DomainEventNotification<>).MakeGenericType(domainEvent.GetType()); // this line will equal to DomainEventNotification<YourDomainEventType>
+                var notification = (INotification)Activator.CreateInstance(notificationType, domainEvent); // this line will equal to new DomainEventNotification<YourDomainEventType>(domainEvent)
+                await _mediator.Publish(notification, cancellationToken);
+            }
+             
         }
     }
 }
