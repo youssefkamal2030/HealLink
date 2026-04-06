@@ -59,16 +59,11 @@ namespace HealLink.Infrastructure.Persistence
             // event volume (1–3 events per command) this is fine. If event fan-out grows, consider
             // Task.WhenAll for independent events — but only after handlers are made idempotent.
 
-            // TODO: [ARCH-CRITICAL] Nested SaveChangesAsync — ConnectionAcceptedHandler and
-            // ConnectionRejectedHandler call _unitOfWork.SaveChangesAsync() from inside a handler
-            // that was itself triggered by a SaveChangesAsync call. This does NOT loop today only
-            // because AddConnectedDoctor/RemoveConnectedDoctor raise no domain events, so the
-            // second SaveChangesAsync finds an empty event list and exits cleanly.
-            // The correct fix (REFACTOR-P2): event handlers must not perform state mutations
-            // directly. State mutations belong in command handlers. Handlers that need to update
-            // read-model state (ConnectedDoctorIds) should dispatch a new command via IMediator
-            // (e.g., UpdatePatientConnectionsCommand) which has its own clean SaveChangesAsync
-            // call, keeping the event dispatch pipeline single-depth.
+            // RESOLVED: The nested SaveChangesAsync issue that previously existed in ConnectionAcceptedEventHandler
+            // and ConnectionRejectedEventHandler has been fixed. Both handlers are now pure notification
+            // dispatchers with no DB writes. Patient.ConnectedDoctorIds is mutated in the command handlers
+            // (AcceptConnectionCommandHandler / RejectConnectionCommandHandler) in the same transaction as
+            // the Doctor aggregate, before events are dispatched. Event handlers never call SaveChangesAsync.
 
             foreach (var domainEvent in domainEvents)
             {
