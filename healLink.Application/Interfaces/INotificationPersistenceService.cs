@@ -1,4 +1,5 @@
 using HealLink.Domain.Entities;
+using HealLink.Domain.Enums;
 
 namespace HealLink.Application.Interfaces;
 
@@ -20,7 +21,7 @@ public interface INotificationPersistenceService
         Guid doctorId, 
         string title, 
         string message, 
-        string type);
+        NotificationType type);
     
     /// <summary>
     /// Creates and persists a notification for a patient
@@ -34,5 +35,5 @@ public interface INotificationPersistenceService
         Guid patientId, 
         string title, 
         string message, 
-        string type);
+        NotificationType type);
 }

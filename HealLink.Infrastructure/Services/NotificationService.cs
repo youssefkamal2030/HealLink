@@ -1,38 +1,43 @@
-﻿using HealLink.Application.Interfaces;
-using HealLink.Contracts.Notifications;
+﻿using System;
+using System.Threading.Tasks;
 using healLink.Application.DTOs;
-using HealLink.Infrastructure.Data;
+using healLink.Application.Repositories;
+using HealLink.Application.Interfaces;
+using HealLink.Contracts.Notifications;
+using HealLink.Domain.Enums;
 using Microsoft.Extensions.Logging;
 
 namespace HealLink.Infrastructure.Services;
 
 /// <summary>
-/// Orchestrates notification operations
-/// Coordinates both persistence and real-time delivery
+/// Orchestrates notification operations — coordinates persistence and real-time delivery.
+/// Uses repositories for entity lookups so it has no direct DbContext dependency.
 /// </summary>
 public class NotificationService : INotificationService
 {
     private readonly INotificationPersistenceService _persistenceService;
     private readonly IRealTimeNotificationService _realTimeService;
-    private readonly HealLinkDbContext _context;
+    private readonly IDoctorRepository _doctorRepository;
+    private readonly IPatientRepository _patientRepository;
     private readonly ILogger<NotificationService> _logger;
 
     public NotificationService(
         INotificationPersistenceService persistenceService,
         IRealTimeNotificationService realTimeService,
-        HealLinkDbContext context,
+        IDoctorRepository doctorRepository,
+        IPatientRepository patientRepository,
         ILogger<NotificationService> logger)
     {
         _persistenceService = persistenceService;
         _realTimeService = realTimeService;
-        _context = context;
+        _doctorRepository = doctorRepository;
+        _patientRepository = patientRepository;
         _logger = logger;
     }
 
     public async Task NotifyDoctorOfPendingRequest(Guid doctorId, DoctorConnectionRequestNotificationData data)
     {
-        // Get doctor to retrieve UserId for SignalR targeting
-        var doctor = await _context.Doctors.FindAsync(doctorId);
+        var doctor = await _doctorRepository.GetByDoctorId(doctorId);
         if (doctor == null)
         {
             _logger.LogWarning("Doctor {DoctorId} not found for notification", doctorId);
@@ -41,44 +46,35 @@ public class NotificationService : INotificationService
 
         try
         {
-            // 1. Persist to database
             await _persistenceService.CreateNotificationForDoctorAsync(
                 doctorId,
                 "New Connection Request",
                 $"You have a new connection request from Patient {data.PatientName}.",
-                "ConnectionRequest"
-            );
+                NotificationType.ConnectionRequest);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to persist notification for doctor {DoctorId}", doctorId);
-            // Continue to send real-time notification even if persistence fails
         }
 
         try
         {
-            // 2. Send real-time notification
-            var message = new NotificationMessage(
+            await _realTimeService.SendToUserAsync(doctor.UserId, new NotificationMessage(
                 Title: "New Connection Request",
                 Body: $"You have a new connection request from Patient {data.PatientName}.",
                 Timestamp: DateTime.UtcNow,
                 ConnectionRequestId: data.RequestId,
-                PatientId: data.PatientId
-            );
-
-            await _realTimeService.SendToUserAsync(doctor.UserId, message);
+                PatientId: data.PatientId));
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Failed to send real-time notification to doctor {DoctorId}", doctorId);
-            // Notification is still persisted in database
         }
     }
 
     public async Task NotifyPatientOfAcceptance(Guid patientId, Guid doctorId)
     {
-        // Get patient to retrieve UserId for SignalR targeting
-        var patient = await _context.Patients.FindAsync(patientId);
+        var patient = await _patientRepository.GetByPatientId(patientId);
         if (patient == null)
         {
             _logger.LogWarning("Patient {PatientId} not found for notification", patientId);
@@ -87,13 +83,11 @@ public class NotificationService : INotificationService
 
         try
         {
-            // 1. Persist to database
             await _persistenceService.CreateNotificationForPatientAsync(
                 patientId,
                 "Connection Accepted",
                 "Your connection request has been accepted by the doctor.",
-                "ConnectionAccepted"
-            );
+                NotificationType.ConnectionAccepted);
         }
         catch (Exception ex)
         {
@@ -102,15 +96,11 @@ public class NotificationService : INotificationService
 
         try
         {
-            // 2. Send real-time notification
-            var message = new NotificationMessage(
+            await _realTimeService.SendToUserAsync(patient.UserId, new NotificationMessage(
                 Title: "Connection Accepted",
                 Body: "Your connection request has been accepted by the doctor.",
                 Timestamp: DateTime.UtcNow,
-                DoctorId: doctorId
-            );
-
-            await _realTimeService.SendToUserAsync(patient.UserId, message);
+                DoctorId: doctorId));
         }
         catch (Exception ex)
         {
@@ -120,8 +110,7 @@ public class NotificationService : INotificationService
 
     public async Task NotifyPatientOfRejection(Guid patientId, Guid doctorId)
     {
-        // Get patient to retrieve UserId for SignalR targeting
-        var patient = await _context.Patients.FindAsync(patientId);
+        var patient = await _patientRepository.GetByPatientId(patientId);
         if (patient == null)
         {
             _logger.LogWarning("Patient {PatientId} not found for notification", patientId);
@@ -130,13 +119,11 @@ public class NotificationService : INotificationService
 
         try
         {
-            // 1. Persist to database
             await _persistenceService.CreateNotificationForPatientAsync(
                 patientId,
                 "Connection Rejected",
                 "Your connection request has been rejected by the doctor.",
-                "ConnectionRejected"
-            );
+                NotificationType.ConnectionRejected);
         }
         catch (Exception ex)
         {
@@ -145,15 +132,11 @@ public class NotificationService : INotificationService
 
         try
         {
-            // 2. Send real-time notification
-            var message = new NotificationMessage(
+            await _realTimeService.SendToUserAsync(patient.UserId, new NotificationMessage(
                 Title: "Connection Rejected",
                 Body: "Your connection request has been rejected by the doctor.",
                 Timestamp: DateTime.UtcNow,
-                DoctorId: doctorId
-            );
-
-            await _realTimeService.SendToUserAsync(patient.UserId, message);
+                DoctorId: doctorId));
         }
         catch (Exception ex)
         {

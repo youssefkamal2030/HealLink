@@ -26,7 +26,7 @@ namespace healLink.Application.Handlers.Notifications
                 Id: n.Id,
                 Title: n.Title,
                 Message: n.Message,
-                Type: n.Type,
+                Type: n.Type.ToString(),
                 IsRead: n.IsRead,
                 ReadAt: n.ReadAt,
                 CreatedAt: n.CreatedAt

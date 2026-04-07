@@ -3,8 +3,6 @@ using System;
 namespace HealLink.Domain.Base
 {
    
-    // TODO: [DDD] Entity should implement equality based on Id (override Equals/GetHashCode) to support proper entity identity comparison.
-    // TODO: [REFACTOR-P1] Implement Equals(object obj): return obj is Entity other && Id == other.Id. Implement GetHashCode(): return Id.GetHashCode(). This enables correct behavior in LINQ Contains(), Distinct(), and dictionary lookups on domain entities.
     public abstract class Entity
     {
         public Guid Id { get; protected set; }

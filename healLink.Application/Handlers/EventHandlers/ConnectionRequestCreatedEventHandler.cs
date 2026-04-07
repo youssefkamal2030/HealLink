@@ -11,7 +11,7 @@ using HealLink.Application.Interfaces;
 using HealLink.Domain.DomainEvents;
 using MediatR;
 
-namespace healLink.Application.Handlers.Connection
+namespace healLink.Application.Handlers.EventHandlers
 {
     public class ConnectionRequestCreatedHandler : INotificationHandler<DomainEventNotification<ConnectionRequestCreatedEvent>>
     {

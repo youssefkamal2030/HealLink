@@ -105,6 +105,9 @@ namespace HealLink.Infrastructure.Data
                 .HasForeignKey(p => p.PatientId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Payment>()
+                .OwnsOne(p => p.Amount);
+
             modelBuilder.Entity<MedicationReminder>()
                 .HasOne<Patient>()
                 .WithMany()
