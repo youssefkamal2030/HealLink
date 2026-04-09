@@ -26,7 +26,7 @@ namespace healLink.Application.Handlers.Notifications
                 return Result<bool>.Failure("Notification not found.");
 
             notification.MarkAsRead();
-            await _notificationRepository.UpdateNotificationAsync(notification);
+            _notificationRepository.UpdateNotification(notification);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Result<bool>.Success(true);

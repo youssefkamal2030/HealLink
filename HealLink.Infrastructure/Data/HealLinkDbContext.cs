@@ -140,18 +140,9 @@ namespace HealLink.Infrastructure.Data
                 .HasForeignKey(p => p.PatientId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Notifications - Doctor/Patient relationships
+            // Notifications - single RecipientId + RecipientType replaces dual nullable FKs
             modelBuilder.Entity<Notification>()
-                .HasOne(n => n.Doctor)
-                .WithMany()
-                .HasForeignKey(n => n.DoctorId)
-                .OnDelete(DeleteBehavior.NoAction);
-                
-            modelBuilder.Entity<Notification>()
-                .HasOne(n => n.Patient)
-                .WithMany()
-                .HasForeignKey(n => n.PatientId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .HasIndex(n => new { n.RecipientId, n.RecipientType });
 
             modelBuilder.Entity<Subscription>()
      .HasOne(s => s.Doctor)

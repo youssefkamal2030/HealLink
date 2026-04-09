@@ -1,7 +1,8 @@
+using HealLink.Domain.Entities;
+using HealLink.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using HealLink.Domain.Entities;
 
 namespace healLink.Application.Repositories
 {
@@ -13,6 +14,9 @@ namespace healLink.Application.Repositories
         Task<List<Notification>> GetDoctorNotificationsAsync(Guid doctorId);
         Task<List<Notification>> GetPatientNotificationsAsync(Guid patientId);
         Task<Notification> GetByIdAsync(Guid id);
-        Task UpdateNotificationAsync(Notification notification);
+        void DeleteByRecipient(Guid recipientId, RecipientType recipientType);
+
+        void UpdateNotification(Notification notification);
+
     }
 }

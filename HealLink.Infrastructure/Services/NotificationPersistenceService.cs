@@ -21,7 +21,7 @@ public class NotificationPersistenceService : INotificationPersistenceService
 
     public async Task<Notification> CreateNotificationForDoctorAsync(Guid doctorId, string title, string message, NotificationType type)
     {
-        var notification = Notification.ForDoctor(doctorId, title, message, type);
+        var notification = new Notification(doctorId, RecipientType.Doctor, title, message, type);
         await _notificationRepository.CreateNotificationAsync(notification);
         await _unitOfWork.SaveChangesAsync();
         return notification;
@@ -29,7 +29,7 @@ public class NotificationPersistenceService : INotificationPersistenceService
 
     public async Task<Notification> CreateNotificationForPatientAsync(Guid patientId, string title, string message, NotificationType type)
     {
-        var notification = Notification.ForPatient(patientId, title, message, type);
+        var notification = new Notification(patientId, RecipientType.Patient, title, message, type);
         await _notificationRepository.CreateNotificationAsync(notification);
         await _unitOfWork.SaveChangesAsync();
         return notification;

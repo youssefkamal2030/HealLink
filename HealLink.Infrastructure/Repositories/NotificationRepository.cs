@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using healLink.Application.Repositories;
 using HealLink.Domain.Entities;
+using HealLink.Domain.Enums;
 using HealLink.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,23 +28,30 @@ namespace HealLink.Infrastructure.Repositories
 
         public async Task<List<Notification>> GetDoctorNotificationsAsync(Guid doctorId)
             => await _context.Notifications
-                .Where(n => n.DoctorId == doctorId)
+                .Where(n => n.RecipientId == doctorId && n.RecipientType == HealLink.Domain.Enums.RecipientType.Doctor)
                 .OrderByDescending(n => n.CreatedAt)
                 .ToListAsync();
 
         public async Task<List<Notification>> GetPatientNotificationsAsync(Guid patientId)
             => await _context.Notifications
-                .Where(n => n.PatientId == patientId)
+                .Where(n => n.RecipientId == patientId && n.RecipientType == HealLink.Domain.Enums.RecipientType.Patient)
                 .OrderByDescending(n => n.CreatedAt)
                 .ToListAsync();
 
         public async Task<Notification> GetByIdAsync(Guid id)
             => await _context.Notifications.FindAsync(id);
 
-        public Task UpdateNotificationAsync(Notification notification)
+        public void UpdateNotification(Notification notification)
         {
             _context.Notifications.Update(notification);
-            return Task.CompletedTask;
+        }
+
+        public void DeleteByRecipient(Guid recipientId, RecipientType recipientType)
+        {
+            var notifications =  _context.Notifications.Where(n => n.RecipientId == recipientId && n.RecipientType == recipientType);
+            _context.Notifications.RemoveRange(notifications);
+       
+
         }
     }
 }
