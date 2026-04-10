@@ -208,7 +208,7 @@ namespace HealLink.Domain.Tests.Entities
             doctor.GenerateQRCode();
 
             Assert.NotNull(doctor.QRCode);
-            Assert.NotNull(doctor.QRCodeGeneratedAt);
+            Assert.NotNull(doctor.QRCode.GeneratedAt);
         }
 
         [Fact]

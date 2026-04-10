@@ -14,7 +14,7 @@ namespace healLink.Application.Repositories
         Task<List<Notification>> GetDoctorNotificationsAsync(Guid doctorId);
         Task<List<Notification>> GetPatientNotificationsAsync(Guid patientId);
         Task<Notification> GetByIdAsync(Guid id);
-        void DeleteByRecipient(Guid recipientId, RecipientType recipientType);
+        void DeleteByRecipientId(Guid recipientId, RecipientType recipientType);
 
         void UpdateNotification(Notification notification);
 

@@ -33,7 +33,7 @@ namespace healLink.Application.Handlers.Profile
                 if (doctor.UserId != request.AuthenticatedUserId)
                     return new DeleteDoctorProfileResponse("Unauthorized: You can only delete your own profile.", false);
 
-                _notificationRepository.DeleteByRecipient(request.DoctorId, RecipientType.Doctor);
+                _notificationRepository.DeleteByRecipientId(request.DoctorId, RecipientType.Doctor);
 
                 await _profileRepository.DeleteDoctorAsync(request.DoctorId, cancellationToken);
                 await _unitOfWork.SaveChangesAsync(cancellationToken);

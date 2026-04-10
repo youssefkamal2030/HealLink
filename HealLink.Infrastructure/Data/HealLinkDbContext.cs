@@ -75,6 +75,13 @@ namespace HealLink.Infrastructure.Data
             modelBuilder.Entity<Doctor>()
                 .OwnsOne(d => d.PersonalInfo);
 
+            modelBuilder.Entity<Doctor>()
+                .OwnsOne(d => d.QRCode, qr =>
+                {
+                    qr.Property(q => q.Value).HasColumnName("QRCode");
+                    qr.Property(q => q.GeneratedAt).HasColumnName("QRCodeGeneratedAt");
+                });
+
             // Guardian - CASCADE from User
             modelBuilder.Entity<Guardian>()
                 .HasOne(g => g.User)

@@ -46,7 +46,7 @@ namespace HealLink.Infrastructure.Repositories
             _context.Notifications.Update(notification);
         }
 
-        public void DeleteByRecipient(Guid recipientId, RecipientType recipientType)
+        public void DeleteByRecipientId(Guid recipientId, RecipientType recipientType)
         {
             var notifications =  _context.Notifications.Where(n => n.RecipientId == recipientId && n.RecipientType == recipientType);
             _context.Notifications.RemoveRange(notifications);

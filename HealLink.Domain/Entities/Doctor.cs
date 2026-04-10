@@ -7,12 +7,8 @@ using System.Collections.Generic;
 
 namespace HealLink.Domain.Entities
 {
-    // TODO: [DDD] QRCode is stored as a raw string — it should use the existing QRCode value object (HealLink.Domain/ValueObjects/QRCode.cs) instead of duplicating the concept with QRCode + QRCodeGeneratedAt fields.
-    // TODO: [DDD] GenerateQRCode() and IsQRCodeValid() duplicate logic already defined in the QRCode value object — consolidate into the value object.
     // TODO: [DDD] AddNotification() pushes directly onto the collection — notifications should be raised as domain events instead.
-    // TODO: [REFACTOR-P3] Replace `string? QRCode` and `DateTime? QRCodeGeneratedAt` fields with a single `QRCode? QRCode` property using the existing QRCode value object. Update GenerateQRCode() to construct a new QRCode(Guid.NewGuid().ToString(), DateTime.UtcNow) and assign it. Update IsQRCodeValid() to delegate to QRCode.IsValid(). Update RefreshQRCodeIfNeeded() accordingly. Update DbContext to OwnsOne(d => d.QRCode).
-    // TODO: [REFACTOR-P3] Remove AddNotification() from Doctor — notifications are a cross-cutting concern and should be created by the NotificationPersistenceService, not pushed onto the aggregate. The _notifications collection and Notifications property can remain for EF loading but AddNotification() should be removed from the public API.
-    // TODO: [REFACTOR-P3] Raise DoctorApprovedEvent in Approve() — the event class already exists in HealLink.Domain/DomainEvents/DoctorApprovedEvent.cs but is never raised.
+    
     public class Doctor : AggregateRoot
     {
         public Guid UserId { get; private set; }
@@ -26,8 +22,7 @@ namespace HealLink.Domain.Entities
         public string? CurrentWorkplace { get; private set; }
 
         public bool IsAvailableForChat { get; private set; } = false;
-        public string? QRCode { get; private set; }
-        public DateTime? QRCodeGeneratedAt { get; private set; }
+     public QRCode? QRCode { get; private set; }
         public bool IsApproved { get; private set; } = false;
 
         private readonly List<Subscription> _subscriptions = new();
@@ -61,10 +56,11 @@ namespace HealLink.Domain.Entities
 
         private Doctor() { }
 
-        public void Approve()
+        public void Approve(Guid doctorId)
         {
             IsApproved = true;
             UpdateTimestamp();
+            AddDomainEvent( new DoctorApprovedEvent(doctorId) );
         }
 
         public void SetChatAvailability(bool isAvailable)
@@ -95,35 +91,23 @@ namespace HealLink.Domain.Entities
 
         public void GenerateQRCode()
         {
-            QRCode = Guid.NewGuid().ToString();
-            QRCodeGeneratedAt = DateTime.UtcNow;
+            QRCode = new QRCode(Guid.NewGuid().ToString(), DateTime.UtcNow);
             UpdateTimestamp();
         }
 
         public bool IsQRCodeValid()
         {
-            if (!QRCodeGeneratedAt.HasValue)
-                return false;
-
-            return DateTime.UtcNow.Subtract(QRCodeGeneratedAt.Value).TotalMinutes < 5;
+            return QRCode?.IsValid() ?? false;
         }
 
         public void RefreshQRCodeIfNeeded()
         {
             if (!IsQRCodeValid())
-            {
                 GenerateQRCode();
-            }
         }
 
      
-        public void AddNotification(Notification notification)
-        {
-            if (notification == null) throw new ArgumentNullException(nameof(notification));
-            _notifications.Add(notification);
-            UpdateTimestamp();
-        }
-
+       
         public void AcceptPatientRequest(Guid connectionId)
         {
             var connection = PatientConnections.FirstOrDefault(c => c.Id == connectionId);
