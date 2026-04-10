@@ -12,6 +12,13 @@ namespace healLink.Application.Interfaces
     {
         Task SendEmailAsync(string to, string subject, string body);
         Task SendPasswordResetEmailAsync(string to, string resetLink);
+        // TODO: [REFACTOR] Remove SendOtpAsync and SendPasswordResetOtpAsync entirely.
+        // These methods violate separation of concerns — an infrastructure service (email) should not
+        // receive a domain entity, mutate it (user.RequestOTP), and send an email all in one call.
+        // 
+        // Replace with: Task SendOtpEmailAsync(string to, string username, string otpCode, int expiryMinutes)
+        // OTP generation and user.RequestOTP() belong in the handler, not here.
+        // See: RegisterCommandHandler, EmailService.SendOtpAsync
         Task<string> SendOtpAsync(User user);       // returns the OTP code so caller can persist it
         Task<string> SendPasswordResetOtpAsync(User user);
         Task ConfirmEmailAsync(ConfirmEmailRequest request);

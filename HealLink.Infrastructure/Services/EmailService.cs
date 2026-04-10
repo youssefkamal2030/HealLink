@@ -60,6 +60,14 @@ namespace HealLink.Infrastructure.Services
             await SendEmailAsync(to, subject, body);
         }
 
+        // TODO: [REFACTOR] This method does three things it shouldn't:
+        //   1. Generates the OTP code (should be in the handler or a domain service)
+        //   2. Mutates the domain aggregate via user.RequestOTP() (infrastructure must not touch domain state)
+        //   3. Sends the email (the only thing this service should do)
+        //
+        // This design is what forced the two-SaveChangesAsync workaround in RegisterCommandHandler.
+        // Delete this method and replace with a plain SendOtpEmailAsync(string to, string username, string code, int expiryMinutes).
+        // See: IEmailService.SendOtpAsync, RegisterCommandHandler
         public async Task<string> SendOtpAsync(User user)
         {
             var otpCode = new Random().Next(100000, 999999).ToString();
@@ -78,6 +86,8 @@ namespace HealLink.Infrastructure.Services
             return otpCode;
         }
 
+        // TODO: [REFACTOR] Same issue as SendOtpAsync — generates code, mutates aggregate, sends email.
+        // Replace with a plain SendPasswordResetEmailAsync(string to, string username, string code, int expiryMinutes).
         public async Task<string> SendPasswordResetOtpAsync(User user)
         {
             var otpCode = new Random().Next(100000, 999999).ToString();

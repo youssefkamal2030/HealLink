@@ -30,13 +30,7 @@ namespace HealLink.Api
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddDbContext<HealLinkDbContext>(options =>
-            {
-                var useInMemory = builder.Configuration["UseInMemoryDatabase"] == "true";
-                if (useInMemory)
-                    options.UseInMemoryDatabase("HealLinkTest");
-                else
-                    options.UseSqlServer(builder.Configuration.GetConnectionString("localConnection"));
-            });
+                options.UseSqlServer(builder.Configuration.GetConnectionString("localConnection")));
             builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<HealLinkDbContext>());
 
             // Add services to the container.  

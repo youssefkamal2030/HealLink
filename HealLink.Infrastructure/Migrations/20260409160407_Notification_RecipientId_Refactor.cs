@@ -81,14 +81,37 @@ namespace HealLink.Infrastructure.Migrations
                 nullable: false,
                 defaultValue: 0);
 
-            migrationBuilder.AlterColumn<Guid>(
+            migrationBuilder.DropForeignKey(
+                name: "FK_OTPs_Users_UserId",
+                table: "OTPs");
+
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_OTPs",
+                table: "OTPs");
+
+            migrationBuilder.DropColumn(
+                name: "Id",
+                table: "OTPs");
+
+            migrationBuilder.AddColumn<Guid>(
                 name: "Id",
                 table: "OTPs",
                 type: "uniqueidentifier",
                 nullable: false,
-                oldClrType: typeof(int),
-                oldType: "int")
-                .OldAnnotation("SqlServer:Identity", "1, 1");
+                defaultValueSql: "NEWID()");
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_OTPs",
+                table: "OTPs",
+                column: "Id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_OTPs_Users_UserId",
+                table: "OTPs",
+                column: "UserId",
+                principalTable: "Users",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "CreatedAt",
@@ -110,6 +133,10 @@ namespace HealLink.Infrastructure.Migrations
                 type: "datetime2",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+
+            // Clear existing notification data — Type column changes from nvarchar to int (enum),
+            // and DoctorId/PatientId are replaced by RecipientId. Existing rows are incompatible.
+            migrationBuilder.Sql("DELETE FROM [Notifications]");
 
             migrationBuilder.AlterColumn<int>(
                 name: "Type",
@@ -273,14 +300,37 @@ namespace HealLink.Infrastructure.Migrations
                 oldClrType: typeof(decimal),
                 oldType: "decimal(18,2)");
 
-            migrationBuilder.AlterColumn<int>(
+            migrationBuilder.DropForeignKey(
+                name: "FK_OTPs_Users_UserId",
+                table: "OTPs");
+
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_OTPs",
+                table: "OTPs");
+
+            migrationBuilder.DropColumn(
+                name: "Id",
+                table: "OTPs");
+
+            migrationBuilder.AddColumn<int>(
                 name: "Id",
                 table: "OTPs",
                 type: "int",
-                nullable: false,
-                oldClrType: typeof(Guid),
-                oldType: "uniqueidentifier")
+                nullable: false)
                 .Annotation("SqlServer:Identity", "1, 1");
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_OTPs",
+                table: "OTPs",
+                column: "Id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_OTPs_Users_UserId",
+                table: "OTPs",
+                column: "UserId",
+                principalTable: "Users",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AlterColumn<string>(
                 name: "Type",

@@ -1,0 +1,37 @@
+name: Integration Tests
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  integration-tests:
+    runs-on: windows-latest  # LocalDB is available on Windows GitHub-hosted runners
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Run integration tests
+        env:
+          HEALLINK_TEST_CONNECTION_STRING: "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=HealLinkTest_CI;Integrated Security=True;Trust Server Certificate=True"
+        run: dotnet test HealLink.Integration.Tests/HealLink.Integration.Tests.csproj --no-build --configuration Release --logger "trx;LogFileName=integration-results.trx"
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integration-test-results
+          path: "**/*.trx"

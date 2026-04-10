@@ -31,6 +31,22 @@ public class RegisterCommandHandler(IUserRepository userRepository, IPasswordHas
 
         var user = new User(request.username, hashedPasswordResult.Value, request.email, request.Role);
 
+        // TODO: [REFACTOR] Two SaveChangesAsync calls break atomicity — if the second save fails,
+        // the user row exists in the DB but has no OTP, and the email was already sent.
+        // The user can't verify, can't log in, and re-registering fails with "Email Already Taken".
+        //
+        // Root cause: EmailService.SendOtpAsync() mutates the aggregate AND sends the email in one call,
+        // forcing us to flush the user first so OTP.UserId FK has a valid PK to reference.
+        //
+        // Fix:
+        //   1. Generate the OTP code here in the handler (e.g. Random or a dedicated service)
+        //   2. Call user.RequestOTP(code, expiry) directly — pure domain mutation, no infra
+        //   3. Stage user (EF tracks OTP via navigation collection — no AddOtpAsync needed)
+        //   4. Single SaveChangesAsync — user + OTP committed atomically
+        //   5. THEN call _emailService.SendEmailAsync(user.Email, otpCode) — side effect after commit
+        //
+        // See also: IEmailService.SendOtpAsync (remove it), EmailService.SendOtpAsync (remove it)
+
         // Stage the user first so it exists before the OTP references it
         await _userRepository.AddAsync(user, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);

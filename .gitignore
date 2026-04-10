@@ -655,3 +655,6 @@ coverage/
 **/appsettings.Development.json
 **/appsettings.local.json
 **/config.local.json
+
+# Integration test local settings — contains connection strings, never commit
+HealLink.Integration.Tests/appsettings.Testing.json
