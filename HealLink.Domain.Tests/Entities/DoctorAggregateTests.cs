@@ -146,7 +146,7 @@ namespace HealLink.Domain.Tests.Entities
         {
             var doctor = CreateDoctor();
 
-            doctor.Approve();
+            doctor.Approve(doctor.Id);
 
             Assert.True(doctor.IsApproved);
         }
