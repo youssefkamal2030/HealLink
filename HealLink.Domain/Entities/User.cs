@@ -38,14 +38,14 @@ namespace HealLink.Domain.Entities
 
         }
 
-        public OTP RequestOTP(string code, DateTime expiry)
+        public OTP RequestOTP()
         {
             var existingOtp = _otps.FirstOrDefault(o => !o.IsUsed && !o.IsExpired());
             if (existingOtp != null)
             {
                 existingOtp.Invalidate();
             }
-            var newOtp = new OTP(code, expiry, Id);
+            var newOtp = OTP.Generate();
             _otps.Add(newOtp);
             UpdateTimestamp();
             return newOtp;

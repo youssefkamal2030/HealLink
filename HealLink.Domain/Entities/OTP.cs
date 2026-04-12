@@ -1,14 +1,9 @@
 ﻿using HealLink.Domain.Base;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HealLink.Domain.Entities;
 
-// DONE: OTP now extends Entity (Guid Id, CreatedAt, UpdatedAt), has private setters, IsUsed flag, IsExpired(), Invalidate(), and constructor validation.
-// DONE: Owned by User aggregate — created only via User.RequestOTP().
+
 public class OTP : Entity
 {
    
@@ -20,7 +15,7 @@ public class OTP : Entity
     public User? User { get; private set; }
     public bool IsUsed { get; private set; } = false;
     public OTP(){ }
-    public OTP(string code, DateTime expiryTime, Guid userId)
+    private OTP(string code, DateTime expiryTime)
     {
         if (string.IsNullOrWhiteSpace(code))
             throw new ArgumentException("OTP code cannot be null or empty", nameof(code));
@@ -28,9 +23,14 @@ public class OTP : Entity
             throw new ArgumentException("Expiry time must be in the future", nameof(expiryTime));
         Code = code;
         ExpiryTime = expiryTime;
-        UserId = userId;
+       
     }
-
+    internal static OTP Generate(int length = 6, int expiryMinutes = 5)
+    {
+        var code = new Random().Next(0, 1000000).ToString("D" + length);
+        var expiryTime = DateTime.UtcNow.AddMinutes(expiryMinutes);
+        return new OTP(code, expiryTime);
+    }
     public bool IsExpired() => DateTime.UtcNow >= ExpiryTime;
     public void Invalidate()
     {
