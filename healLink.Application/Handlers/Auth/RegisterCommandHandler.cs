@@ -31,53 +31,33 @@ namespace healLink.Application.Handlers.Auth
 
             var user = new User(request.username, hashedPasswordResult.Value, request.email, request.Role);
 
-            // ── REMAINING ISSUE ──────────────────────────────────────────────────────────────────
-            //
-            // Problem A (RESOLVED) — OTP generation is now owned by the domain.
-            //   user.RequestOTP() calls OTP.Generate() internally. The handler has no knowledge
-            //   of OTP length, character set, or expiry duration.
-            //
-            // Problem B — EF tracking of OTPs via backing field needs verification.
-            //   User._otps is a private List<OTP>. EF Core must be configured with
-            //   .HasMany with UsePropertyAccessMode(PropertyAccessMode.Field) or equivalent
-            //   in HealLinkDbContext so the OTP is tracked when user is staged via AddAsync.
-            //   If the config is wrong, the OTP is silently dropped on SaveChanges.
-            //   TODO: Verify HealLinkDbContext maps User._otps via backing field, or add
-            //   explicit userRepository.AddOtpAsync(otp) after staging the user.
-            //
-            // Problem C — Profile creation is a separate SaveChangesAsync (NOT ATOMIC).
-            //   mediator.Send(createProfileCommand) triggers CreateProfileCommandHandler which
-            //   calls SaveChangesAsync internally. Registration has two commits:
-            //     - Commit 1: user + OTP  (here)
-            //     - Commit 2: patient/doctor profile  (inside CreateProfileCommandHandler)
-            //   If Commit 2 fails, the user exists without a profile — broken state.
-            //   TODO: Make CreateProfileCommandHandler not call SaveChangesAsync, stage the
-            //   profile here, and do a single final SaveChangesAsync covering everything.
-            //
-            // ─────────────────────────────────────────────────────────────────────────────────────
+            // TODO: [Problem B] Verify HealLinkDbContext maps User._otps via backing field so the OTP
+            // is tracked automatically when user is staged. If not, call userRepository.AddOtpAsync(otp)
+            // explicitly after staging the user.
 
             var otp = user.RequestOTP();
 
-            // Stage user — EF tracks the OTP via the _otps backing field (HasMany via backing field)
+            // Stage user + OTP — no commit yet
             await userRepository.AddAsync(user, cancellationToken);
-
-            // Single atomic commit: user + OTP together
-            await unitOfWork.SaveChangesAsync(cancellationToken);
-
-            // Side effect AFTER commit — if email fails, user+OTP are already persisted
-            // and the user can request a new OTP. No broken state.
-            await emailService.SendOtpEmailAsync(user.Email, user.Username, otp.Code, 10);
 
             var syndicateIdPath = request.SyndicateId != null
                 ? await photoService.SavePhotoAsync(request.SyndicateId, "uploads")
                 : null;
 
+            // Stage profile — CreateProfileCommandHandler does NOT call SaveChangesAsync
             var createProfileCommand = new CreateProfileCommand(
                 user.Id, user.Role, request.Specilization, request.PracticeLicenseNumber, syndicateIdPath);
             var result = await mediator.Send(createProfileCommand, cancellationToken);
 
             if (!result.Success)
                 return new RegisterResponse("Profile creation failed: " + result.Message);
+
+            // Single atomic commit: user + OTP + profile all in one transaction
+            await unitOfWork.SaveChangesAsync(cancellationToken);
+
+            // Email is a side effect AFTER the commit — if it fails, the user is already
+            // persisted and can request a new OTP. No broken state.
+            await emailService.SendOtpEmailAsync(user.Email, user.Username, otp.Code, 10);
 
             return new RegisterResponse("User registered successfully");
         }

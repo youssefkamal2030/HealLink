@@ -68,42 +68,38 @@ namespace HealLink.Infrastructure.Services
         // This design is what forced the two-SaveChangesAsync workaround in RegisterCommandHandler.
         // Delete this method and replace with a plain SendOtpEmailAsync(string to, string username, string code, int expiryMinutes).
         // See: IEmailService.SendOtpAsync, RegisterCommandHandler
-        public async Task<string> SendOtpAsync(User user)
+        public async Task<string> SendOtpEmailAsync(string to, string username, string code, int expiryMinutes)
         {
-            var otpCode = new Random().Next(100000, 999999).ToString();
-            user.RequestOTP(otpCode, DateTime.UtcNow.AddMinutes(_otpExpiryMinutes));
-
+            
             var emailBody = _builder.GenerateEmailBody("EmailConfirmation",
                 templateModel: new Dictionary<string, string>
                 {
-                    { "{{name}}", user.Username },
-                    { "{{otp_code}}", otpCode },
-                    { "{{expiry_minutes}}", _otpExpiryMinutes.ToString() }
+                    { "{{name}}", username },
+                    { "{{otp_code}}", code },
+                    { "{{expiry_minutes}}", expiryMinutes.ToString() }
                 });
 
-            await _emailSender.SendEmailAsync(user.Email!, "✅ Heal Link: Email Verification OTP", emailBody);
-            _logger.LogInformation("OTP sent to user {UserId}", user.Id);
-            return otpCode;
+            await _emailSender.SendEmailAsync(to, "✅ Heal Link: Email Verification OTP", emailBody);
+            _logger.LogInformation("OTP sent to user {Username}", username);
+            return code ;
         }
 
         // TODO: [REFACTOR] Same issue as SendOtpAsync — generates code, mutates aggregate, sends email.
         // Replace with a plain SendPasswordResetEmailAsync(string to, string username, string code, int expiryMinutes).
-        public async Task<string> SendPasswordResetOtpAsync(User user)
+        public async Task<string> SendPasswordResetEmailAsync(string to, string username, string code, int expiryMinutes)
         {
-            var otpCode = new Random().Next(100000, 999999).ToString();
-            user.RequestOTP(otpCode, DateTime.UtcNow.AddMinutes(_otpExpiryMinutes));
-
+          
             var emailBody = _builder.GenerateEmailBody("ForgetPassword",
                 templateModel: new Dictionary<string, string>
                 {
-                    { "{{name}}", user.Username },
-                    { "{{otp_code}}", otpCode },
-                    { "{{expiry_minutes}}", _otpExpiryMinutes.ToString() }
+                    { "{{name}}",username },
+                    { "{{otp_code}}", code },
+                    { "{{expiry_minutes}}", expiryMinutes.ToString() }
                 });
 
-            await _emailSender.SendEmailAsync(user.Email!, "🔐 Heal Link: Password Reset OTP", emailBody);
-            _logger.LogInformation("Password reset OTP sent to user {UserId}", user.Id);
-            return otpCode;
+            await _emailSender.SendEmailAsync(to, "🔐 Heal Link: Password Reset OTP", emailBody);
+            _logger.LogInformation("Password reset OTP sent to user {Username}", username);
+            return code;
         }
 
         public async Task ConfirmEmailAsync(ConfirmEmailRequest request)

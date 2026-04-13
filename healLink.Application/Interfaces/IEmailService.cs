@@ -19,8 +19,8 @@ namespace healLink.Application.Interfaces
         // Replace with: Task SendOtpEmailAsync(string to, string username, string otpCode, int expiryMinutes)
         // OTP generation and user.RequestOTP() belong in the handler, not here.
         // See: RegisterCommandHandler, EmailService.SendOtpAsync
-        Task<string> SendOtpAsync(User user);       // returns the OTP code so caller can persist it
-        Task<string> SendPasswordResetOtpAsync(User user);
+        Task<string> SendOtpEmailAsync(string to, string username, string otpCode, int expiryMinutes);
+        Task<string> SendPasswordResetEmailAsync(string to, string username, string otpCode, int expiryMinutes);
         Task ConfirmEmailAsync(ConfirmEmailRequest request);
     }
 }

@@ -14,12 +14,10 @@ namespace healLink.Application.Handlers.Profile
     public class CreateProfileCommandHandler : IRequestHandler<CreateProfileCommand, CreateProfileResponse>
     {
         private readonly IProfileRepository _profileRepository;
-        private readonly IUnitOfWork _unitOfWork;
 
-        public CreateProfileCommandHandler(IProfileRepository profileRepository, IUnitOfWork unitOfWork)
+        public CreateProfileCommandHandler(IProfileRepository profileRepository)
         {
             _profileRepository = profileRepository;
-            _unitOfWork = unitOfWork;
         }
 
         public async Task<CreateProfileResponse> Handle(CreateProfileCommand request, CancellationToken cancellationToken)
@@ -32,7 +30,8 @@ namespace healLink.Application.Handlers.Profile
 
                 var newPatient = new Patient(request.UserId);
                 await _profileRepository.AddPatientAsync(newPatient, cancellationToken);
-                await _unitOfWork.SaveChangesAsync(cancellationToken);
+                // NOTE: No SaveChangesAsync here — caller is responsible for the commit.
+                // This allows RegisterCommandHandler to stage user + OTP + profile and commit atomically.
 
                 return new CreateProfileResponse("Patient profile created successfully.", true);
             }
@@ -45,7 +44,7 @@ namespace healLink.Application.Handlers.Profile
 
                 var newDoctor = new Doctor(request.UserId, null, null, request.syndicateIdImagePath, request.practiceLicenseNumber, request.specialization, null);
                 await _profileRepository.AddDoctorAsync(newDoctor, cancellationToken);
-                await _unitOfWork.SaveChangesAsync(cancellationToken);
+                // NOTE: No SaveChangesAsync here — caller is responsible for the commit.
 
                 return new CreateProfileResponse("Doctor profile created successfully.", true);
             }
