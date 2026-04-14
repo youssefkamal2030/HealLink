@@ -28,10 +28,29 @@ namespace HealLink.Integration.Tests.Auth
             return form;
         }
 
+        /// <summary>
+        /// Reads the actual OTP code from the database for the given email.
+        /// OTP.Generate() produces a random code — tests must fetch it from the DB
+        /// rather than relying on a hardcoded constant.
+        /// </summary>
+        private async Task<string> GetOtpCodeAsync(string email)
+        {
+            using var db = _factory.CreateDbContext();
+            var user = await db.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null) throw new InvalidOperationException($"User not found for email {email}");
+            var otp = await db.OTPs
+                .Where(o => o.UserId == user.Id && !o.IsUsed)
+                .OrderByDescending(o => o.CreatedAt)
+                .FirstOrDefaultAsync();
+            if (otp == null) throw new InvalidOperationException($"No active OTP found for {email}");
+            return otp.Code;
+        }
+
         private async Task ConfirmEmailAsync(string email)
         {
+            var code = await GetOtpCodeAsync(email);
             await _client.PostAsJsonAsync("api/Auth/confirm-email",
-                new { Email = email, Code = FakeEmailService.TestOtpCode });
+                new { Email = email, Code = code });
         }
 
         // ── Happy path ───────────────────────────────────────────────────────
@@ -74,9 +93,10 @@ namespace HealLink.Integration.Tests.Auth
         {
             var email = $"confirm_{Guid.NewGuid()}@test.com";
             await _client.PostAsync("api/Auth/register", ValidPatientForm(email));
+            var code = await GetOtpCodeAsync(email);
 
             var response = await _client.PostAsJsonAsync("api/Auth/confirm-email",
-                new { Email = email, Code = FakeEmailService.TestOtpCode });
+                new { Email = email, Code = code });
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
@@ -101,7 +121,7 @@ namespace HealLink.Integration.Tests.Auth
             await _client.PostAsync("api/Auth/register", ValidPatientForm(email));
 
             var response = await _client.PostAsJsonAsync("api/Auth/confirm-email",
-                new { Email = email, Code = "999999" });
+                new { Email = email, Code = "000000" });
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
@@ -112,9 +132,10 @@ namespace HealLink.Integration.Tests.Auth
             var email = $"double_{Guid.NewGuid()}@test.com";
             await _client.PostAsync("api/Auth/register", ValidPatientForm(email));
             await ConfirmEmailAsync(email);
+            var code = await GetOtpCodeAsync(email);
 
             var response = await _client.PostAsJsonAsync("api/Auth/confirm-email",
-                new { Email = email, Code = FakeEmailService.TestOtpCode });
+                new { Email = email, Code = code });
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }

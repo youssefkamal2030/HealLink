@@ -1,34 +1,39 @@
 using healLink.Application.Interfaces;
-using HealLink.Domain.Entities;
+using HealLink.Contracts.Email;
 
 namespace HealLink.Integration.Tests.Infrastructure
 {
     /// <summary>
     /// Test double for IEmailService.
-    /// SendOtpAsync calls user.RequestOTP() so the OTP exists in the aggregate
-    /// and tests can confirm email without real SMTP.
-    /// The OTP code is always "000000" for predictability in tests.
+    /// SendOtpEmailAsync returns a fixed predictable code so integration tests
+    /// can confirm email using FakeEmailService.TestOtpCode without real SMTP.
+    ///
+    /// OTP generation and user.RequestOTP() now happen in RegisterCommandHandler
+    /// before the email is sent — this fake just captures the code passed to it.
     /// </summary>
     public class FakeEmailService : IEmailService
     {
         public const string TestOtpCode = "000000";
 
+        // Stores the last OTP code sent so tests can retrieve it if needed
+        public string? LastOtpCode { get; private set; }
+
         public Task SendEmailAsync(string to, string subject, string body) => Task.CompletedTask;
 
-        public Task<string> SendOtpAsync(User user)
+        public Task SendPasswordResetEmailAsync(string to, string resetLink) => Task.CompletedTask;
+
+        public Task<string> SendOtpEmailAsync(string to, string username, string otpCode, int expiryMinutes)
         {
-            user.RequestOTP(TestOtpCode, DateTime.UtcNow.AddMinutes(10));
-            return Task.FromResult(TestOtpCode);
+            LastOtpCode = otpCode;
+            return Task.FromResult(otpCode);
         }
 
-        public Task<string> SendPasswordResetOtpAsync(User user)
+        public Task<string> SendPasswordResetEmailAsync(string to, string username, string otpCode, int expiryMinutes)
         {
-            user.RequestOTP(TestOtpCode, DateTime.UtcNow.AddMinutes(10));
-            return Task.FromResult(TestOtpCode);
+            LastOtpCode = otpCode;
+            return Task.FromResult(otpCode);
         }
 
-        public Task SendPasswordResetEmailAsync(string to, string token) => Task.CompletedTask;
-        public Task SendVerificationEmailAsync(string to, string verificationLink) => Task.CompletedTask;
-        public Task ConfirmEmailAsync(HealLink.Contracts.Email.ConfirmEmailRequest request) => Task.CompletedTask;
+        public Task ConfirmEmailAsync(ConfirmEmailRequest request) => Task.CompletedTask;
     }
 }

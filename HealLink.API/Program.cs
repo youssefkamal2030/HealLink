@@ -49,18 +49,18 @@ namespace HealLink.Api
             });
             builder.Services.AddSignalR();
 
-            // Configure EmailSender
-            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+            // Configure EmailSender (IEmailSender for ASP.NET Identity UI compatibility)
+            // Reads from the same EmailSettings section used by EmailService
             builder.Services.AddTransient<IEmailSender>(provider =>
             {
-                var emailSettings = provider.GetRequiredService<IOptions<MailSettings>>().Value;
+                var emailSettings = provider.GetRequiredService<IOptions<HealLink.Infrastructure.Config.EmailSettings>>().Value;
                 return new EmailSender(
-                    emailSettings.Email,
-                    emailSettings.AppPassword,
-                    emailSettings.Host,
-                    emailSettings.SSL,
+                    emailSettings.Username,   // Gmail account that authenticates and sends
+                    emailSettings.Password,
+                    emailSettings.SmtpServer,
+                    true,
                     emailSettings.Port,
-                    emailSettings.IsBodyHtml
+                    true
                 );
             });
             builder.Services.AddMediatR(cfg =>

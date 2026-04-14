@@ -28,7 +28,7 @@ namespace HealLink.Infrastructure.Services
             _isBodyHtml = isBodyHtml;
         }
 
-        public Task SendEmailAsync(string to, string subject, string htmlMessage)
+        public async Task SendEmailAsync(string to, string subject, string htmlMessage)
         {
             try
             {
@@ -39,16 +39,14 @@ namespace HealLink.Infrastructure.Services
                     IsBodyHtml = _isBodyHtml
                 };
 
-                var credentials = new NetworkCredential(_email, _password);
-                var smtpClient = new SmtpClient(_host)
+                using var smtpClient = new SmtpClient(_host)
                 {
                     EnableSsl = _ssl,
                     Port = _port,
-                    Credentials = credentials
+                    Credentials = new NetworkCredential(_email, _password)
                 };
 
-                smtpClient.Send(message);
-                return Task.CompletedTask;
+                await smtpClient.SendMailAsync(message);
             }
             catch (Exception ex)
             {

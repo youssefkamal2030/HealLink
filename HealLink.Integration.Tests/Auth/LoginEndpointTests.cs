@@ -1,16 +1,19 @@
 using System.Net;
 using System.Net.Http.Json;
 using HealLink.Integration.Tests.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace HealLink.Integration.Tests.Auth
 {
     public class LoginEndpointTests : IClassFixture<HealLinkWebFactory>
     {
+        private readonly HealLinkWebFactory _factory;
         private readonly HttpClient _client;
 
         public LoginEndpointTests(HealLinkWebFactory factory)
         {
+            _factory = factory;
             _client = factory.CreateClient();
         }
 
@@ -23,9 +26,16 @@ namespace HealLink.Integration.Tests.Auth
             form.Add(new StringContent("Patient"), "Role");
             await _client.PostAsync("api/Auth/register", form);
 
-            // FakeEmailService always uses "000000" as the OTP code
+            // Fetch the real OTP from the database — OTP.Generate() produces a random code
+            using var db = _factory.CreateDbContext();
+            var user = await db.Users.FirstOrDefaultAsync(u => u.Email == email);
+            var otp = await db.OTPs
+                .Where(o => o.UserId == user!.Id && !o.IsUsed)
+                .OrderByDescending(o => o.CreatedAt)
+                .FirstOrDefaultAsync();
+
             await _client.PostAsJsonAsync("api/Auth/confirm-email",
-                new { Email = email, Code = FakeEmailService.TestOtpCode });
+                new { Email = email, Code = otp!.Code });
         }
 
         // ── Happy path ───────────────────────────────────────────────────────

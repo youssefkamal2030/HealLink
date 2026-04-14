@@ -8,11 +8,7 @@ using HealLink.Domain.Enums;
 using HealLink.Domain.ValueObjects;
 
 namespace HealLink.Domain.Entities
-{    // TODO: [BUG-1] EmailService.SendOtpAsync and SendPasswordResetOtpAsync bypass this aggregate entirely — they create OTP directly via new OTP(...) and persist via _context.OTPs. They must instead call user.RequestOTP(code, expiry) and save through IUserRepository so the aggregate boundary is respected.
-    // TODO: [REFACTOR] Once EmailService.SendOtpAsync is removed, verify EF is configured to track OTPs
-    // via this aggregate's _otps collection (owned navigation). If so, AddOtpAsync in IUserRepository
-    // can also be removed — SaveChangesAsync on the UnitOfWork will pick up the OTP automatically
-    // when it's added via user.RequestOTP() before the save.
+{
     public class User : AggregateRoot
     {
         public string Username { get; private set; }

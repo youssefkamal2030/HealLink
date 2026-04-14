@@ -46,7 +46,7 @@ namespace HealLink.Infrastructure.Services
                 Credentials = new NetworkCredential(_settings.Username, _settings.Password),
                 EnableSsl = true
             };
-            var mail = new MailMessage(_settings.SenderEmail, to, subject, body)
+            var mail = new MailMessage(_settings.Username, to, subject, body)
             {
                 IsBodyHtml = true
             };

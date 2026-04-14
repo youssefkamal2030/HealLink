@@ -58,9 +58,8 @@ namespace HealLink.Domain.Tests.Entities
         public void RequestOTP_AddsOtpToCollection()
         {
             var user = CreateUser();
-            var expiry = DateTime.UtcNow.AddMinutes(10);
 
-            user.RequestOTP("123456", expiry);
+            user.RequestOTP();
 
             Assert.Single(user.OTPs);
         }
@@ -69,9 +68,9 @@ namespace HealLink.Domain.Tests.Entities
         public void RequestOTP_WhenActiveOtpExists_InvalidatesOldOneAndAddsNew()
         {
             var user = CreateUser();
-            user.RequestOTP("111111", DateTime.UtcNow.AddMinutes(10));
+            user.RequestOTP();
 
-            user.RequestOTP("222222", DateTime.UtcNow.AddMinutes(10));
+            user.RequestOTP();
 
             Assert.Equal(2, user.OTPs.Count);
             var first = user.OTPs.First();
@@ -82,12 +81,12 @@ namespace HealLink.Domain.Tests.Entities
         public void RequestOTP_ReturnsNewOtp()
         {
             var user = CreateUser();
-            var expiry = DateTime.UtcNow.AddMinutes(10);
 
-            var otp = user.RequestOTP("123456", expiry);
+            var otp = user.RequestOTP();
 
-            Assert.Equal("123456", otp.Code);
-            Assert.Equal(user.Id, otp.UserId);
+            Assert.NotNull(otp);
+            Assert.False(string.IsNullOrWhiteSpace(otp.Code));
+            Assert.False(otp.IsExpired());
         }
 
         // ── InvalidateOtp ────────────────────────────────────────────────────
@@ -96,9 +95,9 @@ namespace HealLink.Domain.Tests.Entities
         public void InvalidateOtp_WithValidCode_MarksOtpAsUsed()
         {
             var user = CreateUser();
-            user.RequestOTP("123456", DateTime.UtcNow.AddMinutes(10));
+            var otp = user.RequestOTP();
 
-            user.InvalidateOtp("123456");
+            user.InvalidateOtp(otp.Code);
 
             Assert.True(user.OTPs.First().IsUsed);
         }
@@ -108,17 +107,17 @@ namespace HealLink.Domain.Tests.Entities
         {
             var user = CreateUser();
 
-            Assert.Throws<InvalidOperationException>(() => user.InvalidateOtp("999999"));
+            Assert.Throws<InvalidOperationException>(() => user.InvalidateOtp("000000"));
         }
 
         [Fact]
         public void InvalidateOtp_WithAlreadyUsedOtp_ThrowsInvalidOperationException()
         {
             var user = CreateUser();
-            user.RequestOTP("123456", DateTime.UtcNow.AddMinutes(10));
-            user.InvalidateOtp("123456");
+            var otp = user.RequestOTP();
+            user.InvalidateOtp(otp.Code);
 
-            Assert.Throws<InvalidOperationException>(() => user.InvalidateOtp("123456"));
+            Assert.Throws<InvalidOperationException>(() => user.InvalidateOtp(otp.Code));
         }
 
         // ── ConfirmEmail ─────────────────────────────────────────────────────

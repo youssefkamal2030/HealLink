@@ -1,63 +1,66 @@
 using System;
 using HealLink.Domain.Entities;
+using HealLink.Domain.Enums;
 using Xunit;
 
 namespace HealLink.Domain.Tests.Entities
 {
+    /// <summary>
+    /// OTP can only be created via User.RequestOTP() — the constructor is private
+    /// and OTP.Generate() is internal. All tests go through the aggregate.
+    /// </summary>
     public class OtpTests
     {
-        // ── Constructor ──────────────────────────────────────────────────────
+        private static OTP CreateOtp()
+        {
+            var user = new User("testuser", "hash", "test@example.com", UserRole.Patient);
+            return user.RequestOTP();
+        }
+
+        // ── Generation ───────────────────────────────────────────────────────
 
         [Fact]
-        public void Constructor_WithValidArgs_SetsProperties()
+        public void RequestOTP_ProducesNonEmptyCode()
         {
-            var expiry = DateTime.UtcNow.AddMinutes(10);
-            var userId = Guid.NewGuid();
+            var otp = CreateOtp();
+            Assert.False(string.IsNullOrWhiteSpace(otp.Code));
+        }
 
-            var otp = new OTP("123456", expiry, userId);
+        [Fact]
+        public void RequestOTP_ProducesSixDigitCode()
+        {
+            var otp = CreateOtp();
+            Assert.Equal(6, otp.Code.Length);
+            Assert.True(int.TryParse(otp.Code, out _));
+        }
 
-            Assert.Equal("123456", otp.Code);
-            Assert.Equal(expiry, otp.ExpiryTime);
-            Assert.Equal(userId, otp.UserId);
+        [Fact]
+        public void RequestOTP_ExpiryIsInFuture()
+        {
+            var otp = CreateOtp();
+            Assert.True(otp.ExpiryTime > DateTime.UtcNow);
+        }
+
+        [Fact]
+        public void RequestOTP_IsNotUsedOnCreation()
+        {
+            var otp = CreateOtp();
             Assert.False(otp.IsUsed);
         }
 
         [Fact]
-        public void Constructor_WithEmptyCode_ThrowsArgumentException()
+        public void RequestOTP_AssignsGuidId()
         {
-            Assert.Throws<ArgumentException>(() =>
-                new OTP("", DateTime.UtcNow.AddMinutes(10), Guid.NewGuid()));
-        }
-
-        [Fact]
-        public void Constructor_WithWhitespaceCode_ThrowsArgumentException()
-        {
-            Assert.Throws<ArgumentException>(() =>
-                new OTP("   ", DateTime.UtcNow.AddMinutes(10), Guid.NewGuid()));
-        }
-
-        [Fact]
-        public void Constructor_WithPastExpiry_ThrowsArgumentException()
-        {
-            Assert.Throws<ArgumentException>(() =>
-                new OTP("123456", DateTime.UtcNow.AddMinutes(-1), Guid.NewGuid()));
-        }
-
-        [Fact]
-        public void Constructor_WithExactlyNowExpiry_ThrowsArgumentException()
-        {
-            // expiryTime <= UtcNow should throw
-            Assert.Throws<ArgumentException>(() =>
-                new OTP("123456", DateTime.UtcNow, Guid.NewGuid()));
+            var otp = CreateOtp();
+            Assert.NotEqual(Guid.Empty, otp.Id);
         }
 
         // ── IsExpired ────────────────────────────────────────────────────────
 
         [Fact]
-        public void IsExpired_WhenExpiryInFuture_ReturnsFalse()
+        public void IsExpired_WhenJustCreated_ReturnsFalse()
         {
-            var otp = new OTP("123456", DateTime.UtcNow.AddMinutes(10), Guid.NewGuid());
-
+            var otp = CreateOtp();
             Assert.False(otp.IsExpired());
         }
 
@@ -66,17 +69,15 @@ namespace HealLink.Domain.Tests.Entities
         [Fact]
         public void Invalidate_WhenValid_SetsIsUsedTrue()
         {
-            var otp = new OTP("123456", DateTime.UtcNow.AddMinutes(10), Guid.NewGuid());
-
+            var otp = CreateOtp();
             otp.Invalidate();
-
             Assert.True(otp.IsUsed);
         }
 
         [Fact]
         public void Invalidate_WhenAlreadyUsed_ThrowsInvalidOperationException()
         {
-            var otp = new OTP("123456", DateTime.UtcNow.AddMinutes(10), Guid.NewGuid());
+            var otp = CreateOtp();
             otp.Invalidate();
 
             var ex = Assert.Throws<InvalidOperationException>(() => otp.Invalidate());
@@ -86,23 +87,13 @@ namespace HealLink.Domain.Tests.Entities
         [Fact]
         public void Invalidate_UpdatesTimestamp()
         {
-            var otp = new OTP("123456", DateTime.UtcNow.AddMinutes(10), Guid.NewGuid());
+            var otp = CreateOtp();
             var before = otp.UpdatedAt;
             System.Threading.Thread.Sleep(10);
 
             otp.Invalidate();
 
             Assert.True(otp.UpdatedAt > before);
-        }
-
-        // ── Entity base ──────────────────────────────────────────────────────
-
-        [Fact]
-        public void Constructor_AssignsGuidId()
-        {
-            var otp = new OTP("123456", DateTime.UtcNow.AddMinutes(10), Guid.NewGuid());
-
-            Assert.NotEqual(Guid.Empty, otp.Id);
         }
     }
 }

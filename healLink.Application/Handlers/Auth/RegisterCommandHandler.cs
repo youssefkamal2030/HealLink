@@ -31,9 +31,9 @@ namespace healLink.Application.Handlers.Auth
 
             var user = new User(request.username, hashedPasswordResult.Value, request.email, request.Role);
 
-            // TODO: [Problem B] Verify HealLinkDbContext maps User._otps via backing field so the OTP
-            // is tracked automatically when user is staged. If not, call userRepository.AddOtpAsync(otp)
-            // explicitly after staging the user.
+            // TODO: [Problem B — RESOLVED] EF now tracks User._otps via backing field.
+            // HasMany<OTP>("_otps") in HealLinkDbContext means SaveChangesAsync picks up
+            // any OTP added via user.RequestOTP() automatically. No explicit AddOtpAsync needed.
 
             var otp = user.RequestOTP();
 
@@ -52,7 +52,6 @@ namespace healLink.Application.Handlers.Auth
             if (!result.Success)
                 return new RegisterResponse("Profile creation failed: " + result.Message);
 
-            // Single atomic commit: user + OTP + profile all in one transaction
             await unitOfWork.SaveChangesAsync(cancellationToken);
 
             // Email is a side effect AFTER the commit — if it fails, the user is already

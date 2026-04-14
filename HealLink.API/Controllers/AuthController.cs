@@ -8,6 +8,7 @@ using HealLink.Infrastructure.Services;
 using healLink.Application.Interfaces;
 using HealLink.Contracts.Auth.Requests;
 using HealLink.Contracts.Email;
+using healLink.Application.Commands.Auth;
 
 namespace HealLink.Api.Controllers
 {
@@ -51,6 +52,16 @@ namespace HealLink.Api.Controllers
             var result = await _mediator.Send(command);
             return result.IsSuccess
                 ? Ok(new { message = "Email confirmed successfully." })
+                : BadRequest(new { message = result.Error });
+        }
+
+        [HttpPost("resend-otp")]
+        public async Task<IActionResult> ResendOtp([FromBody] ResendOtpRequest request)
+        {
+            var command = new ResendOtpCommand(request.Email);
+            var result = await _mediator.Send(command);
+            return result.IsSuccess
+                ? Ok(new { message = "If your email is registered and unconfirmed, a new OTP has been sent." })
                 : BadRequest(new { message = result.Error });
         }
 

@@ -1,5 +1,6 @@
 // TODO: [TEST-NEXT] Delete this file once all integration tests are stable.
 using HealLink.Integration.Tests.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Json;
 using Xunit;
 using Xunit.Abstractions;
@@ -8,11 +9,13 @@ namespace HealLink.Integration.Tests.Auth
 {
     public class DiagnosticTest : IClassFixture<HealLinkWebFactory>
     {
+        private readonly HealLinkWebFactory _factory;
         private readonly HttpClient _client;
         private readonly ITestOutputHelper _output;
 
         public DiagnosticTest(HealLinkWebFactory factory, ITestOutputHelper output)
         {
+            _factory = factory;
             _client = factory.CreateClient();
             _output = output;
         }
@@ -44,8 +47,16 @@ namespace HealLink.Integration.Tests.Auth
             form.Add(new StringContent("Patient"), "Role");
             await _client.PostAsync("api/Auth/register", form);
 
+            // Fetch the real OTP from the database
+            using var db = _factory.CreateDbContext();
+            var user = await db.Users.FirstOrDefaultAsync(u => u.Email == email);
+            var otp = await db.OTPs
+                .Where(o => o.UserId == user!.Id && !o.IsUsed)
+                .OrderByDescending(o => o.CreatedAt)
+                .FirstOrDefaultAsync();
+
             var confirmResponse = await _client.PostAsJsonAsync("api/Auth/confirm-email",
-                new { Email = email, Code = FakeEmailService.TestOtpCode });
+                new { Email = email, Code = otp?.Code ?? "000000" });
             var body = await confirmResponse.Content.ReadAsStringAsync();
             _output.WriteLine($"Status: {confirmResponse.StatusCode}");
             _output.WriteLine($"Body: {body}");

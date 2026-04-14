@@ -38,16 +38,19 @@ namespace HealLink.Infrastructure.Data
 
             // User
             modelBuilder.Entity<User>()
-                .ToTable("Users")
-                .Ignore(u => u.OTPs); // OTPs is a domain-only collection; EF manages OTPs via the OTPs DbSet
+                .ToTable("Users");
 
-            // OTP — FK to User only; no navigation properties tracked by EF
-            modelBuilder.Entity<OTP>()
-                .Ignore(o => o.User)
-                .HasOne<User>()
-                .WithMany()
+            // OTP — owned by User aggregate, tracked via the _otps backing field.
+            // When user.RequestOTP() adds an OTP to _otps and the user is tracked by EF,
+            // SaveChangesAsync will automatically detect the new OTP and insert it.
+            modelBuilder.Entity<User>()
+                .HasMany<OTP>("_otps")
+                .WithOne()
                 .HasForeignKey(o => o.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<OTP>()
+                .Ignore(o => o.User);
 
             // Patient - CASCADE from User, NO ACTION to Guardian
             modelBuilder.Entity<Patient>()
