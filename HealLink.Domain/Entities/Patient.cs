@@ -6,10 +6,6 @@ using HealLink.Domain.Enums;
 
 namespace HealLink.Domain.Entities
 {
-    
-    // TODO: [DDD] UploadTestResult/ConfirmMedicationReminder use UnauthorizedAccessException — replace with a domain-specific exception.
-    // TODO: [REFACTOR-P2] Create a domain-specific exception class HealLink.Domain/Exceptions/DomainUnauthorizedException.cs (extends Exception). Replace all UnauthorizedAccessException throws in Patient with it. Update ExceptionHandlingMiddleware to map DomainUnauthorizedException → 403 Forbidden.
-    // TODO: [REFACTOR-P2] AddConnectedDoctor/RemoveConnectedDoctor throw generic Exception — replace with InvalidOperationException and a descriptive message consistent with the rest of the domain.
     // TODO: [REFACTOR-P3] Patient.Guardian navigation property is public with no setter — should be private set. Same for Patient.User. These are EF navigation properties and should not be assignable from outside the aggregate.
     public class Patient : AggregateRoot
     {
@@ -64,31 +60,27 @@ namespace HealLink.Domain.Entities
             reminder.MarkAsTaken();
         }
 
-        //public void UpdateMedicalHistory(string chronicConditions, string allergies, string medications, string surgeries, string familyHistory, string notes)
-        //{
-        //    MedicalHistory.UpdateConditions(chronicConditions);
-        //    MedicalHistory.UpdateAllergies(allergies);
-        //    MedicalHistory.UpdateMedications(medications);
-        //    MedicalHistory.UpdateNotes(notes);
-        //}
+        public void UpdateMedicalHistory(MedicalHistory medicalHistory )
+        {
+            MedicalHistory = medicalHistory ?? throw new ArgumentNullException(nameof(medicalHistory));
+            UpdateTimestamp();
+
+        }
 
         public void AddConnectedDoctor(Guid doctorId)
         {
-           
             if (_connectedDoctorIds.Contains(doctorId))
-                throw new Exception("Doctor Already Exists");
-           _connectedDoctorIds.Add(doctorId);
+                throw new InvalidOperationException("Doctor is already connected to this patient.");
+            _connectedDoctorIds.Add(doctorId);
             UpdateTimestamp();
         }
+
         public void RemoveConnectedDoctor(Guid doctorId)
         {
-
-
             if (!_connectedDoctorIds.Contains(doctorId))
-                throw new Exception("No Doctor Found with this Id");
-         _connectedDoctorIds.Remove(doctorId);
+                throw new InvalidOperationException("Doctor is not connected to this patient.");
+            _connectedDoctorIds.Remove(doctorId);
             UpdateTimestamp();
-         
         }
     }
 

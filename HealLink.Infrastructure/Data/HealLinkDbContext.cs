@@ -98,11 +98,13 @@ namespace HealLink.Infrastructure.Data
                 .Ignore(p => p.MedicalHistory);
 
             modelBuilder.Entity<MedicalHistory>()
+                
                 .HasOne<Patient>()
                 .WithMany()
                 .HasForeignKey(m => m.PatientId)
                 .OnDelete(DeleteBehavior.Cascade);
-
+            modelBuilder.Entity<MedicalHistory>()
+                .OwnsOne(m => m.Details);
             modelBuilder.Entity<TestResult>()
                 .HasOne<Patient>()
                 .WithMany()
@@ -210,9 +212,7 @@ namespace HealLink.Infrastructure.Data
             modelBuilder.Entity<Notification>().ToTable("Notifications");
             modelBuilder.Entity<ChatMessage>().ToTable("ChatMessages");
             modelBuilder.Entity<TestResult>().ToTable("TestResults");
-            modelBuilder.Entity<MedicalHistory>()
-                .ToTable("MedicalHistories")
-                .Ignore(m => m.Details);
+            modelBuilder.Entity<MedicalHistory>().ToTable("MedicalHistories");
             modelBuilder.Entity<MedicationReminder>().ToTable("MedicationReminders");
             modelBuilder.Entity<DoctorPatientConnection>().ToTable("DoctorPatientConnections");
 
