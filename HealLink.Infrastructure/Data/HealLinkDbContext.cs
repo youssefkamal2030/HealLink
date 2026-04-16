@@ -152,6 +152,12 @@ namespace HealLink.Infrastructure.Data
                 .HasForeignKey(p => p.PatientId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Prescription>()
+                .HasMany<MedicationReminder>("_reminders")
+                .WithOne()
+                .HasForeignKey(r => r.PrescriptionId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             // Notifications - single RecipientId + RecipientType replaces dual nullable FKs
             modelBuilder.Entity<Notification>()
                 .HasIndex(n => new { n.RecipientId, n.RecipientType });
@@ -169,13 +175,6 @@ namespace HealLink.Infrastructure.Data
                 .HasOne<Patient>()
                 .WithMany()
                 .HasForeignKey(s => s.PatientId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            // Medication Reminder - Prescription relationship
-            modelBuilder.Entity<MedicationReminder>()
-                .HasOne<Prescription>()
-                .WithMany()
-                .HasForeignKey(m => m.PrescriptionId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Chat Messages - RESTRICT to prevent cascade conflicts

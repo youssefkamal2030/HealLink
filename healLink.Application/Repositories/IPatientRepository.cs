@@ -7,6 +7,7 @@ namespace healLink.Application.Repositories
     public interface IPatientRepository
     {
         Task<Patient> GetByPatientId(Guid patientId);
+        Task<Patient> GetByPatientIdWithRemindersAsync(Guid patientId, CancellationToken cancellationToken = default);
         Task<List<Patient>> GetByPatientIdsAsync(IEnumerable<Guid> patientIds, CancellationToken cancellationToken = default);
         Task<string> GetPatientNameById(Guid patientId);
         Task UpdateAsync(Patient patient);

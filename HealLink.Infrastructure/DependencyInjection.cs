@@ -35,6 +35,8 @@ namespace HealLink.Infrastructure
             services.AddScoped<IChatRepository, ChatRepository>();
             services.AddScoped<IChatService, ChatService>();
             services.AddScoped<IUserRoleResolver, UserRoleResolver>();
+            services.AddScoped<IPrescriptionRepository, PrescriptionRepository>();
+            services.AddScoped<IMedicationReminderRepository, MedicationReminderRepository>();
 
             services.AddScoped<INotificationPersistenceService, NotificationPersistenceService>();
             services.AddScoped<INotificationService, NotificationService>();

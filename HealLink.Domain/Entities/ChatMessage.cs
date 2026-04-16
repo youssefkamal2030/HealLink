@@ -4,14 +4,6 @@ using HealLink.Domain.Enums;
 
 namespace HealLink.Domain.Entities
 {
-    // TODO: [DDD] ChatMessage does not raise domain events on MarkAsRead() or MarkAsDelivered() — these transitions may need to notify other parts of the system.
-    // TODO: [AGGREGATE-MISSING] ChatMessage has no aggregate. ChatMessage entities need a ConversationAggregate as their root, keyed by the two participant IDs (SenderId + ReceiverId pair). Without it:
-    //   - BR-CHAT-01 (chat only between connected users) cannot be enforced at the domain level — nothing prevents a message between unconnected users.
-    //   - BR-CHAT-02 (doctor must have IsAvailableForChat = true) has no enforcement point.
-    //   - BR-CHAT-04 (Sent → Delivered → Read is one-way) is defined on the entity but the aggregate is the right place to guard the transition sequence across the conversation.
-    //   ConversationAggregate should own a List<ChatMessage>, enforce the connection pre-condition on creation, and raise MessageSentEvent / MessageReadEvent domain events.
-    // TODO: [REFACTOR-P4] Remove SetCreatedAt() — it exists only because ChatRepository used to set CreatedAt manually. Now that ChatMessage.CreatedAt is set by Entity base constructor, this method is dead code and a DDD violation. Remove it and update ChatRepository to stop calling it.
-    // TODO: [REFACTOR-P4] Add status transition guard to MarkAsDelivered(): throw InvalidOperationException if Status != Sent. Add guard to MarkAsRead(): throw if Status != Delivered. This enforces the one-way Sent → Delivered → Read invariant (BR-CHAT-04) at the entity level.
     public class ChatMessage : Entity
     {
         public Guid SenderId { get; private set; }
@@ -46,6 +38,8 @@ namespace HealLink.Domain.Entities
 
         public void MarkAsDelivered()
         {
+            if (Status != MessageStatus.Sent)
+                throw new InvalidOperationException("Can only mark as Delivered from Sent state.");
             Status = MessageStatus.Delivered;
             DeliveredAt = DateTime.UtcNow;
             UpdateTimestamp();
@@ -53,6 +47,8 @@ namespace HealLink.Domain.Entities
 
         public void MarkAsRead()
         {
+            if (Status != MessageStatus.Delivered)
+                throw new InvalidOperationException("Can only mark as Read from Delivered state.");
             Status = MessageStatus.Read;
             ReadAt = DateTime.UtcNow;
             UpdateTimestamp();

@@ -4,7 +4,6 @@ using HealLink.Domain.Base;
 
 namespace HealLink.Domain.Entities
 {
-    // TODO: [REFACTOR-P3] Guardian.User navigation property is public with no setter — should be private set to prevent external assignment.
     // TODO: [REFACTOR-P3] Guardian does not extend AggregateRoot — it cannot raise domain events. If guardian management becomes a first-class feature (assign/remove guardian triggers notifications), promote Guardian to AggregateRoot.
     public class Guardian : Entity
     {

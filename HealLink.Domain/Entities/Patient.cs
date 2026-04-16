@@ -6,7 +6,6 @@ using HealLink.Domain.Enums;
 
 namespace HealLink.Domain.Entities
 {
-    // TODO: [REFACTOR-P3] Patient.Guardian navigation property is public with no setter — should be private set. Same for Patient.User. These are EF navigation properties and should not be assignable from outside the aggregate.
     public class Patient : AggregateRoot
     {
         public Guid UserId { get; private set; }

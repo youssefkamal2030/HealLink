@@ -8,7 +8,6 @@ using HealLink.Domain.ValueObjects;
 
 namespace HealLink.Domain.Entities
 {
-    // TODO: [TOMORROW-5] Add a GenerateReminders() method that iterates _medications, and for each MedicationDosage creates one MedicationReminder per ScheduledTime entry, adding them to _reminders. Call this at the end of the constructor.
     public class Prescription : AggregateRoot
     {
         public Guid PatientId { get; private set; }
@@ -41,7 +40,7 @@ namespace HealLink.Domain.Entities
             Status = PrescriptionStatus.Active;
             ExpiresAt = expiresAt;
             _medications.AddRange(medications);
-
+            GenerateReminders();
             AddDomainEvent(new PrescriptionCreatedEvent(Id, PatientId));
         }
 
@@ -120,6 +119,19 @@ namespace HealLink.Domain.Entities
 
             _medications.Remove(medication);
             UpdateTimestamp();
+        }
+
+        public void GenerateReminders()
+        {
+            _reminders.Clear();
+            var today = DateTime.UtcNow.Date;
+            foreach (var med in _medications)
+            {
+                foreach (var time in med.ScheduledTimes)
+                {
+                    _reminders.Add(new MedicationReminder(PatientId, Id, med.MedicationName, today.Add(time)));
+                }
+            }
         }
       
     }

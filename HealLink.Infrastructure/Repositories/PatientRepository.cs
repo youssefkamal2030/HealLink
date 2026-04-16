@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using healLink.Application.Repositories;
 using HealLink.Domain.Entities;
@@ -21,6 +24,11 @@ namespace HealLink.Infrastructure.Repositories
                 .Include(p => p.User)
                 .Include(p => p.Guardian)
                 .FirstOrDefaultAsync(p => p.Id == patientId);
+
+        public async Task<Patient> GetByPatientIdWithRemindersAsync(Guid patientId, CancellationToken cancellationToken = default)
+            => await _context.Patients
+                .Include(p => p.MedicationReminders)
+                .FirstOrDefaultAsync(p => p.Id == patientId, cancellationToken);
 
         public async Task<List<Patient>> GetByPatientIdsAsync(IEnumerable<Guid> patientIds, CancellationToken cancellationToken = default)
         {
