@@ -5,8 +5,6 @@ using HealLink.Domain.ValueObjects;
 
 namespace HealLink.Domain.Entities
 {
-    // TODO: [DDD] No domain event raised on Deactivate() or Renew() — these are significant state transitions that downstream contexts may need to react to.
-    // TODO: [DOMAIN-NEXT] Raise SubscriptionDeactivatedEvent in Deactivate() and SubscriptionRenewedEvent in Renew(). Create both event classes in HealLink.Domain/DomainEvents/ following the same pattern as PrescriptionCreatedEvent.
     public class Subscription : AggregateRoot
     {
         public Guid PatientId { get; private set; }

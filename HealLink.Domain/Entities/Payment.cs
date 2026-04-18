@@ -5,18 +5,11 @@ using HealLink.Domain.ValueObjects;
 
 namespace HealLink.Domain.Entities
 {
-    // DONE: Payment.Amount is now Money value object.
-    // TODO: [DDD] No domain event raised on MarkAsCompleted() or MarkAsFailed() — payment state changes are significant domain events.
-    // TODO: [DDD] PaymentDetails value object already exists (HealLink.Domain/ValueObjects/PaymentDetails.cs) but is not used here — Amount, PaymentMethod should be encapsulated in it.
-    // TODO: [DOMAIN-NEXT] Replace `Money Amount` and `PaymentMethod PaymentMethod` with a single `PaymentDetails Details` property using the existing PaymentDetails value object. Update the constructor. Update SubscriptionAggregate.AddPayment() and any callers. Update DbContext OwnsOne accordingly.
-    // TODO: [DOMAIN-NEXT] Raise PaymentCompletedEvent in MarkAsCompleted() and PaymentFailedEvent in MarkAsFailed(). Payment extends Entity not AggregateRoot — events must be raised by the owning SubscriptionAggregate via CompletePayment()/FailPayment() methods.
-    // TODO: [DOMAIN-NEXT] Add a guard to Refund(): throw InvalidOperationException if Status == PaymentStatus.Failed — per BR-SUB-06, a failed payment cannot be refunded.
     public class Payment : Entity
     {
         public Guid PatientId { get; private set; }
         public Guid? SubscriptionId { get; private set; }
-        public Money Amount { get; private set; }
-        public PaymentMethod PaymentMethod { get; private set; }
+        public PaymentDetails Details { get; private set; }
         public PaymentStatus Status { get; private set; }
         public string TransactionId { get; private set; }
         public DateTime? PaidAt { get; private set; }
@@ -24,16 +17,15 @@ namespace HealLink.Domain.Entities
 
         private Payment() { } // For EF
 
-        public Payment(Guid patientId, Money amount, PaymentMethod paymentMethod, Guid? subscriptionId = null)
+        public Payment(Guid patientId, PaymentDetails details, Guid? subscriptionId = null)
         {
             PatientId = patientId;
-            Amount = amount;
-            PaymentMethod = paymentMethod;
+            Details = details ?? throw new ArgumentNullException(nameof(details));
             Status = PaymentStatus.Pending;
             SubscriptionId = subscriptionId;
         }
 
-        public void MarkAsCompleted(string transactionId)
+        internal void MarkAsCompleted(string transactionId)
         {
             Status = PaymentStatus.Completed;
             TransactionId = transactionId ?? throw new ArgumentNullException(nameof(transactionId));
@@ -41,15 +33,19 @@ namespace HealLink.Domain.Entities
             UpdateTimestamp();
         }
 
-        public void MarkAsFailed(string failureReason)
+        internal void MarkAsFailed(string failureReason)
         {
             Status = PaymentStatus.Failed;
             FailureReason = failureReason ?? throw new ArgumentNullException(nameof(failureReason));
             UpdateTimestamp();
         }
 
-        public void Refund()
+        internal void Refund()
         {
+            if (Status == PaymentStatus.Failed)
+                throw new InvalidOperationException("A failed payment cannot be refunded.");
+            if (Status != PaymentStatus.Completed)
+                throw new InvalidOperationException("Only completed payments can be refunded.");
             Status = PaymentStatus.Refunded;
             UpdateTimestamp();
         }

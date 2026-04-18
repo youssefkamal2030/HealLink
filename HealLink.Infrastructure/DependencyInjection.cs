@@ -37,6 +37,7 @@ namespace HealLink.Infrastructure
             services.AddScoped<IUserRoleResolver, UserRoleResolver>();
             services.AddScoped<IPrescriptionRepository, PrescriptionRepository>();
             services.AddScoped<IMedicationReminderRepository, MedicationReminderRepository>();
+            services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 
             services.AddScoped<INotificationPersistenceService, NotificationPersistenceService>();
             services.AddScoped<INotificationService, NotificationService>();
