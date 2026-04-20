@@ -51,5 +51,9 @@ namespace HealLink.Infrastructure.Repositories
             _context.Patients.Update(patient);
             return Task.CompletedTask;
         }
+
+        public async Task<MedicalHistory?> GetMedicalHistoryAsync(Guid patientId, CancellationToken cancellationToken = default)
+            => await _context.MedicalHistories
+                .FirstOrDefaultAsync(m => m.PatientId == patientId, cancellationToken);
     }
 }

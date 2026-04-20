@@ -59,11 +59,22 @@ namespace HealLink.Domain.Entities
             reminder.MarkAsTaken();
         }
 
-        public void UpdateMedicalHistory(MedicalHistory medicalHistory )
+        public void UpdateMedicalHistory(MedicalHistory medicalHistory)
         {
             MedicalHistory = medicalHistory ?? throw new ArgumentNullException(nameof(medicalHistory));
             UpdateTimestamp();
+        }
 
+        public void UpdateMedicalHistoryDetails(MedicalHistoryDetails details, string? fileLink = null)
+        {
+            if (details == null) throw new ArgumentNullException(nameof(details));
+
+            if (MedicalHistory == null)
+                MedicalHistory = new MedicalHistory(Id, fileLink, details);
+            else
+                MedicalHistory.UpdateDetails(details);
+
+            UpdateTimestamp();
         }
 
         public void AddConnectedDoctor(Guid doctorId)

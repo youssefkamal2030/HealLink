@@ -11,5 +11,6 @@ namespace healLink.Application.Repositories
         Task<List<Patient>> GetByPatientIdsAsync(IEnumerable<Guid> patientIds, CancellationToken cancellationToken = default);
         Task<string> GetPatientNameById(Guid patientId);
         Task UpdateAsync(Patient patient);
+        Task<MedicalHistory?> GetMedicalHistoryAsync(Guid patientId, CancellationToken cancellationToken = default);
     }
 }

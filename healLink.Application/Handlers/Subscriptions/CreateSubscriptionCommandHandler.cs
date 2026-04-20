@@ -7,8 +7,7 @@ using healLink.Application.Repositories;
 using HealLink.Contracts.Subscriptions.Responses;
 using HealLink.Domain.Aggregates;
 using HealLink.Domain.Entities;
-using HealLink.Domain.ValueObjects;
-using MediatR;
+using HealLink.Domain.ValueObjects;using MediatR;
 
 namespace healLink.Application.Handlers.Subscriptions
 {
@@ -34,7 +33,7 @@ namespace healLink.Application.Handlers.Subscriptions
             if (!connected)
                 return Result<SubscriptionResponse>.Failure("Doctor and patient are not connected.");
 
-            var subscription = new Subscription(
+            var aggregate = SubscriptionAggregate.Create(
                 request.PatientId,
                 request.DoctorId,
                 new Money(request.Amount, request.Currency),
@@ -42,11 +41,10 @@ namespace healLink.Application.Handlers.Subscriptions
                 request.EndDate,
                 request.IsMonthly);
 
-            var aggregate = new SubscriptionAggregate(subscription);
             await _subscriptionRepository.AddAsync(aggregate, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-            return Result<SubscriptionResponse>.Success(MapToResponse(subscription));
+            return Result<SubscriptionResponse>.Success(MapToResponse(aggregate.Subscription));
         }
 
         private static SubscriptionResponse MapToResponse(Subscription s) => new(

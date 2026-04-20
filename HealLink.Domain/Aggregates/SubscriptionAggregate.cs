@@ -21,6 +21,14 @@ namespace HealLink.Domain.Aggregates
             if (payments != null) _payments.AddRange(payments);
         }
 
+        public static SubscriptionAggregate Create(
+            Guid patientId, Guid doctorId, Money amount,
+            DateTime startDate, DateTime endDate, bool isMonthly)
+        {
+            var subscription = new Subscription(patientId, doctorId, amount, startDate, endDate, isMonthly);
+            return new SubscriptionAggregate(subscription);
+        }
+
         public Payment AddPayment(PaymentDetails details)
         {
             if (!Subscription.IsActive)
