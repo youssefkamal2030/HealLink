@@ -2,12 +2,14 @@ namespace HealLink.Domain.ValueObjects
 {
     public class MedicalHistoryDetails
     {
-        public string ChronicConditions { get; }
-        public string Allergies { get; }
-        public string CurrentMedications { get; }
-        public string PreviousSurgeries { get; }
-        public string FamilyHistory { get; }
-        public string Notes { get; }
+        public string ChronicConditions { get; private set; }
+        public string Allergies { get; private set; }
+        public string CurrentMedications { get; private set; }
+        public string PreviousSurgeries { get; private set; }
+        public string FamilyHistory { get; private set; }
+        public string Notes { get; private set; }
+
+        private MedicalHistoryDetails() { } // For EF
 
         public MedicalHistoryDetails(string chronicConditions, string allergies, string currentMedications, string previousSurgeries, string familyHistory, string notes)
         {

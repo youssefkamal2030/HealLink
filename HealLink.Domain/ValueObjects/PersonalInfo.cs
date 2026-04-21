@@ -9,6 +9,8 @@ namespace HealLink.Domain.ValueObjects
         public string Gender { get; private set; }
         public string Nationality { get; private set; }
 
+        private PersonalInfo() { } // For EF
+
         public PersonalInfo(string fullName, string gender, string nationality)
         {
             FullName = fullName ?? throw new ArgumentNullException(nameof(fullName));

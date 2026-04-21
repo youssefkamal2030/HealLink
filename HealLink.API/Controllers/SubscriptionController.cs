@@ -42,7 +42,7 @@ namespace HealLink.Api.Controllers
 
         /// <summary>Get all subscriptions for a doctor.</summary>
         [HttpGet("doctor/{doctorId}")]
-        public async Task<IActionResult> GetByDoctor([FromRoute] Guid doctorId)
+        public async Task<IActionResult> GetByDoctor([FromRoute] Guid doctorId) 
         {
             var result = await _mediator.Send(new GetSubscriptionsByDoctorQuery(doctorId));
             return result.IsSuccess ? Ok(result.Value) : BadRequest(new { message = result.Error });

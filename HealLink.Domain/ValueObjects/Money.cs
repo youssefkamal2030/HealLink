@@ -8,11 +8,13 @@ namespace HealLink.Domain.ValueObjects
     {
         public decimal Amount { get; private set; }
         public Currency Currency { get; private set; }
-        
+
+        private Money() { } // For EF
+
         public Money(decimal amount, Currency currency)
         {
             if (amount < 0)
-               new ArgumentException("Amount cannot be negative", nameof(amount));
+                throw new ArgumentException("Amount cannot be negative", nameof(amount));
 
             Amount = amount;
             Currency = currency;

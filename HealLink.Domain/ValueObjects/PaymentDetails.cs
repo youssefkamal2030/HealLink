@@ -4,9 +4,11 @@ namespace HealLink.Domain.ValueObjects
 {
     public class PaymentDetails
     {
-        public decimal Amount { get; }
-        public Currency Currency { get; }
-        public PaymentMethod PaymentMethod { get; }
+        public decimal Amount { get; private set; }
+        public Currency Currency { get; private set; }
+        public PaymentMethod PaymentMethod { get; private set; }
+
+        private PaymentDetails() { } // For EF
 
         public PaymentDetails(decimal amount, Currency currency, PaymentMethod paymentMethod)
         {

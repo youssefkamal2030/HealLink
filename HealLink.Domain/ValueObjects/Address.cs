@@ -5,10 +5,8 @@ namespace HealLink.Domain.ValueObjects
     public class Address
     {
         
-        public string City { get; }
-      
-        public string Country { get; }
-      
+        public string City { get; private set; }
+        public string Country { get; private set; }
 
         protected Address() { }
 

@@ -7,7 +7,6 @@ using System.Collections.Generic;
 
 namespace HealLink.Domain.Entities
 {
-    // TODO: [DDD] AddNotification() pushes directly onto the collection — notifications should be raised as domain events instead.
     
     public class Doctor : AggregateRoot
     {

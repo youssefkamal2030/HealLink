@@ -156,6 +156,8 @@ namespace HealLink.Infrastructure.Data
                 .WithOne()
                 .HasForeignKey(r => r.PrescriptionId)
                 .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Prescription>()
+                .Ignore(r => r.Reminders);
 
             // Notifications - single RecipientId + RecipientType replaces dual nullable FKs
             modelBuilder.Entity<Notification>()
@@ -202,6 +204,8 @@ namespace HealLink.Infrastructure.Data
                 .WithMany()
                 .HasForeignKey(p => p.SubscriptionId)
                 .OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<Payment>()
+                .OwnsOne(p => p.Details);
 
             // Table configurations
             modelBuilder.Entity<Prescription>().ToTable("Prescriptions");

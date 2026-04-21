@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using HealLink.Domain.Base;
 using HealLink.Domain.DomainEvents;
 using HealLink.Domain.Enums;
+using HealLink.Domain.ValueObjects;
 
 namespace HealLink.Domain.Entities
 {
