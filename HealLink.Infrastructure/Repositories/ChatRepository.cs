@@ -17,6 +17,9 @@ namespace HealLink.Infrastructure.Repositories
         private readonly HealLinkDbContext _context = context;
         private readonly ILogger<ChatRepository> _logger = logger;
 
+        // TODO: [BROKEN] AddChatMessageAsync is not implemented — the entire send-message flow is dead.
+        // Implement: await _context.ChatMessages.AddAsync(message); return Task.CompletedTask;
+        // Also call UnitOfWork.SaveChangesAsync() from the ChatHub or a SendMessageCommand handler after calling this.
         public Task AddChatMessageAsync(ChatMessage message)
         {
             throw new NotImplementedException();

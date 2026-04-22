@@ -4,7 +4,16 @@ using HealLink.Domain.Base;
 
 namespace HealLink.Domain.Entities
 {
-    // TODO: [REFACTOR-P3] Guardian does not extend AggregateRoot — it cannot raise domain events. If guardian management becomes a first-class feature (assign/remove guardian triggers notifications), promote Guardian to AggregateRoot.
+    // TODO: [MISSING-FEATURE] No API endpoints exist for Guardian management. Need:
+    //   - AssignGuardianCommand + handler (calls patient.AssignGuardian(), creates Guardian entity if new)
+    //   - RemoveGuardianCommand + handler (calls patient.RemoveGuardian())
+    //   - GetGuardianQuery + handler
+    //   - GuardianController: POST /api/guardian/assign, DELETE /api/guardian/{patientId}/remove, GET /api/guardian/{patientId}
+    //   Without these, the guardian authorization checks in Patient.UploadTestResult() and
+    //   Patient.ConfirmMedicationReminder() can never be exercised end-to-end.
+    // TODO: [REFACTOR-P3] Guardian does not extend AggregateRoot — it cannot raise domain events. If guardian
+    //   management becomes a first-class feature (assign/remove guardian triggers notifications), promote
+    //   Guardian to AggregateRoot.
     public class Guardian : Entity
     {
         public Guid UserId { get; private set; }

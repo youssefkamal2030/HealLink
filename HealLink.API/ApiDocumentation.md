@@ -3,6 +3,19 @@
 **Base URL (Production):** `https://heallink-production.up.railway.app`  
 **Base URL (Local):** `https://localhost:7001`
 
+<!-- TODO: [DOCS] This file is stale — last updated January 2026. The following sections are missing and must be added:
+     - Prescriptions endpoints (POST /, GET /patient/{id}, GET /doctor/{id})
+     - Medication Reminders endpoints (GET /patient/{id}, PUT /{id}/taken)
+     - Subscriptions endpoints (POST /, GET /patient/{id}, GET /doctor/{id}, POST /{id}/payments, PUT /{id}/payments/{pid}/complete|fail|refund)
+     - Medical History endpoints (GET /patient/{id}, PUT /patient/{id})
+     - Chat send/deliver/read endpoints (once implemented)
+     - Guardian management endpoints (once implemented)
+     - Doctor approval endpoint (once implemented)
+     - Test Results endpoints (once implemented)
+     - Update the Complete Endpoint Summary table (currently shows 21, actual count is 34+)
+     - Update "Last Updated" date
+-->
+
 ## 📋 Table of Contents
 
 - [Authentication](#authentication-endpoints)

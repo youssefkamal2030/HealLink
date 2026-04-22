@@ -5,8 +5,15 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HealLink.Api.Controllers
+namespace HealLink.API.Controllers
 {
+    // TODO: [MISSING-FEATURE] SendMessage endpoint is absent — ChatHub handles real-time sending but there is no REST
+    //   fallback. Add POST /api/Chat/Send that dispatches a SendMessageCommand (create it) which calls
+    //   ChatRepository.AddChatMessageAsync() and UnitOfWork.SaveChangesAsync(). The hub can call the same command.
+    // TODO: [MISSING-FEATURE] No endpoint to mark messages as Delivered or Read. Add:
+    //   PUT /api/Chat/{messageId}/delivered → MarkAsDeliveredCommand
+    //   PUT /api/Chat/{messageId}/read      → MarkAsReadCommand
+    //   Both go through ChatMessage.MarkAsDelivered() / MarkAsRead() which already have transition guards.
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]

@@ -5,9 +5,21 @@ using Xunit;
 
 namespace HealLink.Domain.Tests.Entities
 {
-    // TODO: [TEST-NEXT] Add tests for ConfirmMedicationReminder() — verify it marks the reminder as taken for the patient, for the guardian, and throws UnauthorizedAccessException for a third party.
-    // TODO: [TEST-NEXT] Add a test for AddConnectedDoctor_ThenRemove_ThenAddAgain — verify the same doctor ID can be re-added after being removed (no stale state).
-    // TODO: [TEST-NEXT] Once UploadTestResult/ConfirmMedicationReminder are updated to throw a domain-specific exception instead of UnauthorizedAccessException (per the existing [DDD] TODO), update these tests to assert the new exception type.
+    // TODO: [TEST-NEXT] Add tests for ConfirmMedicationReminder():
+    //   - Patient can confirm their own reminder → Status becomes Taken
+    //   - Guardian can confirm a reminder for their patient → Status becomes Taken
+    //   - Third party throws UnauthorizedAccessException
+    //   - Non-existent reminderId throws InvalidOperationException
+    //   Note: Patient._medicationReminders is loaded via EF backing field — in unit tests you must
+    //   use GetByPatientIdWithRemindersAsync() pattern or construct the patient with reminders directly.
+    // TODO: [TEST-NEXT] Add tests for UpdateMedicalHistoryDetails():
+    //   - First call creates a new MedicalHistory on the patient
+    //   - Second call updates the existing one (same Id, different Details)
+    //   - Null details throws ArgumentNullException
+    // TODO: [TEST-NEXT] Add a test for AddConnectedDoctor_ThenRemove_ThenAddAgain — verify the same doctor ID
+    //   can be re-added after being removed (no stale state).
+    // TODO: [TEST-NEXT] Once UploadTestResult/ConfirmMedicationReminder are updated to throw a domain-specific
+    //   exception instead of UnauthorizedAccessException, update these tests to assert the new exception type.
     public class PatientAggregateTests
     {
         private Patient CreatePatient() => new Patient(Guid.NewGuid());

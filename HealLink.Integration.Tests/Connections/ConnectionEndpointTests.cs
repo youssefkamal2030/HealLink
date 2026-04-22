@@ -16,14 +16,21 @@ namespace HealLink.Integration.Tests.Connections
             _client = factory.CreateClient();
         }
 
-        // TODO: [TEST-NEXT] Add authenticated connection flow tests:
-        //   - Register a Patient and a Doctor, log both in, get their profile IDs from the DB.
-        //   - POST /api/Connections/Request with the patient's JWT → assert 200 and connection row in DB with Status=Pending.
-        //   - POST /api/Connections/Accept with the doctor's JWT → assert 200, connection Status=Accepted in DB, and Patient.ConnectedDoctorIds updated.
-        //   - POST /api/Connections/Reject with the doctor's JWT → assert 200, connection removed from Doctor.PatientConnections.
-        //   - POST /api/Connections/Request a second time for the same pair → assert failure "already exists".
-        // TODO: [TEST-NEXT] Add a helper method RegisterAndGetProfileId(role) to HealLinkWebFactory or a shared TestHelpers class
-        //   that registers a user, logs in, and returns (jwt, profileId) so connection tests don't duplicate that setup.
+        // TODO: [TEST-NEXT] Implement full happy-path connection flow test:
+        //   1. Register a Patient and a Doctor via POST /api/Auth/register
+        //   2. Confirm both emails via POST /api/Auth/confirm-email
+        //   3. Login both and capture JWTs
+        //   4. Resolve patientId and doctorId from DB via factory.CreateDbContext()
+        //   5. POST /api/Connections/Request with patient JWT → assert 200, DB row Status=Pending
+        //   6. POST /api/Connections/Accept with doctor JWT → assert 200, Status=Accepted in DB,
+        //      Patient.ConnectedDoctorIds contains doctorId
+        //   7. POST /api/Connections/Request again for same pair → assert 400 "already exists"
+        // TODO: [TEST-NEXT] Implement reject flow test:
+        //   Same setup as above but POST /api/Connections/Reject with doctor JWT →
+        //   assert 200, connection row removed from Doctor.PatientConnections in DB.
+        // TODO: [TEST-NEXT] Add RegisterAndLoginAsync(role) helper to HealLinkWebFactory or a shared
+        //   TestHelpers static class — registers a user, confirms email, logs in, returns (jwt, userId).
+        //   Reuse across ConnectionEndpointTests, PrescriptionEndpointTests, SubscriptionEndpointTests.
 
         // ── Auth guard ───────────────────────────────────────────────────────
 
