@@ -88,5 +88,29 @@ namespace HealLink.Api.Controllers
             var result = await _mediator.Send(query);
             return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
         }
+
+        /// <summary>
+        /// Terminate an accepted connection between doctor and patient.
+        /// Either party can terminate the connection.
+        /// </summary>
+        [HttpDelete("{connectionId}")]
+        public async Task<IActionResult> TerminateConnection([FromRoute] Guid connectionId)
+        {
+            // Extract user ID from JWT token
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier) 
+                           ?? User.FindFirst("sub");
+            
+            if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out var authenticatedUserId))
+            {
+                return Unauthorized(new { success = false, message = "Unable to identify user from token" });
+            }
+
+            var command = new TerminateConnectionCommand(connectionId, authenticatedUserId);
+            var result = await _mediator.Send(command);
+
+            return result.IsSuccess
+                ? Ok(new { success = true, message = "Connection terminated successfully" })
+                : BadRequest(new { success = false, message = result.Error });
+        }
     }
 }

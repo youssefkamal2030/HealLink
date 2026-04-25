@@ -45,5 +45,14 @@ namespace HealLink.Domain.Entities
             UpdateTimestamp();
         }
 
+        internal void Terminate()
+        {
+            if (Status != ConnectionStatus.Accepted)
+                throw new InvalidOperationException("Only accepted connections can be terminated.");
+            
+            Status = ConnectionStatus.Terminated;
+            UpdateTimestamp();
+        }
+
     }
 } 

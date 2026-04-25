@@ -207,6 +207,25 @@ Comprehensive API documentation is available in [ApiDocumentation.md](./HealLink
 - **MedicalHistory** - Patient medical records
 - **ChatMessages** - Real-time messaging history
 
+### Domain Enumerations
+
+The system uses the following enums to represent domain states and types:
+
+| Enum | Values | Usage |
+|------|--------|-------|
+| **Gender** | Male, Female | User gender identification |
+| **UserRole** | Patient, Doctor, Guardian, Admin | Role-based authorization |
+| **AccountStatus** | Pending, Active, Suspended, Deactivated | User account lifecycle |
+| **ConnectionStatus** | Pending, Accepted, Rejected, Terminated | Doctor-patient connection states |
+| **PaymentStatus** | Pending, Completed, Failed, Refunded | Payment transaction states |
+| **PaymentMethod** | Instapay, Fawry, Visa, Mastercard, PayPal | Supported payment methods |
+| **MessageStatus** | Sent, Delivered, Read | Chat message delivery tracking |
+| **MedicationReminderStatus** | Pending, Taken, Missed, Snoozed | Medication adherence tracking |
+| **FileType** | Image, PDF, Document | Uploaded file categorization |
+| **Currency** | EGP, USD, EUR | Supported currencies for payments |
+| **PrescriptionStatus** | Active, Inactive, Expired | Prescription lifecycle states |
+| **NotificationType** | ConnectionAccepted, ConnectionRejected, ConnectionRequest | Notification categorization |
+
 ### Migrations
 
 **Create a new migration:**

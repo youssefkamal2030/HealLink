@@ -3,7 +3,7 @@ namespace HealLink.Domain.Enums
     public enum Gender { Male, Female }
     public enum UserRole { Patient, Doctor, Guardian, Admin }
     public enum AccountStatus { Pending, Active, Suspended, Deactivated }
-    public enum ConnectionStatus { Pending, Accepted, Rejected }
+    public enum ConnectionStatus { Pending, Accepted, Rejected, Terminated }
     public enum PaymentStatus { Pending, Completed, Failed, Refunded }
     public enum PaymentMethod { Instapay, Fawry, Visa, Mastercard, PayPal }
     public enum MessageStatus { Sent, Delivered, Read }
