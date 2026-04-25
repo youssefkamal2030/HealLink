@@ -94,6 +94,55 @@ namespace HealLink.Api.Controllers
                 : NotFound(result);
         }
 
-      
+        /// <summary>Update a patient's profile (username and email).</summary>
+        [HttpPut("patient/{patientId}")]
+        public async Task<IActionResult> UpdatePatientProfile(Guid patientId, [FromBody] UpdatePatientProfileRequest request)
+        {
+            // Extract user ID from JWT token
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier) 
+                           ?? User.FindFirst("sub");
+            
+            if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out var authenticatedUserId))
+            {
+                return Unauthorized(new { success = false, message = "Unable to identify user from token" });
+            }
+
+            var command = new UpdatePatientProfileCommand(
+                patientId,
+                authenticatedUserId,
+                request.Username,
+                request.Email
+            );
+
+            var result = await _mediator.Send(command);
+
+            return result.IsSuccess
+                ? Ok(new { success = true, message = "Patient profile updated successfully" })
+                : BadRequest(new { success = false, message = result.Error });
+        }
+
+        /// <summary>Delete a patient profile. Only the patient or an admin can delete.</summary>
+        [HttpDelete("patient/{patientId}")]
+        [Authorize(Roles = "Admin,Patient")]
+        public async Task<IActionResult> DeletePatientProfile(Guid patientId)
+        {
+            // Extract user ID from JWT token
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier) 
+                           ?? User.FindFirst("sub");
+            
+            if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out var authenticatedUserId))
+            {
+                return Unauthorized(new { success = false, message = "Unable to identify user from token" });
+            }
+
+            var command = new DeletePatientProfileCommand(patientId, authenticatedUserId);
+            var result = await _mediator.Send(command);
+
+            return result.IsSuccess
+                ? Ok(new { success = true, message = "Patient profile deleted successfully" })
+                : result.Error.Contains("authorized")
+                    ? Forbid()
+                    : BadRequest(new { success = false, message = result.Error });
+        }
     }
 }

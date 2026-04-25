@@ -134,6 +134,46 @@
   }
   ```
 
+### 5. Change Password
+
+**Endpoint:** `POST /Auth/change-password`
+
+**Authorization:** Required (JWT Bearer token)
+
+**Description:** Allows an authenticated user to change their password by providing their current password and a new password.
+
+**Request Body:**
+```json
+{
+  "UserId": "guid",
+  "CurrentPassword": "string",
+  "NewPassword": "string"
+}
+```
+
+**Response:**
+- **Success (200 OK):**
+  ```json
+  {
+    "success": true,
+    "value": true
+  }
+  ```
+- **Failure (400 Bad Request):**
+  ```json
+  {
+    "success": false,
+    "error": "Current password is incorrect."
+  }
+  ```
+  or
+  ```json
+  {
+    "success": false,
+    "error": "User not found."
+  }
+  ```
+
 ---
 
 ## Profile Endpoints
@@ -706,6 +746,7 @@ Future versions will be accessible via:
 | **Auth** | `/Auth/login` | POST | No |
 | **Auth** | `/Auth/forgot-password` | POST | No |
 | **Auth** | `/Auth/reset-password` | POST | No |
+| **Auth** | `/Auth/change-password` | POST | Yes |
 | **Profiles** | `/api/Profile/{userId}` | GET | Yes |
 | **Profiles** | `/api/Profile` | GET | Yes |
 | **Profiles** | `/api/Profile/doctor/{doctorId}` | PUT | Yes |
@@ -725,7 +766,7 @@ Future versions will be accessible via:
 | **Search** | `/api/Search/doctors` | GET | Yes |
 | **Search** | `/api/Search/patients` | GET | Yes (Doctor/Admin) |
 
-**Total Endpoints:** 23
+**Total Endpoints:** 24
 
 ---
 
@@ -745,5 +786,5 @@ For API support or questions:
 
 ---
 
-**Last Updated:** January 3, 2026  
+**Last Updated:** April 25, 2026  
 **API Version:** 1.0

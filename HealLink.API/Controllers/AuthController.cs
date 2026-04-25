@@ -9,6 +9,8 @@ using healLink.Application.Interfaces;
 using HealLink.Contracts.Auth.Requests;
 using HealLink.Contracts.Email;
 using healLink.Application.Commands.Auth;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace HealLink.Api.Controllers
 {
@@ -78,6 +80,29 @@ namespace HealLink.Api.Controllers
             var command = new ResetPasswordCommand(request.Email, request.Token, request.NewPassword);
             var result = await _mediator.Send(command);
             return result.Message == "Password reset Successfully" ? Ok(result) : BadRequest(result);
+        }
+
+        /// <summary>
+        /// Change password for authenticated user. Requires current password verification.
+        /// </summary>
+        [HttpPost("change-password")]
+        [Authorize]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+        {
+            // Extract user ID from JWT token
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
+            
+            if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out var userId))
+            {
+                return Unauthorized(new { message = "Unable to identify user from token." });
+            }
+
+            var command = new ChangePasswordCommand(userId, request.CurrentPassword, request.NewPassword);
+            var result = await _mediator.Send(command);
+
+            return result.IsSuccess
+                ? Ok(new { message = "Password changed successfully." })
+                : BadRequest(new { message = result.Error });
         }
     }
 }
