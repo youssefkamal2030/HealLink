@@ -34,7 +34,7 @@ namespace healLink.Application.Handlers.Prescriptions
             if (!connected)
                 return Result<PrescriptionResponse>.Failure("Doctor and patient are not connected.");
 
-            var prescription = new Prescription(
+            var prescription = Prescription.Issue(
                 request.PatientId,
                 request.DoctorId,
                 request.Notes,

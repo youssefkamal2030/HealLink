@@ -65,5 +65,80 @@ namespace HealLink.Infrastructure.Repositories
 
             return Task.CompletedTask;
         }
+
+        public async Task<(List<Doctor> Doctors, int TotalCount)> SearchDoctorsAsync(
+            string? searchTerm,
+            string? specialization,
+            string? city,
+            string? country,
+            bool? isAvailableForChat,
+            bool? isApprovedOnly,
+            int page,
+            int pageSize,
+            CancellationToken cancellationToken = default)
+        {
+            var query = _context.Doctors
+                .Include(d => d.User)
+                .Include(d => d.Address)
+                .Include(d => d.PersonalInfo)
+                .AsQueryable();
+
+            // Apply approval filter (default to approved only)
+            if (isApprovedOnly.GetValueOrDefault(true))
+            {
+                query = query.Where(d => d.IsApproved);
+            }
+
+            // Apply search term filter (searches in name, email, specialization, workplace)
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                var lowerSearchTerm = searchTerm.ToLower();
+                query = query.Where(d =>
+                    (d.PersonalInfo != null && d.PersonalInfo.FullName.ToLower().Contains(lowerSearchTerm)) ||
+                    d.User.Email.ToLower().Contains(lowerSearchTerm) ||
+                    (d.Specialization != null && d.Specialization.ToLower().Contains(lowerSearchTerm)) ||
+                    (d.CurrentWorkplace != null && d.CurrentWorkplace.ToLower().Contains(lowerSearchTerm)));
+            }
+
+            // Apply specialization filter
+            if (!string.IsNullOrWhiteSpace(specialization))
+            {
+                var lowerSpecialization = specialization.ToLower();
+                query = query.Where(d => d.Specialization != null && d.Specialization.ToLower().Contains(lowerSpecialization));
+            }
+
+            // Apply city filter
+            if (!string.IsNullOrWhiteSpace(city))
+            {
+                var lowerCity = city.ToLower();
+                query = query.Where(d => d.Address != null && d.Address.City.ToLower().Contains(lowerCity));
+            }
+
+            // Apply country filter
+            if (!string.IsNullOrWhiteSpace(country))
+            {
+                var lowerCountry = country.ToLower();
+                query = query.Where(d => d.Address != null && d.Address.Country.ToLower().Contains(lowerCountry));
+            }
+
+            // Apply availability filter
+            if (isAvailableForChat.HasValue)
+            {
+                query = query.Where(d => d.IsAvailableForChat == isAvailableForChat.Value);
+            }
+
+            // Get total count before pagination
+            var totalCount = await query.CountAsync(cancellationToken);
+
+            // Apply pagination and ordering
+            var doctors = await query
+                .OrderBy(d => d.PersonalInfo != null ? d.PersonalInfo.FullName : d.User.Email)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .AsNoTracking()
+                .ToListAsync(cancellationToken);
+
+            return (doctors, totalCount);
+        }
     }
 }

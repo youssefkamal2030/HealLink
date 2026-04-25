@@ -1,4 +1,6 @@
-﻿using healLink.Application.Queries;
+﻿using System;
+using System.Threading.Tasks;
+using healLink.Application.Commands.Chat;
 using healLink.Application.Queries.Chat;
 using HealLink.Contracts.Chat.Requests;
 using MediatR;
@@ -7,13 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HealLink.API.Controllers
 {
-    // TODO: [MISSING-FEATURE] SendMessage endpoint is absent — ChatHub handles real-time sending but there is no REST
-    //   fallback. Add POST /api/Chat/Send that dispatches a SendMessageCommand (create it) which calls
-    //   ChatRepository.AddChatMessageAsync() and UnitOfWork.SaveChangesAsync(). The hub can call the same command.
-    // TODO: [MISSING-FEATURE] No endpoint to mark messages as Delivered or Read. Add:
-    //   PUT /api/Chat/{messageId}/delivered → MarkAsDeliveredCommand
-    //   PUT /api/Chat/{messageId}/read      → MarkAsReadCommand
-    //   Both go through ChatMessage.MarkAsDelivered() / MarkAsRead() which already have transition guards.
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -21,23 +16,38 @@ namespace HealLink.API.Controllers
     {
         private readonly IMediator _mediator;
 
-        public ChatController(IMediator mediator)
+        public ChatController(IMediator mediator) => _mediator = mediator;
+
+        /// <summary>Send a message between a connected doctor and patient.</summary>
+        [HttpPost("send")]
+        public async Task<IActionResult> SendMessage([FromBody] SendMessageRequest request)
         {
-            _mediator = mediator;
+            var result = await _mediator.Send(new SendMessageCommand(request.SenderId, request.ReceiverId, request.Content));
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(new { message = result.Error });
         }
 
-        /// <summary>
-        /// Get chat history between two users
-        /// </summary>
-        [HttpGet("History")]
+        /// <summary>Get chat history between two users.</summary>
+        [HttpGet("history")]
         public async Task<IActionResult> GetChatHistory([FromQuery] Guid userId1, [FromQuery] Guid userId2)
         {
-            var query = new GetChatHistoryQuery(userId1, userId2);
-            var result = await _mediator.Send(query);
-            
-            return result.IsSuccess 
-                ? Ok(result.Value) 
-                : BadRequest(new { message = result.Error });
+            var result = await _mediator.Send(new GetChatHistoryQuery(userId1, userId2));
+            return result.IsSuccess ? Ok(result.Value) : BadRequest(new { message = result.Error });
+        }
+
+        /// <summary>Mark a message as delivered. Enforces Sent → Delivered transition.</summary>
+        [HttpPut("{messageId}/delivered")]
+        public async Task<IActionResult> MarkAsDelivered([FromRoute] Guid messageId)
+        {
+            var result = await _mediator.Send(new MarkAsDeliveredCommand(messageId));
+            return result.IsSuccess ? Ok() : BadRequest(new { message = result.Error });
+        }
+
+        /// <summary>Mark a message as read. Enforces Delivered → Read transition.</summary>
+        [HttpPut("{messageId}/read")]
+        public async Task<IActionResult> MarkAsRead([FromRoute] Guid messageId)
+        {
+            var result = await _mediator.Send(new MarkAsReadCommand(messageId));
+            return result.IsSuccess ? Ok() : BadRequest(new { message = result.Error });
         }
     }
 }

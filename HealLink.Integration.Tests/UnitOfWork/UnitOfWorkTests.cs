@@ -34,7 +34,7 @@ namespace HealLink.Integration.Tests.UnitOfWork
             var db = scope.ServiceProvider.GetRequiredService<HealLinkDbContext>();
             var uow = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
 
-            var user = new User("uowuser", "hash", $"uow_{Guid.NewGuid()}@test.com", UserRole.Patient);
+            var user = User.Register("uowuser", "hash", $"uow_{Guid.NewGuid()}@test.com", UserRole.Patient);
             await db.Users.AddAsync(user);
             await uow.SaveChangesAsync();
 
@@ -49,7 +49,7 @@ namespace HealLink.Integration.Tests.UnitOfWork
             var db = scope.ServiceProvider.GetRequiredService<HealLinkDbContext>();
             var uow = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
 
-            var user = new User("updateme", "hash", $"update_{Guid.NewGuid()}@test.com", UserRole.Patient);
+            var user = User.Register("updateme", "hash", $"update_{Guid.NewGuid()}@test.com", UserRole.Patient);
             await db.Users.AddAsync(user);
             await uow.SaveChangesAsync();
 
@@ -70,7 +70,7 @@ namespace HealLink.Integration.Tests.UnitOfWork
             var db = scope.ServiceProvider.GetRequiredService<HealLinkDbContext>();
             var uow = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
 
-            var user = new User("evtuser", "hash", $"evt_{Guid.NewGuid()}@test.com", UserRole.Patient);
+            var user = User.Register("evtuser", "hash", $"evt_{Guid.NewGuid()}@test.com", UserRole.Patient);
             // User constructor raises UserRegisteredEvent
             Assert.Single(user.DomainEvents);
 
@@ -88,8 +88,8 @@ namespace HealLink.Integration.Tests.UnitOfWork
             var db = scope.ServiceProvider.GetRequiredService<HealLinkDbContext>();
             var uow = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
 
-            var user1 = new User("multi1", "hash", $"m1_{Guid.NewGuid()}@test.com", UserRole.Patient);
-            var user2 = new User("multi2", "hash", $"m2_{Guid.NewGuid()}@test.com", UserRole.Doctor);
+            var user1 = User.Register("multi1", "hash", $"m1_{Guid.NewGuid()}@test.com", UserRole.Patient);
+            var user2 = User.Register("multi2", "hash", $"m2_{Guid.NewGuid()}@test.com", UserRole.Doctor);
 
             await db.Users.AddRangeAsync(user1, user2);
             await uow.SaveChangesAsync();
@@ -108,7 +108,7 @@ namespace HealLink.Integration.Tests.UnitOfWork
             var db = scope.ServiceProvider.GetRequiredService<HealLinkDbContext>();
 
             var email = $"nopersist_{Guid.NewGuid()}@test.com";
-            var user = new User("nopersist", "hash", email, UserRole.Patient);
+            var user = User.Register("nopersist", "hash", email, UserRole.Patient);
             await db.Users.AddAsync(user);
             // Intentionally NOT calling SaveChangesAsync
 

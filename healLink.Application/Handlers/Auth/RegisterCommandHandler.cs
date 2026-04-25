@@ -29,7 +29,7 @@ namespace healLink.Application.Handlers.Auth
             if (hashedPasswordResult.IsError)
                 return new RegisterResponse("Password hashing failed");
 
-            var user = new User(request.username, hashedPasswordResult.Value, request.email, request.Role);
+            var user = User.Register(request.username, hashedPasswordResult.Value, request.email, request.Role);
 
             // TODO: [Problem B — RESOLVED] EF now tracks User._otps via backing field.
             // HasMany<OTP>("_otps") in HealLinkDbContext means SaveChangesAsync picks up

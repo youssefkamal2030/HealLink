@@ -38,6 +38,7 @@ namespace HealLink.Infrastructure
             services.AddScoped<IPrescriptionRepository, PrescriptionRepository>();
             services.AddScoped<IMedicationReminderRepository, MedicationReminderRepository>();
             services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
+            services.AddScoped<IGuardianRepository, GuardianRepository>();
 
             services.AddScoped<INotificationPersistenceService, NotificationPersistenceService>();
             services.AddScoped<INotificationService, NotificationService>();

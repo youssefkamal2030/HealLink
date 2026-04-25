@@ -47,7 +47,7 @@ namespace HealLink.Infrastructure.Services
             if (receiverId == Guid.Empty)
                 return Result<Guid>.Failure("ReceiverId is required.");
 
-            var chatMessage = new ChatMessage(senderId, receiverId, message);
+            var chatMessage = ChatMessage.Send(senderId, receiverId, message);
 
             await _chatRepository.AddChatMessageAsync(chatMessage);
             await _unitOfWork.SaveChangesAsync(); 

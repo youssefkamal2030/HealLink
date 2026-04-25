@@ -13,7 +13,7 @@ namespace HealLink.Domain.Tests.Entities
     {
         private static OTP CreateOtp()
         {
-            var user = new User("testuser", "hash", "test@example.com", UserRole.Patient);
+            var user = User.Register("testuser", "hash", "test@example.com", UserRole.Patient);
             return user.RequestOTP();
         }
 

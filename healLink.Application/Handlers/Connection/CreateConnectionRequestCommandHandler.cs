@@ -31,7 +31,7 @@ namespace healLink.Application.Handlers.Connection
                 if (await _connectionRepository.ConnectionExistsAsync(request.DoctorId, request.PatientId))
                     return Result<CreateConnectionRequestResponse>.Failure("Connection request already exists.");
 
-                var connection = new DoctorPatientConnection(request.DoctorId, request.PatientId);
+                var connection = DoctorPatientConnection.Request(request.DoctorId, request.PatientId);
                 var result = await _connectionRepository.AddAsync(connection);
 
                 // UnitOfWork saves and dispatches ConnectionRequestCreatedEvent raised by the aggregate

@@ -17,7 +17,7 @@ namespace HealLink.Domain.Tests.Entities
     public class UserAggregateTests
     {
         private User CreateUser(UserRole role = UserRole.Patient)
-            => new User("testuser", "hashedpassword", "test@example.com", role);
+            => User.Register("testuser", "hashedpassword", "test@example.com", role);
 
         // ── Constructor ──────────────────────────────────────────────────────
 
@@ -46,15 +46,15 @@ namespace HealLink.Domain.Tests.Entities
         [Fact]
         public void Constructor_WithNullUsername_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                new User(null, "hash", "email@test.com", UserRole.Patient));
+            Assert.Throws<ArgumentException>(() =>
+                User.Register(null, "hash", "email@test.com", UserRole.Patient));
         }
 
         [Fact]
         public void Constructor_WithNullEmail_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() =>
-                new User("user", "hash", null, UserRole.Patient));
+            Assert.Throws<ArgumentException>(() =>
+                User.Register("user", "hash", null, UserRole.Patient));
         }
 
         // ── RequestOTP ───────────────────────────────────────────────────────

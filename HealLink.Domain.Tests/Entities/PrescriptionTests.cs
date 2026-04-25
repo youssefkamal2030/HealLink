@@ -21,7 +21,7 @@ namespace HealLink.Domain.Tests.Entities
         private Prescription CreateValidPrescription()
         {
             var medications = new List<MedicationDosage> { CreateValidMedication() };
-            return new Prescription(
+            return Prescription.Issue(
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 "Test notes",
@@ -119,7 +119,7 @@ namespace HealLink.Domain.Tests.Entities
             // Arrange
             var medication = CreateValidMedication();
             var medications = new List<MedicationDosage> { medication };
-            var prescription = new Prescription(
+            var prescription = Prescription.Issue(
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 "Test notes",
@@ -139,7 +139,7 @@ namespace HealLink.Domain.Tests.Entities
             var medication1 = CreateValidMedication("Aspirin");
             var medication2 = CreateValidMedication("Ibuprofen");
             var medications = new List<MedicationDosage> { medication1, medication2 };
-            var prescription = new Prescription(
+            var prescription = Prescription.Issue(
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 "Test notes",
@@ -164,7 +164,7 @@ namespace HealLink.Domain.Tests.Entities
             var medication1 = CreateValidMedication("Aspirin");
             var medication2 = CreateValidMedication("Ibuprofen");
             var medications = new List<MedicationDosage> { medication1, medication2 };
-            var prescription = new Prescription(
+            var prescription = Prescription.Issue(
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 "Test notes",
@@ -214,7 +214,7 @@ namespace HealLink.Domain.Tests.Entities
             // Arrange
             var originalMedication = CreateValidMedication("Aspirin");
             var medications = new List<MedicationDosage> { originalMedication };
-            var prescription = new Prescription(
+            var prescription = Prescription.Issue(
                 Guid.NewGuid(),
                 Guid.NewGuid(),
                 "Test notes",

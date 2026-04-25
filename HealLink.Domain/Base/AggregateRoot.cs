@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace HealLink.Domain.Base
 {
-    public abstract class AggregateRoot : Entity
+    public abstract class AggregateRoot : AggergateRoot
     {
         private readonly List<IDomainEvent> _domainEvents = new();
         public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();

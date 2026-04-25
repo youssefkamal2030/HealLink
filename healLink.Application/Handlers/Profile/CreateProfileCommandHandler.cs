@@ -5,8 +5,8 @@ using healLink.Application.Commands.Profile;
 using healLink.Application.Interfaces;
 using healLink.Application.Repositories;
 using HealLink.Contracts.Profile.Responses;
-using HealLink.Domain.Entities;
 using HealLink.Domain.Enums;
+using DomainEntities = HealLink.Domain.Entities;
 using MediatR;
 
 namespace healLink.Application.Handlers.Profile
@@ -28,11 +28,9 @@ namespace healLink.Application.Handlers.Profile
                 if (existingPatient != null)
                     return new CreateProfileResponse("Patient profile already exists for this user.", false);
 
-                var newPatient = new Patient(request.UserId);
+                var newPatient = DomainEntities.Patient.Register(request.UserId);
                 await _profileRepository.AddPatientAsync(newPatient, cancellationToken);
                 // NOTE: No SaveChangesAsync here — caller is responsible for the commit.
-                // This allows RegisterCommandHandler to stage user + OTP + profile and commit atomically.
-
                 return new CreateProfileResponse("Patient profile created successfully.", true);
             }
 
@@ -42,10 +40,9 @@ namespace healLink.Application.Handlers.Profile
                 if (existingDoctor != null)
                     return new CreateProfileResponse("Doctor profile already exists for this user.", false);
 
-                var newDoctor = new Doctor(request.UserId, null, null, request.syndicateIdImagePath, request.practiceLicenseNumber, request.specialization, null);
+                var newDoctor = DomainEntities.Doctor.Register(request.UserId, request.syndicateIdImagePath, request.practiceLicenseNumber, request.specialization);
                 await _profileRepository.AddDoctorAsync(newDoctor, cancellationToken);
                 // NOTE: No SaveChangesAsync here — caller is responsible for the commit.
-
                 return new CreateProfileResponse("Doctor profile created successfully.", true);
             }
 

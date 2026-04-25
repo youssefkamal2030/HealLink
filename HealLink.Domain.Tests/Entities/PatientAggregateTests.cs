@@ -22,7 +22,7 @@ namespace HealLink.Domain.Tests.Entities
     //   exception instead of UnauthorizedAccessException, update these tests to assert the new exception type.
     public class PatientAggregateTests
     {
-        private Patient CreatePatient() => new Patient(Guid.NewGuid());
+        private Patient CreatePatient() => Patient.Register(Guid.NewGuid());
 
         // ── Constructor ──────────────────────────────────────────────────────
 
@@ -39,7 +39,7 @@ namespace HealLink.Domain.Tests.Entities
         public void Constructor_SetsUserId()
         {
             var userId = Guid.NewGuid();
-            var patient = new Patient(userId);
+            var patient = Patient.Register(userId);
 
             Assert.Equal(userId, patient.UserId);
         }

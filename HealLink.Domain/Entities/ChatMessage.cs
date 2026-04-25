@@ -4,7 +4,7 @@ using HealLink.Domain.Enums;
 
 namespace HealLink.Domain.Entities
 {
-    public class ChatMessage : Entity
+    public class ChatMessage : AggergateRoot
     {
         public Guid SenderId { get; private set; }
         public Guid ReceiverId { get; private set; }
@@ -16,7 +16,7 @@ namespace HealLink.Domain.Entities
 
         private ChatMessage() { } // For EF
 
-        public ChatMessage(Guid senderId, Guid receiverId, string content)
+        private ChatMessage(Guid senderId, Guid receiverId, string content)
         {
             if (senderId == Guid.Empty)
                 throw new ArgumentException("SenderId cannot be empty", nameof(senderId));
@@ -35,6 +35,12 @@ namespace HealLink.Domain.Entities
             Content = content;
             Status = MessageStatus.Sent;
         }
+
+        /// <summary>
+        /// Factory method for sending a new chat message.
+        /// </summary>
+        public static ChatMessage Send(Guid senderId, Guid receiverId, string content)
+            => new ChatMessage(senderId, receiverId, content);
 
         public void MarkAsDelivered()
         {

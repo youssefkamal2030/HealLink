@@ -37,7 +37,6 @@ namespace HealLink.Domain.Entities
             PersonalInfo? personalInfo = null,
             Address? address = null,
             string? syndicateImagePath = null,
-            
             string? practiceLicenseNumber = null,
             string? specialization = null,
             string? currentWorkplace = null
@@ -46,14 +45,28 @@ namespace HealLink.Domain.Entities
             UserId = userId;
             PersonalInfo = personalInfo;
             SyndicateIdImagePath = syndicateImagePath;
-  
             PracticeLicenseNumber = practiceLicenseNumber;
             Specialization = specialization;
             CurrentWorkplace = currentWorkplace;
-        
         }
 
         private Doctor() { }
+
+        /// <summary>
+        /// Factory method for initial doctor registration.
+        /// Use this instead of the constructor — expresses intent and keeps construction knowledge in the domain.
+        /// </summary>
+        public static Doctor Register(
+            Guid userId,
+            string? syndicateImagePath = null,
+            string? practiceLicenseNumber = null,
+            string? specialization = null)
+        {
+            if (userId == Guid.Empty)
+                throw new ArgumentException("UserId cannot be empty.", nameof(userId));
+
+            return new Doctor(userId, null, null, syndicateImagePath, practiceLicenseNumber, specialization, null);
+        }
 
         public void Approve(Guid doctorId)
         {

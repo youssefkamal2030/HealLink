@@ -5,7 +5,7 @@ using HealLink.Domain.ValueObjects;
 
 namespace HealLink.Domain.Entities
 {
-    public class MedicalHistory : Entity
+    public class MedicalHistory : AggergateRoot
     {
         public Guid PatientId { get; private set; }
         public MedicalHistoryDetails Details { get; private set; }

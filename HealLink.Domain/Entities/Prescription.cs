@@ -26,7 +26,7 @@ namespace HealLink.Domain.Entities
 
         private Prescription() { } 
 
-        public Prescription(Guid patientId, Guid doctorId, string notes, List<MedicationDosage> medications, DateTime? expiresAt = null)
+        private Prescription(Guid patientId, Guid doctorId, string notes, List<MedicationDosage> medications, DateTime? expiresAt = null)
         {
             if (medications == null || medications.Count == 0)
                 throw new InvalidOperationException("Prescription must contain at least one medication");
@@ -42,6 +42,17 @@ namespace HealLink.Domain.Entities
             _medications.AddRange(medications);
             GenerateReminders();
             AddDomainEvent(new PrescriptionCreatedEvent(Id, PatientId));
+        }
+
+        /// <summary>
+        /// Factory method for issuing a new prescription. Raises <see cref="PrescriptionCreatedEvent"/>.
+        /// </summary>
+        public static Prescription Issue(Guid patientId, Guid doctorId, string notes, List<MedicationDosage> medications, DateTime? expiresAt = null)
+        {
+            if (patientId == Guid.Empty) throw new ArgumentException("PatientId cannot be empty.", nameof(patientId));
+            if (doctorId == Guid.Empty) throw new ArgumentException("DoctorId cannot be empty.", nameof(doctorId));
+
+            return new Prescription(patientId, doctorId, notes, medications, expiresAt);
         }
 
         public void UpdateMedication(MedicationDosage medication)

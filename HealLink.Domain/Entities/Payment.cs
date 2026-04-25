@@ -5,7 +5,7 @@ using HealLink.Domain.ValueObjects;
 
 namespace HealLink.Domain.Entities
 {
-    public class Payment : Entity
+    public class Payment : AggergateRoot
     {
         public Guid PatientId { get; private set; }
         public Guid? SubscriptionId { get; private set; }

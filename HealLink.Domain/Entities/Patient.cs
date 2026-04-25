@@ -26,10 +26,21 @@ namespace HealLink.Domain.Entities
 
         private Patient() { }
 
-        public Patient(Guid userId)
+        private Patient(Guid userId)
         {
             UserId = userId;
             AddDomainEvent(new PatientRegisteredEvent(Id));
+        }
+
+        /// <summary>
+        /// Factory method for registering a new patient. Raises <see cref="PatientRegisteredEvent"/>.
+        /// </summary>
+        public static Patient Register(Guid userId)
+        {
+            if (userId == Guid.Empty)
+                throw new ArgumentException("UserId cannot be empty.", nameof(userId));
+
+            return new Patient(userId);
         }
       
 

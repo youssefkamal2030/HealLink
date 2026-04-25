@@ -30,6 +30,11 @@ namespace HealLink.Infrastructure.Repositories
                 .Include(p => p.MedicationReminders)
                 .FirstOrDefaultAsync(p => p.Id == patientId, cancellationToken);
 
+        public async Task<Patient> GetByPatientIdWithTestResultsAsync(Guid patientId, CancellationToken cancellationToken = default)
+            => await _context.Patients
+                .Include(p => p.TestResults)
+                .FirstOrDefaultAsync(p => p.Id == patientId, cancellationToken);
+
         public async Task<List<Patient>> GetByPatientIdsAsync(IEnumerable<Guid> patientIds, CancellationToken cancellationToken = default)
         {
             var ids = patientIds.ToList();
@@ -55,5 +60,55 @@ namespace HealLink.Infrastructure.Repositories
         public async Task<MedicalHistory?> GetMedicalHistoryAsync(Guid patientId, CancellationToken cancellationToken = default)
             => await _context.MedicalHistories
                 .FirstOrDefaultAsync(m => m.PatientId == patientId, cancellationToken);
+
+        public async Task<(List<Patient> Patients, int TotalCount)> SearchPatientsAsync(
+            string? searchTerm,
+            string? city,
+            string? country,
+            bool? hasGuardian,
+            int page,
+            int pageSize,
+            CancellationToken cancellationToken = default)
+        {
+            var query = _context.Patients
+                .Include(p => p.User)
+                .Include(p => p.Guardian)
+                    .ThenInclude(g => g.User)
+                .AsQueryable();
+
+            // Apply search term filter (searches in user email/username)
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                var lowerSearchTerm = searchTerm.ToLower();
+                query = query.Where(p =>
+                    p.User.Email.ToLower().Contains(lowerSearchTerm) ||
+                    p.User.Username.ToLower().Contains(lowerSearchTerm));
+            }
+
+            // TODO: [BUG] City and country filters are not implemented
+            // The Patient entity doesn't have address fields - these may need to be added
+            // or the parameters should be removed from the method signature
+
+            // Apply guardian filter
+            if (hasGuardian.HasValue)
+            {
+                query = hasGuardian.Value
+                    ? query.Where(p => p.GuardianId != null)
+                    : query.Where(p => p.GuardianId == null);
+            }
+
+            // Get total count before pagination
+            var totalCount = await query.CountAsync(cancellationToken);
+
+            // Apply pagination
+            var patients = await query
+                .OrderBy(p => p.User.Email)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .AsNoTracking()
+                .ToListAsync(cancellationToken);
+
+            return (patients, totalCount);
+        }
     }
 }

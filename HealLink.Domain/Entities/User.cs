@@ -22,16 +22,26 @@ namespace HealLink.Domain.Entities
         public bool EmailConfirmed { get; private set; }
         private User() { } // For EF
 
-        public User(string username, string passwordHash, string email, UserRole role)
+        private User(string username, string passwordHash, string email, UserRole role)
         {
             Username = username ?? throw new ArgumentNullException(nameof(username));
             PasswordHash = passwordHash ?? throw new ArgumentNullException(nameof(passwordHash));
-
             Email = email ?? throw new ArgumentNullException(nameof(email));
             Role = role;
             Status = AccountStatus.Pending;
             AddDomainEvent(new DomainEvents.UserRegisteredEvent(Id, Email, Role.ToString()));
+        }
 
+        /// <summary>
+        /// Factory method for registering a new user. Raises <see cref="DomainEvents.UserRegisteredEvent"/>.
+        /// </summary>
+        public static User Register(string username, string passwordHash, string email, UserRole role)
+        {
+            if (string.IsNullOrWhiteSpace(username)) throw new ArgumentException("Username cannot be empty.", nameof(username));
+            if (string.IsNullOrWhiteSpace(email)) throw new ArgumentException("Email cannot be empty.", nameof(email));
+            if (string.IsNullOrWhiteSpace(passwordHash)) throw new ArgumentException("Password hash cannot be empty.", nameof(passwordHash));
+
+            return new User(username, passwordHash, email, role);
         }
 
         public OTP RequestOTP()

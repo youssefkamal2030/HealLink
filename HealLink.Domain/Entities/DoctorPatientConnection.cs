@@ -4,7 +4,7 @@ using HealLink.Domain.Enums;
 
 namespace HealLink.Domain.Entities
 {
-    public class DoctorPatientConnection : Entity
+    public class DoctorPatientConnection : AggergateRoot
     {
         public Guid DoctorId { get; private set; }
         public Guid PatientId { get; private set; }
@@ -14,11 +14,22 @@ namespace HealLink.Domain.Entities
         public Patient? Patient { get; private set; }
         private DoctorPatientConnection() { } // For EF
 
-        public DoctorPatientConnection(Guid doctorId, Guid patientId)
+        private DoctorPatientConnection(Guid doctorId, Guid patientId)
         {
             DoctorId = doctorId;
             PatientId = patientId;
             Status = ConnectionStatus.Pending;
+        }
+
+        /// <summary>
+        /// Factory method for creating a new connection request from a patient to a doctor.
+        /// </summary>
+        public static DoctorPatientConnection Request(Guid doctorId, Guid patientId)
+        {
+            if (doctorId == Guid.Empty) throw new ArgumentException("DoctorId cannot be empty.", nameof(doctorId));
+            if (patientId == Guid.Empty) throw new ArgumentException("PatientId cannot be empty.", nameof(patientId));
+
+            return new DoctorPatientConnection(doctorId, patientId);
         }
 
         internal void Accept()

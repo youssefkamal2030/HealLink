@@ -8,7 +8,7 @@
      - Medication Reminders endpoints (GET /patient/{id}, PUT /{id}/taken)
      - Subscriptions endpoints (POST /, GET /patient/{id}, GET /doctor/{id}, POST /{id}/payments, PUT /{id}/payments/{pid}/complete|fail|refund)
      - Medical History endpoints (GET /patient/{id}, PUT /patient/{id})
-     - Chat send/deliver/read endpoints (once implemented)
+     - Chat send/deliver/read endpoints (SendMessageCommandHandler is now implemented; REST endpoint docs pending)
      - Guardian management endpoints (once implemented)
      - Doctor approval endpoint (once implemented)
      - Test Results endpoints (once implemented)
@@ -23,6 +23,7 @@
 - [Connection Management](#connection-endpoints)
 - [Notifications](#notification-endpoints)
 - [Doctor Operations](#doctor-endpoints)
+- [Search & Discovery](#search-endpoints)
 - [Data Models](#data-models)
 - [Error Handling](#error-handling)
 
@@ -453,6 +454,95 @@
 
 ---
 
+## Search Endpoints
+
+### 1. Search Doctors
+
+**Endpoint:** `GET /api/Search/doctors`
+
+**Description:** Search for doctors with optional filters for specialization, location, and availability.
+
+**Query Parameters:**
+- `searchTerm`: string (optional) - Search in name, email, specialization, or workplace
+- `specialization`: string (optional) - Filter by specialization
+- `city`: string (optional) - Filter by city
+- `country`: string (optional) - Filter by country
+- `isAvailableForChat`: boolean (optional) - Filter by chat availability
+- `isApprovedOnly`: boolean (optional, default: true) - Show only approved doctors
+- `page`: integer (default: 1) - Page number
+- `pageSize`: integer (default: 20, max: 100) - Items per page
+
+**Response:**
+- **Success (200 OK):**
+  ```json
+  {
+    "doctors": [
+      {
+        "id": "guid",
+        "userId": "guid",
+        "fullName": "string",
+        "email": "string",
+        "specialization": "string",
+        "currentWorkplace": "string",
+        "city": "string",
+        "country": "string",
+        "isAvailableForChat": true,
+        "isApproved": true
+      }
+    ],
+    "totalCount": 25,
+    "page": 1,
+    "pageSize": 20
+  }
+  ```
+
+### 2. Search Patients
+
+**Endpoint:** `GET /api/Search/patients`
+
+**Authorization:** Requires `Doctor` or `Admin` role
+
+**Description:** Search for patients with optional filters. Only accessible to doctors and administrators.
+
+**Query Parameters:**
+- `searchTerm`: string (optional) - Search in email or username
+- `city`: string (optional) - Filter by city (⚠️ Not yet implemented)
+- `country`: string (optional) - Filter by country (⚠️ Not yet implemented)
+- `hasGuardian`: boolean (optional) - Filter by guardian presence
+- `page`: integer (default: 1) - Page number
+- `pageSize`: integer (default: 20, max: 100) - Items per page
+
+**Response:**
+- **Success (200 OK):**
+  ```json
+  {
+    "patients": [
+      {
+        "id": "guid",
+        "userId": "guid",
+        "email": "string",
+        "username": "string",
+        "guardianId": "guid?",
+        "guardianName": "string?",
+        "hasGuardian": true
+      }
+    ],
+    "totalCount": 15,
+    "page": 1,
+    "pageSize": 20
+  }
+  ```
+- **Failure (403 Forbidden):**
+  ```json
+  {
+    "message": "Access denied. Only doctors and administrators can search patients."
+  }
+  ```
+
+**Note:** City and country filters are currently not implemented in the repository layer. These parameters are accepted but will not filter results until the Patient entity includes address information.
+
+---
+
 ## Data Models
 
 ### ConnectionResponse
@@ -577,6 +667,7 @@ wss://heallink-production.up.railway.app/notificationHub
 
 **Hub Methods:**
 - `ReceiveNotification(NotificationMessage message)` - Receive real-time notifications
+- `SendMessage` / `ReceiveMessage` - Send and receive chat messages (`SendMessageCommandHandler` validates the sender/receiver connection, persists the message, and returns a `ChatMessageDto`)
 
 ---
 
@@ -631,8 +722,10 @@ Future versions will be accessible via:
 | **Doctors** | `/Doctors/{doctorId}/ConnectedPatients` | GET | Yes |
 | **Doctors** | `/Doctors/Accept` | POST | Yes |
 | **Doctors** | `/Doctors/Reject` | POST | Yes |
+| **Search** | `/api/Search/doctors` | GET | Yes |
+| **Search** | `/api/Search/patients` | GET | Yes (Doctor/Admin) |
 
-**Total Endpoints:** 21
+**Total Endpoints:** 23
 
 ---
 

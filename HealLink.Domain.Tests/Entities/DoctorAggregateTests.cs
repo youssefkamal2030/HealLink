@@ -18,11 +18,11 @@ namespace HealLink.Domain.Tests.Entities
     //   This covers the approval workflow that has no endpoint yet (see DoctorsController TODO).
     public class DoctorAggregateTests
     {
-        private Doctor CreateDoctor() => new Doctor(Guid.NewGuid());
+        private Doctor CreateDoctor() => Doctor.Register(Guid.NewGuid());
 
         private DoctorPatientConnection AddPendingConnection(Doctor doctor)
         {
-            var connection = new DoctorPatientConnection(doctor.Id, Guid.NewGuid());
+            var connection = DoctorPatientConnection.Request(doctor.Id, Guid.NewGuid());
             doctor.AddConnection(connection);
             return connection;
         }
@@ -40,7 +40,7 @@ namespace HealLink.Domain.Tests.Entities
         public void AddConnection_WithNewPatient_AddsToCollection()
         {
             var doctor = CreateDoctor();
-            var connection = new DoctorPatientConnection(doctor.Id, Guid.NewGuid());
+            var connection = DoctorPatientConnection.Request(doctor.Id, Guid.NewGuid());
 
             doctor.AddConnection(connection);
 
@@ -52,8 +52,8 @@ namespace HealLink.Domain.Tests.Entities
         {
             var doctor = CreateDoctor();
             var patientId = Guid.NewGuid();
-            var first = new DoctorPatientConnection(doctor.Id, patientId);
-            var duplicate = new DoctorPatientConnection(doctor.Id, patientId);
+            var first = DoctorPatientConnection.Request(doctor.Id, patientId);
+            var duplicate = DoctorPatientConnection.Request(doctor.Id, patientId);
 
             doctor.AddConnection(first);
 

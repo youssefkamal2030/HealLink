@@ -52,9 +52,11 @@ namespace HealLink.Infrastructure.Repositories
 
         public Task UpdateAsync(SubscriptionAggregate aggregate, CancellationToken cancellationToken = default)
         {
+            // Only mark the Subscription entity as modified.
+            // Payments that were mutated via aggregate methods (MarkAsCompleted, MarkAsFailed, Refund)
+            // are already tracked by EF change tracker — no explicit Update() needed.
+            // Calling Update() on every payment would mark unmodified ones as dirty unnecessarily.
             _context.Subscriptions.Update(aggregate.Subscription);
-            foreach (var payment in aggregate.Payments)
-                _context.Payments.Update(payment);
             return Task.CompletedTask;
         }
     }
