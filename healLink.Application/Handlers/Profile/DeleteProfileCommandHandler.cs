@@ -10,6 +10,16 @@ using System.Threading.Tasks;
 
 namespace healLink.Application.Handlers.Profile
 {
+    // TODO: [REFACTOR-AUTH] Remove inline authorization check after centralized-authorization-infrastructure is implemented
+    // PROBLEM: Handler performs inline authorization check (line 34: doctor.UserId != request.AuthenticatedUserId)
+    // FIX: Remove authorization logic from handler
+    // APPROACH: Authorization will be handled by AuthorizationBehavior with ResourceOwner policy
+    // REASON: Separation of concerns - handler should only contain business logic
+    // MIGRATION STEPS:
+    //   1. Add [Authorize(AuthorizationPolicies.ResourceOwner)] to DeleteDoctorProfileCommand
+    //   2. Remove line 34 (authorization check)
+    //   3. Remove AuthenticatedUserId from command
+    //   4. Handler will focus only on business logic (delete doctor profile)
     public class DeleteProfileCommandHandler : IRequestHandler<DeleteDoctorProfileCommand, DeleteDoctorProfileResponse>
     {
         private readonly IProfileRepository _profileRepository;

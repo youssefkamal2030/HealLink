@@ -12,6 +12,7 @@ namespace HealLink.Domain.Entities
         public MessageStatus Status { get; private set; }
         public DateTime? DeliveredAt { get; private set; }
         public DateTime? ReadAt { get; private set; }
+        public bool IsDeleted { get; private set; } = false;
       
 
         private ChatMessage() { } // For EF
@@ -57,6 +58,41 @@ namespace HealLink.Domain.Entities
                 throw new InvalidOperationException("Can only mark as Read from Delivered state.");
             Status = MessageStatus.Read;
             ReadAt = DateTime.UtcNow;
+            UpdateTimestamp();
+        }
+
+        // TODO: [REFACTOR-AUTH] Remove authorization logic from domain entity
+        // PROBLEM: Domain entity is handling authorization (checking requestingUserId == SenderId)
+        //          This violates Clean Architecture - domain should only contain business rules
+        // FIX: Remove requestingUserId parameter and authorization checks from these methods
+        // APPROACH: Authorization will be handled by AuthorizationBehavior pipeline with ResourceOwner policy
+        // REASON: Separation of concerns - domain = business rules, application layer = authorization
+        // MIGRATION: After centralized-authorization-infrastructure is implemented:
+        //   1. Remove requestingUserId parameter from EditContent() and SoftDelete()
+        //   2. Remove UnauthorizedAccessException throws
+        //   3. Add [Authorize(AuthorizationPolicies.ResourceOwner)] to EditMessageCommand and DeleteMessageCommand
+        //   4. Update handlers to remove try-catch for UnauthorizedAccessException
+        public void EditContent(string newContent, Guid requestingUserId)
+        {
+            if (requestingUserId != SenderId)
+                throw new UnauthorizedAccessException("Only the sender can edit the message.");
+
+            if (string.IsNullOrWhiteSpace(newContent))
+                throw new ArgumentException("Message content cannot be empty", nameof(newContent));
+
+            if (newContent.Length > 5000)
+                throw new ArgumentException("Message content cannot exceed 5000 characters", nameof(newContent));
+
+            Content = newContent;
+            UpdateTimestamp();
+        }
+
+        public void SoftDelete(Guid requestingUserId)
+        {
+            if (requestingUserId != SenderId)
+                throw new UnauthorizedAccessException("Only the sender can delete the message.");
+
+            IsDeleted = true;
             UpdateTimestamp();
         }
       

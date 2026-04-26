@@ -7,6 +7,16 @@ using MediatR;
 
 namespace healLink.Application.Handlers.Profile
 {
+    // TODO: [REFACTOR-AUTH] Remove inline authorization check after centralized-authorization-infrastructure is implemented
+    // PROBLEM: Handler performs inline authorization check (lines 38-44: isOwner || isAdmin)
+    // FIX: Remove authorization logic from handler
+    // APPROACH: Authorization will be handled by AuthorizationBehavior with ResourceOwnerOrAdmin policy
+    // REASON: Separation of concerns - handler should only contain business logic
+    // MIGRATION STEPS:
+    //   1. Remove lines 38-44 (authorization check)
+    //   2. Remove AuthenticatedUserId from command
+    //   3. Remove authenticatedUser lookup (lines 33-37)
+    //   4. Handler will focus only on business logic (delete patient profile)
     public class DeletePatientProfileCommandHandler : IRequestHandler<DeletePatientProfileCommand, Result<bool>>
     {
         private readonly IPatientRepository _patientRepository;

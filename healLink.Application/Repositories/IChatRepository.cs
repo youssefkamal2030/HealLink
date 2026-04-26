@@ -12,5 +12,7 @@ namespace healLink.Application.Repositories
         Task<List<ChatMessage>> GetChatHistoryAsync(Guid userId1, Guid userId2);
         Task AddChatMessageAsync(ChatMessage message);
         Task<ChatMessage?> GetByIdAsync(Guid messageId, CancellationToken cancellationToken = default);
+        Task UpdateAsync(ChatMessage message, CancellationToken cancellationToken = default);
+        Task<List<ChatMessage>> SearchMessagesAsync(Guid userId1, Guid userId2, string searchTerm, CancellationToken cancellationToken = default);
     }
 }
