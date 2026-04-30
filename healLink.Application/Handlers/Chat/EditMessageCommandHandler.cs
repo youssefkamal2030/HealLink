@@ -39,28 +39,14 @@ namespace healLink.Application.Handlers.Chat
             if (message.IsDeleted)
                 return Result<bool>.Failure("Cannot edit a deleted message.");
 
-            try
-            {
-                // Edit the message (domain method handles authorization)
-                message.EditContent(request.NewContent, request.RequestingUserId);
+          
+                message.EditContent(request.NewContent);
 
                 await _chatRepository.UpdateAsync(message, cancellationToken);
                 await _unitOfWork.SaveChangesAsync(cancellationToken);
-
                 return Result<bool>.Success(true);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                return Result<bool>.Failure(ex.Message);
-            }
-            catch (ArgumentException ex)
-            {
-                return Result<bool>.Failure(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return Result<bool>.Failure($"Failed to edit message: {ex.Message}");
-            }
+            
+          
         }
     }
 }

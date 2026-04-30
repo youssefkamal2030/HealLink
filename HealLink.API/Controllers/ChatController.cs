@@ -64,16 +64,10 @@ namespace HealLink.API.Controllers
         [HttpPut("{messageId}")]
         public async Task<IActionResult> EditMessage([FromRoute] Guid messageId, [FromBody] EditMessageRequest request)
         {
-            // Extract user ID from JWT token
-            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier) 
-                           ?? User.FindFirst("sub");
+           
             
-            if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out var authenticatedUserId))
-            {
-                return Unauthorized(new { success = false, message = "Unable to identify user from token" });
-            }
-
-            var command = new EditMessageCommand(messageId, authenticatedUserId, request.NewContent);
+           
+            var command = new EditMessageCommand(messageId, request.NewContent);
             var result = await _mediator.Send(command);
 
             return result.IsSuccess

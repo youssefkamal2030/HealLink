@@ -72,10 +72,9 @@ namespace HealLink.Domain.Entities
         //   2. Remove UnauthorizedAccessException throws
         //   3. Add [Authorize(AuthorizationPolicies.ResourceOwner)] to EditMessageCommand and DeleteMessageCommand
         //   4. Update handlers to remove try-catch for UnauthorizedAccessException
-        public void EditContent(string newContent, Guid requestingUserId)
+        public void EditContent(string newContent)
         {
-            if (requestingUserId != SenderId)
-                throw new UnauthorizedAccessException("Only the sender can edit the message.");
+          
 
             if (string.IsNullOrWhiteSpace(newContent))
                 throw new ArgumentException("Message content cannot be empty", nameof(newContent));
