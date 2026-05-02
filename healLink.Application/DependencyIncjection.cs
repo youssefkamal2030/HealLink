@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
+using healLink.Application.Authorization.Policies;
 using healLink.Application.Behaviors;
+using healLink.Application.Interfaces;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,8 +17,14 @@ namespace healLink.Application
             // Register validators from the Application assembly (command-level validation)
             services.AddValidatorsFromAssemblyContaining<healLink.Application.Commands.Auth.LoginCommandValidator>();
 
-            // Register the validation pipeline behavior — runs before every command/query handler
+            // Register MediatR pipeline behaviors — order matters!
+            // Pipeline order: ValidationBehavior → AuthorizationBehavior → Handler
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>));
+
+            // Register authorization policies
+            services.AddScoped<IAuthorizationPolicy, ResourceOwnerPolicy>();
+            services.AddScoped<IAuthorizationPolicy, PatientOrGuardianAccessPolicy>();
 
             return services;
         }

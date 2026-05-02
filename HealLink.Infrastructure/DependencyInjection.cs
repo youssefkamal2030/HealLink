@@ -1,5 +1,6 @@
 ﻿using System;
 using healLink.Application.Interfaces;
+using HealLink.Application.Interfaces;
 using healLink.Application.Repositories;
 using HealLink.Domain.Common;
 using HealLink.Infrastructure.Config;
@@ -7,10 +8,8 @@ using HealLink.Infrastructure.Helpers;
 using HealLink.Infrastructure.Persistence;
 using HealLink.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using healLink.Application.Interfaces;
 using Microsoft.Extensions.Configuration;
 using HealLink.Infrastructure.Services;
-using HealLink.Application.Interfaces;
 
 namespace HealLink.Infrastructure
 {
@@ -18,6 +17,12 @@ namespace HealLink.Infrastructure
     {
         public static IServiceCollection AddInfraStructer(this IServiceCollection services, IConfiguration configuration) 
         {
+            // Register HTTP context accessor for accessing current user from JWT claims
+            services.AddHttpContextAccessor();
+
+            // Register current user service for authorization pipeline
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<IUserRepository, UserRepository>();
