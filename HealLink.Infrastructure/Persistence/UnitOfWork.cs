@@ -39,24 +39,27 @@ namespace HealLink.Infrastructure.Persistence
             // IMPORTANT — events are cleared BEFORE SaveChanges and BEFORE publishing.
             // This is what prevents an infinite loop when a handler calls SaveChangesAsync again:
             // the second call finds no pending events on any aggregate and publishes nothing.
-            // This works correctly TODAY because AddConnectedDoctor/RemoveConnectedDoctor do not
+            // [ARCHITECTURAL] This works correctly TODAY because AddConnectedDoctor/RemoveConnectedDoctor do not
             // call AddDomainEvent. If they ever do, the second SaveChangesAsync will dispatch those
-            // new events, creating a cascading chain. See TODO below.
+            // new events, creating a cascading chain (documented below in architectural concerns).
             foreach (var aggregate in aggregates)
                 aggregate.ClearDomainEvents();
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            // TODO: [ARCH] Events are dispatched in-process via MediatR after the DB commit.
-            // This means if the process crashes between SaveChanges and the last Publish, the DB
+            // [ARCHITECTURAL-CONCERN-1] Events are dispatched in-process via MediatR after the DB commit.
+            // ISSUE: This means if the process crashes between SaveChanges and the last Publish, the DB
             // write succeeded but one or more side effects (notifications, state projections) are
-            // permanently lost. For production use with real patient data, consider an outbox
+            // permanently lost.
+            // CURRENT-STATUS: Acceptable for MVP - low event volume, low failure probability
+            // FUTURE-ENHANCEMENT: For production use with real patient data, consider an outbox
             // pattern: persist events to an OutboxMessage table inside the same transaction, then
             // have a background worker dispatch and delete them with at-least-once guarantees.
 
-            // TODO: [ARCH] Events are dispatched sequentially (one await per event). This is
+            // [ARCHITECTURAL-CONCERN-2] Events are dispatched sequentially (one await per event). This is
             // non-blocking (async I/O, no thread starvation) but it is serial. For the current
-            // event volume (1–3 events per command) this is fine. If event fan-out grows, consider
+            // event volume (1–3 events per command) this is fine.
+            // FUTURE-ENHANCEMENT: If event fan-out grows, consider
             // Task.WhenAll for independent events — but only after handlers are made idempotent.
 
             // RESOLVED: The nested SaveChangesAsync issue that previously existed in ConnectionAcceptedEventHandler

@@ -85,9 +85,10 @@ namespace HealLink.Infrastructure.Repositories
                     p.User.Username.ToLower().Contains(lowerSearchTerm));
             }
 
-            // TODO: [BUG] City and country filters are not implemented
-            // The Patient entity doesn't have address fields - these may need to be added
-            // or the parameters should be removed from the method signature
+            // [KNOWN-LIMITATION] TODO: City and country filters not implemented - Patient entity lacks address fields
+            // TRACKED-IN: .kiro/steering/feature-status.md (Search Patients - city/country filters)
+            // DECISION-NEEDED: Either add Address value object to Patient entity OR remove city/country parameters
+            // CURRENT-BEHAVIOR: Parameters are accepted but ignored; results are not filtered by location
 
             // Apply guardian filter
             if (hasGuardian.HasValue)

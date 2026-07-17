@@ -8,13 +8,15 @@ using Xunit;
 
 namespace HealLink.Domain.Tests.Entities
 {
-    // TODO: [TEST-NEXT] Add tests for UpdateProfessionalDetails() — verify Specialization and CurrentWorkplace
+    // [TEST-COVERAGE] These TODOs indicate future test coverage improvements
+    // CURRENT-STATUS: Basic tests exist for core functionality
+    // [TEST-NEXT-1] Add tests for UpdateProfessionalDetails() — verify Specialization and CurrentWorkplace
     //   are updated and timestamp changes.
-    // TODO: [TEST-NEXT] Add tests for RefreshQRCodeIfNeeded() — verify it generates a new QR code when none
+    // [TEST-NEXT-2] Add tests for RefreshQRCodeIfNeeded() — verify it generates a new QR code when none
     //   exists, and does not regenerate when the existing one is still valid.
-    // TODO: [TEST-NEXT] Add a test for AddConnection_AfterRejectedConnection_AllowsNewRequest — a patient whose
+    // [TEST-NEXT-3] Add a test for AddConnection_AfterRejectedConnection_AllowsNewRequest — a patient whose
     //   connection was rejected should be able to send a new request (Status == Rejected should not block AddConnection).
-    // TODO: [TEST-NEXT] Add tests for Approve() — verify IsApproved becomes true and DoctorApprovedEvent is raised.
+    // [TEST-NEXT-4] Add tests for Approve() — verify IsApproved becomes true and DoctorApprovedEvent is raised.
     //   This covers the approval workflow that has no endpoint yet (see DoctorsController TODO).
     public class DoctorAggregateTests
     {

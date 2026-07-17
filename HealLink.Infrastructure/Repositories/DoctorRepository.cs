@@ -8,7 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HealLink.Infrastructure.Repositories
 {
-    // ToDo: the rest of the generic IRepository<T> methods (GetAllAsync, DeleteAsync) still need implementing.
+    // [WONTFIX] TODO: Generic IRepository methods not needed - specialized methods are sufficient
+    // REASON: DoctorRepository uses specialized queries with includes (User, Address, PatientConnections).
+    //         Generic GetAllAsync/DeleteAsync would bypass domain logic. Current approach is correct.
     public class DoctorRepository : IDoctorRepository
     {
         private readonly HealLinkDbContext _context;

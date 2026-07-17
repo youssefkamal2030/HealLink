@@ -5,21 +5,24 @@ using Xunit;
 
 namespace HealLink.Domain.Tests.Entities
 {
-    // TODO: [TEST-NEXT] Add tests for ConfirmMedicationReminder():
+    // [TEST-COVERAGE] These TODOs indicate future test coverage improvements
+    // CURRENT-STATUS: Basic tests exist for core functionality
+    // [TEST-NEXT-1] Add tests for ConfirmMedicationReminder():
     //   - Patient can confirm their own reminder → Status becomes Taken
     //   - Guardian can confirm a reminder for their patient → Status becomes Taken
     //   - Third party throws UnauthorizedAccessException
     //   - Non-existent reminderId throws InvalidOperationException
     //   Note: Patient._medicationReminders is loaded via EF backing field — in unit tests you must
     //   use GetByPatientIdWithRemindersAsync() pattern or construct the patient with reminders directly.
-    // TODO: [TEST-NEXT] Add tests for UpdateMedicalHistoryDetails():
+    // [TEST-NEXT-2] Add tests for UpdateMedicalHistoryDetails():
     //   - First call creates a new MedicalHistory on the patient
     //   - Second call updates the existing one (same Id, different Details)
     //   - Null details throws ArgumentNullException
-    // TODO: [TEST-NEXT] Add a test for AddConnectedDoctor_ThenRemove_ThenAddAgain — verify the same doctor ID
+    // [TEST-NEXT-3] Add a test for AddConnectedDoctor_ThenRemove_ThenAddAgain — verify the same doctor ID
     //   can be re-added after being removed (no stale state).
-    // TODO: [TEST-NEXT] Once UploadTestResult/ConfirmMedicationReminder are updated to throw a domain-specific
-    //   exception instead of UnauthorizedAccessException, update these tests to assert the new exception type.
+    // [TEST-NEXT-4] Once UploadTestResult/ConfirmMedicationReminder are updated to throw a domain-specific
+    //   exception instead of UnauthorizedAccessException (after centralized-authorization-infrastructure),
+    //   update these tests to assert the new exception type or remove authorization checks entirely.
     public class PatientAggregateTests
     {
         private Patient CreatePatient() => Patient.Register(Guid.NewGuid());

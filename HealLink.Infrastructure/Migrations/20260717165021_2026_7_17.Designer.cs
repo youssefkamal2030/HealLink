@@ -4,6 +4,7 @@ using HealLink.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealLink.Infrastructure.Migrations
 {
     [DbContext(typeof(HealLinkDbContext))]
-    partial class HealLinkDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260717165021_2026_7_17")]
+    partial class _2026_7_17
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -746,7 +749,7 @@ namespace HealLink.Infrastructure.Migrations
                     b.HasOne("HealLink.Domain.Entities.Patient", null)
                         .WithMany()
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("HealLink.Domain.Entities.Patient", null)

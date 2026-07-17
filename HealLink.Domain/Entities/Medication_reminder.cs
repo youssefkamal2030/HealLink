@@ -4,9 +4,23 @@ using HealLink.Domain.Enums;
 
 namespace HealLink.Domain.Entities
 {
-    // TODO: [AGGREGATE] MedicationReminder belongs inside PrescriptionAggregate as an owned entity — per BR-REM-01, reminders are generated from a prescription's medication schedule. The aggregate should create reminders when a MedicationDosage is added and own their lifecycle.
-    // TODO: [AGGREGATE] MarkAsTaken() and MarkAsMissed() should only be callable through PatientAggregate (which enforces the guardian authorization check per BR-REM-06) — direct calls on the entity from outside the aggregate bypass that invariant.
-    // TODO: [AGGREGATE] MarkAsMissed() should raise a MedicationMissedEvent — the event already exists in the domain (MedicationMissedEvent.cs) but is never raised. The owning aggregate (PrescriptionAggregate or PatientAggregate) must raise it so the guardian notification (BR-REM-05) can be dispatched.
+    // [FUTURE-ENHANCEMENT] These TODOs represent future architectural improvements for aggregate design
+    // CURRENT: MedicationReminder is a top-level entity with its own repository
+    // PROPOSED: Move MedicationReminder inside PrescriptionAggregate as an owned entity
+    // 
+    // [FUTURE-ENHANCEMENT-1] MedicationReminder belongs inside PrescriptionAggregate as an owned entity
+    // REASON: Per BR-REM-01, reminders are generated from a prescription's medication schedule.
+    // BENEFIT: The aggregate should create reminders when a MedicationDosage is added and own their lifecycle.
+    // IMPACT: Requires refactoring Prescription entity and migration
+    // 
+    // [FUTURE-ENHANCEMENT-2] MarkAsTaken() and MarkAsMissed() should only be callable through PatientAggregate
+    // REASON: Enforces the guardian authorization check per BR-REM-06
+    // ISSUE: Direct calls on the entity from outside the aggregate bypass that invariant.
+    // 
+    // [FUTURE-ENHANCEMENT-3] MarkAsMissed() should raise a MedicationMissedEvent
+    // ISSUE: The event already exists in the domain (MedicationMissedEvent.cs) but is never raised.
+    // REASON: The owning aggregate (PrescriptionAggregate or PatientAggregate) must raise it so the
+    // guardian notification (BR-REM-05) can be dispatched.
     public class MedicationReminder : AggergateRoot
     {
         public Guid PatientId { get; private set; }

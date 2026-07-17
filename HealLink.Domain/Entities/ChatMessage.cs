@@ -61,17 +61,16 @@ namespace HealLink.Domain.Entities
             UpdateTimestamp();
         }
 
-        // TODO: [REFACTOR-AUTH] Remove authorization logic from domain entity
-        // PROBLEM: Domain entity is handling authorization (checking requestingUserId == SenderId)
+        // [PENDING] TODO: [REFACTOR-AUTH] Remove authorization logic from domain entity after centralized-authorization-infrastructure is complete
+        // PROBLEM: Domain entity is handling authorization (checking requestingUserId == SenderId in SoftDelete)
         //          This violates Clean Architecture - domain should only contain business rules
-        // FIX: Remove requestingUserId parameter and authorization checks from these methods
-        // APPROACH: Authorization will be handled by AuthorizationBehavior pipeline with ResourceOwner policy
-        // REASON: Separation of concerns - domain = business rules, application layer = authorization
-        // MIGRATION: After centralized-authorization-infrastructure is implemented:
-        //   1. Remove requestingUserId parameter from EditContent() and SoftDelete()
+        // SPEC: .kiro/specs/centralized-authorization-infrastructure (In Progress)
+        // MIGRATION: After spec implementation:
+        //   1. Remove requestingUserId parameter from SoftDelete()
         //   2. Remove UnauthorizedAccessException throws
-        //   3. Add [Authorize(AuthorizationPolicies.ResourceOwner)] to EditMessageCommand and DeleteMessageCommand
-        //   4. Update handlers to remove try-catch for UnauthorizedAccessException
+        //   3. EditContent() already fixed - no auth logic
+        //   4. Add [Authorize(AuthorizationPolicies.ResourceOwner)] to DeleteMessageCommand
+        
         public void EditContent(string newContent)
         {
           

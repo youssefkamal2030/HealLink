@@ -6,13 +6,15 @@ using Xunit;
 
 namespace HealLink.Domain.Tests.Entities
 {
-    // TODO: [TEST-NEXT] Add tests for UpdateProfile() — verify Username and Email are updated, and null throws
+    // [TEST-COVERAGE] These TODOs indicate future test coverage improvements
+    // CURRENT-STATUS: Basic tests exist for core functionality
+    // [TEST-NEXT-1] Add tests for UpdateProfile() — verify Username and Email are updated, and null throws
     //   ArgumentNullException for each.
-    // TODO: [TEST-NEXT] Add a test for RequestOTP_WhenExistingOtpIsAlreadyUsed_DoesNotThrow — calling RequestOTP
+    // [TEST-NEXT-2] Add a test for RequestOTP_WhenExistingOtpIsAlreadyUsed_DoesNotThrow — calling RequestOTP
     //   when the previous OTP is already used should not crash (the invalidation guard only applies to active OTPs).
-    // TODO: [TEST-NEXT] Add a test for the OTPs collection being read-only — verify that user.OTPs is
+    // [TEST-NEXT-3] Add a test for the OTPs collection being read-only — verify that user.OTPs is
     //   IReadOnlyCollection and cannot be cast to List<OTP> from outside.
-    // TODO: [TEST-NEXT] Add a test for RecordLogin_UpdatesLastLoginAt — verify LastLoginAt is set and
+    // [TEST-NEXT-4] Add a test for RecordLogin_UpdatesLastLoginAt — verify LastLoginAt is set and
     //   is >= the time before the call.
     public class UserAggregateTests
     {

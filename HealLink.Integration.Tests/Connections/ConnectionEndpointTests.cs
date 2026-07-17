@@ -16,7 +16,8 @@ namespace HealLink.Integration.Tests.Connections
             _client = factory.CreateClient();
         }
 
-        // TODO: [TEST-NEXT] Implement full happy-path connection flow test:
+        // [TEST-COVERAGE] These TODOs indicate future integration test coverage improvements
+        // [TEST-NEXT-1] Implement full happy-path connection flow test:
         //   1. Register a Patient and a Doctor via POST /api/Auth/register
         //   2. Confirm both emails via POST /api/Auth/confirm-email
         //   3. Login both and capture JWTs
@@ -25,10 +26,10 @@ namespace HealLink.Integration.Tests.Connections
         //   6. POST /api/Connections/Accept with doctor JWT → assert 200, Status=Accepted in DB,
         //      Patient.ConnectedDoctorIds contains doctorId
         //   7. POST /api/Connections/Request again for same pair → assert 400 "already exists"
-        // TODO: [TEST-NEXT] Implement reject flow test:
+        // [TEST-NEXT-2] Implement reject flow test:
         //   Same setup as above but POST /api/Connections/Reject with doctor JWT →
         //   assert 200, connection row removed from Doctor.PatientConnections in DB.
-        // TODO: [TEST-NEXT] Add RegisterAndLoginAsync(role) helper to HealLinkWebFactory or a shared
+        // [TEST-NEXT-3] Add RegisterAndLoginAsync(role) helper to HealLinkWebFactory or a shared
         //   TestHelpers static class — registers a user, confirms email, logs in, returns (jwt, userId).
         //   Reuse across ConnectionEndpointTests, PrescriptionEndpointTests, SubscriptionEndpointTests.
 

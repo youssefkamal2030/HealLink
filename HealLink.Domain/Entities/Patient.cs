@@ -55,18 +55,15 @@ namespace HealLink.Domain.Entities
             GuardianId = null;
             UpdateTimestamp();
         }
-        // TODO: [REFACTOR-AUTH] Remove authorization logic from domain entity
+        // [PENDING] TODO: [REFACTOR-AUTH] Remove authorization logic from domain entity after centralized-authorization-infrastructure is complete
         // PROBLEM: Domain entity is handling authorization (checking actingUserId against UserId/GuardianId)
         //          This violates Clean Architecture - domain should only contain business rules
-        // FIX: Remove actingUserId parameter and authorization checks from these methods
-        // APPROACH: Authorization will be handled by AuthorizationBehavior pipeline with custom policies:
-        //   - PatientOrGuardianAccess policy (checks if user is patient or their guardian)
-        // REASON: Separation of concerns - domain = business rules, application layer = authorization
-        // MIGRATION: After centralized-authorization-infrastructure is implemented:
+        // SPEC: .kiro/specs/centralized-authorization-infrastructure (In Progress)
+        // MIGRATION: After spec implementation:
         //   1. Remove actingUserId parameter from UploadTestResult() and ConfirmMedicationReminder()
         //   2. Remove UnauthorizedAccessException throws
         //   3. Add [Authorize(AuthorizationPolicies.PatientOrGuardianAccess)] to related commands
-        //   4. Create PatientOrGuardianAccessPolicy that checks UserId or GuardianId
+        //   4. PatientOrGuardianAccessPolicy will be created per design.md
         public void UploadTestResult(TestResult result, Guid actingUserId)
         {
             if (actingUserId != UserId && actingUserId != GuardianId)

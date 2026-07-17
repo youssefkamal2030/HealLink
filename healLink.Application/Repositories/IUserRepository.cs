@@ -4,7 +4,9 @@ using HealLink.Domain.Entities;
 
 namespace healLink.Application.Repositories
 {
-    //Todo : this should inherit from the generic repository interface to reduce code duplication 
+    // [WONTFIX] TODO: Generic repository inheritance not needed - IUserRepository has specialized methods
+    // REASON: User repository has unique methods (GetByEmailAsync, GetActiveOtpAsync, UpdateOtpAsync)
+    //         that don't fit generic IRepository<T> pattern. Keeping as-is for clarity.
 
     public interface IUserRepository
     {

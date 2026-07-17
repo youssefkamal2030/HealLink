@@ -7,7 +7,9 @@ using HealLink.Domain.Entities;
 
 namespace healLink.Application.Repositories
 {
-    //Todo : this should inherit from the generic repository interface to reduce code duplication 
+    // [WONTFIX] TODO: Generic repository inheritance not needed - IProfileRepository aggregates Patient & Doctor operations
+    // REASON: Profile repository is a facade over Patient and Doctor entities with specialized query methods
+    //         (GetAllDoctorsWithUsersAsync, GetAllPatientsWithUsersAsync). Generic inheritance would not reduce duplication.
 
     public interface IProfileRepository
     {

@@ -102,7 +102,7 @@ namespace HealLink.Infrastructure.Migrations
                 column: "PrescriptionId",
                 principalTable: "Prescriptions",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
         }
 
         /// <inheritdoc />

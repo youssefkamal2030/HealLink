@@ -1,4 +1,7 @@
-// TODO: [TEST-NEXT] Delete this file once all integration tests are stable.
+    // [TEST-CLEANUP] This diagnostic test file should be deleted once integration tests are stable
+    // PURPOSE: Used during development to verify test infrastructure setup
+    // ACTION-NEEDED: Delete this file after verifying RegisterEndpointTests and LoginEndpointTests pass
+    // STATUS: Can be deleted now - integration tests are working
 using HealLink.Integration.Tests.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Json;

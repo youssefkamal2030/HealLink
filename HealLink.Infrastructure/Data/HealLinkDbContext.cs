@@ -123,7 +123,7 @@ namespace HealLink.Infrastructure.Data
                 .HasOne<Patient>()
                 .WithMany()
                 .HasForeignKey(m => m.PatientId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction); // Changed to NoAction to prevent cascade cycle with Prescription
 
             // Doctor-Patient Connection - CASCADE from Doctor, RESTRICT from Patient
             modelBuilder.Entity<DoctorPatientConnection>()
