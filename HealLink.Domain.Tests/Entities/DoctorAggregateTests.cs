@@ -157,6 +157,103 @@ namespace HealLink.Domain.Tests.Entities
             Assert.True(doctor.IsApproved);
         }
 
+        [Fact]
+        public void Approve_ClearsPreviousRejection()
+        {
+            var doctor = CreateDoctor();
+            var adminId = Guid.NewGuid();
+            var reason = "Invalid credentials";
+
+            // First reject the doctor
+            doctor.Reject(reason, adminId);
+            Assert.NotNull(doctor.Rejection);
+
+            // Then approve
+            doctor.Approve(doctor.Id);
+
+            Assert.Null(doctor.Rejection);
+            Assert.True(doctor.IsApproved);
+        }
+
+        [Fact]
+        public void Approve_AfterReject_RaisesDoctorApprovedEvent()
+        {
+            var doctor = CreateDoctor();
+            var adminId = Guid.NewGuid();
+
+            // Reject first
+            doctor.Reject("Invalid license", adminId);
+            doctor.ClearDomainEvents();
+
+            // Then approve
+            doctor.Approve(doctor.Id);
+
+            Assert.Single(doctor.DomainEvents);
+            var evt = Assert.IsType<DoctorApprovedEvent>(doctor.DomainEvents.First());
+            Assert.Equal(doctor.Id, evt.DoctorId);
+        }
+
+        // ── Reject ───────────────────────────────────────────────────────────
+
+        [Fact]
+        public void Reject_WithValidParameters_Succeeds()
+        {
+            var doctor = CreateDoctor();
+            var adminId = Guid.NewGuid();
+            var reason = "License verification failed";
+
+            doctor.Reject(reason, adminId);
+
+            Assert.NotNull(doctor.Rejection);
+            Assert.Equal(reason, doctor.Rejection.Reason);
+            Assert.Equal(adminId, doctor.Rejection.RejectedBy);
+            Assert.False(doctor.IsApproved);
+        }
+
+        [Fact]
+        public void Reject_OnApprovedDoctor_ThrowsInvalidOperationException()
+        {
+            var doctor = CreateDoctor();
+            doctor.Approve(doctor.Id);
+
+            var ex = Assert.Throws<InvalidOperationException>(
+                () => doctor.Reject("Some reason", Guid.NewGuid()));
+            
+            Assert.Contains("Cannot reject an already approved doctor", ex.Message);
+        }
+
+        [Fact]
+        public void Reject_RaisesDoctorRejectedEvent()
+        {
+            var doctor = CreateDoctor();
+            var adminId = Guid.NewGuid();
+            var reason = "Incomplete documentation";
+
+            doctor.Reject(reason, adminId);
+
+            Assert.Single(doctor.DomainEvents);
+            var evt = Assert.IsType<DoctorRejectedEvent>(doctor.DomainEvents.First());
+            Assert.Equal(doctor.Id, evt.DoctorId);
+            Assert.Equal(reason, evt.Reason);
+        }
+
+        [Fact]
+        public void Reject_SetsRejectionPropertyCorrectly()
+        {
+            var doctor = CreateDoctor();
+            var adminId = Guid.NewGuid();
+            var reason = "Invalid syndicate ID";
+            var beforeRejection = DateTime.UtcNow;
+
+            doctor.Reject(reason, adminId);
+
+            Assert.NotNull(doctor.Rejection);
+            Assert.Equal(reason, doctor.Rejection.Reason);
+            Assert.Equal(adminId, doctor.Rejection.RejectedBy);
+            Assert.True(doctor.Rejection.RejectedAt >= beforeRejection);
+            Assert.True(doctor.Rejection.RejectedAt <= DateTime.UtcNow);
+        }
+
         // ── SetChatAvailability ──────────────────────────────────────────────
 
         [Fact]

@@ -4,6 +4,7 @@ using HealLink.Domain.Enums;
 using HealLink.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HealLink.Domain.Entities
 {
@@ -23,6 +24,7 @@ namespace HealLink.Domain.Entities
         public bool IsAvailableForChat { get; private set; } = false;
      public QRCode? QRCode { get; private set; }
         public bool IsApproved { get; private set; } = false;
+        public DoctorRejection? Rejection { get; private set; }
 
         private readonly List<Subscription> _subscriptions = new();
         private readonly List<DoctorPatientConnection> _connections = new();
@@ -71,8 +73,19 @@ namespace HealLink.Domain.Entities
         public void Approve(Guid doctorId)
         {
             IsApproved = true;
+            Rejection = null;
             UpdateTimestamp();
             AddDomainEvent( new DoctorApprovedEvent(doctorId) );
+        }
+
+        public void Reject(string reason, Guid adminId)
+        {
+            if (IsApproved)
+                throw new InvalidOperationException("Cannot reject an already approved doctor.");
+
+            Rejection = new DoctorRejection(reason, adminId, DateTime.UtcNow);
+            UpdateTimestamp();
+            AddDomainEvent(new DoctorRejectedEvent(Id, reason));
         }
 
         public void SetChatAvailability(bool isAvailable)
