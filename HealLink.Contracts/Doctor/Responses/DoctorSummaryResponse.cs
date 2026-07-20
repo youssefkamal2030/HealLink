@@ -2,7 +2,7 @@ using System;
 
 namespace HealLink.Contracts.Doctor.Responses
 {
-    public record DoctorSummaryDto(
+    public record DoctorSummaryResponse(
         Guid DoctorId,
         Guid UserId,
         string Username,
