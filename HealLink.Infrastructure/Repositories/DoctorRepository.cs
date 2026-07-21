@@ -142,5 +142,29 @@ namespace HealLink.Infrastructure.Repositories
 
             return (doctors, totalCount);
         }
+
+        public async Task<(List<Doctor> Doctors, int TotalCount)> GetPendingDoctorsAsync(
+            int page,
+            int pageSize,
+            CancellationToken cancellationToken = default)
+        {
+            // Query doctors where IsApproved = false AND Rejection == null
+            var query = _context.Doctors
+                .Include(d => d.User)
+                .Where(d => d.IsApproved == false && d.Rejection == null)
+                .OrderByDescending(d => d.CreatedAt);
+
+            // Get total count
+            var totalCount = await query.CountAsync(cancellationToken);
+
+            // Apply pagination
+            var doctors = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .AsNoTracking()
+                .ToListAsync(cancellationToken);
+
+            return (doctors, totalCount);
+        }
     }
 }

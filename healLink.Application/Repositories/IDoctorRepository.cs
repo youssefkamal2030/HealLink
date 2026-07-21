@@ -18,5 +18,9 @@ namespace healLink.Application.Repositories
             int page,
             int pageSize,
             CancellationToken cancellationToken = default);
+        Task<(List<Doctor> Doctors, int TotalCount)> GetPendingDoctorsAsync(
+            int page,
+            int pageSize,
+            CancellationToken cancellationToken = default);
     }
 }

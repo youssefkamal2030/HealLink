@@ -71,6 +71,46 @@ public class NotificationService : INotificationService
             _logger.LogError(ex, "Failed to send real-time notification to doctor {DoctorId}", doctorId);
         }
     }
+    // To-do : Implement NotifyDoctorOfRejection method to send rejection notification to the doctor. This method should persist the notification and send a real-time notification to the doctor, similar to the other notification methods.
+    public Task NotifyDoctorOfRejection(Guid doctorId, string reason)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task NotifyDoctorOfApproval(Guid doctorId)
+    {
+        var doctor = await _doctorRepository.GetByDoctorId(doctorId);
+        if (doctor == null)
+        {
+            _logger.LogWarning("Doctor {DoctorId} not found for approval notification", doctorId);
+            return;
+        }
+
+        try
+        {
+            await _persistenceService.CreateNotificationForDoctorAsync(
+                doctorId,
+                "Account Approved",
+                "Your account has been approved. You can now accept patient connections.",
+                NotificationType.DoctorApproved);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to persist approval notification for doctor {DoctorId}", doctorId);
+        }
+
+        try
+        {
+            await _realTimeService.SendToUserAsync(doctor.UserId, new NotificationMessage(
+                Title: "Account Approved",
+                Body: "Your account has been approved. You can now accept patient connections.",
+                Timestamp: DateTime.UtcNow));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to send real-time approval notification to doctor {DoctorId}", doctorId);
+        }
+    }
 
     public async Task NotifyPatientOfAcceptance(Guid patientId, Guid doctorId)
     {
@@ -82,7 +122,7 @@ public class NotificationService : INotificationService
         }
 
         try
-        {
+        { // To-do: Consider adding more context to the notification message, such as the doctor's name or any additional details relevant to the acceptance.
             await _persistenceService.CreateNotificationForPatientAsync(
                 patientId,
                 "Connection Accepted",

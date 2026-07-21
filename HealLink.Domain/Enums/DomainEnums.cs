@@ -11,5 +11,5 @@ namespace HealLink.Domain.Enums
     public enum FileType { Image, PDF, Document }
     public enum Currency { EGP, USD, EUR }
     public enum PrescriptionStatus { Active, Inactive, Expired }
-    public enum NotificationType { ConnectionAccepted, ConnectionRejected, ConnectionRequest}
+    public enum NotificationType { ConnectionAccepted, ConnectionRejected, ConnectionRequest, DoctorApproved, DoctorRejected}
 } 

@@ -13,5 +13,7 @@ namespace HealLink.Application.Interfaces
         Task NotifyDoctorOfPendingRequest(Guid doctorId, DoctorConnectionRequestNotificationData data);
         Task NotifyPatientOfAcceptance(Guid patientId, Guid doctorId);
         Task NotifyPatientOfRejection(Guid patientId, Guid doctorId);
+        Task NotifyDoctorOfApproval(Guid doctorId);
+        Task NotifyDoctorOfRejection(Guid doctorId, string reason);
     }
 }
