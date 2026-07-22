@@ -21,7 +21,7 @@ namespace HealLink.Domain.Entities
     // ISSUE: The event already exists in the domain (MedicationMissedEvent.cs) but is never raised.
     // REASON: The owning aggregate (PrescriptionAggregate or PatientAggregate) must raise it so the
     // guardian notification (BR-REM-05) can be dispatched.
-    public class MedicationReminder : AggergateRoot
+    public class MedicationReminder : AggregateRoot
     {
         public Guid PatientId { get; private set; }
         public Guid PrescriptionId { get; private set; }

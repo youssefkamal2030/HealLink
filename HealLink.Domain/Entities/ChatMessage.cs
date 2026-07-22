@@ -4,7 +4,7 @@ using HealLink.Domain.Enums;
 
 namespace HealLink.Domain.Entities
 {
-    public class ChatMessage : AggergateRoot
+    public class ChatMessage : AggregateRoot
     {
         public Guid SenderId { get; private set; }
         public Guid ReceiverId { get; private set; }

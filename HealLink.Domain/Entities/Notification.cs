@@ -4,7 +4,7 @@ using HealLink.Domain.Enums;
 
 namespace HealLink.Domain.Entities
 {
-    public class Notification : AggergateRoot
+    public class Notification : AggregateRoot
     {
         public Guid RecipientId { get; private set; }
         public RecipientType RecipientType { get; private set; }

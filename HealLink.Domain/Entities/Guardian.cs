@@ -4,7 +4,7 @@ using HealLink.Domain.Base;
 
 namespace HealLink.Domain.Entities
 {
-    public class Guardian : AggergateRoot
+    public class Guardian : AggregateRoot
     {
         public Guid UserId { get; private set; }
         public User User { get; private set; }

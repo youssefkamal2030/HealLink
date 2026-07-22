@@ -2,6 +2,8 @@ namespace HealLink.Domain.Enums
 {
     public enum Gender { Male, Female }
     public enum UserRole { Patient, Doctor, Guardian, Admin }
+    // if there's a Pending status here why are we using a different logic to find the pending doctors for admin approval? we should use the same logic for consistency
+    // is the pending status reflected on the database ?
     public enum AccountStatus { Pending, Active, Suspended, Deactivated }
     public enum ConnectionStatus { Pending, Accepted, Rejected, Terminated }
     public enum PaymentStatus { Pending, Completed, Failed, Refunded }

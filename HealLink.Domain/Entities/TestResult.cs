@@ -4,7 +4,7 @@ using HealLink.Domain.Enums;
 
 namespace HealLink.Domain.Entities
 {
-    public class TestResult : AggergateRoot
+    public class TestResult : AggregateRoot
     {
         public Guid PatientId { get; private set; }
         public string TestName { get; private set; }

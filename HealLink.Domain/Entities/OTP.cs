@@ -4,7 +4,7 @@ using System;
 namespace HealLink.Domain.Entities;
 
 
-public class OTP : AggergateRoot
+public class OTP : AggregateRoot
 {
    
     public string Code { get; private set; } = string.Empty;

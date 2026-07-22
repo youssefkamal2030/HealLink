@@ -3,13 +3,13 @@ using System;
 namespace HealLink.Domain.Base
 {
    
-    public abstract class AggergateRoot
+    public abstract class Entity
     {
         public Guid Id { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
         
-        protected AggergateRoot()
+        protected Entity()
         {
             Id = Guid.NewGuid();
             CreatedAt = DateTime.UtcNow;
@@ -26,7 +26,7 @@ namespace HealLink.Domain.Base
         {
             if (obj == null || GetType() != obj.GetType())
                 return false;
-            var other = (AggergateRoot)obj;    
+            var other = (Entity)obj;    
             return Id == other.Id;
         }
         // For GetHashCode, we return the hash code of the Id. This ensures that entities with the same Id will have the same hash code, which is important for collections like HashSet or Dictionary that rely on hash codes for equality checks.

@@ -4,6 +4,7 @@ using HealLink.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealLink.Infrastructure.Migrations
 {
     [DbContext(typeof(HealLinkDbContext))]
-    partial class HealLinkDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260722181730_Doctor_Rejection_Update_MedicalHistory_Fix")]
+    partial class Doctor_Rejection_Update_MedicalHistory_Fix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

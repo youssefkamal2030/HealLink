@@ -17,12 +17,12 @@ namespace HealLink.Domain.Entities
         private readonly List<Guid> _connectedDoctorIds = [];
         private readonly List<TestResult> _testResults = [];
         private readonly List<MedicationReminder> _medicationReminders = [];
+       
         public IReadOnlyCollection<TestResult> TestResults => _testResults;
         public IReadOnlyCollection<MedicationReminder> MedicationReminders => _medicationReminders;
         public IReadOnlyCollection<Guid> ConnectedDoctorIds => _connectedDoctorIds;
 
         public MedicalHistory MedicalHistory { get; private set; }
-       
 
         private Patient() { }
 
@@ -31,7 +31,7 @@ namespace HealLink.Domain.Entities
             UserId = userId;
             AddDomainEvent(new PatientRegisteredEvent(Id));
         }
-
+        
         /// <summary>
         /// Factory method for registering a new patient. Raises <see cref="PatientRegisteredEvent"/>.
         /// </summary>
@@ -80,12 +80,14 @@ namespace HealLink.Domain.Entities
             reminder.MarkAsTaken();
         }
 
-        public void UpdateMedicalHistory(MedicalHistory medicalHistory)
+     
+        public void UpdateMedicalHistory( MedicalHistoryDetails newDetails)
         {
-            MedicalHistory = medicalHistory ?? throw new ArgumentNullException(nameof(medicalHistory));
+          
+          MedicalHistory.UpdateDetails(newDetails);
+
             UpdateTimestamp();
         }
-
         public void UpdateMedicalHistoryDetails(MedicalHistoryDetails details, string? fileLink = null)
         {
             if (details == null) throw new ArgumentNullException(nameof(details));
