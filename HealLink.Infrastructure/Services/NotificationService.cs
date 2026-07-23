@@ -71,10 +71,27 @@ public class NotificationService : INotificationService
             _logger.LogError(ex, "Failed to send real-time notification to doctor {DoctorId}", doctorId);
         }
     }
-    // To-do : Implement NotifyDoctorOfRejection method to send rejection notification to the doctor. This method should persist the notification and send a real-time notification to the doctor, similar to the other notification methods.
-    public Task NotifyDoctorOfRejection(Guid doctorId, string reason)
+    public async Task NotifyDoctorOfRejection(Guid doctorId, string reason)
     {
-        throw new NotImplementedException();
+        var doctor = await _doctorRepository.GetByDoctorId(doctorId);
+        if (doctor == null)
+        {
+            _logger.LogWarning("Doctor {DoctorId} not found for rejection notification", doctorId);
+            return;
+        }
+        try
+        {
+            await _persistenceService.CreateNotificationForDoctorAsync(
+                doctorId,
+                "Account Rejected",
+                $"Your account has been rejected. Reason: {reason}",
+                NotificationType.DoctorRejected);
+
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to persist rejection notification for doctor {DoctorId}", doctorId);
+        }
     }
 
     public async Task NotifyDoctorOfApproval(Guid doctorId)
