@@ -6,7 +6,6 @@ using HealLink.Application.Interfaces;
 using HealLink.Domain.DomainEvents;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Namespace.Of.Repository; // <-- add this line
 
 namespace healLink.Application.Handlers.EventHandlers
 {
@@ -18,16 +17,13 @@ namespace healLink.Application.Handlers.EventHandlers
     {
         private readonly INotificationService _notificationService;
         private readonly ILogger<DoctorApprovedEventHandler> _logger;
-        private readonly IDoctorRepository _DoctorRepository; // <-- add this line
 
         public DoctorApprovedEventHandler(
             INotificationService notificationService,
-            ILogger<DoctorApprovedEventHandler> logger,
-            IDoctorRepository doctorRepository) // <-- add this line
+            ILogger<DoctorApprovedEventHandler> logger)
         {
             _notificationService = notificationService;
             _logger = logger;
-            _DoctorRepository = doctorRepository; // <-- add this line
         }
 
         public async Task Handle(
@@ -53,14 +49,5 @@ namespace healLink.Application.Handlers.EventHandlers
                     domainEvent.DoctorId);
             }
         }
-    }
-}
-
-namespace HealLink.Application.Interfaces
-{
-    public interface IDoctorRepository
-    {
-        // define the methods your handler/other code needs, e.g.:
-        // Task<Doctor> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
     }
 }
