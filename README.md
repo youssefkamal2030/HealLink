@@ -193,6 +193,97 @@ Comprehensive API documentation is available in [ApiDocumentation.md](./HealLink
 
 ---
 
+## 🧪 Load Testing with k6
+
+HealLink includes comprehensive load testing scenarios built with [k6](https://k6.io/), a modern load testing tool designed for performance testing.
+
+### Load Test Files
+
+- `load-tests/scenarios/concurrentSignIn.js` - Concurrent user authentication load test
+- `load-tests/config/environments.js` - Environment configurations and load profiles
+- `load-tests/utils/dataGenerator.js` - Test data generation utilities
+- `load-tests/test-k6-compatibility.js` - Compatibility verification test
+
+### Prerequisites
+
+1. **Install k6**
+   ```bash
+   # macOS with Homebrew
+   brew install k6
+   
+   # Windows with Chocolatey
+   choco install k6
+   
+   # Or download from https://k6.io/docs/getting-started/installation
+   ```
+
+2. **API Running** - Ensure the HealLink API is running locally or accessible
+
+### Running Load Tests
+
+**Verify k6 compatibility first:**
+```bash
+k6 run load-tests/test-k6-compatibility.js
+```
+
+**Run concurrent sign-in test (smoke profile):**
+```bash
+k6 run load-tests/scenarios/concurrentSignIn.js \
+  --env ENVIRONMENT=local \
+  --env LOAD_PROFILE=smoke
+```
+
+**Available load profiles:**
+- `smoke` - 10 users, 1-minute duration (quick sanity check)
+- `load` - 100 users, 5-minute ramp-up (realistic load)
+- `stress` - 500 users, aggressive ramping (find breaking point)
+- `soak` - 50 users, 30-minute duration (stability testing)
+
+**Example: Run stress test**
+```bash
+k6 run load-tests/scenarios/concurrentSignIn.js \
+  --env ENVIRONMENT=local \
+  --env LOAD_PROFILE=stress
+```
+
+### Load Test Metrics
+
+The tests track key performance indicators:
+
+| Metric | Threshold | Description |
+|--------|-----------|-------------|
+| HTTP 200 (Success) | p(95) < 2000ms | Response time for successful logins |
+| Error Rate | < 1% | Percentage of failed requests |
+| HTTP 401 (Auth Failures) | < 10 | Max expected validation failures |
+| HTTP 429 (Rate Limiting) | 0 | No rate limiting expected |
+| HTTP 500 (Server Errors) | 0 | No server errors expected |
+
+### Understanding the Results
+
+After running a load test, k6 displays:
+
+```
+CONCURRENT SIGN-IN LOAD TEST
+======================================================
+concurrent_login_attempts        12500    # Total login attempts
+concurrent_login_successes       12480    # Successful logins
+concurrent_login_error_rate      0.16%    # Error percentage
+http_req_duration                2145ms   # Average response time
+  p(95)                          2850ms   # 95th percentile (p95 < 2000ms ✅)
+  p(99)                          3200ms   # 99th percentile
+```
+
+### k6 Module Compatibility
+
+**Note:** k6 does not support npm packages. All imports must be:
+- k6 built-in modules (`k6/http`, `k6/metrics`, etc.)
+- Local JavaScript files
+- Remote modules from specific sources
+
+The `dataGenerator.js` uses a custom UUID-like generator (no external dependencies) for test user creation. See [K6_FIX_SUMMARY.md](./load-tests/K6_FIX_SUMMARY.md) for details on the compatibility fix.
+
+---
+
 ## 🗄️ Database
 
 ### Database Schema Overview

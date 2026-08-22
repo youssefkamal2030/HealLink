@@ -51,3 +51,6 @@ temp/
 # Keep directory structure but ignore contents
 !reports/.gitkeep
 !data/.gitkeep
+
+#documents
+documents
