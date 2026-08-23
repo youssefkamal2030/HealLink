@@ -129,6 +129,17 @@ HealLink/
 
 ---
 
+## 📊 Current Project Status
+
+**Overall Completion: ~68%** | **Last Updated: August 23, 2026**
+
+See [Feature Status](https://github.com/yourusername/heallink/wiki/feature-status) for:
+- Feature implementation status (6 complete, 10 partial, 1 not started)
+- Critical blockers and high-priority fixes
+- Domain invariant enforcement (71%)
+- Event handler coverage (38%)
+- Detailed effort estimate to reach 100%
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -200,9 +211,11 @@ HealLink includes comprehensive load testing scenarios built with [k6](https://k
 ### Load Test Files
 
 - `load-tests/scenarios/concurrentSignIn.js` - Concurrent user authentication load test
+- `load-tests/scenarios/stressSignup.js` - User registration (signup) stress test
 - `load-tests/config/environments.js` - Environment configurations and load profiles
 - `load-tests/utils/dataGenerator.js` - Test data generation utilities
 - `load-tests/test-k6-compatibility.js` - Compatibility verification test
+- `load-tests/REGISTRATION_FLOW_TESTS.md` - Registration flow test documentation
 
 ### Prerequisites
 
@@ -239,12 +252,21 @@ k6 run load-tests/scenarios/concurrentSignIn.js \
 - `stress` - 500 users, aggressive ramping (find breaking point)
 - `soak` - 50 users, 30-minute duration (stability testing)
 
-**Example: Run stress test**
+**Example: Run sign-in stress test**
 ```bash
 k6 run load-tests/scenarios/concurrentSignIn.js \
   --env ENVIRONMENT=local \
   --env LOAD_PROFILE=stress
 ```
+
+**Example: Run registration/signup stress test**
+```bash
+k6 run load-tests/scenarios/stressSignup.js \
+  --env ENVIRONMENT=local \
+  --env LOAD_PROFILE=stress
+```
+
+See [REGISTRATION_FLOW_TESTS.md](./load-tests/REGISTRATION_FLOW_TESTS.md) for detailed signup flow test documentation.
 
 ### Load Test Metrics
 
