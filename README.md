@@ -204,6 +204,43 @@ Comprehensive API documentation is available in [ApiDocumentation.md](./HealLink
 
 ---
 
+## 💡 Key Technical Patterns
+
+### Entity Framework Change Tracking Pattern
+
+The codebase follows a critical EF pattern to avoid concurrency issues and ensure data consistency. **When you load an entity from a repository using `GetByIdAsync()`, `GetByEmailAsync()`, or similar methods, EF automatically tracks that entity. Any mutations to the tracked entity are automatically detected when `SaveChangesAsync()` is called later. Do NOT call `UpdateAsync()` on already-tracked entities.**
+
+**Key Rules:**
+1. Load entity from repository → EF begins tracking
+2. Modify entity properties or call aggregate methods
+3. Call `SaveChangesAsync()` ONCE at the end → all changes are persisted
+4. Never call `UpdateAsync()` on an already-tracked entity
+
+This pattern prevents:
+- Double-commit issues (SaveChangesAsync called twice)
+- Concurrency violations (two writers updating the same row)
+- Lost updates (changes not being detected because the entity wasn't tracked)
+
+**Examples:**
+
+```csharp
+// ResendOtpCommandHandler
+var user = await _userRepository.GetByEmailAsync(email);  // ✅ EF now tracks
+var otp = user.RequestOTP();                               // ✅ Mutations detected (OTP added)
+await _unitOfWork.SaveChangesAsync();                      // ✅ All changes saved once
+// ❌ DON'T: await _userRepository.UpdateAsync(user);      // Redundant, causes issues
+
+// ChangePasswordCommandHandler
+var user = await _userRepository.GetByIdAsync(userId);    // ✅ EF now tracks
+user.ChangePassword(newPasswordHash);                       // ✅ Mutation detected
+await _unitOfWork.SaveChangesAsync();                      // ✅ All changes saved once
+// ❌ DON'T: await _userRepository.UpdateAsync(user);      // Redundant, causes issues
+```
+
+This pattern is applied consistently across all handlers to ensure thread-safety and correctness under concurrent load.
+
+---
+
 ## 🧪 Load Testing with k6
 
 HealLink includes comprehensive load testing scenarios built with [k6](https://k6.io/), a modern load testing tool designed for performance testing.

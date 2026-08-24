@@ -44,13 +44,19 @@ namespace HealLink.Domain.Entities
             return new User(username, passwordHash, email, role);
         }
 
+        /// <summary>
+        /// Requests a new OTP for email verification. Revokes any existing active OTP.
+        /// </summary>
+        /// <returns>A newly generated OTP code.</returns>
         public OTP RequestOTP()
         {
-            var existingOtp = _otps.FirstOrDefault(o => !o.IsUsed && !o.IsExpired());
-            if (existingOtp != null)
+            // Revoke any previously active OTP to ensure only one valid code at a time
+            var activeOtp = _otps.FirstOrDefault(o => !o.IsUsed && !o.IsExpired());
+            if (activeOtp != null)
             {
-                existingOtp.Invalidate();
+                activeOtp.Revoke();
             }
+
             var newOtp = OTP.Generate();
             _otps.Add(newOtp);
             UpdateTimestamp();
@@ -97,7 +103,7 @@ namespace HealLink.Domain.Entities
             var otp = _otps.FirstOrDefault(o => o.Code == code);
             if (otp == null)
                 throw new InvalidOperationException("OTP not found");
-            otp.Invalidate();
+            otp.MarkAsUsed();
             UpdateTimestamp();
         }
         public void ConfirmEmail()

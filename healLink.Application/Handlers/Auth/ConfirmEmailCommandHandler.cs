@@ -40,13 +40,13 @@ namespace healLink.Application.Handlers.Auth
             if (otp.IsUsed)
                 return Result<bool>.Failure("OTP has already been used.");
 
-            // Invalidate the OTP and confirm the email
-            otp.Invalidate();
+            // Mark OTP as used after successful verification
+            otp.MarkAsUsed();
             user.ConfirmEmail();
             user.Activate();
 
-            await _userRepository.UpdateOtpAsync(otp, cancellationToken);
-            await _userRepository.UpdateAsync(user, cancellationToken);
+            // Both otp and user are already tracked from their respective queries
+            // Do NOT call UpdateAsync — changes are automatically detected by EF when SaveChangesAsync is called
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return Result<bool>.Success(true);

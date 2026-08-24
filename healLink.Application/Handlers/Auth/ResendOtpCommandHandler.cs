@@ -33,7 +33,7 @@ namespace healLink.Application.Handlers.Auth
 
             if (user.EmailConfirmed)
                 return Result<bool>.Failure("Email is already confirmed.");
-
+            //TODO:you need to invalidate the previous OTP, we just generate a new one and send it to the user
             var otp = user.RequestOTP();
 
             await _userRepository.UpdateAsync(user, cancellationToken);

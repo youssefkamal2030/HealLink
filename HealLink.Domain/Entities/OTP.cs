@@ -32,13 +32,28 @@ public class OTP : AggregateRoot
         return new OTP(code, expiryTime);
     }
     public bool IsExpired() => DateTime.UtcNow >= ExpiryTime;
-    public void Invalidate()
+    
+    /// <summary>
+    /// Marks this OTP as used after successful verification.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">Thrown if OTP is already used or expired.</exception>
+    public void MarkAsUsed()
     {
         if (IsUsed)
             throw new InvalidOperationException("OTP is already used");
         if (IsExpired())
             throw new InvalidOperationException("OTP is expired");
         
+        IsUsed = true;
+        UpdateTimestamp();
+    }
+
+    /// <summary>
+    /// Revokes this OTP without marking it as verified (e.g., when requesting a new one).
+    /// Does not throw if OTP is expired, allowing cleanup of stale codes.
+    /// </summary>
+    public void Revoke()
+    {
         IsUsed = true;
         UpdateTimestamp();
     }

@@ -64,34 +64,67 @@ namespace HealLink.Domain.Tests.Entities
             Assert.False(otp.IsExpired());
         }
 
-        // ── Invalidate ───────────────────────────────────────────────────────
+        // ── MarkAsUsed ──────────────────────────────────────────────────────
 
         [Fact]
-        public void Invalidate_WhenValid_SetsIsUsedTrue()
+        public void MarkAsUsed_WhenValid_SetsIsUsedTrue()
         {
             var otp = CreateOtp();
-            otp.Invalidate();
+            otp.MarkAsUsed();
             Assert.True(otp.IsUsed);
         }
 
         [Fact]
-        public void Invalidate_WhenAlreadyUsed_ThrowsInvalidOperationException()
+        public void MarkAsUsed_WhenAlreadyUsed_ThrowsInvalidOperationException()
         {
             var otp = CreateOtp();
-            otp.Invalidate();
+            otp.MarkAsUsed();
 
-            var ex = Assert.Throws<InvalidOperationException>(() => otp.Invalidate());
+            var ex = Assert.Throws<InvalidOperationException>(() => otp.MarkAsUsed());
             Assert.Contains("already used", ex.Message);
         }
 
         [Fact]
-        public void Invalidate_UpdatesTimestamp()
+        public void MarkAsUsed_UpdatesTimestamp()
         {
             var otp = CreateOtp();
             var before = otp.UpdatedAt;
             System.Threading.Thread.Sleep(10);
 
-            otp.Invalidate();
+            otp.MarkAsUsed();
+
+            Assert.True(otp.UpdatedAt > before);
+        }
+
+        // ── Revoke ──────────────────────────────────────────────────────────
+
+        [Fact]
+        public void Revoke_WhenValid_SetsIsUsedTrue()
+        {
+            var otp = CreateOtp();
+            otp.Revoke();
+            Assert.True(otp.IsUsed);
+        }
+
+        [Fact]
+        public void Revoke_WhenAlreadyRevoked_DoesNotThrow()
+        {
+            var otp = CreateOtp();
+            otp.Revoke();
+            
+            // Should not throw — Revoke() is idempotent
+            otp.Revoke();
+            Assert.True(otp.IsUsed);
+        }
+
+        [Fact]
+        public void Revoke_UpdatesTimestamp()
+        {
+            var otp = CreateOtp();
+            var before = otp.UpdatedAt;
+            System.Threading.Thread.Sleep(10);
+
+            otp.Revoke();
 
             Assert.True(otp.UpdatedAt > before);
         }
