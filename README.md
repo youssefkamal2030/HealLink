@@ -211,7 +211,7 @@ Comprehensive API documentation is available in [ApiDocumentation.md](./HealLink
 The codebase follows a critical EF pattern to avoid concurrency issues and ensure data consistency. **When you load an entity from a repository using `GetByIdAsync()`, `GetByEmailAsync()`, or similar methods, EF automatically tracks that entity. Any mutations to the tracked entity are automatically detected when `SaveChangesAsync()` is called later. Do NOT call `UpdateAsync()` on already-tracked entities.**
 
 **Key Rules:**
-1. Load entity from repository → EF begins tracking
+1. Load entity from repository → EF begins tracking (including related entities via `.Include()`)
 2. Modify entity properties or call aggregate methods
 3. Call `SaveChangesAsync()` ONCE at the end → all changes are persisted
 4. Never call `UpdateAsync()` on an already-tracked entity
@@ -221,23 +221,93 @@ This pattern prevents:
 - Concurrency violations (two writers updating the same row)
 - Lost updates (changes not being detected because the entity wasn't tracked)
 
+**Related Entities Must Be Included:**
+
+When loading entities with related collections or navigation properties, explicitly `.Include()` them in the query. This ensures EF tracks the related entities when they're modified. For example:
+
+```csharp
+// ✅ CORRECT - OTP collection is included and tracked
+var user = await _userRepository.GetByEmailAsync(email);
+var otp = user.RequestOTP();  // Adds to _otps collection
+await _unitOfWork.SaveChangesAsync();  // Both user AND otp changes persisted
+
+// ❌ WRONG - OTP collection not included, changes lost
+var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+var otp = user.RequestOTP();  // Added to collection but NOT tracked by EF
+await _unitOfWork.SaveChangesAsync();  // OTP changes may not be persisted
+```
+
 **Examples:**
 
 ```csharp
 // ResendOtpCommandHandler
-var user = await _userRepository.GetByEmailAsync(email);  // ✅ EF now tracks
+var user = await _userRepository.GetByEmailAsync(email);  // ✅ EF now tracks user + OTPs
 var otp = user.RequestOTP();                               // ✅ Mutations detected (OTP added)
 await _unitOfWork.SaveChangesAsync();                      // ✅ All changes saved once
 // ❌ DON'T: await _userRepository.UpdateAsync(user);      // Redundant, causes issues
 
 // ChangePasswordCommandHandler
-var user = await _userRepository.GetByIdAsync(userId);    // ✅ EF now tracks
+var user = await _userRepository.GetByIdAsync(userId);    // ✅ EF now tracks user + OTPs
 user.ChangePassword(newPasswordHash);                       // ✅ Mutation detected
 await _unitOfWork.SaveChangesAsync();                      // ✅ All changes saved once
 // ❌ DON'T: await _userRepository.UpdateAsync(user);      // Redundant, causes issues
 ```
 
-This pattern is applied consistently across all handlers to ensure thread-safety and correctness under concurrent load.
+This pattern is applied consistently across all handlers to ensure thread-safety and correctness under concurrent load. **UserRepository includes OTPs on all queries** to ensure the OTP collection is properly tracked by EF.
+
+### UTC DateTime Storage
+
+All datetime properties (`CreatedAt`, `UpdatedAt`, `ExpiryTime`, etc.) are stored in UTC in the database using EF Core value converters. This ensures:
+- Consistent timestamp comparisons across time zones
+- Reliable OTP expiration checks (independent of server timezone)
+- Accurate audit trails for domain events
+- No confusion between local and UTC times in the database
+
+**Configuration Example (OTPConfiguration.cs):**
+```csharp
+builder.Property(o => o.ExpiryTime)
+    .HasColumnType("datetime2")
+    .HasConversion(
+        v => v.ToUniversalTime(),
+        v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
+```
+
+This pattern is applied to all temporal value objects and entities (OTP, User timestamps, etc.) to maintain consistency.
+
+### Backing Field Configuration for Related Collections
+
+When entities use private backing fields for related collections (e.g., `User._otps`), EF Core needs explicit configuration to properly populate these fields during queries. This is configured in entity type configurations:
+
+**Configuration Example (UserConfiguration.cs):**
+```csharp
+// OTP — owned by User aggregate, tracked via the _otps backing field
+builder.HasMany<OTP>()
+    .WithOne()
+    .HasForeignKey(o => o.UserId)
+    .OnDelete(DeleteBehavior.Cascade)
+    .HasConstraintName("FK_OTP_User_UserId");
+
+// Explicitly map the backing field so EF can populate it during queries
+builder.Navigation("OTPs")
+    .HasField("_otps")
+    .UsePropertyAccessMode(PropertyAccessMode.Field);
+```
+
+This ensures EF Core:
+- Correctly identifies and populates the `_otps` backing field during query execution
+- Properly tracks related entities when modified via domain methods
+- Detects mutations to the collection when `SaveChangesAsync()` is called
+builder.Navigation("OTPs")
+    .HasField("_otps")
+    .UsePropertyAccessMode(PropertyAccessMode.Field);
+```
+
+This ensures EF Core:
+- Correctly identifies the backing field `_otps` when hydrating the collection
+- Properly tracks related entities when loaded via `.Include(u => u.OTPs)`
+- Detects mutations to the collection when `SaveChangesAsync()` is called
+
+**Critical:** Always include related collections in queries (`.Include()`) to ensure they're tracked by EF. See "Entity Framework Change Tracking Pattern" above for details.
 
 ---
 
@@ -392,6 +462,8 @@ dotnet ef database update --project HealLink.Infrastructure --startup-project He
 ```bash
 dotnet ef migrations remove --project HealLink.Infrastructure --startup-project HealLink.API
 ```
+
+**Database Constraint Naming:** Foreign key constraints use explicit names for clarity (e.g., `FK_OTP_User_UserId`). See EF entity configurations in `HealLink.Infrastructure/Data/Configurations/` for naming conventions.
 
 ---
 

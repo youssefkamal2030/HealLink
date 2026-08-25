@@ -26,6 +26,7 @@ namespace healLink.Application.Handlers.Auth
 
         public async Task<Result<bool>> Handle(ResendOtpCommand request, CancellationToken cancellationToken)
         {
+            //Bug : the user returns with empty OTPs collection, so we need to fetch the user with OTPs included 
             var user = await _userRepository.GetByEmailAsync(request.Email, cancellationToken);
             if (user == null)
                 // Return success even for unknown emails to prevent user enumeration
@@ -33,7 +34,6 @@ namespace healLink.Application.Handlers.Auth
 
             if (user.EmailConfirmed)
                 return Result<bool>.Failure("Email is already confirmed.");
-            //TODO:you need to invalidate the previous OTP, we just generate a new one and send it to the user
             var otp = user.RequestOTP();
 
             await _userRepository.UpdateAsync(user, cancellationToken);

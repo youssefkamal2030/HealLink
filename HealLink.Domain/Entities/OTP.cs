@@ -10,9 +10,8 @@ public class OTP : AggregateRoot
     public string Code { get; private set; } = string.Empty;
     public DateTime ExpiryTime { get; private set; }
 
-    public Guid UserId { get;  private set; }
+    public Guid UserId { get; private set; }
 
-    public User? User { get; private set; }
     public bool IsUsed { get; private set; } = false;
     public OTP(){ }
     private OTP(string code, DateTime expiryTime)

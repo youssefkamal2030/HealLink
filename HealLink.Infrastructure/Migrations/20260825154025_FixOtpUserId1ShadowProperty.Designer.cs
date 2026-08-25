@@ -4,6 +4,7 @@ using HealLink.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HealLink.Infrastructure.Migrations
 {
     [DbContext(typeof(HealLinkDbContext))]
-    partial class HealLinkDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260825154025_FixOtpUserId1ShadowProperty")]
+    partial class FixOtpUserId1ShadowProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -298,8 +301,7 @@ namespace HealLink.Infrastructure.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -308,9 +310,7 @@ namespace HealLink.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsUsed")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -318,16 +318,11 @@ namespace HealLink.Infrastructure.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("UserId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("OTPs", (string)null);
+                    b.ToTable("OTPs");
                 });
 
             modelBuilder.Entity("HealLink.Domain.Entities.Patient", b =>
@@ -801,15 +796,10 @@ namespace HealLink.Infrastructure.Migrations
             modelBuilder.Entity("HealLink.Domain.Entities.OTP", b =>
                 {
                     b.HasOne("HealLink.Domain.Entities.User", null)
-                        .WithMany()
+                        .WithMany("OTPs")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_OTP_User_UserId");
-
-                    b.HasOne("HealLink.Domain.Entities.User", null)
-                        .WithMany("OTPs")
-                        .HasForeignKey("UserId1");
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HealLink.Domain.Entities.Patient", b =>

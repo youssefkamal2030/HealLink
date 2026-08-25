@@ -18,13 +18,19 @@ namespace HealLink.Infrastructure.Repositories
         }
 
         public async Task<User> GetByEmailAsync(string email, CancellationToken cancellationToken)
-            => await _context.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
+            => await _context.Users
+                .Include(u => u.OTPs)
+                .FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
 
         public async Task<User?> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken = default)
-            => await _context.Users.FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
+            => await _context.Users
+                .Include(u => u.OTPs)
+                .FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
 
         public Task<User> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-            => _context.Users.FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
+            => _context.Users
+                .Include(u => u.OTPs)
+                .FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
 
         public async Task AddAsync(User user, CancellationToken cancellationToken)
             => await _context.Users.AddAsync(user, cancellationToken);
