@@ -35,7 +35,7 @@ namespace healLink.Application.Handlers.Auth
                 return Result<bool>.Failure("Email is already confirmed.");
             var otp = user.RequestOTP();
 
-            await _userRepository.UpdateAsync(user, cancellationToken);
+          // BUG: the dbcontext isn't seeing the OTP or the user entity as changed so no changes happen in the database 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             await _emailService.SendOtpEmailAsync(user.Email, user.Username, otp.Code, 10);
