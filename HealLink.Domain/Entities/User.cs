@@ -17,8 +17,10 @@ namespace HealLink.Domain.Entities
         public UserRole Role { get; private set; }
         public AccountStatus Status { get; private set; }
         public DateTime? LastLoginAt { get; private set; }
+        // Backing field for OTPs, we use the camelcase with underscore naming convention to indicate it's a private field for.
         private readonly List<OTP> _otps = [];
-        public IReadOnlyCollection<OTP> OTPs => _otps.AsReadOnly();
+         // the name of the property must be camelcase without underscore to follow the C# naming convention for automatic discovery of the property by EF Core. This is a read-only collection to prevent external modification.
+        public IReadOnlyCollection<OTP> Otps => _otps.AsReadOnly(); 
         public bool EmailConfirmed { get; private set; }
         private User() { } // For EF
 

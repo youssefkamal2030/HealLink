@@ -68,7 +68,7 @@ namespace HealLink.Domain.Tests.Entities
 
             user.RequestOTP();
 
-            Assert.Single(user.OTPs);
+            Assert.Single(user.Otps);
         }
 
         [Fact]
@@ -79,8 +79,8 @@ namespace HealLink.Domain.Tests.Entities
 
             user.RequestOTP();
 
-            Assert.Equal(2, user.OTPs.Count);
-            var first = user.OTPs.First();
+            Assert.Equal(2, user.Otps.Count);
+            var first = user.Otps.First();
             Assert.True(first.IsUsed);
         }
 
@@ -106,7 +106,7 @@ namespace HealLink.Domain.Tests.Entities
 
             user.InvalidateOtp(otp.Code);
 
-            Assert.True(user.OTPs.First().IsUsed);
+            Assert.True(user.Otps.First().IsUsed);
         }
 
         [Fact]
