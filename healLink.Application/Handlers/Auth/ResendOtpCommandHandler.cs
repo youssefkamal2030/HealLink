@@ -13,7 +13,7 @@ namespace healLink.Application.Handlers.Auth
         private readonly IUserRepository _userRepository;
         private readonly IEmailService _emailService;
         private readonly IUnitOfWork _unitOfWork;
-
+    
         public ResendOtpCommandHandler(
             IUserRepository userRepository,
             IEmailService emailService,
@@ -22,6 +22,7 @@ namespace healLink.Application.Handlers.Auth
             _userRepository = userRepository;
             _emailService = emailService;
             _unitOfWork = unitOfWork;
+         
         }
 
         public async Task<Result<bool>> Handle(ResendOtpCommand request, CancellationToken cancellationToken)
@@ -35,7 +36,8 @@ namespace healLink.Application.Handlers.Auth
                 return Result<bool>.Failure("Email is already confirmed.");
             var otp = user.RequestOTP();
 
-          // BUG: the dbcontext isn't seeing the OTP or the user entity as changed so no changes happen in the database 
+
+            // BUG: the dbcontext isn't seeing the OTP or the user entity as changed so no changes happen in the database 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             await _emailService.SendOtpEmailAsync(user.Email, user.Username, otp.Code, 10);

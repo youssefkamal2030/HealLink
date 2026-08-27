@@ -9,7 +9,7 @@ public class OTPConfiguration : IEntityTypeConfiguration<OTP>
     public void Configure(EntityTypeBuilder<OTP> builder)
     {
         builder.ToTable("OTPs");
-
+      
         // Configure ExpiryTime to be stored as UTC in the database
         //// This ensures all datetime comparisons use consistent UTC timestamps
         //builder.Property(o => o.ExpiryTime)

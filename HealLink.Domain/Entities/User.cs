@@ -59,7 +59,7 @@ namespace HealLink.Domain.Entities
                 activeOtp.Revoke();
             }
 
-            var newOtp = OTP.Generate();
+            var newOtp = OTP.Generate(this.Id);
             _otps.Add(newOtp);
             UpdateTimestamp();
             return newOtp;
